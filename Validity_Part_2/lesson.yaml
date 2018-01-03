@@ -1,0 +1,164 @@
+- Class: meta
+  Course: Psychology Statistics
+  Lesson: Validity Part 2
+  Author: Kevin Carriere
+  Type: Standard
+  Organization: Georgetown University
+  Version: 2.4.3
+
+#91316 and 91516 and 92016
+#1
+- Class: text
+  Output: "Welcome to this class. Today, we're going to continue our discussion on validity."
+#2
+
+- Class: text
+  Output: "We will discuss the differences of internal and external validity."
+
+#3
+- Class: text
+  Output: "Internal validity focuses on how valid our study itself was."
+
+#4
+- Class: text
+  Output: "External validity focuses on how well we can generalize our results to the greater population."
+
+#
+- Class: text
+  Output: "A threat to internal validity would then be something that makes the groups we create different beyond our own manipulations."
+#
+- Class: text
+  Output: "A threat to external validity would be something that makes our sample somehow different then the target population we wish to generalize outwards to."
+
+
+#5
+- Class: text
+  Output: "Imagine we had a world of only three eye colors - blue, green, and brown. And we have this super-mega intelligence drug. We want to see if it'll work - so we want to give some participants our drug and see if it makes them smarter."
+
+#6
+- Class: cmd_question
+  Output: "So, let's see what this world looks like. Type plot1."
+  CorrectAnswer: plot1
+  AnswerTests: omnitest(correctExpr='plot1')
+  Hint: Type 'plot1' without quotes.
+
+#7
+- Class: text
+  Output: "Great! Now, remember, in our world, the only differences between people is eye color, and (hopefully) our drug working. So, how can we test our drug?"
+
+#8
+- Class: cmd_question
+  Output: "One way we can split this world up is to to take a few of the blue eyed people, a few of the green eyed people, and give them either a drug or not. Type plot2 to see how this would look."
+  CorrectAnswer: plot2
+  AnswerTests: omnitest(correctExpr='plot2')
+  Hint: Type 'plot2' without quotes. 
+
+#9
+- Class: mult_question
+  Output: "Is doing something like this interally valid, externally valid, both, or neither?"
+  AnswerChoices: Internally valid;Externally valid;Both internally valid and externally valid;Neither internally valid nor externally valid 
+  CorrectAnswer: Internally valid
+  AnswerTests: omnitest(correctVal="Internally valid")
+  Hint: Interval validity means we have controlled for everything we can. Externally valid means we can generalize out to the greater population. 
+
+#10
+- Class: text
+  Output: "Exactly. While there would be good internal validity to this study (you can see eye color is relatively controlled), it would not be externally valid because we forgot about the brown eye individuals!"
+
+#11
+- Class: cmd_question
+  Output: "So, we can fix this problem by adding in the brown eyes into the study. Type plot3."
+  CorrectAnswer: plot3
+  AnswerTests: omnitest(correctExpr='plot3')
+  Hint: Type 'plot3' without quotes. 
+
+#12
+- Class: mult_question
+  Output: "Is doing something like this interally valid, externally valid, both, or neither?"
+  AnswerChoices: Externally valid;Externally valid;Both internally valid and externally valid;Neither internally valid nor externally valid 
+  CorrectAnswer: Externally valid
+  AnswerTests: omnitest(correctVal="Externally valid")
+  Hint: Interval validity means we have controlled for everything we can. Externally valid means we can generalize out to the greater population. 
+
+#13
+- Class: text
+  Output: "We've added all three groups into our study, which is good!  But now we still have a problem - while brown is in both groups, what about blue and green eyes? Maybe green-eyed people are somehow smarter by default than blue-eyed people, so we're not sure if the differences are because of eye color, or because of the drug!"
+
+#14
+- Class: cmd_question
+  Output: "Let's try one more way to look at this world. Type plot4."
+  CorrectAnswer: plot4
+  AnswerTests: omnitest(correctExpr='plot4')
+  Hint: Type 'plot4' without quotes. 
+
+#15
+- Class: mult_question
+  Output: "Is doing something like this interally valid, externally valid, both, or neither?"
+  AnswerChoices: Externally valid;Externally valid;Both internally valid and externally valid;Neither internally valid nor externally valid 
+  CorrectAnswer: Both internally valid and externally valid
+  AnswerTests: omnitest(correctVal="Both internally valid and externally valid")
+  Hint: Interval validity means we have controlled for everything we can. Externally valid means we can generalize out to the greater population. 
+  
+#16
+- Class: text
+  Output: "Exactly! Now we have equal groups of eye color, so the only difference in the world is if they receive the drug or not."
+
+#17
+- Class: text
+  Output: "Of course, in the real world, there are infinite number of differences between people. That's why we must be extra-careful about how we design and control our studies! \n\n Many of these issues can be dealt with random assignment, which we will discuss later. However, there are other ways in which our validity can be threatened."
+
+#18
+- Class: text
+  Output: "Imagine we are offering a free course for the community in how you should interact with the police at traffic stops. 50 people show up and complete the course. We then check back with those 50 people 6 months later and ask how many tickets they've received in the last 6 months, and compare that to a random sample of people we meet walking down the street."
+
+#19
+- Class: text
+  Output: "What might be a threat to internal validity in that study?"
+
+#20
+- Class: text
+  Output: "A large one is selection. Those individuals who showed up self-selected into receiving our 'treatment'. "
+
+#21
+- Class: text
+  Output: "They could have some trait that makes them different from the start - they cared enough about this to come and receive educational services."
+
+#22
+- Class: text
+  Output: "Imagine our course goes horribly wrong, and thirty of our participants got put in jail. So, when we call, we get 30 missed calls, and 20 participants who stated they hadn't received a ticket since our lesson."
+
+#23
+- Class: text
+  Output: "What is the threat to internal validity?"
+
+#24
+- Class: text
+  Output: "This is called attrition. People drop out (for various reasons) from data collection. And so, we lose some valuable information. We hope that it's just random - we called, and randomly 30 people didn't answer. But, in this case, it was clear that the drop out had to do exactly with our treatment, and we would not be aware of this fact!"
+
+#History
+
+#Maturation
+
+- Class: mult_question
+  Output: "What are some threats to external validity of our study?"
+  AnswerChoices: Is our class representative of all justice classes?;Was our local sample representative of the greater population?;Were people walking on the street the best representative sample of drivers?;All of the choices
+  CorrectAnswer: All of the choices
+  AnswerTests: omnitest(correctVal="All of the choices")
+
+#
+- Class: text
+  Output: "End!"
+
+- Class: mult_question
+  Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
+  AnswerChoices: Yes;No
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: hint
+
+- Class: mult_question
+  Output: Would you like to answer five short questions about this lesson to Google Forms so that your instructor may evaluate your opinion on this lesson and improve it for others?
+  AnswerChoices: Yes;No
+  CorrectAnswer: NULL
+  AnswerTests: submit_log_two()
+  Hint: hint

@@ -1,0 +1,239 @@
+- Class: meta
+  Course: Psychology Statistics
+  Lesson: Z Scores
+  Author: Kevin Carriere
+  Type: Standard
+  Organization: Georgetown University
+  Version: 2.4.3
+
+- Class: text
+  Output: "Today we are going to focus our attention on the normal distribution, which is very critical in statistics, and how it relates to something we will call a z-score."
+  
+- Class: text
+  Output: "This will also be our first a bit heavier-code level class, but I will still assist you in certain steps. "
+ 
+- Class: text
+  Output: "Let's look at what a normal distribution looks like. "
+
+- Class: cmd_question
+  Output: We are going to use the rnorm() function. It takes three values- the amount of observations we want, the average we want all of our values to end up at, and the standard deviation of those values. We want to get 5000 observations with a mean of 0 and a standard deviation of 1, and we will save it to a variable we will call xvalues. Try it now. If you need a hint, just try and store something to a variable called xvalues.
+  CorrectAnswer: xvalues <- rnorm(5000,0,1)
+  AnswerTests: omnitest(correctExpr='xvalues <- rnorm(5000,0,1)')
+  Hint: Try typing xvalues <- rnorm(5000,0,1).
+
+- Class: cmd_question
+  Output: Great! To make this easier for us to read, let us go ahead and put this into a data frame. We will assign a new variable, called data, using the function data.frame(), and give it one argument, which is xvalues. 
+  CorrectAnswer: 
+  AnswerTests: omnitest(correctExpr='data <- data.frame(xvalues)')
+  Hint: Try typing data <- data.frame(xvalues).
+
+- Class: cmd_question
+  Output: So, let's see what we made. Type head(data) to get a look at the first five observations. 
+  CorrectAnswer: head(data)
+  AnswerTests: omnitest(correctExpr='head(data)')
+  Hint: Try typing head(data).
+
+- Class: cmd_question
+  Output: Awesome. Now we need to start building our graph. First, we will assign a new variable, graph, with the function ggplot(), which takes two values, data=data, and aes(x=xvalues). Remember to close the parenthesis at the end. Try that now. 
+  CorrectAnswer: graph <- ggplot(data=data, aes(x=xvalues))
+  AnswerTests: omnitest(correctExpr='graph <- ggplot(data=data, aes(x=xvalues))')
+  Hint: Try typing graph <- ggplot(data=data, aes(x=xvalues)).
+
+- Class: cmd_question
+  Output: Second to last step! We want to see what these things we created looks like as a histogram. So, let's type our new variable, graph, and use the addition sign and add a new function next to it, geom_histogram().   
+  CorrectAnswer: graph + geom_histogram()
+  AnswerTests: omnitest(correctExpr='graph + geom_histogram()')
+  Hint: Try typing graph + geom_histogram().
+  
+- Class: cmd_question
+  Output: And finally! Make it clear where the mean falls. If you press up arrow on your keyboard, you will get back your last answer. We will keep what we wrote, so graph + geom_histogram(), but add a last function, geom_vline(), with a single argument inside, xintercept=0. Try writing that all out now.    
+  CorrectAnswer: graph + geom_histogram() + geom_vline(xintercept=0)
+  AnswerTests: omnitest(correctExpr='graph + geom_histogram() + geom_vline(xintercept=0)')
+  Hint: Try typing graph + geom_histogram() + geom_vline(xintercept=0).
+
+#10  
+- Class: text
+  Output: "So, some things to notice about our histogram. For one, it should look relatively symmetrical. 50% of our scores fall above the mean (here, zero) and 50% fall below the mean (here, zero)."
+
+- Class: text
+  Output: "The next thing to notice is that normal distributions are unimodal. That means that the mean, median, and mode are all the same - at the tip of the bubble. \n\n Our graph isn't perfect, but it's pretty close!"
+
+#Rebecca jumps into this whole z score without explaining SD! HOW!?!?
+
+- Class: text
+  Output: "Let's contextualize the idea of a normal curve is something more concrete. We typically try to imagine that grades are distributed along this kind of curve. A very small amount of people receive top marks, a very small amount receive lowest marks, and the majority of students fall in the middle."
+
+- Class: text
+  Output: "Let's assume we have a group of students. The average score is a 75. And, the standard deviation of our students grades is about +/- 5. How many students would you beat if you scored a 85?"
+  
+- Class: cmd_question
+  Output: "So, what does this mean? Well, we have a nice function I've loaded for you that can help us visualize. The function is called normal_prob_area_plot. We'll pass 4 arguments into it - lb = -Inf, ub=85, mean=75, sd=5. LB and UB refer to lower and upper bounds." 
+  CorrectAnswer: normal_prob_area_plot(lb=-Inf, ub=85, mean=75, sd=5)
+  AnswerTests: omnitest(correctExpr='normal_prob_area_plot(lb=-Inf, ub=85, mean=75, sd=5)')
+  Hint: Try typing normal_prob_area_plot(lb=-Inf, ub=85, mean=75, sd=5). 
+
+- Class: text
+  Output: "So, what we see is there's all that black. Those are all the students who scored lower than a 85. Beyond the black, where it's white, is the individuals who scored higher than a 85."
+
+- Class: text
+  Output: "Another important thing to think about is that the area under this curve equals 1."
+
+- Class: text
+  Output: "If this whole curve was black, we would be talking about every student in our class. If the whole curve was white, we would be talking about none of the students. And, as we said earlier, if half the curve was black, we would be talking about 50% of the class."
+
+- Class: text
+  Output: "So, that's nice and all, but how many students are we better than? What percentage of students did worse than us? What percentage of students did better than us?"
+
+- Class: text
+  Output: "Well, thankfully, there are a few ways we can tackle this question. The first thing we'll notice is that an 85 is two standard deviations above the mean. The mean was 75, with a standard deviation of 5, so 75+5+5=85."
+
+#20
+- Class: text
+  Output: "R has a handy function, pnorm(). What it does is tells us the area under the curve to the left of some value."
+
+- Class: cmd_question
+  Output: "pnorm() takes many arguments. We'll pass 3 into it. The first is 85 - the score we want to look at. The second, mean, will equal 75. The third, sd, will equal 5."
+  CorrectAnswer: pnorm(85, mean=75, sd=5)
+  AnswerTests: omnitest(correctExpr='pnorm(85, mean=75, sd=5)')
+  Hint: Try typing pnorm(85, mean=75, sd=5). 
+
+- Class: text
+  Output: "We get about 97.72%. So, we're better than ~98% of students. Or, in another way, only about 2% of students did better than a 85 on this test! Hard stuff."
+
+- Class: mult_question
+  Output: "We just found out that 97.72% of students fell below an 85. Knowing that the mean is a 75, how many students fell between a 75 and a 85?"
+  AnswerChoices: 47.72 percent;50 percent;72.36 percent;30.85 percent;68.2 percent
+  CorrectAnswer: 47.72 percent
+  AnswerTests: omnitest(correctVal="47.72 percent")
+  Hint: "Don't worry, this was a hard question! Remember that we know at the mean of 75, 50% of people fell below 75, and 50% of people fell above 75. So, if we know a 85 is 97.72%, and we know below 75 is 50%, how do we solve between 85 and 75?"
+
+- Class: cmd_question
+  Output: "Let's visualize this tough question. Hit the up arrow twice to bring back normal_prob_area_plot(). We'll pass 4 arguments into it - lb = 75, ub=85, mean=75, sd=5." 
+  CorrectAnswer: normal_prob_area_plot(lb=75, ub=85, mean=75, sd=5)
+  AnswerTests: omnitest(correctExpr='normal_prob_area_plot(lb=75, ub=85, mean=75, sd=5)')
+  Hint: Try typing normal_prob_area_plot(lb=75, ub=85, mean=75, sd=5).
+
+- Class: text
+  Output: "You can click on the right on plots to view the two plots we generated. What you can (hopefully) see is that all we did is removed all those students who fell below the average. \n\n So, we took the knowledge that from 85 to the left was 97.72%, and then we subtracted out our knowledge that from 75 to the left was 50%, and discovered that 47.72% of people fell between a 75 and a 85."
+
+- Class: text
+  Output: "This idea - of subtracting two curves from each other to find the area between two points - is extremely important. Let's do another one - how many students fall within 1 standard deviation of the mean?"
+
+- Class: cmd_question
+  Output: "We're going to visualize our process in three graphs. First, let's look at the amount of people 1 standard deviation ABOVE the mean. \n\n Hit the up arrow to bring back normal_prob_area_plot(). We'll pass 4 arguments into it - lb = -Inf, ub=80, mean=75, sd=5." 
+  CorrectAnswer: normal_prob_area_plot(lb=-Inf, ub=80, mean=75, sd=5)
+  AnswerTests: omnitest(correctExpr='normal_prob_area_plot(lb=-Inf, ub=80, mean=75, sd=5)')
+  Hint: Try typing normal_prob_area_plot(lb=-Inf, ub=80, mean=75, sd=5).
+  
+- Class: cmd_question
+  Output: "Next, one standard deviation below the mean. \n\n Hit the up arrow to bring back normal_prob_area_plot(). We'll pass 4 arguments into it - lb = -Inf, ub=70, mean=75, sd=5." 
+  CorrectAnswer: normal_prob_area_plot(lb=-Inf, ub=70, mean=75, sd=5)
+  AnswerTests: omnitest(correctExpr='normal_prob_area_plot(lb=-Inf, ub=70, mean=75, sd=5)')
+  Hint: Try typing normal_prob_area_plot(lb=-Inf, ub=70, mean=75, sd=5).
+
+- Class: cmd_question
+  Output: "Finally, the graph we're interested in.\n\n Hit the up arrow to bring back normal_prob_area_plot(). We'll pass 4 arguments into it - lb = 70, ub=80, mean=75, sd=5." 
+  CorrectAnswer: normal_prob_area_plot(lb=70, ub=80, mean=75, sd=5)
+  AnswerTests: omnitest(correctExpr='normal_prob_area_plot(lb=70, ub=80, mean=75, sd=5)')
+  Hint: Try typing normal_prob_area_plot(lb=70, ub=80, mean=75, sd=5).
+
+#30
+- Class: text
+  Output: "Perfect! Again, to review what just happened - we had our first graph, that went from negative infinity all the way up to 80. We subtracted out the left side from negative infinity to 70. Now, all we're left with is the area between 70 and 80. What is the area under this curve - or, what percentage of students fall within one standard deviation of the mean?"
+  
+- Class: cmd_question
+  Output: "Now we need to actually use pnorm() twice - just like our graphs. First, we'll take the pnorm() of 80, with a mean of 75, sd=5. Then, we want to subtract pnorm() of 70, with mean of 75 and sd of 5. "
+  CorrectAnswer: pnorm(80, mean=75, sd=5)-pnorm(70, mean=75, sd=5)
+  AnswerTests: omnitest(correctExpr='pnorm(80, mean=75, sd=5)-pnorm(70, mean=75, sd=5)')
+  Hint: pnorm() - pnorm(). 
+
+- Class: text
+  Output: "About 68.2% of our class falls within 1 standard deviation of the mean. This will always be the case."
+  
+- Class: text
+  Output: "Say you needed a 77 to pass the course. What is the probability you would score at or above an 77 on this exam?"
+
+- Class: text
+  Output: "Sadly, in our class, you won't have pnorm() available to you during the exams. So, what else can we do?"
+
+- Class: cmd_question
+  Output: "Well, we can turn your score into something called a z-score. What we'll do is take the score you need, and find the difference from the mean. So, type 77-75."
+  CorrectAnswer: 77-75
+  AnswerTests: omnitest(correctExpr='77-75')
+  Hint: Just do the subtraction!
+
+- Class: cmd_question
+  Output: "And, next, we take this difference and divide it by our standard deviation, which we know was 5. If you know your units, this will turn your 77 into 'standard deviation' units. So, type 2/5."
+  CorrectAnswer: 2/5
+  AnswerTests: omnitest(correctExpr='2/5')
+  Hint: Just do the division!
+  
+- Class: text
+  Output: "So we know this magical z-score is 0.4. We can consult our classroom handout and look at our z table."
+
+#
+- Class: cmd_question
+  Output: "I've taken a picture of the table and loaded it into your environment. Type plot(ztable)."
+  CorrectAnswer: plot(ztable)
+  AnswerTests: omnitest(correctExpr='plot(ztable)')
+  
+- Class: text
+  Output: "Zoom into the photo and look at where it says z=.40"
+  
+#40
+- Class: mult_question
+  Output: "From this chart, what is the percent chance you score above or at a 77?"
+  AnswerChoices: 15.54 percent;40 percent;34.46 percent;1.6 percent;48.40 percent
+  CorrectAnswer: 34.46 percent
+  AnswerTests: omnitest(correctVal="34.46 percent")
+  Hint: "Look at the pictures of the normal curves it shows. We want to land somewhere at our z score (.40=77) or BEYOND that point. Which number for z=.40 would that be?"
+  
+- Class: text
+  Output: "Z-Scores (and their sibling, t-scores, which we'll get to later) are critical in understanding statistics."
+  
+- Class: text
+  Output: "What our z-score did, as we reviewed, was standardize our unit. We subtracted off the mean of the class, and then divided by the standard deviation. This is called standardizing."
+  
+- Class: text
+  Output: "All standardized variables have a mean of 0 and a standard deviation of 1."
+
+- Class: cmd_question
+  Output: "You can think through the algebra why this is clearly the case. But, we'll also do a very quick proof of it. I have a variable in your environment called class_scores. \n\n Type psych::describeBy(class_scores)"
+  CorrectAnswer: psych::describeBy(class_scores)
+  AnswerTests: omnitest(correctExpr='psych::describeBy(class_scores)')
+  Hint: "We want to call the library psych, and within that library, use the function describeBy(), and pass it one argument, class_scores."
+
+- Class: text
+  Output: "Right! So we see our mean is about 75 (75.51) with a standard deviation of around 5 (4.54)."
+
+- Class: cmd_question
+  Output: "We're going to create a new variable called standard_class_scores. What we want to do is set it equal to class scores, subtract off the mean of our class scores, and then divide that whole thing by the standard deviation."
+  CorrectAnswer: standard_class_scores <- ((class_scores-75.51)/4.54)
+  AnswerTests: omnitest(correctExpr='standard_class_scores <- ((class_scores-75.51)/4.54)')
+  Hint: "We know the mean is 75.51 and the standard deviation is 4.54. We want to subtract the mean from our variable class_scores and divide it by the standard deviation. Don't forget paranthesis!"
+
+- Class: cmd_question
+  Output: "Let's see what our new outcome is. \n\n Type 'psych::describeBy(standard_class_scores)"
+  CorrectAnswer: psych::describeBy(standard_class_scores)
+  AnswerTests: omnitest(correctExpr='psych::describeBy(standard_class_scores)')
+  Hint: "psych::describeBy(standard_class_scores)"
+
+- Class: text
+  Output: "Exactly! And now we can see that we do indeed have a mean of 0 and a standard deviation of 1."
+
+- Class: text
+  Output: "That was a lot! We'll take a break here."
+
+- Class: mult_question
+  Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
+  AnswerChoices: Yes;No
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: hint
+
+- Class: mult_question
+  Output: Would you like to answer five short questions about this lesson to Google Forms so that your instructor may evaluate your opinion on this lesson and improve it for others?
+  AnswerChoices: Yes;No
+  CorrectAnswer: NULL
+  AnswerTests: submit_log_two()
+  Hint: hint

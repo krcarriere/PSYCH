@@ -1,0 +1,15 @@
+Introduction to R
+Variables
+Design
+Validity_&_Reliability
+Validity_Part_2
+Sampling_and_Study_Designs
+Measures_of_Central_Tendency
+Measures_of_Variability
+Z_Scores
+Z_Score_Practice
+One_Sample_T_Tests
+Two_Sample_T_Tests
+One_Way_ANOVA
+Two_Way_ANOVA_[Between]
+Two_Way_ANOVA_[Mixed]

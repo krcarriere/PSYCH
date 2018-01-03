@@ -1,0 +1,35 @@
+lesson_dir <- file.path(path.package("swirl"), "Courses",
+                        "Psychology_Statistics", "Z_Scores")
+
+image1 <- file.path(lesson_dir, "ztable.png")
+
+set.seed(132)
+
+#https://gist.github.com/jrnold/6799152 Borrowed from here.
+normal_prob_area_plot <- function(lb, ub, mean = 0, sd = 1, limits = c(mean - 3 * sd, mean + 3 * sd)) {
+  x <- seq(limits[1], limits[2], length.out = 100)
+  xmin <- max(lb, limits[1])
+  xmax <- min(ub, limits[2])
+  areax <- seq(xmin, xmax, length.out = 100)
+  area <- data.frame(x = areax, ymin = 0, ymax = dnorm(areax, mean = mean, sd = sd))
+  (ggplot()
+    + geom_line(data.frame(x = x, y = dnorm(x, mean = mean, sd = sd)),
+                mapping = aes(x = x, y = y))
+    + geom_ribbon(data = area, mapping = aes(x = x, ymin = ymin, ymax = ymax))
+    + scale_x_continuous(limits = limits))
+}
+
+ztable <- imager::load.image(image1)
+
+class_scores <- c(77.37056, 72.22528, 74.95021, 80.33497, 71.43886, 73.39666, 68.81041, 69.57565, 79.34500, 86.58040, 76.57425,
+                  68.64311, 77.81430, 72.70165, 79.05153, 79.52274, 68.95617, 75.00610, 72.71647, 80.74720, 70.79836, 73.33813,
+                  78.95752, 77.78253, 69.56028, 71.85181, 76.76202, 77.57433, 79.74654, 73.40170, 81.99624, 80.06077, 74.79972,
+                  70.16998, 65.52253, 69.34633, 80.75821, 74.66508, 76.26632, 78.16100, 85.01362, 71.34212, 74.20016, 74.01859,
+                  74.21950, 80.80390, 80.15164, 71.85767, 77.45967, 76.48414, 81.26600, 74.21361, 76.37309, 78.30836, 71.75143,
+                  69.03942, 74.58227, 75.32542, 74.38969, 70.60070, 78.32485, 80.71161, 79.18425, 81.16051, 78.95081, 68.36662,
+                  73.09325, 78.45805, 76.63129, 73.48450, 73.68048, 70.11554, 81.71160, 67.30252, 83.96202, 74.24490, 77.45569,
+                  63.83670, 79.45697, 72.45606, 83.60850, 78.85726, 71.79786, 85.75786, 77.04667, 72.11989, 80.82634, 74.51728,
+                  70.93560, 72.91832, 77.62480, 77.16502, 79.05338, 70.48350, 70.59006, 75.95818, 77.54166, 78.28108, 72.46283,
+                  72.44498)
+
+

@@ -1,0 +1,200 @@
+- Class: meta
+  Course: Psychology Statistics
+  Lesson: Validity & Reliability
+  Author: Kevin Carriere
+  Type: Standard
+  Organization: Georgetown University
+  Version: 2.4.3
+
+#swirlify("L3_Validity_&_Reliability", "UGPsychStats")
+
+#1
+- Class: text
+  Output: Welcome to this third class. Today, we're going to talk about how we can understand different operational definitions.
+
+#2
+- Class: text
+  Output: We want to be able to ask whether or not a given way to measure something is a good way to measure it.
+#3
+- Class: text
+  Output: For example, while we could theoretically measure your heart rate as an operational definition of IQ, that probably would make very little sense and would not be correct.
+#4
+- Class: text
+  Output: So, a measure must be both
+#5  
+- Class: text
+  Output: Reliable - It can provide consistent results each time it is administered, regardless of who is administering it.
+#6  
+- Class: text
+  Output: and
+#7  
+- Class: text
+  Output: Valid - The measure accurately accesses what it claims to measure.
+  
+#8
+
+- Class: mult_question
+  Output: So, is heart rate a reliable measure for IQ?
+  AnswerChoices: Yes;No;I don't know 
+  CorrectAnswer: Yes
+  AnswerTests: omnitest(correctVal="Yes")
+  Hint: Think - if someone took your heart rate right now, and then tomorrow someone else completely different took your heart rate, would they come out similarly? There is a trick here too - reliability we don't care WHAT we are measuring, just that we are measuring.
+
+#9
+- Class: mult_question
+  Output: So, is heart rate a valid measure for IQ?
+  AnswerChoices: Yes;No;I don't know 
+  CorrectAnswer: No
+  AnswerTests: omnitest(correctVal="No")
+  Hint: Does heart rate in your opinion relate to IQ? Can we claim someone's heart rate is related to how smart they are?
+  
+
+#10
+- Class: mult_question
+  Output: "Great. Another example. Say you have a 10 pound bowling bowl. You put it on a scale, and it reads 20 pounds. You take it off, clean the top, and place it down again. It reads 20 pounds again. \n\n Is this scale reliable, valid, both, or neither?"
+  AnswerChoices: Reliable but not valid;Valid but not reliable;Neither reliable nor valid;Reliable and valid 
+  CorrectAnswer: Reliable but not valid
+  AnswerTests: omnitest(correctVal="Reliable but not valid")
+  Hint: Remember, reliability is consistency, while validity is accuracy.
+
+#11
+- Class: text
+  Output: "First, let's break down reliability. In this class, we will focus on 3 types of reliability. They are: \n\n Interrater reliability \n\n Test-retest reliability \n\n and \n\n Internal consistency reliability "
+  
+#12
+- Class: text
+  Output: "Interrater reliability is when extent to which two or more observers rate the same subject the same way."
+
+#13
+- Class: cmd_question
+  Output: "Type head(data) to look at some fake data. It has three columns, one of the participant, and two scores from two separate people."
+  CorrectAnswer: head(data)
+  AnswerTests: omnitest(correctExpr='head(data)')
+  Hint: Type 'head(data)' without quotes. 
+
+- Class: text
+  Output: "The first row is a list of participant IDs - each is a different person. The next two rows are scores given by two different graders. So, for example, Student 1 received a 7 from both Rater1 and Rater2."
+
+#14
+- Class: text
+  Output: "In this example, you would conclude that the raters had about 80% agreement - they disagreed on the score of student 5."
+  
+#15
+- Class: text
+  Output: "Test-retest reliability is testing the same measure on the same participant multiple times. Typically, we like about .80 correlation, but that number is debated and usually anything above .7 is still publishable."
+
+#16
+- Class: text
+  Output: "Internal consistency reliability measures the agreement on different items of the same test. The point is that your participants should agree with similar things provided they are all measuring the same thing."
+#17
+- Class: text
+  Output: "We usually use a statistic called Cronbachs alpha here. Again, .70 is acceptable, but .80 is good too."
+#18
+- Class: text
+  Output: "For example, we could ask- How much do you like this person, how likely are you to hang out with this person, how much would you want to play another game with this person -- and hope all three questions are getting at the overall question of the amount you like a person."
+
+#19
+- Class: cmd_question
+  Output: "Pop quiz! Type 'graph1'."
+  CorrectAnswer: graph1
+  AnswerTests: omnitest(correctExpr='graph1')
+  Hint: Type 'graph1' without quotes. 
+
+#20
+- Class: mult_question
+  Output: "What would you say this is?"
+  AnswerChoices: High reliability and low validity;Low reliability and high validity;Low reliability and low validity;High reliability and high validity 
+  CorrectAnswer: High reliability and low validity
+  AnswerTests: omnitest(correctVal="High reliability and low validity")
+  Hint: Remember, reliability is consistency, while validity is accuracy (and the bulleye is what we are aiming for).
+  
+#21
+- Class: text
+  Output: "Next is validity. Specifically, we are looking at our construct validity - how valid is it to use heart rate for intelligence."
+
+#22
+- Class: text
+  Output: "A measure cannot be valid unless it is reliable, but a measure can be reliable without being a valid measure of the variable of interest."
+  
+#23
+- Class: text
+  Output: "But - how can we prove that heart rate isn't a valid measure of IQ?"
+
+#24
+- Class: text
+  Output: "We can measure their intelligence in a different way as well. If they both preform equally at predicting IQ, then that would give us some proof that heart rate is related to IQ. \n\n On the other hand, if the other test was predicting IQ much better than heart rate, we could infer that maybe heart rate isn't the best at predicting IQ."
+  
+#25
+- Class: text
+  Output: "There are other things that can influence our validity. Imagine if we had an IQ test that was - \n\n 2+2=? \n\n 3+2=? \n\n 10+4=?. \n\n It would definitely be reliable, but it wouldn't be valid."
+
+#26
+- Class: text
+  Output: "This is called ceiling effects - our scale is clearly restricted on the upper bounds and doesnt provide the full range of answers we'd like to see."
+
+- Class: text
+  Output: "It is restricted to upper values because it would be very hard not to do well on this quiz. So, we'd probably not see people fail this quiz. Instead, everyone would score a 100."
+
+#27
+- Class: text
+  Output: "We also could do the opposite - make our IQ test so hard that you couldn't get any of it right."
+
+#28
+- Class: text
+  Output: "This is called floor effects - our scale is clearly restricted on the lower bounds and doesnt provide the full range of answers we'd like to see."
+
+- Class: text
+  Output: "Both of these effects (Floor and Ceiling) are generally referred to as attenuation of the scale effects."
+
+#29
+- Class: cmd_question
+  Output: "Pop quiz! Type 'graph2'."
+  CorrectAnswer: graph2
+  AnswerTests: omnitest(correctExpr='graph2')
+  Hint: Type 'graph2' without quotes. 
+
+#30
+- Class: mult_question
+  Output: "What would you say this is?"
+  AnswerChoices: High reliability and low validity;Low reliability and high validity;Low reliability and low validity;High reliability and high validity 
+  CorrectAnswer: Low reliability and low validity
+  AnswerTests: omnitest(correctVal="Low reliability and low validity")
+  Hint: Remember, reliability is consistency, while validity is accuracy (and the bulleye is what we are aiming for).
+  
+#31
+- Class: cmd_question
+  Output: "Pop quiz! Type 'graph3'."
+  CorrectAnswer: graph3
+  AnswerTests: omnitest(correctExpr='graph3')
+  Hint: Type 'graph3' without quotes. 
+
+#32
+- Class: mult_question
+  Output: "What would you say this is?"
+  AnswerChoices: High reliability and low validity;Low reliability and high validity;Low reliability and low validity;High reliability and high validity 
+  CorrectAnswer: High reliability and high validity
+  AnswerTests: omnitest(correctVal="High reliability and high validity")
+  Hint: Remember, reliability is consistency, while validity is accuracy (and the bulleye is what we are aiming for).
+  
+- Class: text
+  Output: "That's the end! Now, I just want to leave you with a final note."
+  
+- Class: text
+  Output: "It will always be impossible to measure things with absolute certainty - and that's okay! We want to respect the fact different people respond to things in different ways."
+  
+- Class: text
+  Output: "It's also very hard to measure exactly what we want to measure as psychologists. It is up to you, as a researcher, to provide strong theoretical reasons why you think heart rate is a good measure of IQ, and, it is for us, as readers, to debate and critically consider if they are measuring what they think they are measuring."
+
+- Class: mult_question
+  Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
+  AnswerChoices: Yes;No
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: hint
+
+- Class: mult_question
+  Output: Would you like to answer five short questions about this lesson to Google Forms so that your instructor may evaluate your opinion on this lesson and improve it for others?
+  AnswerChoices: Yes;No
+  CorrectAnswer: NULL
+  AnswerTests: submit_log_two()
+  Hint: hint

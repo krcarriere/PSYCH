@@ -1,0 +1,182 @@
+- Class: meta
+  Course: Psychology Statistics
+  Lesson: One Way ANOVA
+  Author: Kevin R. Carriere
+  Type: Standard
+  Organization: Georgetown University
+  Version: 2.4.3
+
+#Note - need to review Type 1/ Type 2 error rates before this class. Did I?
+#1
+- Class: text
+  Output: Hello! In this class, we will begin to explore some more advanced statistical methods.
+#2
+- Class: text
+  Output: Currently, we've only done tests when there is two groups - A vs B. 
+#3
+- Class: text
+  Output: However, we can easily imagine tests we would want to do with many groups. 
+#4
+- Class: mult_question
+  Output: Imagine we wanted to test four different groups. How many t-tests would we need to preform to test the differences between all of the groups?
+  AnswerChoices: 4;10;3;9;6;12
+  CorrectAnswer: 6
+  AnswerTests: omnitest(correctVal='6')
+  Hint: Think of them like A, B, C, and D. We'd need to test A vs B, A vs C, A vs D, B vs C, B vs D, C vs D. How many is that?
+#5
+- Class: text
+  Output: Exactly! 6 times! This is a huge problem. Every time we do a test, we increase our Type I Error Rate. 
+#6
+- Class: mult_question
+  Output: What is Type I Error?
+  AnswerChoices: Null Hypothesis is True and We Accept The Null;Null Hypothesis is False and we Accept the Null;Null Hypothesis is True and we Reject the Null;Null Hypothesis is False and we Reject the Null
+  CorrectAnswer: "Null Hypothesis is True and we Reject the Null"
+  AnswerTests: omnitest(correctVal='Null Hypothesis is True and we Reject the Null')
+  Hint: Type I Error is when we incorrectly assume there is a result when there is actually no significant difference.
+#7
+- Class: text
+  Output: Right! Remember, in our t-test we use 95% confidence. Which means there is a 5% chance we are actually wrong! 
+#8
+- Class: text
+  Output: The probability of at least one significant result can be defined as (1-Probability of no significant results).
+#9
+- Class: text
+  Output: For a single test, we already have decided that our threshold for no significant results is 95%.
+#10
+- Class: text
+  Output: So, Probabilty of finding 1 significant result when there isn't one is (1-(.95)^1 - or 5%. 
+#11
+- Class: text
+  Output: But, if we had to do this multiple times, it would be (1-(.95 * .95 * .95 ...)), or, 1-(.95)^n, where n is how many times we try.
+#12
+- Class: text
+  Output: So, if we had to do that six times, there's a (1-(1-.05)^6) = (1-(.95)^6) = 26% chance we are actually wrong! 
+#13
+- Class: text
+  Output: So, what we're going to use instead is an ANOVA. An ANOVA test is able to test all these multiple tests for us using a single test! 
+#14
+- Class: text
+  Output: The outputted value, instead of a z score, is called an F Statistic. The ANOVA will provide us a singular Omnibus F-statistic. 
+#15
+- Class: text
+  Output: In short, it is going to test if there exists some variation between [one or more] of the groups. That is all it can tell us.
+#16
+- Class: text
+  Output: Let us run our first One-Way ANOVA. I've loaded some data into your Environment, the iris dataset. We've used it before.
+#17
+- Class: text
+  Output: There are three species of iris flowers in this dataset. The curator of the data, Edgar Anderson, also collected measurements of the sepal length and width, and petal length and width.
+#18
+- Class: text
+  Output: You can find out more information about this data, if you'd like, by typing ?iris.
+#19
+- Class: text
+  Output: Let us test to see if Petal Length differs by Species.
+#20
+- Class: cmd_question
+  Output: We will create a new variable, oneway, and store it as the result of the function aov(), which we will pass two arguments, data=iris, and Petal.Length~Species.
+  CorrectAnswer: oneway <- aov(data=iris, Petal.Length~Species)
+  AnswerTests: expr_creates_var('oneway'); omnitest(correctVal='aov(data=iris, Petal.Length~Species)')
+  Hint: oneway <- aov(data=iris, Petal.Length~Species)
+#21
+- Class: cmd_question
+  Output: Fantastic. Now, we'll display the results. Do this by passing one argument, oneway, into the function summary().
+  CorrectAnswer: summary(oneway)
+  AnswerTests: omnitest(correctVal='summary(oneway)')
+#22
+- Class: text
+  Output: "We'll move column by column. We can see in the first column we have Species and Residuals. What this means is that Species has some explanatory effect on Petal.Length (because we're testing it) and anything that isn't explained by Species will go into Residuals. We also call Residuals Error, Within Subjects Error, or Between Subjects Error, depending."
+#23
+- Class: mult_question
+  Output: "The second column says 2 and 147. There were 150 observations total (see Environment). 2+147=149. So, our df is N-1. But, we notice that Species is df = 2. In our t-tests, df was equal to 1. Why is this?"
+  AnswerChoices: Because there are two different Species;Because there are three different Species;Because df has two letters;Because it is just magic.
+  CorrectAnswer: Because there are three different Species
+  AnswerTests: omnitest(correctVal='Because there are three different Species')
+#24
+- Class: text
+  Output: Exactly. The df for each variable is the number of groups (k) minus 1. Because we have 3 groups, 3-1=2. Then, the number of residual df is N (our total number of observations) minus k-1. 
+#25
+#SUM OF SQUARES 
+- Class: text
+  Output: The next column says Sum Sq 437.1 and  27.2. 
+#26
+- Class: text
+  Output: The next column says Mean Sq 218.55 and 0.19. If we look to the left, what we've done is taken the Sum Sq number and divided by the df number. So, 437.1/2=218.55 and 27.2/147=0.19
+#27
+- Class: text
+  Output: The next value is our F value. We take the Mean Sq Value and divide it by the Residuals Value. So, we see that 218.55/0.19 = 1150. 
+#28
+- Class: text
+  Output: That F Value is our new type of P value. While we saw that our P value had a normal distribution, the F statistics fall on a different distribution, called the F distribution.
+#29
+- Class: text
+  Output: There are some important things about our F distribution. For one, it cannot go below 0. It is also positively skewed, so we have many values at 1, and then it goes outward.
+#30
+#SHOW GRAPH?
+- Class: text
+  Output: Our final column said Pr(>F) <2e-16 ***. This is our p value. Again, we're using a 95% confidence level, or p < .05. 
+#31
+- Class: mult_question
+  Output: "So, our one-way ANOVA showed that:"
+  AnswerChoices: There was no significant difference between Species in Petal Length;There was at least one significant difference between Species in Petal Length;There was a significant difference between Setosa and Versicolor in Petal Length; There was a significant difference between Virginica, Versicolor, and Setosa in Petal Length.
+  CorrectAnswer: There was at least one significant difference between Species in Petal Length
+  AnswerTests: omnitest(correctVal='There was at least one significant difference between Species in Petal Length')
+#32
+- Class: text
+  Output: Exactly. All our ANOVA told us was that we had permission to explore the differences between groups further - as it detected at least one significant difference.
+#33
+- Class: cmd_question
+  Output: Great! So, now we have to run post-hoc tests to determine where the differences lie. From the stats package, call the TukeyHSD() function, and pass one argument into it, oneway.
+  CorrectAnswer: stats::TukeyHSD(oneway)
+  AnswerTests: omnitest(correctVal='stats::TukeyHSD(oneway)')
+#34
+- Class: mult_question
+  Output: Which pair is significantly different from each other?
+  AnswerChoices: Versicolor-Setosa; Virginica-Setosa; Virginica-Versicolor; Virginica-Setosa & Virginica-Versicolor; All of them; None of them; Virginica-Setosa & Versicolor-Setosa; Versicolor-Setosa & Virginica-Versicolor
+  CorrectAnswer: All of them
+  AnswerTests: omnitest(correctVal='All of them')
+  Hint: They all have p<.00001, which means...?
+#35
+# LOOK UP SCRIPT GENERATION FOR GGPLOT
+- Class: script
+  Output: "Great! We might want to visualize this data - see how the differences appear. First we need to get the means and standard errors from the data. Read the directions inside. When you are ready to submit your script,  save the script and type 'submit()', or type 'reset()' to reset the script to its original state." 
+  AnswerTests: script_results_identical('sum_data')
+  Hint: 
+  Script: dplyr.R
+#36
+- Class: cmd_question
+  Output: Great! Let's see what we made with sum_data.
+  CorrectAnswer: sum_data
+  AnswerTests: omnitest(correctVal='sum_data')
+#37
+- Class: script
+  Output: "Great! I've loaded a second script for you now. Now we're going to visualize the data. Read the directions inside. When you are ready to submit your script,  save the script and type 'submit()', or type 'reset()' to reset the script to its original state." 
+  AnswerTests: graph_results_identical('graph')
+  Hint: 
+  Script: ggplot.R
+#38
+- Class: cmd_question
+  Output: Great! Let's see what we made with by typing graph.
+  CorrectAnswer: graph
+  AnswerTests: omnitest(correctVal='graph')  
+#39
+- Class: mult_question
+  Output: Which flower type is the longest?
+  AnswerChoices: Versicolor: Virginica; Setosa
+  CorrectAnswer: Virginica
+  AnswerTests: omnitest(correctVal='Virginica')
+  Hint: Which one is the tallest?
+#40
+- Class: mult_question
+  Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
+  AnswerChoices: Yes;No
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: hint
+#41
+- Class: mult_question
+  Output: Would you like to answer five short questions about this lesson to Google Forms so that your instructor may evaluate your opinion on this lesson and improve it for others?
+  AnswerChoices: Yes;No
+  CorrectAnswer: NULL
+  AnswerTests: submit_log_two()
+  Hint: hint
