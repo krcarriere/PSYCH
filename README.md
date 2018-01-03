@@ -1,4 +1,4 @@
-# Psychology_Statistics
+# Psychology Statistics
 My repo for my swirlify course.
 
 
