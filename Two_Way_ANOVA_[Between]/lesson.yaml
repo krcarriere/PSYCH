@@ -20,15 +20,15 @@
 #5
 - Class: text
   Output: ANOVAs can tell us many things. They can tell us then the effect of gender, the effect of the drug, and the effect of the drug depending on gender. 
-#6
+#6 
 - Class: cmd_question
-  Output: So, today, we are going to analyze results from an actual paper, and run our first ANOVA on it. Researchers went to four different train tracks on a route, and asked how far they felt I've loaded their dataset, called data. Check the top six rows by calling head(data). 
+  Output: "So, today, we are going to analyze results from an actual paper, and run our first ANOVA on it. Researchers went to a train track, and recruited 100 participants standing on the Eastbound track and 100 standing on the Westbound track. They were randomly assigned to rate how far away they felt a stop was. The stop was either one or two stops ahead or behind them (So, either 1 stop ahead, 2 stops ahead, 1 stop behind, 2 stops behind). In reality, the stops are equally spread apart. The research question was this - do people subjectively feel that their destination is closer or further away than where they are coming from (behind them)? \n\nI've loaded their dataset, called data. Check the top six rows by calling head(data). \n\nTo see the full citation, see Maglio, S. J., & Polman, E. (2014). Spatial orientation shrinks and expands psychological distance. Psychological Science. 25(7). 1345-1352."
   CorrectAnswer: head(data)
   AnswerTests: omnitest(correctVal='head(data)')
   Hint: head(data)
 #7
 - Class: text
-  Output: Great job! You can see that there is a variable called stationname. This is one of four station names (think Train stops) the researchers were at.\n The second variable is called directionf. We will see later it is either Traveling East or Traveling West. Finally, there is a rating of subjective distance.   
+  Output: "Great job! You can see that there is a variable called stationname. This is one of four station names the researchers asked participants about. \n\n The second variable is called directionf. We will see later it is either Traveling East or Traveling West. Finally, there is a rating of subjective distance."   
 #8
 - Class: mult_question
   Output: "This dataset includes two independent variables. One, stationname, has four different stations. The other, directionf, has two different directions. Participants could only be a part of one condition. If we were discussing the kind of ANOVA we would be running, we'd say it was a:"
@@ -45,14 +45,14 @@
 - Class: cmd_question
   Output: "Great! Now let's run our ANOVA. We're going to use the function aov(), which we'll pass this other function, lm(). Inside of lm(), it will take two arguments. The first, data=, needs to correspond to our dataset, which we have called data. The second is an equation. The way we write equations in R is by dependentvariable ~ independentvariable*independentvariabletwo. We'll save this all under a new variable, results."
   CorrectAnswer: results <- aov(lm(data=data, subjective_distance~stationname*directionf))
-  AnswerTests:  expr_creates_var('results'); omnitest(correctVal='results <- aov(lm(data=data, subjective_distance~stationname*directionf))')
-  Hint: There are two factors - stationname and directionf. Did you remember to save it as a variable called results?
+  AnswerTests:  expr_creates_var('results'); omnitest(correctExpr='results <- aov(lm(data=data, subjective_distance~stationname*directionf))')
+  Hint: "There are two factors - stationname and directionf. Did you remember to save it as a variable called results? Finally, because we're doing an ANOVA, we want to include the interaction. * means interaction, + means just an additional variable."
 #11
 - Class: cmd_question
   Output: "Now let's see the results by using the summary() function, passing our ANOVA results, saved as results, to it."
   CorrectAnswer: summary(results)
-  AnswerTests: omnitest(correctVal='summary(results)')
-  Hint: s
+  AnswerTests: omnitest(correctExpr='summary(results)')
+  Hint: summary(results)
 #12
 - Class: mult_question
   Output: Which variable is not significantly different from each other?
