@@ -1,0 +1,201 @@
+- Class: meta
+  Course: Psychology Statistics
+  Lesson: Chi Square
+  Author: Kevin Carriere
+  Type: Standard
+  Organization: Georgetown University
+  Version: 2.4.3
+
+- Class: text
+  Output: "This class we're going to focus on chi-square tests."
+  
+- Class: text
+  Output: "Chi-Square tests are used to examine proportions. For example, how do we test if a dice is a fair, balanced dice?"
+ 
+- Class: text
+  Output: "Well, we could roll a dice 10,000 times. We would expect that we should see each side come up 1/6th of the time. We could run a Chi-Square test to see if this is true."
+
+- Class: text
+  Output: "Or, consider we collect data that says 40% of women get breast cancer but only 20% of men get breast cancer. Is 20% significantly different than 40%? We could use Chi-Square here as well."
+
+- Class: text
+  Output: "Today, we will cover two types of Chi Square tests - Test of Independence and Goodness of Fit."
+#Goodness of Fit
+
+- Class: text
+  Output: "First we'll review Test of Independence. This is when we want to see if being in one group is independent of being in another."
+
+- Class: text
+  Output: "Independence means that the probability of one thing occuring does not affect the probability of a second thing occuring. For example, if I have two die, and roll a six on the first die, my second dice roll is independent of the first dice roll. My first dice roll does not change the odds of the second dice roll."
+
+- Class: mult_question
+  Output: "I have a single deck of 52 cards, 2 through Ace of all four suits. I draw a card - it's the Jack of Spades. I put that card to the side. I want to draw another Jack. \n\n What was the original odds of drawing a jack?"
+  AnswerChoices: 4/52; 1/52; 1/4; 52/4; 3/52; 3/51; 4/51
+  CorrectAnswer: 4/52
+  AnswerTests: omnitest(correctVal='4/52')
+  Hint: There are four possible jacks in the deck of 52 possible cards.
+  
+- Class: mult_question
+  Output: "I have a single deck of 52 cards, 2 through Ace of all four suits. I draw a card - it's the Jack of Spades. I put that card to the side. I want to draw another Jack. \n\n What are the new odds of drawing a jack, now that I've removed one?"
+  AnswerChoices: 4/52; 1/52; 1/4; 52/4; 3/52; 3/51; 4/51
+  CorrectAnswer: 3/51
+  AnswerTests: omnitest(correctVal='3/51')
+  Hint: There are now only 3 possible jacks in the deck. But, there is also one less card in the deck. 
+
+- Class: mult_question
+  Output: "I have a single deck of 52 cards, 2 through Ace of all four suits. I draw a card - it's the Jack of Spades. I put that card to the side. I want to draw another Jack. \n\n Was my first and second draw of the deck independent or dependent of each other?"
+  AnswerChoices: These events are independent of each other; These events are dependent of each other; I have no idea.
+  CorrectAnswer: "These events are dependent of each other"
+  AnswerTests: omnitest(correctVal='These events are dependent of each other')
+  Hint: Independence means my odds don't change based on another event. We saw that the odds did change. 
+
+- Class: mult_question
+  Output: "I have a single deck of 52 cards, 2 through Ace of all four suits. I draw a card - it's the Jack of Spades. I put that card back into the deck and reshuffle the deck. I want to draw another Jack. \n\n Was my first and second draw of the deck independent or dependent of each other?"
+  AnswerChoices: These events are independent of each other; These events are dependent of each other; I have no idea.
+  CorrectAnswer: "These events are independent of each other"
+  AnswerTests: omnitest(correctVal='These events are independent of each other')
+  Hint: Independence means my odds don't change based on another event. I put the card back into the deck this time. Since I did that, do my odds change?
+  
+- Class: text
+  Output: Exactly. So, we can generalize this idea out to many things. For example, does smoking influence the odds that you exercise? Or, does getting treatment influence the odds you improve on something?
+  
+- Class: cmd_question
+  Output: I've loaded a dataset I created. Run the table() function, and pass through two arguments, data$treatment and data$outcome.
+  CorrectAnswer: table(data$treatment, data$outcome)
+  AnswerTests: omnitest(correctExpr='table(data$treatment, data$outcome)')
+
+- Class: text
+  Output: So, we can see that Treatment is the rows, either Not Treated or Treated. And in the columns is Outcome - Not Improved or Improved.
+
+- Class: exact_question
+  Output: "_________________Not-Improved_____________Improved \n\nNot-Treated____________29____________________26 \n\nTreated________________15____________________35 \n\n What is the total amount of Not Improved patients?"
+  CorrectAnswer: 44
+  AnswerTests: omnitest(correctVal=44)
+  Hint: You have to add two numbers together, what are they?
+#16
+- Class: exact_question
+  Output: "_________________Not-Improved_____________Improved_____________Totals \n\nNot-Treated____________29____________________26__________________?? \n\nTreated________________15____________________35__________________?? \n\nTotals_________________44____________________??________________?? \n\n What is the total amount of Improved patients?"
+  CorrectAnswer: 61
+  AnswerTests: omnitest(correctVal=61)
+  Hint: You have to add two numbers together, what are they?
+#17
+- Class: exact_question
+  Output: "_________________Not-Improved_____________Improved_____________Totals \n\nNot-Treated____________29____________________26__________________?? \n\nTreated________________15____________________35__________________?? \n\nTotals_________________44____________________61__________________?? \n\n What is the total amount of Not Treated patients?"
+  CorrectAnswer: 55
+  AnswerTests: omnitest(correctVal=55)
+  Hint: You have to add two numbers together, what are they?
+#18
+- Class: exact_question
+  Output: "_________________Not-Improved_____________Improved_____________Totals \n\nNot-Treated____________29____________________26__________________55 \n\nTreated________________15____________________35__________________?? \n\nTotals_________________44____________________61__________________?? \n\n What is the total amount of Treated patients?"
+  CorrectAnswer: 50
+  AnswerTests: omnitest(correctVal=50)
+  Hint: You have to add two numbers together, what are they?
+  #19
+- Class: exact_question
+  Output: "_________________Not-Improved_____________Improved_____________Totals \n\nNot-Treated____________29____________________26__________________55 \n\nTreated________________15____________________35__________________50 \n\nTotals_________________44____________________61__________________?? \n\n What is the total amount observations?"
+  CorrectAnswer: 105
+  AnswerTests: omnitest(correctVal=105)
+  Hint: You have to add two numbers together, what are they?
+  #20
+- Class: exact_question
+  Output: "_________________Not-Improved_____________Improved_____________Totals \n\nNot-Treated____________29____________________26__________________55 \n\nTreated________________15____________________35__________________50 \n\nTotals_________________44____________________61__________________105 \n\n Great job. Now, we can see that there are 44 total not-improved patients out of 105 people. What percentage of our study were not improved?"
+  CorrectAnswer: 44/105
+  AnswerTests: omnitest(correctVal=44/105)
+  Hint: Divide two numbers to get a decimal point.
+#21
+- Class: exact_question
+  Output: "_________________Not-Improved_____________Improved_____________Totals \n\nNot-Treated____________29____________________26__________________55 \n\nTreated________________15____________________35__________________50 \n\nTotals_________________44____________________61__________________105 \n\nTotal Percent________.419________________.581__________________1 \n\n I filled in the other two. Now, if Not Improved and Improved were independent results of treatment, we can use these percentages to calculate what we would expect to see (compared to what we've actually seen). To do so, look at our percent .419 Not Improved and our 55 total Not-Treated patients. Multiply them together, and see what I do with the table."
+  CorrectAnswer: .419*55
+  AnswerTests: omnitest(correctVal=.419*55)
+  Hint: Multiple two numbers to get a decimal point.
+#22 shows (??.??)
+- Class: exact_question
+  Output: "_____________________Not-Improved____________________Improved__________________Totals \n\nNot-Treated____________29(23.045)____________________26(??.??)__________________55 \n\nTreated________________15(??.??)____________________35(??.??)__________________50 \n\nTotals_________________44___________________________61_________________________105 \n\nTotal Percent________.419_________________________.581__________________________1 \n\n So, we should expect 23.045 people to fit into that category. Instead, we saw 29 people. I assume you can see where the next 3 questions are going. Let's do Improved-Not Treated. Take our Row Total, 55, and multiple it by its Column percentage, .581."
+  CorrectAnswer: .581*55
+  AnswerTests: omnitest(correctVal=.581*55)
+  Hint: Multiple two numbers to get a decimal point.
+#23
+- Class: exact_question
+  Output: "_____________________Not-Improved____________________Improved__________________Totals \n\nNot-Treated____________29(23.045)____________________26(31.955)__________________55 \n\nTreated________________15(??.??)____________________35(??.??)__________________50 \n\nTotals_________________44___________________________61_________________________105 \n\nTotal Percent________.419_________________________.581__________________________1 \n\n So, we should expect 31.955 people to fit into that category. Instead, we saw 26 people.  Let's do Not-Improved-Treated. Take our Row Total, 50, and multiple it by its Column percentage, .419."
+  CorrectAnswer: .419*50
+  AnswerTests: omnitest(correctVal=.419*50)
+  Hint: Multiple two numbers to get a decimal point.
+#24
+- Class: exact_question
+  Output: "_____________________Not-Improved____________________Improved__________________Totals \n\nNot-Treated____________29(23.045)____________________26(31.955)__________________55 \n\nTreated________________15(20.95)____________________35(??.??)__________________50 \n\nTotals_________________44___________________________61_________________________105 \n\nTotal Percent________.419_________________________.581__________________________1 \n\n So, we should expect 20.95 people to fit into that category. Instead, we saw 15 people. Let's do Improved-Treated. Take our Row Total, 50, and multiple it by its Column percentage, .581."
+  CorrectAnswer: 50*.581
+  AnswerTests: omnitest(correctVal=.581*50)
+  Hint: Multiple two numbers to get a decimal point.
+#25
+- Class: exact_question
+  Output: "_____________________Not-Improved____________________Improved__________________Totals \n\nNot-Treated____________29(23.045)____________________26(31.955)__________________55 \n\nTreated________________15(20.95)____________________35(29.05)__________________50 \n\nTotals_________________44___________________________61_________________________105 \n\nTotal Percent________.419_________________________.581__________________________1 \n\n Add up all four expected values. What number do you think we'll get out in the end?"
+  CorrectAnswer: 23.045+31.955+20.95+29.05
+  AnswerTests: omnitest(correctVal=105)
+  Hint: Add up all the numbers inside the () to get the number of participants we have!
+#26
+- Class: text
+  Output: Exactly. So, a Chi-Square Test of Independence tests whether or not the actual groups we find is equal to what we would expect, if there was no relation between treatment and outcomes. 
+#27
+- Class: cmd_question
+  Output: It does this through an equation. Type plot(chisquare) to see what the equation looks like. 
+  CorrectAnswer: plot(chisquare)
+  AnswerTests: omnitest(correctVal='plot(chisquare)')
+#28
+- Class: text
+  Output: This looks like a lot, but O means observed, E means expected. So, all it is saying is take the difference between observed value and expected value, square it, and divide by the expected value. Do this for every cell in your table, and we get a chi-squared statistic.  
+#29
+- Class: exact_question
+  Output: "_____________________Not-Improved____________________Improved__________________Totals \n\nNot-Treated____________29(23.045)____________________26(31.955)__________________55 \n\nTreated________________15(20.95)____________________35(29.05)__________________50 \n\nTotals_________________44___________________________61_________________________105 \n\nTotal Percent________.419_________________________.581__________________________1 \n\n Take your time, but type out the full equation for this problem and solve for our chi-squared statistic."
+  CorrectAnswer: (((29-23.045)^2)/23.045) + (((26-31.955)^2)/31.955) + (((15-20.95)^2)/20.95) + (((35-29.05)^2)/29.05)
+  AnswerTests: omnitest(correctVal=(((29-23.045)^2)/23.045) + (((26-31.955)^2)/31.955) + (((15-20.95)^2)/20.95) + (((35-29.05)^2)/29.05))
+  Hint: Take your time here and be safe by using a lot of paranthesis. For example, the top left cell should look like (((29-23.045)^2)/23.045) + ... and you have 3 more cells to include. 
+
+- Class: cmd_question
+  Output: Great job. Now, on the exam you might be asked to look up what the p value for this test is by using the chi-square table. Instead, we'll just run the chisq.test() function, passing through it data$treatment and data$outcome. 
+  CorrectAnswer: chisq.test(data$treatment, data$outcome)
+  AnswerTests: omnitest(correctVal='chisq.test(data$treatment, data$outcome)')
+
+- Class: cmd_question
+  Output: So the p<.05 (p=.03083) and we can reject the null hypothesis that treatment and outcome are independent events! You might be saying, But the chi square is different from what I calculated! You would be right. But press up on your keypad so chisq.test(data$outcome, data$treatment) shows up, and add $expected to the end of the function, and hit enter.
+  CorrectAnswer: chisq.test(data$outcome, data$treatment)$expected
+  AnswerTests: omnitest(correctVal='chisq.test(data$outcome, data$treatment)$expected')
+
+- Class: text
+  Output: So, R was just a bit more precise in their calculations. 
+
+- Class: text
+  Output: "Next, we'll do one quick review of Goodness of Fit."
+
+- Class: text
+  Output: "We can assume that everything has a given distribution. For most of this class, we talk about everything being a part of a normal distribution."
+
+- Class: text
+  Output: "However, there are many types of distributions. For example, a fair dice has a distribution of 1/6 - each roll has a 1/6th probability of occurring."
+
+- Class: cmd_question
+  Output: "I've loaded a simulation of 100 dice rolls. Type table(dice) to see the rolls."
+  CorrectAnswer: table(dice)
+  AnswerTests: omnitest(correctExpr='table(dice)')
+  
+- Class: cmd_question
+  Output: Now pass table(dice) and p=c(1/6, 1/6, 1/6, 1/6, 1/6, 1/6) into chisq.test(). The first is what we observed, and the second is what we should expect if the distribution was true (if it was a fair dice). The distribution should be 1/6 for each side of the die.
+  CorrectAnswer: chisq.test(table(dice), p = c(1/6, 1/6, 1/6, 1/6, 1/6, 1/6))
+  AnswerTests: omnitest(correctExpr='chisq.test(table(dice), p = c(1/6, 1/6, 1/6, 1/6, 1/6, 1/6))')
+
+- Class: text
+  Output: And we can reject the null hypothesis that this set of die falls into the distribution we expect. It seems someone has cheated these die!
+
+
+- Class: mult_question
+  Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
+  AnswerChoices: Yes;No
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: hint
+
+- Class: mult_question
+  Output: Would you like to answer five short questions about this lesson to Google Forms so that your instructor may evaluate your opinion on this lesson and improve it for others?
+  AnswerChoices: Yes;No
+  CorrectAnswer: NULL
+  AnswerTests: submit_log_two()
+  Hint: hint
