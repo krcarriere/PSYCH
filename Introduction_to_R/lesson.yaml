@@ -5,158 +5,159 @@
   Type: Standard
   Organization: Georgetown University
   Version: 2.4.3
-
+#1
 - Class: text
   Output: "Hello! Welcome to Psychology Statistics and Research Methods."
-  
+  #2
 - Class: text
   Output: "In this class, we're going to review rStudio. If you are using base R, please download rStudio."
-
+#3
 - Class: text
   Output: "The first thing to understand is what you're looking at. We have four corners of rStudio. \n\n The top left is where scripts and files will be uploaded. \n\n The top right is our Environment. This is where our datasets, variables, and functions will be stored. There are other tabs here- history and presentation - we can ignore. You can see in Environment we have one dataset called data and two values called variable and variable_two. \n\n The bottom left is where we are! This is where we'll be typing the most to interact with this class. Our output - what happens after we give code - shows here as well.\n\n The bottom right has a lot of info. Sometimes plots will display that we'll make under plots. Packages is a ton of different programs others have made - like this package, swirl. Finally, the help tab will show us info about functions." 
-  
+  #4
 - Class: text
   Output: "So, let's work our way around these corners." 
-  
+  #5
 - Class: text
   Output: "On the top right, click the arrow next to the word data. If you don't see this, click the Environment tab first. It should expand on the right side and list out 5 names."
-  
+  #6
 - Class: mult_question
   Output: "Which one of these is not listed?"
   AnswerChoices: Sepal.Length;Sepal.Width;Petal.Length;Petal.Width;Species;Color
   CorrectAnswer: Color
   AnswerTests: omnitest(correctVal="Color")
   Hint: "Under data, there are 5 things now. Which one doesn't appear?"
-
+#7
 - Class: text
   Output: "These are our variables! This dataset has 5 variables. You might even have noticed there are 150 observations within this dataset."
-
+#8
 - Class: cmd_question
   Output: "Next, we want to explore what the top left is about. So, let's type the following into the Console, or the bottom left. When I ask you to type things, it should always go into the Console. \n\n This time, type View(data) and hit enter." 
   CorrectAnswer: View(data)
   AnswerTests: omnitest(correctExpr='View(data)')
   Hint: Try typing View(data).
-
+#9
 - Class: text
   Output: "Good! Now hit the x next to []data to close it out."
-
+#10
 - Class: text
   Output: "So what did we just do? We used this function called View(), and passed it one argument - data."
-
+#11
 - Class: text
   Output: "It opened up a sheet in the top left. It kind of looked like an excel sheet, in some ways. This is what data looks like when we analyze it. We'll discuss more about how to set up data in later classes."
-
+#12
 - Class: text
   Output: "One thing that's important is that capitalization is EXTREMELY important in R. If I capitalize something, please be sure to capitalize it as well!"
-
+#13
 - Class: text
   Output: "View() was a function that accepted 1 argument. Functions can have many arguments. We separate them by using commas."
-
+#14
 - Class: cmd_question
   Output: "For example. Let's take the function rnorm(). This is a function that, given 3 arguments, will output a list of numbers for us. \n\n We can learn about this function by typing ?rnorm into the Console. Do that now." 
   CorrectAnswer: ?rnorm
   AnswerTests: omnitest(correctExpr='?rnorm')
   Hint: Try typing ?rnorm.
-
+#15
 - Class: text
   Output: "On the bottom right, a help file popped up! If you ever have questions on functions, using ? will be useful to you."
-  
+  #16
 - Class: cmd_question
   Output: "Now, as a test, pass 3 arguments into it. Type rnorm(10, 5, 1)." 
   CorrectAnswer: rnorm(10, 5, 1)
   AnswerTests: omnitest(correctExpr='rnorm(10, 5, 1)')
   Hint: Try typing rnorm(10, 5, 1).
-
+#17
 - Class: mult_question
   Output: "Looking at the help file, rnorm() states it has three arguments. When we typed in rnorm(10, 5, 1), what does the 5 represent?"
   AnswerChoices: Mean equal to 5;SD equal to 5;N equal to 5;lower.tail equal to 5;vector of probabilities equal to 5
   CorrectAnswer: Mean equal to 5
   AnswerTests: omnitest(correctVal="Mean equal to 5")
   Hint: "Rnorm()'s usage says n, mean=0, sd=1. The 5 was the second of our inputs."
-
+#18
 - Class: cmd_question
   Output: "Right! That was the lazy way. As coders, we always want to be specific and clear what's going on. So, try again, but this time, type rnorm(10, mean=5, sd=1)." 
   CorrectAnswer: rnorm(10, mean=5, sd=1)
   AnswerTests: omnitest(correctExpr='rnorm(10, mean=5, sd=1)')
   Hint: Try typing rnorm(10, mean=5, sd=1).
-
+#19
 - Class: text
   Output: "So, the benefit of R is that people have made thousands of packages. Packages are a bunch of functions, like View(), that R didn't have. People coded them and then put them all into a group so we could download them."
-
+#20
 - Class: text
   Output: "One of these packages, for example, is swirl."
-
+#21
 - Class: text
   Output: "What happens if we downloaded a package that also made their own function called View()? How would R know which to use?"
-
+#22
 - Class: text
   Output: "In order to be the best coders, we will always let R know which packages we're calling these special functions from. For example, I've downloaded a package for you called psych."
-
+#23
 - Class: text
   Output: "This package has a handy function called describeBy(). It does a lot of summary statistics for us."
-
+#24
 - Class: cmd_question
   Output: "To call it, type psych::describeBy() and pass 1 argument into the describeBy() function, variable_two." 
   CorrectAnswer: psych::describeBy(variable_two)
   AnswerTests: omnitest(correctExpr='psych::describeBy(variable_two)')
   Hint: Try typing psych::describeBy(variable_two).
-
+#25
 - Class: text
   Output: "Finally, note that we can also create our own functions. I will sometimes load functions into your workspace for you. They work the same way - FunctionName() and some given arguments."
-
+#26
 - Class: text
   Output: "The next thing we need to learn is storing values. We can do this one of two ways - using the equal sign or using the <- sign. As we use the equal sign for other things, we will always use the <- method of storing."
-
+#27
 - Class: cmd_question
   Output: "Let's store a new variable called class_name. We'll set it to \"Psychology\" Try this now."
   CorrectAnswer: class_name <- "Psychology"
   AnswerTests: omnitest(correctExpr='class_name <- "Psychology"')
   Hint: Try typing class_name <- "Psychology". 
-
+#28
 - Class: text
   Output: "You can see on the top right, in our Environment, that we've created a new value called class_name."
-
+#29
 - Class: text
   Output: "What if we spelt it wrong? Or, we wanted to change it to say the class name was Introduction to R?"
-
+#30
 - Class: text
   Output: "We can go back into the Console and click inside. Now, hit the up arrow key. If you did this correctly, the last thing you typed in should show up. So, for our purposes, class_name <- \"Psychology\"."
-
+#31
 - Class: cmd_question
   Output: "Once you've pulled up the last thing we typed, go ahead and change class_name to be equal to \"Introduction to R\"."
   CorrectAnswer: class_name <- "Introduction to R"
   AnswerTests: omnitest(correctExpr='class_name <- "Introduction to R"')
   Hint: Try typing class_name <- "Introduction to R". 
-
+#32
 - Class: text
   Output: The last thing we need to learn about R for now is that different data is stored differently. We notice in our data that Sepal.Length has the word num next to it.
-  
+  #33
 - Class: text
   Output: This means that it is data that is understood as numbers. Its 'class' is numeric. We can do mathematical functions to numeric class objects.
-  
+  #34
 - Class: text
   Output: There is also the integer class, which is also a number, but has no decimal points. 
-  
+  #35
 - Class: text
   Output: Species is of a class called factor. These are typically things like our independent variables - gender, hair color, treatment or not. We don't do much math with factors.
-
+#36
 - Class: cmd_question
   Output: The class_name value we just created was words, right? We call these characters. Use the function class(), and pass it one argument, class_name.
   CorrectAnswer: class(class_name)
   AnswerTests: omnitest(correctExpr='class(class_name)')
-
+  Hint: class(class_name)
+#37
 - Class: text
   Output: Finally, we have things called lists. If we look at variable_two, we notice how it has the class integer. But it says it's from [1:100].
-  
+#38
 - Class: text
   Output: That means there's a list of 100 different integers. We create lists using the c() function.
+#39
 
 - Class: cmd_question
   Output: Pass three arguments into the function c() - "I", "Love", and "R", and store it as name.
   CorrectAnswer: name <- c("I", "Love", "R")
   AnswerTests: expr_creates_var('name'); omnitest(correctExpr='name <- c("I", "Love", "R")')
-
-
+  Hint: name <- c("I", "Love", "R")
 
 - Class: text
   Output: "Now let's review what we've learned about R."

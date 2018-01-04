@@ -124,9 +124,10 @@
 
 
 - Class: cmd_question
-  Output:" Let's prove this through R. Use the function t.test(), pass two arguments - scores (I created this - it's the list of the 6 scores), and mu=70".
+  Output: "Let's prove this through R. Use the function t.test(), pass two arguments - scores (I created this - it's the list of the 6 scores), and mu=70."
   CorrectAnswer: t.test(scores, mu=70)
   AnswerTests: omnitest(correctExpr='t.test(scores, mu=70)')
+
 
 - Class: text
   Output: "We can see that our score 1.706 is pretty close to the t score R provides of 1.7053."

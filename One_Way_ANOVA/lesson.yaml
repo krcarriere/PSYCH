@@ -162,7 +162,7 @@
 #39
 - Class: mult_question
   Output: Which flower type is the longest?
-  AnswerChoices: Versicolor: Virginica; Setosa
+  AnswerChoices: Versicolor; Virginica; Setosa
   CorrectAnswer: Virginica
   AnswerTests: omnitest(correctVal='Virginica')
   Hint: Which one is the tallest?
