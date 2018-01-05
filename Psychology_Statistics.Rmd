@@ -8,7 +8,9 @@ title: "Psychology Statistics"
 
 ### Description
 
-This course is meant to be paired with an Undergraduate Research Methods or Statistics course. It is meant to help teach students statistics using R in an interactive framework. I also take open data papers from Psychological Science to use to explain concepts, and help students build the same graphs that are shown in the papers.
+This course is meant to be paired with an Undergraduate Research Methods or Statistics course. It is meant to help teach students basic statistics using R in an interactive framework. I also take open data papers from Psychological Science to use to explain concepts, and help students build the same graphs that are shown in the papers. Future directions of this course include a lesson on sum of squares, basic linear regression, and additional practice using the tidyverse and ggplot2 packages. It is imagined that by the end of this course, students should be able to build their own graphs from their research methods projects. Students interact with the following packages throughout this course: dplyr, ggplot2, plyr, and psych, and also installed for backend use is MASS, imager, wesanderson, and UsingR.
+
+This course does not cover Baysian Statistics.
 
 ### Installation
 
