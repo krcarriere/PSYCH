@@ -1,7 +1,7 @@
 # Psychology_Statistics
 
 
-This course is designed to be a supplementary review for any Psychology Research Methods class for undergraduate students. It is heavy on concept learning, with small lessons on how to code answers and how to manipulate data. Further lessons getting deeper into the tidyverse and ggplot packages will be added. Individuals who want to jump right into the more coding heavy classes should being at T Tests or take the two ANOVA classes. 
+This course is designed to be a supplementary review for any Psychology Research Methods class for undergraduate students. It is heavy on concept learning, with small lessons on how to code answers and how to manipulate data. Further lessons getting deeper into the tidyverse and ggplot packages will be added. Individuals who want to jump right into the more coding heavy classes should begin at T Tests or take the two ANOVA classes. 
 
 This course currently will teach individuals basic commands in the following libraries: plyr, dplyr, stats, psych, ggplot2. 
 
