@@ -2,9 +2,9 @@ lesson_dir <- file.path(path.package("swirl"), "Courses",
                         "Psychology_Statistics", "Z_Score_Practice")
 
 imagepath1 <- file.path(lesson_dir, "ztable_example1.png")
-imagepath2 <- file.path(lesson_dir, "z2p1.png")
+imagepath2 <- file.path(lesson_dir, "z2p1.jpg")
 imagepath3 <- file.path(lesson_dir, "z2p2.png")
-imagepath4 <- file.path(lesson_dir, "zq3.png")
+imagepath4 <- file.path(lesson_dir, "zq3.jpg")
 imagepath5 <- file.path(lesson_dir, "zq4.png")
 
 ztable <- imager::load.image(imagepath1)
