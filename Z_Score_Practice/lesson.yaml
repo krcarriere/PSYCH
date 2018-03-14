@@ -60,7 +60,7 @@
   Output: "First, let's deal with the lower value. $23,000. Remember, the mean is $23,230 and the SD is $2,932.50. Calculate the z-score for this value now."
   CorrectAnswer: (23000-23230)/2932.5
   AnswerTests: omnitest(correctExpr='(23000-23230)/2932.5')
-  Hint: "We should be subtracting the $23,000 from the mean, and dividing that end resulting number by the standard deviation."
+  Hint: "We should be subtracting the $23,000 from the mean (which is 23230), and dividing that end resulting number by the standard deviation."
 
 - Class: cmd_question
   Output: "Great! Now, look at your z-table. We will call one for you to look at by plot(ztable_q2p1). Do that now."
@@ -72,7 +72,7 @@
   AnswerChoices: 15.86 percent;40 percent;31.72 percent;8.0 percent;46.81 percent
   CorrectAnswer: 46.81 percent
   AnswerTests: omnitest(correctVal="46.81 percent")
-  Hint: "Remember, we want to only consider to the LEFT of some value."
+  Hint: "Remember, we want to only consider to the LEFT of some value. That means the tail, and since it's -.078, we want to be conservative and round up to -.08."
 
 - Class: cmd_question
   Output: "Now, let's deal with the higher value. $25,875. Remember, the mean is $23,230 and the SD is $2,932.50. Calculate the z-score for this value now."
@@ -110,7 +110,7 @@
   Output: "Exactly! Almost 35% of students fall into that amount of aid. "
 
 - Class: text
-  Output: "Second to last question. A researcher wants to know how political orientation impacts perceptions of immigrants. But, she wants to generalize her findings only to people with 'relatively average' political orientations, not those with extreme leanings. She measures each participant's political orientations on a large scale and gets a normal distribution with a mean of 59 and a standard deviation of 5. If she decides to exclude those higher than 69 and lower than 49 on the scale, how percent of her sample is she excluding?"
+  Output: "Second to last question. A researcher wants to know how political orientation impacts perceptions of immigrants. But, she wants to generalize her findings only to people with 'relatively average' political orientations, not those with extreme leanings. She measures each participant's political orientations on a large scale and gets a normal distribution with a mean of 59 and a standard deviation of 5. If she decides to exclude those higher than 69 and lower than 49 on the scale, what percent of her sample is she excluding?"
   
 - Class: cmd_question
   Output: "First, let's deal with the lower value. 49. Remember, the mean is 59 and the SD is 5. Calculate the z-score for this value now."
@@ -157,9 +157,9 @@
 
 - Class: mult_question
   Output: "Where would we want to look on our z table?"
-  AnswerChoices: Where % in mean to z is equal to 80;Where % in mean to z is equal to 20;Where z equals 20; Where z equals 80; Where z equals .20; Where % in tail equals 80;Where % in tail equals 20
-  CorrectAnswer: Where % in tail equals 20
-  AnswerTests: omnitest(correctVal="Where % in tail equals 20")
+  AnswerChoices: Where % in mean to z is equal to 80;Where % in mean to z is equal to 20;Where z equals 20; Where z equals 80; Where z equals .20; Where % in upper tail equals 80;Where % in upper tail equals 20
+  CorrectAnswer: Where % in upper tail equals 20
+  AnswerTests: omnitest(correctVal="Where % in upper tail equals 20")
   Hint: "Remember, we want to see the cutoff where 20% of people are better than this score."
 
 - Class: cmd_question

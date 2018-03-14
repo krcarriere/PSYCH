@@ -44,6 +44,7 @@ area <- data.frame(x = areax, ymin = 0, ymax = dnorm(areax, mean = mean, sd = sd
 
 lb2 <- 25875
 ub2 <- Inf
+limits2 = c(23230 - 3 * 2932.50, 23230 + 3 * 2932.50)
 xmin2 <- max(lb2, limits2[1])
 xmax2 <- min(ub2, limits2[2])
 areax2 <- seq(xmin2, xmax2, length.out = 100)
