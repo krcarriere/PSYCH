@@ -1,8 +1,4 @@
 #Validity Part 2
-
-lesson_dir <- file.path(path.package("swirl"), "Courses",
-                        "Psychology_Statistics", "Validity_Part_2")
-
 library(ggplot2)
 # Code placed in this file fill be executed every time the
       # lesson is started. Any variables created here will show up in

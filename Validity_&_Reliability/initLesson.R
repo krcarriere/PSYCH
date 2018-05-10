@@ -1,5 +1,4 @@
-lesson_dir <- file.path(path.package("swirl"), "Courses",
-                        "Psychology_Statistics", "Validity_&_Reliability")
+#Validity and Reliability
 
 t <- seq(0,2*pi,length=1000) 
 coords <- t(rbind( 10+sin(t)*2, 10+cos(t)*2)) 
@@ -64,8 +63,3 @@ rater2 <- c(7,6,3,2,3)
 data <- data.frame(studentid, rater1, rater2)
 
 rm(studentid, rater1,rater2)
-
-# Code placed in this file fill be executed every time the
-      # lesson is started. Any variables created here will show up in
-      # the user's working directory and thus be accessible to them
-      # throughout the lesson.

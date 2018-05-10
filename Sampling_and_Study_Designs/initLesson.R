@@ -1,6 +1,4 @@
-lesson_dir <- file.path(path.package("swirl"), "Courses",
-                        "Psychology_Statistics", "Sampling_and_Study_Designs")
-
+#Sampling and Study Designs
 negskew <- rbeta(10000,8,2)
 posskew <- rbeta(5000,1,1)
 noskew  <- rbeta(10000,2,2)

@@ -1,13 +1,7 @@
 #Two Way ANOVA Mixed
-
-lesson_dir <- file.path(path.package("swirl"), "Courses",
-                        "Psychology_Statistics", "Two_Way_ANOVA_[Mixed]")
-
-datapath1 <- file.path(lesson_dir, "Zhang et al. 2014 Study 3.csv")
-
 swirl_options(swirl_logging = TRUE)
 set.seed(131)
-data <- read.csv(datapath1)
+data <- read.csv("https://kevin-carriere-jyyd.squarespace.com/s/Zhang-et-al-2014-Study-3.csv")
 
 data$participantid <- seq.int(nrow(data))
 data <- data[ , !names(data) %in% c("T1_Predicted_Interest_Composite", 

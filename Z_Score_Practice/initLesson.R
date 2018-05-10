@@ -1,21 +1,13 @@
-lesson_dir <- file.path(path.package("swirl"), "Courses",
-                        "Psychology_Statistics", "Z_Score_Practice")
+#Z Score Practice
+ztable <- imager::load.image("https://static1.squarespace.com/static/5a1855c81f318d6ebcce6e54/5af4702e88251b5dfff59172/5af470bc88251b5dfff5b76a/1525969085645/ztable_example1.png?format=750w")
 
-imagepath1 <- file.path(lesson_dir, "ztable_example1.png")
-imagepath2 <- file.path(lesson_dir, "z2p1.jpg")
-imagepath3 <- file.path(lesson_dir, "z2p2.png")
-imagepath4 <- file.path(lesson_dir, "zq3.jpg")
-imagepath5 <- file.path(lesson_dir, "zq4.png")
+ztable_q2p1 <- imager::load.image("https://static1.squarespace.com/static/5a1855c81f318d6ebcce6e54/5af4702e88251b5dfff59172/5af470ba6d2a7325bf5762d6/1525969083676/z2p1.jpg?format=750w")
 
-ztable <- imager::load.image(imagepath1)
+ztable_q2p2 <- imager::load.image("https://static1.squarespace.com/static/5a1855c81f318d6ebcce6e54/5af4702e88251b5dfff59172/5af470ba575d1f531c848006/1525969084482/z2p2.png?format=750w")
 
-ztable_q2p1 <- imager::load.image(imagepath2)
+ztable_q3 <- imager::load.image("https://static1.squarespace.com/static/5a1855c81f318d6ebcce6e54/5af4702e88251b5dfff59172/5af470bb575d1f531c848008/1525969086325/zq3.jpg?format=1500w")
 
-ztable_q2p2 <- imager::load.image(imagepath3)
-
-ztable_q3 <- imager::load.image(imagepath4)
-
-ztable_q4 <- imager::load.image(imagepath5)
+ztable_q4 <- imager::load.image("https://static1.squarespace.com/static/5a1855c81f318d6ebcce6e54/5af4702e88251b5dfff59172/5af470bb0e2e72187f9c1b1d/1525969092523/zq4.png?format=500w")
 
 normal_prob_area_plot <- function(lb, ub, mean = 0, sd = 1, limits = c(mean - 3 * sd, mean + 3 * sd)) {
   x <- seq(limits[1], limits[2], length.out = 100)
