@@ -1,0 +1,4 @@
+ggplot2
+swirl
+plyr
+swirlify
