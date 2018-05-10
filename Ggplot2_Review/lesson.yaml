@@ -1,0 +1,167 @@
+- Class: meta
+  Course: Psychology Statistics
+  Lesson: Two Way ANOVA [Between]
+  Author: Kevin R. Carriere
+  Type: Standard
+  Organization: Georgetown University
+  Version: 2.4.3
+#1
+- Class: text
+  Output: In the last class, we reviewed a one-way ANOVA, where a single factor, or variable, with more than 2 levels, was tested.
+#2
+- Class: text
+  Output: But, the world is not simply just one variable. There are many variables in the world. And, there are many variables that effect different people differently.
+  #3
+- Class: text
+  Output: For example, we may have a drug. It could have two levels - either you're given the drug, or you're not. We also record your gender - either you are male, or you are female.
+#4
+- Class: text
+  Output: In this case, we have four groups - males with the drug, males without the drug, females with the drug, females without the drug.
+#5
+- Class: text
+  Output: ANOVAs can tell us many things. They can tell us then the effect of gender, the effect of the drug, and the effect of the drug depending on gender. 
+#6 
+- Class: cmd_question
+  Output: "So, today, we are going to analyze results from an actual paper, and run our first ANOVA on it. Researchers went to a train track, and recruited 100 participants standing on the Eastbound track and 100 standing on the Westbound track. They were randomly assigned to rate how far away they felt a stop was. The stop was either one or two stops ahead or behind them (So, either 1 stop ahead, 2 stops ahead, 1 stop behind, 2 stops behind). In reality, the stops are equally spread apart. The research question was this - do people subjectively feel that their destination is closer or further away than where they are coming from (behind them)? \n\nI've loaded their dataset, called data. Check the top six rows by calling head(data). \n\nTo see the full citation, see Maglio, S. J., & Polman, E. (2014). Spatial orientation shrinks and expands psychological distance. Psychological Science. 25(7). 1345-1352."
+  CorrectAnswer: head(data)
+  AnswerTests: omnitest(correctVal='head(data)')
+  Hint: head(data)
+#7
+- Class: text
+  Output: "Great job! You can see that there is a variable called stationname. This is one of four station names the researchers asked participants about. \n\n The second variable is called directionf. We will see later it is either Traveling East or Traveling West. Finally, there is a rating of subjective distance."   
+#8
+- Class: mult_question
+  Output: "This dataset includes two independent variables. One, stationname, has four different stations. The other, directionf, has two different directions. Participants could only be a part of one condition. If we were discussing the kind of ANOVA we would be running, we'd say it was a:"
+  AnswerChoices: 2x2 Between Subjects ANOVA;2x2x2x2 ANOVA;2x4 Between Subjects Design;2x4 Within Subjects Design;2x4 Mixed Design
+  CorrectAnswer: "2x4 Between Subjects Design"
+  AnswerTests: omnitest(correctVal='2x4 Between Subjects Design')
+#9
+- Class: mult_question
+  Output: "Great. What were they measuring - as in, what was their outcome of interest - what was their dependent variable?"
+  AnswerChoices: Direction Facing; Station Name; Participant Number; Subjective Distance Away
+  CorrectAnswer: "Subjective Distance Away"
+  AnswerTests: omnitest(correctVal='Subjective Distance Away')
+#10
+- Class: cmd_question
+  Output: "Great! Now let's run our ANOVA. We're going to use the function aov(), which we'll pass this other function, lm(). Inside of lm(), it will take two arguments. The first, data=, needs to correspond to our dataset, which we have called data. The second is an equation. The way we write equations in R is by dependentvariable ~ independentvariable*independentvariabletwo. We'll save this all under a new variable, results."
+  CorrectAnswer: results <- aov(lm(data=data, subjective_distance~stationname*directionf))
+  AnswerTests:  expr_creates_var('results'); omnitest(correctExpr='results <- aov(lm(data=data, subjective_distance~stationname*directionf))')
+  Hint: "There are two factors - stationname and directionf. Did you remember to save it as a variable called results? Finally, because we're doing an ANOVA, we want to include the interaction. * means interaction, + means just an additional variable."
+#11
+- Class: cmd_question
+  Output: "Now let's see the results by using the summary() function, passing our ANOVA results, saved as results, to it."
+  CorrectAnswer: summary(results)
+  AnswerTests: omnitest(correctExpr='summary(results)')
+  Hint: summary(results)
+#12
+- Class: mult_question
+  Output: Which variable is not significantly different from each other?
+  AnswerChoices: Station Name; Direction Facing; The Interaction Between Station Name and Direction Facing; Residuals
+  CorrectAnswer: "Direction Facing"
+  AnswerTests: omnitest(correctVal='Direction Facing')
+#13
+- Class: mult_question
+  Output: What can we say about Station Name's significance?
+  AnswerChoices: There is a different but we dont know where; All of them are different from each other; None of them are different
+  CorrectAnswer: "There is a different but we dont know where"
+  AnswerTests: omnitest(correctVal='There is a different but we dont know where')
+#14
+- Class: text
+  Output: "Exactly. So, we need to run something called post hoc tests. What this does is run t-tests between each of our different groups. Remember we have a 2x4 design, or eight possible conditions. So, there's A, B, C, D, E, F, G, H. Consider that we would need to test A->B, A->C, A->D, A->E, A->F, A->G, and A->H. Then B->C (not B->A because we already tested that). All the way down! We can generalize this idea that for N groups, take N-1, and then add up each number from that on"
+#15
+- Class: text
+  Output: "For example, in a study with 6 conditions, N=6 groups. N-1=5. So, 5+4+3+2+1=15. There are 15 different t.tests we can run if we had 6 groups! If you like formulas, it can also be written as k(k-1)/2 where k=number of groups."
+#16
+- Class: mult_question
+  Output: "So, knowing this: Our study was a 4x2, or eight conditions. How many different t.tests can we run against 8 conditions?"
+  AnswerChoices: 8;4;28;20;15 
+  CorrectAnswer: "20"
+  AnswerTests: omnitest(correctVal="20")
+#17
+- Class: cmd_question
+  Output: "Great. So, let's see those 20 t.tests appear. In class, we'll talk about adjusting our p-value. For now, run the TukeyHSD() function from the stats package, and in that function, pass our results into it."
+  CorrectAnswer: stats::TukeyHSD(results)
+  AnswerTests: omnitest(correctVal='stats::TukeyHSD(results)')
+#18
+- Class: text
+  Output: "There's a lot! Like we said. It might be best to visualize these results. For the rest of this class, we're going to build together a script that will summarize our results and plot them using ggplot2."
+#19
+- Class: script
+  Output: "I just opened an R script for you. For this question, you will be editting a  function from plyr in the script. Your goal is to re-create the example output shown in the  comments of the script. When you are ready to submit your script, save the script and type 'submit()', or type 'reset()' to reset  the script to its original state."
+  AnswerTests: script_results_identical('new_data')
+  Hint: Order does matter here, so be sure directionf is the first factor you list.
+  Script: ddply_step1.R
+#20
+- Class: script
+  Output: "Great job. Now we need to create 3 more variables - the mean for each group,  the standard deviation for each group, and the standard error for each group. When you are ready to submit your script, save the script and type 'submit()', or type 'reset()' to reset  the script to its original state."
+  AnswerTests: script_results_identical('new_data')
+  Hint: SE can be calculated as SD/sqrt(N).
+  Script: ddply_step2.R
+
+- Class: cmd_question
+  Output: "Great. Type new_data to see what we've done."
+  CorrectAnswer: new_data
+  AnswerTests: omnitest(correctVal='new_data')
+
+- Class: script
+  Output: "Great job. Now we can start building our graph. We're actually going to build a graph very similar to the one in the paper! I opened a new script for you, ggplot_step1. Read the directions inside. When you are ready to submit your script, save the script and type 'submit()', or type 'reset()' to reset  the script to its original state."
+  AnswerTests: graph_results_identical('graph')
+  Hint: 
+  Script: ggplot_step1.R
+
+- Class: cmd_question
+  Output: "Great. Type graph to see our first layer."
+  CorrectAnswer: graph
+  AnswerTests: omnitest(correctVal='graph')
+
+- Class: script
+  Output: "Now we can start building our graph lines. We're actually going to build a graph very similar to the one in the paper! I opened a new script for you, ggplot_step2. Read the directions inside. When you are ready to submit your script, save the script and type 'submit()', or type 'reset()' to reset  the script to its original state."
+  AnswerTests: graph_results_identical('graph')
+  Hint: 
+  Script: ggplot_step2.R
+
+- Class: cmd_question
+  Output: "Type graph again, see what we've done."
+  CorrectAnswer: graph
+  AnswerTests: omnitest(correctVal='graph')
+
+- Class: script
+  Output: "Now that we have lines, we'll add both standard error bars and dots to show where these lines end up.  I opened a new script for you, ggplot_step3. Read the directions inside. When you are ready to submit your script, save the script and type 'submit()', or type 'reset()' to reset  the script to its original state."
+  AnswerTests: graph_results_identical('graph')
+  Hint: 
+  Script: ggplot_step3.R
+
+- Class: cmd_question
+  Output: "Almost there, type graph to see what we've done."
+  CorrectAnswer: graph
+  AnswerTests: omnitest(correctVal='graph')
+
+- Class: script
+  Output: "Now that we have lines, we'll add both standard error bars and dots to show where these lines end up.  I opened a new script for you, ggplot_step3. Read the directions inside. When you are ready to submit your script,  save the script and type 'submit()', or type 'reset()' to reset the script to its original state."
+  AnswerTests: graph_results_identical('graph')
+  Hint: 
+  Script: ggplot_stepfinal.R
+
+- Class: cmd_question
+  Output: "Great job! You know the drill, type graph to see the final output."
+  CorrectAnswer: graph
+  AnswerTests: omnitest(correctVal='graph')
+
+- Class: cmd_question
+  Output: "Now - let's see what the paper presented! I've loaded their graph into your workspace. Type plot(studygraph) and click between yours and theirs! Pretty close!"
+  CorrectAnswer: plot(studygraph)
+  AnswerTests: omnitest(correctVal='plot(studygraph)')
+
+- Class: mult_question
+  Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
+  AnswerChoices: Yes;No
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: hint
+
+- Class: mult_question
+  Output: Would you like to answer five short questions about this lesson to Google Forms so that your instructor may evaluate your opinion on this lesson and improve it for others?
+  AnswerChoices: Yes;No
+  CorrectAnswer: NULL
+  AnswerTests: submit_log_two()
+  Hint: hint

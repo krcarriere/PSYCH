@@ -1,0 +1,147 @@
+- Class: meta
+  Course: Psychology Statistics
+  Lesson: One Sample T Tests
+  Author: Kevin R. Carriere
+  Type: Standard
+  Organization: Georgetown University
+  Version: 2.4.3
+#swirlify("One Sample T Tests", "UGPsychStats")
+- Class: text
+  Output: In the last class, we talked about 1 sample z-tests. This is when we know the population mean and the population standard deviation.
+
+- Class: text
+  Output: However, much of the time we do not know this. 
+  
+- Class: text
+  Output: If we do not receive information about the population standard deviation, then we need to use a different test - the t-test. 
+  
+- Class: text
+  Output: Now, there are many types of t-tests, so in this class we're going to focus on the simplest. The One-Sample T-Test.
+  
+- Class: text
+  Output: What this means is that we have a sample of people, and we want to see if they are significantly different than the population average (or some number).
+
+- Class: text
+  Output: You could imagine we know the average SAT score for the United States, and we want to test to see if the students in our class have, on average, a higher SAT score than the U.S. population. 
+  
+- Class: cmd_question
+  Output: Let's load the ttest formula. Type plot(ttest) now.
+  CorrectAnswer: plot(ttest)
+  AnswerTests: omnitest(correctExpr='plot(ttest)')
+
+- Class: text
+  Output: Great! So, this should look very similar to the z-test formula we used last class. However, instead, you should notice something different.
+  
+- Class: text
+  Output: The top half is the same - we're going to take our sample mean and substract it from the population mean.
+
+- Class: text
+  Output: What's different is that here we are dividing by S and the square root of n.
+
+- Class: text
+  Output: "So, what is S? S is our standard deviation of our >sample<. The equation, which we've already learned, is shown below. That is the important difference! Remember, in z-tests, we were given the population's standard deviation. Here, instead, we only have our sample's standard deviation."
+
+- Class: text
+  Output: "We divide our sample's standard deviation by the square root of our observations. In other words, we take the amount of people we have in our sample and square root that number."
+
+- Class: text
+  Output: "You'll see n or n-1 or n-2 appear a lot in statistics. We will not be getting into the nity-grity of why we do this, however it'll be important for you to remember when we use n, n-1, and when, sometimes, we use n-2."
+
+- Class: text
+  Output: However, it is worthwhile and important to know that n-1 is defined as 'degrees of freedom'. 
+
+- Class: text
+  Output: You can understand it as 'how many of our data points are free to vary?' Imagine we had 5 pieces of fruit. The first person comes, and picks one out of five. The second person comes, and picks one out of four. The third, one of out three. The fourth, one out of two. The last? No choice!
+  
+- Class: text
+  Output: Because the nth person (5th out of 5) had no choice, he had no freedom to vary in the decision. Therefore, n=5 has degrees of freedom (df) of 4.
+  
+- Class: text
+  Output: Finally, this whole equation outputs a t-statistic. This is similar to our z statistics we went over before, but is adjusted because we're using samples and not populations.
+
+- Class: mult_question
+  Output: "A professor wants to know if her introductory statistics class has a good grasp of basic math. Six students are chosen at random from the class and given a math proficiency test. The professor wants the class to be able to score above 70 on the test. The six students get scores of 62, 92, 75, 68, 83, and 95. Can the professor have 90 percent confidence that the mean score for the class on the test would be above 70? \n\n Based on this question, what is the degrees of freedom?"
+  AnswerChoices: 90;70;5;6;7;69;89
+  CorrectAnswer: 5
+  AnswerTests: omnitest(correctVal='5')
+
+- Class: cmd_question
+  Output: Solve in any way you choose to find out the sample's mean. Save it as samplemean.
+  CorrectAnswer: samplemean <- 79.16667
+  AnswerTests: expr_creates_var('samplemean'); omnitest(correctVal=((62+92+75+68+83+95)/6))
+  Hint: Consider adding and dividing by N or using mean(). Extra hint, you'll need to check the help file of mean() to see if you should just list out all the numbers or use something like mean(c()).
+
+- Class: mult_question
+  Output: To find the sample's standard deviation, we should 
+  AnswerChoices: Divide our mean by the number of observations;Sum up the differences between our observations and the mean and divide by n-1;Sum up the squared differences between our observations and our mean and divide by n-1;Sum up the squared differences between our observations and our mean and divide by n-1 and take the square root of that value;Sum up the squared differences between our observations and our mean;Sum up the squared differences between our observations and our mean and divide by n and take the square root of that value
+  CorrectAnswer: Sum up the squared differences between our observations and our mean and divide by n-1 and take the square root of that value
+  AnswerTests: omnitest(correctVal='Sum up the squared differences between our observations and our mean and divide by n-1 and take the square root of that value')
+
+- Class: text
+  Output: I will make it easy for you and tell you that the standard deviation of this sample is 13.16. If you'd like, for practice solve it on your own and confirm that's the answer.
+
+- Class: text
+  Output: In our Environment on the right, you can see that the value samplemean is 79.167.
+
+- Class: cmd_question
+  Output: Now that we know our sample mean is 79.167, our S is 13.16, our N is 6, and the population mean we're testing is 70, solve for t. You'll want to use the sqrt() function.
+  CorrectAnswer: (79.167-70)/(13.16/sqrt(6))
+  AnswerTests: omnitest(correctVal=(79.167-70)/(13.16/sqrt(6)))
+  Hint: Did you use your parantheses? (SampleMean-PopulationMean)/(Sample Standard Deviation/sqrt(N)
+
+- Class: cmd_question
+  Output: Now, our t-distributions look a little different than our normal curve when we have low numbers. Therefore, we need to reference how many degrees of freedom we had in this question. Type plot(ttable) to see the next step.
+  CorrectAnswer: plot(ttable)
+  AnswerTests: omnitest(correctExpr='plot(ttable)')
+  
+- Class: text
+  Output: You might need to use Zoom to get a better look at this picture. on the left we see df going down. These are our degrees of freedom. 
+
+- Class: text
+  Output: The three columns represent 3 different alpha levels - .10, .05, and .01. We understand them also as the 90th percentile, the 95th percentile, and the 99th percentile. 
+
+- Class: text
+  Output: Under them are critical values. We call these t-critical values. Our t critical values, for a given df, represent the number we must be larger (or smaller, if negative) than to state a significant result was found.
+
+- Class: mult_question
+  Output: So, we know our df is 5. (We had an N of 6, and df=N-1). What is the t-critical value for a df of 5 and an alpha of .10 (90% confidence)?
+  AnswerChoices: 1.943;2.015;2.571;4.032;2.447;3.708;2.132;2.776
+  CorrectAnswer: 2.015
+  AnswerTests: omnitest(correctVal='2.015')
+
+- Class: mult_question
+  Output: What is the t-critical value for a df of 5 and an alpha of .05 (95% confidence)?
+  AnswerChoices: 1.943;2.015;2.571;4.032;2.447;3.708;2.132;2.776
+  CorrectAnswer: 2.571
+  AnswerTests: omnitest(correctVal='2.571')
+
+- Class: mult_question
+  Output: Is our t-statistic bigger than 2.015 or 2.571?
+  AnswerChoices: Yes;No;I am not sure
+  CorrectAnswer: No
+  AnswerTests: omnitest(correctVal='No')
+  Hint: We solved for it awhile back and discovered it was 1.706. Is 1.706 bigger than 2.015?
+
+
+- Class: cmd_question
+  Output: "Let's prove this through R. Use the function t.test(), pass two arguments - scores (I created this - it's the list of the 6 scores), and mu=70."
+  CorrectAnswer: t.test(scores, mu=70)
+  AnswerTests: omnitest(correctExpr='t.test(scores, mu=70)')
+
+
+- Class: text
+  Output: "We can see that our score 1.706 is pretty close to the t score R provides of 1.7053."
+
+- Class: mult_question
+  Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
+  AnswerChoices: Yes;No
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: hint
+
+- Class: mult_question
+  Output: Would you like to answer five short questions about this lesson to Google Forms so that your instructor may evaluate your opinion on this lesson and improve it for others?
+  AnswerChoices: Yes;No
+  CorrectAnswer: NULL
+  AnswerTests: submit_log_two()
+  Hint: hint
