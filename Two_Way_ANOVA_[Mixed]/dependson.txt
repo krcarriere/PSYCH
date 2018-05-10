@@ -1,3 +1,4 @@
+swirl
 plyr
 ggplot2
 stats

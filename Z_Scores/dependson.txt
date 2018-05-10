@@ -1,3 +1,4 @@
+swirl
 imager
 ggplot2
 psych
