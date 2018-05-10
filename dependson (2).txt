@@ -1,3 +1,0 @@
-swirl
-ggplot2
-imager

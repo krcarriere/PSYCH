@@ -1,4 +1,0 @@
-dplyr
-swirl
-ggplot2
-wesanderson
