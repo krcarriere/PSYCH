@@ -2,4 +2,3 @@ swirl
 datasets
 psych
 stats
-imager

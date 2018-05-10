@@ -1,1 +1,4 @@
+swirl
 imager
+plyr
+dplyr
