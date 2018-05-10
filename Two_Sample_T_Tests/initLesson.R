@@ -1,5 +1,5 @@
 #Two Sample T Tests
-twosamplettest  <- imager::read.image("https://static1.squarespace.com/static/5a1855c81f318d6ebcce6e54/5af4702e88251b5dfff59172/5af4703e6d2a7325bf574093/1525968963900/twosamplet-test.png?format=750w")
+twosamplettest  <- imager::load.image("https://static1.squarespace.com/static/5a1855c81f318d6ebcce6e54/5af4702e88251b5dfff59172/5af4703e6d2a7325bf574093/1525968963900/twosamplet-test.png?format=750w")
 data <- read.csv("https://kevin-carriere-jyyd.squarespace.com/s/Schroeder-and-Epley-2015-Study-4-data.csv")
 data2 <- read.csv("https://kevin-carriere-jyyd.squarespace.com/s/Zhang-et-al-2014-Study-3.csv")
 
