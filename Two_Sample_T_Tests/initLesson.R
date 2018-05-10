@@ -7,7 +7,7 @@ image1 <- file.path(lesson_dir, "twosamplet-test.png")
 datapath1 <- file.path(lesson_dir, "Schroeder and Epley 2015 Study 4 data.csv")
 datapath2 <- file.path(lesson_dir, "Zhang et al. 2014 Study 3.csv")
 
-twosamplettest  <- imager::load.image(image1)
+twosamplettest  <- readbitmap::read.bitmap(image1)
 data <- read.csv(datapath1)
 
 data$gender <- as.factor(data$gender)

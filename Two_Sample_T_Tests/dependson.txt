@@ -1,4 +1,4 @@
 swirl
-imager
 plyr
 dplyr
+readbitmap
