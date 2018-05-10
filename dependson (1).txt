@@ -1,4 +1,0 @@
-swirl
-datasets
-psych
-stats
