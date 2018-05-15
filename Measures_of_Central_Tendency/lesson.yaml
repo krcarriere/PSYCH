@@ -52,10 +52,10 @@
   Output: "There are benefits to the mode. While the mean and median will only give us one value, mode can show multiple values."
 
 - Class: cmd_question
-  Output: "For example, let's look at a bimodal distribution that was published. Type plot(bimodal). \n\n Sullivan, R. (2005). The age pattern of first-birth rates among us women the binmodal 1990s. Demography, 42(2), 259-273."
+  Output: "For example, let's look at a bimodal distribution that was published. Type plot(bimodal). I have recreated an estimate of their original graph - but the point is in the visual, not in its preciseness (read the article for the true values!).  \n\n Sullivan, R. (2005). The age pattern of first-birth rates among us women the binmodal 1990s. Demography, 42(2), 259-273."
   CorrectAnswer: plot(bimodal)
   AnswerTests: omnitest(correctExpr='plot(bimodal)')
-  
+
 - Class: text
   Output: "There's two peaks here when women first have children in the U.S. There's one peak around age 20, and another at age 31."
 

@@ -1,4 +1,4 @@
 swirl
 plyr
 dplyr
-readbitmap
+latex2exp

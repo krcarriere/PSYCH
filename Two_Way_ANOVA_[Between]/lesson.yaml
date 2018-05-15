@@ -147,10 +147,8 @@
   CorrectAnswer: graph
   AnswerTests: omnitest(correctVal='graph')
 
-- Class: cmd_question
-  Output: "Now - let's see what the paper presented! I've loaded their graph into your workspace. Type plot(studygraph) and click between yours and theirs! Pretty close!"
-  CorrectAnswer: plot(studygraph)
-  AnswerTests: omnitest(correctVal='plot(studygraph)')
+- Class: text
+  Output: "Great job. You can check the paper yourself by going to this link: http://journals.sagepub.com/doi/pdf/10.1177/0956797614530571 and downloading the article yourself to see the graph. You did a very good job coming close to what they presented!"
 
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?

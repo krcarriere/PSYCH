@@ -1,9 +1,9 @@
 - Class: meta
   Course: Psychology Statistics
   Lesson: Z Score Practice
-  Author: your name goes here
+  Author: Kevin R. Carriere
   Type: Standard
-  Organization: your organization's name goes here
+  Organization: Georgetown University
   Version: 2.4.3
 
 - Class: text
@@ -29,9 +29,9 @@
   Hint: "We should be subtracting the score of interest from the mean, and dividing that end resulting number by the standard deviation."
 
 - Class: cmd_question
-  Output: "Great! Now, look at your z-table. We will call one for you to look at by plot(ztable). Do that now."
-  CorrectAnswer: plot(ztable)
-  AnswerTests: omnitest(correctExpr='plot(ztable)')
+  Output: "Great! Now, look at your z-table. We will call one for you to look at by typing the word ztable. Do that now."
+  CorrectAnswer: ztable
+  AnswerTests: omnitest(correctExpr='ztable')
   
 - Class: mult_question
   Output: "Okay! So, now, looking at your ztable, what is the probability you would fall above a 55?"
@@ -63,9 +63,9 @@
   Hint: "We should be subtracting the $23,000 from the mean (which is 23230), and dividing that end resulting number by the standard deviation."
 
 - Class: cmd_question
-  Output: "Great! Now, look at your z-table. We will call one for you to look at by plot(ztable_q2p1). Do that now."
-  CorrectAnswer: plot(ztable_q2p1)
-  AnswerTests: omnitest(correctExpr='plot(ztable_q2p1)')
+  Output: "Great! Now, look at your z-table. We will call one for you to look at by typing ztable_q2p1. Do that now."
+  CorrectAnswer: ztable_q2p1
+  AnswerTests: omnitest(correctExpr='ztable_q2p1')
   
 - Class: mult_question
   Output: "Okay! So, now, looking at your ztable, what is the probability you would fall below $23,000?"
@@ -81,9 +81,9 @@
   Hint: "We should be subtracting the $25,875 from the mean, and dividing that end resulting number by the standard deviation."
 
 - Class: cmd_question
-  Output: "Great! Now, look at your z-table. We will call one for you to look at by plot(ztable_q2p2). Do that now."
-  CorrectAnswer: plot(ztable_q2p2)
-  AnswerTests: omnitest(correctExpr='plot(ztable_q2p2)')
+  Output: "Great! Now, look at your z-table. We will call one for you to look at by typing ztable_q2p2. Do that now."
+  CorrectAnswer: ztable_q2p2
+  AnswerTests: omnitest(correctExpr='ztable_q2p2')
   
 - Class: mult_question
   Output: "Okay! So, now, looking at your ztable, what is the probability you would fall above $25,875?"
@@ -125,9 +125,9 @@
   Hint: "We should be subtracting the 69 fom the mean, and dividing that end resulting number by the standard deviation."
 
 - Class: cmd_question
-  Output: "Great! Now, look at your z-table. We will call one for you to look at by plot(ztable_q3). Do that now. You might need to click 'Zoom' in the bottom right window to get a better look."
-  CorrectAnswer: plot(ztable_q3)
-  AnswerTests: omnitest(correctExpr='plot(ztable_q3)')
+  Output: "Great! Now, look at your z-table. We will call one for you to look at by typing ztable_q3. Do that now. I gave a lot of values this time because your tables will be quite long! No handicap - find the real value! Scroll around."
+  CorrectAnswer: ztable_q3
+  AnswerTests: omnitest(correctExpr='ztable_q3')
 
 - Class: mult_question
   Output: "What percentage of individuals would be removed if she removed individuals who scored higher than a 69?"
@@ -163,16 +163,16 @@
   Hint: "Remember, we want to see the cutoff where 20% of people are better than this score."
 
 - Class: cmd_question
-  Output: "Plot the z-table I've pulled up by typing plot(ztable_q4)"
-  CorrectAnswer: plot(ztable_q4)
-  AnswerTests: omnitest(correctVal="plot(ztable_q4)")
+  Output: "Plot the z-table I've pulled up by typing ztable_q4."
+  CorrectAnswer: ztable_q4
+  AnswerTests: omnitest(correctVal="ztable_q4")
 
 - Class: mult_question
   Output: "What is the z score that corresponds most conservatively with 20% of the people better than this score?"
   AnswerChoices: 0.80;0.81;0.82;0.83;0.84;0.85;0.86
   CorrectAnswer: 0.85
   AnswerTests: omnitest(correctVal="0.85")
-  Hint: "To be conservative means to be strict. At 0.85 we get 20.05%! That's more than we're looking for. At 0.86 we get 19.77%. That's a tougher line, so we'll always go with that one. "
+  Hint: "To be conservative means to be strict. At 0.84 we get 20.05%! That's more than we're looking for. At 0.85 we get 19.77%. That's a tougher line, so we'll always go with that one. "
 
 - Class: mult_question
   Output: "Reminder! What is the equation for calculating a z-score? (Yes, we've already asked this, do you remember?)"
