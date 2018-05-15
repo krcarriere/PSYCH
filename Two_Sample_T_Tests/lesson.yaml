@@ -20,9 +20,9 @@
   Output: This is called the Two Sample T-Test. We also can call it the Independent Samples T Test.
 
 - Class: cmd_question
-  Output: Let's load the ttest formula. Type plot(twosamplettest) now.
-  CorrectAnswer: plot(twosamplettest)
-  AnswerTests: omnitest(correctExpr='plot(twosamplettest)')
+  Output: Let's load the ttest formula. Type plot.equation(twosamplettest) now.
+  CorrectAnswer: plot.equation(twosamplettest)
+  AnswerTests: omnitest(correctExpr='plot.equation(twosamplettest)')
 
 - Class: text
   Output: This is called the Two Sample T-Test.
@@ -33,8 +33,13 @@
 - Class: text
   Output: "The bottom is also similar to the 1 Sample T. But each group's N is done on its own."
 
+- Class: cmd_question
+  Output: Let's load the variance formula. Type plot.equation(variance) now.
+  CorrectAnswer: plot.equation(variance)
+  AnswerTests: omnitest(correctExpr='plot.equation(variance)')
+  
 - Class: text
-  Output: "S is also similar. You can see (xi-x1)^2 just means that we'll take each individual value from the first group and subtract it from the first group's average, and square it. Then, we do the same for the second group."
+  Output: "S^2 is also similar. You can see (xi-x1)^2 just means that we'll take each individual value from the first group and subtract it from the first group's average, and square it. Then, we do the same for the second group (noted by j)."
 
 #Explain the data
 - Class: text

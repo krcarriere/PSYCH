@@ -2,4 +2,5 @@ swirl
 datasets
 psych
 stats
-imager
+latex2exp
+ggplot2

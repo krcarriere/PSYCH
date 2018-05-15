@@ -139,9 +139,9 @@
   Output: "Exactly. So, a Chi-Square Test of Independence tests whether or not the actual groups we find is equal to what we would expect, if there was no relation between treatment and outcomes."
 #27
 - Class: cmd_question
-  Output: "It does this through an equation. Type plot(chisquare) to see what the equation looks like. "
-  CorrectAnswer: plot(chisquare)
-  AnswerTests: omnitest(correctVal='plot(chisquare)')
+  Output: "It does this through an equation. Type plot.equation(chisquare) to see what the equation looks like. "
+  CorrectAnswer: plot.equation(chisquare)
+  AnswerTests: omnitest(correctVal='plot.equation(chisquare)')
 #28
 - Class: text
   Output: "This looks like a lot, but O means observed, E means expected. So, all it is saying is take the difference between observed value and expected value, square it, and divide by the expected value. Do this for every cell in your table, and we get a chi-squared statistic.  "

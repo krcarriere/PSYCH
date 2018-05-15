@@ -25,12 +25,12 @@
   Output: You could imagine we know the average SAT score for the United States, and we want to test to see if the students in our class have, on average, a higher SAT score than the U.S. population. 
   
 - Class: cmd_question
-  Output: Let's load the ttest formula. Type plot(ttest) now.
-  CorrectAnswer: plot(ttest)
-  AnswerTests: omnitest(correctExpr='plot(ttest)')
+  Output: Let's load the ttest formula. Type plot.equation(ttest) now.
+  CorrectAnswer: plot.equation(ttest)
+  AnswerTests: omnitest(correctExpr='plot.equation(ttest)')
 
 - Class: text
-  Output: Great! So, this should look very similar to the z-test formula we used last class. However, instead, you should notice something different.
+  Output: Great! You might need to use zoom to read it all. So, this should look very similar to the z-test formula we used last class. However, instead, you should notice something different.
   
 - Class: text
   Output: The top half is the same - we're going to take our sample mean and substract it from the population mean.
@@ -39,7 +39,7 @@
   Output: What's different is that here we are dividing by S and the square root of n.
 
 - Class: text
-  Output: "So, what is S? S is our standard deviation of our >sample<. The equation, which we've already learned, is shown below. That is the important difference! Remember, in z-tests, we were given the population's standard deviation. Here, instead, we only have our sample's standard deviation."
+  Output: "So, what is S? S is our standard deviation of our >sample<. The equation, which we've already learned, is shown to the right. That is the important difference! Remember, in z-tests, we were given the population's standard deviation. Here, instead, we only have our sample's standard deviation."
 
 - Class: text
   Output: "We divide our sample's standard deviation by the square root of our observations. In other words, we take the amount of people we have in our sample and square root that number."
@@ -90,12 +90,12 @@
   Hint: Did you use your parantheses? (SampleMean-PopulationMean)/(Sample Standard Deviation/sqrt(N)
 
 - Class: cmd_question
-  Output: Now, our t-distributions look a little different than our normal curve when we have low numbers. Therefore, we need to reference how many degrees of freedom we had in this question. Type plot(ttable) to see the next step.
-  CorrectAnswer: plot(ttable)
-  AnswerTests: omnitest(correctExpr='plot(ttable)')
+  Output: Now, our t-distributions look a little different than our normal curve when we have low numbers. Therefore, we need to reference how many degrees of freedom we had in this question. I've created a dataframe that resembles a portion of a handout you might receive in class or find in the back of your book. Just type "twotailed" to see the next step.
+  CorrectAnswer: twotailed
+  AnswerTests: omnitest(correctExpr='twotailed')
   
 - Class: text
-  Output: You might need to use Zoom to get a better look at this picture. on the left we see df going down. These are our degrees of freedom. 
+  Output: On the left we see df going down. These are our degrees of freedom. 
 
 - Class: text
   Output: The three columns represent 3 different alpha levels - .10, .05, and .01. We understand them also as the 90th percentile, the 95th percentile, and the 99th percentile. 

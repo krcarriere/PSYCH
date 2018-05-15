@@ -39,6 +39,7 @@
   AnswerTests: omnitest(correctExpr='psych::describeBy(data)')
   Hint: "I told you what the package was for a reason. Remember at the beginning of the course, we said in order to be good data scientists we will always be clear about the package we're using. Therefore, we should start our command with psych:: , then call the function, then pass the argument."
 
+#10
 - Class: mult_question
   Output: "Okay! So, looking at this information, we see a lot of information. What is the range for Freq?"
   AnswerChoices: 512;504;188.58;24;8;520
@@ -69,7 +70,6 @@
 - Class: text
   Output: "Range by itself cannot tell if there are outliers or not. Imagine our data is actually 8 rejected in Dept A, B, C, D, and E, but 383 rejected in Dept F. Range doesn't tell us what's going on."
 
-
 - Class: text
   Output: We have similar issues when it comes to the Interquartile Range. 
   
@@ -85,6 +85,7 @@
   AnswerTests: omnitest(correctExpr='stats::quantile(data$Freq)')
   Hint: packagename::functionname(argument)
 
+#20
 - Class: cmd_question
   Output: Now, I just told you that the Interquartile Range was the distance between the 75th and 25th percentile. Do the subtraction now to solve for the Interquartile Range.
   CorrectAnswer: 222.5
@@ -106,16 +107,22 @@
   Output: "This is where the variance (and standard deviation, which is just another form of variance) comes in."
   
 - Class: cmd_question
-  Output: "I've loaded a formula for you to look at. Type plot(formula)."
-  CorrectAnswer: plot(formula)
-  AnswerTests: omnitest(correctExpr='plot(formula)')
-  Hint: plot(formula) 
+  Output: "I've loaded a formula for you to look at. Type plot.equation(variancepop)."
+  CorrectAnswer: plot.equation(variancepop)
+  AnswerTests: omnitest(correctExpr='plot.equation(variancepop)')
+  Hint: plot.equation(variancepop) 
 
 - Class: text
-  Output: "The top formula can be read as The summation (that's the big E) of all X values minus the population mean squared. We divide that big number by N, or the number of people in the population."
+  Output: "This formula can be read as The summation (that's the big E) of all X values minus the population mean squared. We divide that big number by N, or the number of people in the population."
+
+- Class: cmd_question
+  Output: "Let's look at a very similar, but slightly different formula. Type plot.equation(variancesamp)."
+  CorrectAnswer: plot.equation(variancesamp)
+  AnswerTests: omnitest(correctExpr='plot.equation(variancesamp)')
+  Hint: plot.equation(variancesamp) 
 
 - Class: text
-  Output: "The bottom is the same thing, but for a sample. We have the summation of all X values (Xi) minus the sample's average (Xbar), all squared, divided by the number of observations we have minus one."
+  Output: "This the same thing, but for a sample. We have the summation of all X values (Xi) minus the sample's average (Xbar), all squared, divided by the number of observations we have minus one. Click back and forth on the plots to see the differences."
 
 - Class: text
   Output: More simply, the variance is defined as the average of the squared deviations from the mean.
@@ -123,6 +130,7 @@
 - Class: text
   Output: "There's a lot to unpack here, so let's just get the bullet points first. First, what is the difference between a population distribution and a sample distribution?"
 
+#30
 - Class: text
   Output: "Well, consider the population of the United States. There is an average IQ for the United States. If we had every single person's IQ score (all 321.4 million of them as of 2015), we could state that the average IQ was... "
   
@@ -130,13 +138,16 @@
   Output: "But of course that's pretty impossible. So, instead, we might just take a sample of citizens. We would take some smaller number of them, get their average, and try and claim this is the actual average. However, all we truly know is the sample's distribution."
 
 - Class: cmd_question
-  Output: Load a second formula with plot(formula2).
-  CorrectAnswer: plot(formula2)
-  AnswerTests: omnitest(correctExpr='plot(formula2)')
-  Hint: plot(formula2)
+  Output: Load a second formula with plot.equation(standdev).
+  CorrectAnswer: plot.equation(standdev)
+  AnswerTests: omnitest(correctExpr='plot.equation(standdev)')
+  Hint: plot.equation(standdev)
 
 - Class: text
   Output: "Here, on the left side we see the original equation for variance for a sample. It's sometimes hard to explain what variance is because, as the definition tells us, it is the average of the squared deviations around the mean. What\'s a squared deviation? \n\n If we take the square root of the whole equation, we get something back a little more palatable. This is called the standard deviation."
+
+- Class: text
+  Output: "S is the sample's standard deviation."
 
 - Class: text
   Output: "We're going to calculate a sample's standard deviation now. "

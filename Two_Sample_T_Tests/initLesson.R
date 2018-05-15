@@ -1,7 +1,16 @@
 #Two Sample T Tests
-twosamplettest  <- imager::load.image("https://static1.squarespace.com/static/5a1855c81f318d6ebcce6e54/5af4702e88251b5dfff59172/5af4703e6d2a7325bf574093/1525968963900/twosamplet-test.png?format=750w")
+#twosamplettest  <- imager::load.image("https://static1.squarespace.com/static/5a1855c81f318d6ebcce6e54/5af4702e88251b5dfff59172/5af4703e6d2a7325bf574093/1525968963900/twosamplet-test.png?format=750w")
+#readbitmap::read.bitmap("https://static1.squarespace.com/static/5a1855c81f318d6ebcce6e54/5af4702e88251b5dfff59172/5af4703e6d2a7325bf574093/1525968963900/twosamplet-test.png?format=750w")
 data <- read.csv("https://kevin-carriere-jyyd.squarespace.com/s/Schroeder-and-Epley-2015-Study-4-data.csv")
 data2 <- read.csv("https://kevin-carriere-jyyd.squarespace.com/s/Zhang-et-al-2014-Study-3.csv")
+
+twosamplettest <- "t = $\\frac{\\bar{x}_1-\\bar{x}_2}{\\sqrt{s^2(\\frac{1}{n_1}+\\frac{1}{n_2})}}$"
+variance <- "s^2 = $\\frac{\\sum{i=1}{n_1}(x_i-\\bar{x}_1)^2$ + $\\sum{j=1}{n_2}(x_j-\\bar{x}_2)^2$}{n_1 + n_2 - 2}$"
+
+plot.equation <- function(equation){
+  require(latex2exp)
+  plot(TeX(equation), cex=2)
+}
 
 data$gender <- as.factor(data$gender)
 data$gender <- plyr::revalue(data$gender, c("1"="Male", "2"="Female"))

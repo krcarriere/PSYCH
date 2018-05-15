@@ -23,7 +23,7 @@
 
 - Class: cmd_question
   Output: Great! To make this easier for us to read, let us go ahead and put this into a data frame. We will assign a new variable, called data, using the function data.frame(), and give it one argument, which is xvalues. 
-  CorrectAnswer: 
+  CorrectAnswer: data <- data.frame(xvalues)
   AnswerTests: omnitest(correctExpr='data <- data.frame(xvalues)')
   Hint: Try typing data <- data.frame(xvalues).
 
@@ -173,20 +173,20 @@
 
 #
 - Class: cmd_question
-  Output: "I've taken a picture of the table and loaded it into your environment. Type plot(ztable)."
-  CorrectAnswer: plot(ztable)
-  AnswerTests: omnitest(correctExpr='plot(ztable)')
+  Output: "I've created a data-set that mimics a Z Table you might find in a handout or in the back of your book and loaded it into your environment. Type ztable."
+  CorrectAnswer: ztable
+  AnswerTests: omnitest(correctExpr='ztable')
   
 - Class: text
-  Output: "Zoom into the photo and look at where it says z=.40"
+  Output: "Scroll around and look at where it the column z is equal to .40"
   
 #40
 - Class: mult_question
-  Output: "From this chart, what is the percent chance you score above or at a 77?"
+  Output: "From this data, what is the percent chance you score above or at a 77?"
   AnswerChoices: 15.54 percent;40 percent;34.46 percent;1.6 percent;48.40 percent
   CorrectAnswer: 34.46 percent
   AnswerTests: omnitest(correctVal="34.46 percent")
-  Hint: "Look at the pictures of the normal curves it shows. We want to land somewhere at our z score (.40=77) or BEYOND that point. Which number for z=.40 would that be?"
+  Hint: "We want to land somewhere at our z score (.40=77) or BEYOND that point. Which number for z=.40 would that be?"
   
 - Class: text
   Output: "Z-Scores (and their sibling, t-scores, which we'll get to later) are critical in understanding statistics."

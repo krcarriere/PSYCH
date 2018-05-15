@@ -1,8 +1,16 @@
 #Measures of Variability
 
-formula <- imager::load.image("https://static1.squarespace.com/static/5a1855c81f318d6ebcce6e54/5af4702e88251b5dfff59172/5af4707e1ae6cf37588f6dac/1525970376649/variance.png?format=1000w")
-formula2 <- imager::load.image("https://static1.squarespace.com/static/5a1855c81f318d6ebcce6e54/5af4702e88251b5dfff59172/5af4707e6d2a7325bf575418/1525970376650/standarddeviation.png?format=1000w")
+#formula <- imager::load.image("https://static1.squarespace.com/static/5a1855c81f318d6ebcce6e54/5af4702e88251b5dfff59172/5af4707e1ae6cf37588f6dac/1525970376649/variance.png?format=1000w")
+#formula2 <- imager::load.image("https://static1.squarespace.com/static/5a1855c81f318d6ebcce6e54/5af4702e88251b5dfff59172/5af4707e6d2a7325bf575418/1525970376650/standarddeviation.png?format=1000w")
 
+standdev <- "s^2 = $\\frac{\\sum{}{}(X_i-\\bar{x})^2}{n-1}$ so s= $\\sqrt{\\frac{\\sum{}{}(X_i-\\bar{x})^2}{n-1}}$"
+variancepop <- "variance of a population = $\\frac{\\sum{}{}(X_i-\\mu)^2}{N}$"
+variancesamp <- "variance of a sample = $\\frac{\\sum{}{}(X_i-\\bar{x})^2}{n-1}$"
+
+plot.equation <- function(equation){
+  require(latex2exp)
+  plot(TeX(equation), cex=2)
+}
 
 data <- data.frame(UCBAdmissions)
 calculate_me <- c(512, 89, 120, 53, 24)

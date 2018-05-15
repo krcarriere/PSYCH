@@ -1,7 +1,11 @@
-lesson_dir <- file.path(path.package("swirl"), "Courses",
-                        "Psychology_Statistics", "Z_Scores")
+#Z Scores
 
-image1 <- file.path(lesson_dir, "ztable.png")
+z <- c(0.00, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.10, 0.11, 0.12, 0.13, 0.14, 0.15, 0.16, 0.34, 0.35, 0.36, 0.37, 0.38, 0.39, 0.40, 0.41, 0.42, 0.43, 0.44, 0.45, 0.46, 0.47, 0.48, 0.49, 0.50)
+percentmeantoz <- c(0.00, 0.40, 0.80, 1.20, 1.60, 1.99, 2.39, 2.79, 3.19, 3.59, 3.98, 4.38, 4.78, 5.17, 5.57, 5.96, 6.36, 13.31, 13.68, 14.06, 14.43, 14.80, 15.17, 15.54, 15.91, 16.28, 16.64, 17.00, 17.36, 17.72, 18.08, 18.44, 18.79, 19.15)
+percentintail <- 50-percentmeantoz
+ztable <- data.frame(z, percentmeantoz, percentintail)
+rm(z, percentmeantoz, percentintail)
+
 
 set.seed(132)
 
