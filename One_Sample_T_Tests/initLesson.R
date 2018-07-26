@@ -18,3 +18,5 @@ plot.equation <- function(equation){
   require(latex2exp)
   plot(TeX(equation), cex=2)
 }
+
+swirl_options(swirl_logging = TRUE)

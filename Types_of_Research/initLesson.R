@@ -2,6 +2,8 @@
 data <- father.son
 diffdata <- presidents
 
+swirl_options(swirl_logging = TRUE)
+
 data_diff <- c()
 
 lactose_intolerance <- c("Not Lactose Intolerant", "Not Lactose Intolerant", "Lactose Intolerant", "Lactose Intolerant")

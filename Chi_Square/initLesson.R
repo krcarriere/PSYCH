@@ -1,5 +1,8 @@
 #Chi Square
 
+swirl_options(swirl_logging = TRUE)
+
+
 dice <- c(rep(1, 10), rep(2, 10), rep(3, 13), rep(4, 23), rep(5, 23), rep(6, 21))
 
 outcome <- c(rep("Improved", 61), rep("Not-Improved",44 ))
