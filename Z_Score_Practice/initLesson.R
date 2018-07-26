@@ -1,9 +1,5 @@
 #Z Score Practice
-#ztable <- imager::load.image("https://static1.squarespace.com/static/5a1855c81f318d6ebcce6e54/5af4702e88251b5dfff59172/5af470bc88251b5dfff5b76a/1525969085645/ztable_example1.png?format=750w")
-#ztable_q2p1 <- imager::load.image("https://static1.squarespace.com/static/5a1855c81f318d6ebcce6e54/5af4702e88251b5dfff59172/5af470ba6d2a7325bf5762d6/1525969083676/z2p1.jpg?format=750w")
-#ztable_q2p2 <- imager::load.image("https://static1.squarespace.com/static/5a1855c81f318d6ebcce6e54/5af4702e88251b5dfff59172/5af470ba575d1f531c848006/1525969084482/z2p2.png?format=750w")
-#ztable_q3 <- imager::load.image("https://static1.squarespace.com/static/5a1855c81f318d6ebcce6e54/5af4702e88251b5dfff59172/5af470bb575d1f531c848008/1525969086325/zq3.jpg?format=1500w")
-#ztable_q4 <- imager::load.image("https://static1.squarespace.com/static/5a1855c81f318d6ebcce6e54/5af4702e88251b5dfff59172/5af470bb0e2e72187f9c1b1d/1525969092523/zq4.png?format=500w")
+swirl_options(swirl_logging = TRUE)
 
 z <- c(0.90, 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98, 0.99, 1.00)
 percentmeantoz <- c(31.59, 31.86, 32.12, 32.38, 32.64, 32.89, 33.15, 33.40, 33.65, 33.89, 34.13)

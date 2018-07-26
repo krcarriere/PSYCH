@@ -1,5 +1,7 @@
 #Validity and Reliability
 
+swirl_options(swirl_logging = TRUE)
+
 t <- seq(0,2*pi,length=1000) 
 coords <- t(rbind( 10+sin(t)*2, 10+cos(t)*2)) 
 coords2 <- t(rbind( 10+sin(t)*.5, 10+cos(t)*.5))
