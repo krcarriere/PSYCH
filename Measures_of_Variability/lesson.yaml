@@ -174,6 +174,7 @@
   CorrectAnswer: summation <- 160489.2
   AnswerTests: expr_creates_var('summation'); omnitest(correctVal=160489.2)
 
+#40
 - Class: cmd_question
   Output: View the summation of squared deviations from the mean now by typing summation.
   CorrectAnswer: summation
@@ -221,6 +222,7 @@
   AnswerTests: omnitest(correctVal='Comparing Low SD Female to Low SD Male')
   Hint: Remember that within genders, the scores are still the same (average being a 8 for female and a 4 four males). 
 
+#50
 - Class: text
   Output: Exactly! Even visually it's much easier to see a difference in the lower standard deviations. In the high standard deviations, even though the means (averages) might be different, the variation is so high, we are not going to find differences. 
 

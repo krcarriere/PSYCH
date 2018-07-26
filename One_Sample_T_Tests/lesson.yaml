@@ -32,6 +32,7 @@
 - Class: text
   Output: Great! You might need to use zoom to read it all. So, this should look very similar to the z-test formula we used last class. However, instead, you should notice something different.
   
+#10
 - Class: text
   Output: The top half is the same - we're going to take our sample mean and substract it from the population mean.
 
@@ -65,6 +66,7 @@
   CorrectAnswer: 5
   AnswerTests: omnitest(correctVal='5')
 
+#20
 - Class: cmd_question
   Output: Solve in any way you choose to find out the sample's mean. Save it as samplemean.
   CorrectAnswer: samplemean <- 79.16667
@@ -109,6 +111,7 @@
   CorrectAnswer: 2.015
   AnswerTests: omnitest(correctVal='2.015')
 
+#30
 - Class: mult_question
   Output: What is the t-critical value for a df of 5 and an alpha of .05 (95% confidence)?
   AnswerChoices: 1.943;2.015;2.571;4.032;2.447;3.708;2.132;2.776
@@ -122,16 +125,15 @@
   AnswerTests: omnitest(correctVal='No')
   Hint: We solved for it awhile back and discovered it was 1.706. Is 1.706 bigger than 2.015?
 
-
 - Class: cmd_question
   Output: "Let's prove this through R. Use the function t.test(), pass two arguments - scores (I created this - it's the list of the 6 scores), and mu=70."
   CorrectAnswer: t.test(scores, mu=70)
   AnswerTests: omnitest(correctExpr='t.test(scores, mu=70)')
 
-
 - Class: text
   Output: "We can see that our score 1.706 is pretty close to the t score R provides of 1.7053."
 
+#33
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
   AnswerChoices: Yes;No

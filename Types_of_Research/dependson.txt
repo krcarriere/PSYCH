@@ -2,3 +2,5 @@ swirl
 UsingR
 ggplot2
 datasets
+caTools
+base64enc

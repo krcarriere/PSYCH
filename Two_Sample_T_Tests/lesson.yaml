@@ -6,7 +6,7 @@
   Organization: Georgetown University
   Version: 2.4.3
 #swirlify("Two Sample T Tests", "UGPsychStats")
-
+#1
 - Class: text
   Output: In the last class, we talked about 1 sample t-tests. This is when tested a sample's mean against a population mean.
 
@@ -37,7 +37,8 @@
   Output: Let's load the variance formula. Type plot.equation(variance) now.
   CorrectAnswer: plot.equation(variance)
   AnswerTests: omnitest(correctExpr='plot.equation(variance)')
-  
+
+#10
 - Class: text
   Output: "S^2 is also similar. You can see (xi-x1)^2 just means that we'll take each individual value from the first group and subtract it from the first group's average, and square it. Then, we do the same for the second group (noted by j)."
 
@@ -82,7 +83,8 @@
 
 - Class: text
   Output: But, what is more the same than yourself? If we test you between time 1 and time 2, the only thing that changed was time! You are (hopefully) the same person. 
-  
+
+#20
 - Class: text
   Output: "Paired Samples also have the benefit of reducing the amount of people we need to collect. If we wanted two groups of people (some take drug, some don't), we would need say, 30 people for each group for a total of 60. But, if we used Paired Samples (first we test you without the drug, then we test you with it), we only need 30 people!"
 
@@ -116,6 +118,7 @@
   AnswerTests: omnitest(correctExpr='names(data2)')
   Hint: Don't forget about capitals!
 
+#30
 - Class: text
   Output: "So, we can see this dataset is set up with the variables T1_Extraordinariness and T2_Extraordinariness."
 
@@ -137,6 +140,7 @@
   CorrectAnswer: 129
   AnswerTests: omnitest(correctVal='129')
 
+#33
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
   AnswerChoices: Yes;No

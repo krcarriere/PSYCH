@@ -2,3 +2,5 @@ swirl
 datasets
 psych
 stats
+caTools
+base64enc

@@ -6,6 +6,7 @@
   Organization: Georgetown University
   Version: 2.4.3
 
+#1
 - Class: text
   Output: Today, we will continue our discussion of validity and see how we can apply it to our own study designs.
 
@@ -41,6 +42,7 @@
 - Class: text
   Output: We call them WEIRD Samples - western, educated, industrialized, rich, and democratic samples. We try and generalize about the world, but are we really, or are we just generalizing about western democratically raised students? 
 
+#10
 - Class: text
   Output: "You're welcome to read more at this article, if you'd like. http://www.slate.com/articles/health_and_science/science/2013/05/weird_psychology_social_science_researchers_rely_too_much_on_western_college.html"
 
@@ -70,7 +72,8 @@
   
 - Class: text
   Output: "For example, Tajfel and colleagues (1971) asked participants to estimate the number of dots shown on a screen. Then they were told they had been placed into groups based on similar estimations (if you said 50, your group members also said 50). In reality, these two groups were simply randomly assigned, half placed in A, half in B. They then asked the individuals to  split up money between the two groups. Even on this simple group division - members of Group A gave more money to Group A than members of Group B, and vice versa. \n\n Tajfel, H., Billig, M. G., Bundy, R. P., & Flament, C. (1971). Social categorization and intergroup behavior. European Journal of Social Psychology. 1(2), 149-178."
-  
+ 
+#20 
 - Class: mult_question
   Output: In that example, what was the manipulated, between-subjects, independent variable?
   AnswerChoices: Group membership;Amount of dots seen; Amount of money shared; Hair color
@@ -103,7 +106,8 @@
 
 - Class: text
   Output: Also, if the aim of the study becomes too obvious by doing multiple conditions, we might bias our results if the participants understand and notice the differences. 
-  
+
+#30
 - Class: text
   Output: A key confound that is present in a lot of within-subjects studies that needs to be controlled for is sequence effects. Sequence effects generally means exposure to one condition can influence future conditions.
   
@@ -116,7 +120,7 @@
 - Class: text
   Output: We try to fix these issues by counter-balancing. Maybe some people receive A->B->C, others B->C->A, others C->A->B, others C->B->A. etc. If we present every possible order, then it is complete counterbalancing. If we only present some, we call it partial counterbalancing.
 
-
+#34
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
   AnswerChoices: Yes;No
