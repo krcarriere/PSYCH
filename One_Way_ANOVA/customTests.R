@@ -35,7 +35,7 @@ submit_log <- function(){
                           datetime = p(log_$datetime, nrow_, NA),
                           stringsAsFactors = FALSE)
     write.csv(log_tbl, file = temp, row.names = FALSE)
-    encoded_log <- base64encode(temp)
+    encoded_log <- caTools::base64encode(temp)
     browseURL(paste0(pre_fill_link, encoded_log))
   }
 }
@@ -44,7 +44,7 @@ submit_log_two <- function(){
   selection <- getState()$val
   if(selection == "Yes"){
     # Please edit the link below
-    pre_fill_link <- "https://docs.google.com/forms/d/1oxjQILJdHBEsDITQ1rHQe2n-lHOG126gXLWLTFVNc8E"
+    pre_fill_link <- "https://docs.google.com/forms/d/e/1FAIpQLSc2bebGfuL1TAH5O6oZjf4-XaUYX_uWwPDzsG6BTZC56Ql_NQ/viewform?usp=pp_url&entry.1487757760"
     
     # Do not edit the code below
     if(!grepl("=$", pre_fill_link)){
@@ -66,7 +66,7 @@ submit_log_two <- function(){
                           datetime = p(log_$datetime, nrow_, NA),
                           stringsAsFactors = FALSE)
     write.csv(log_tbl, file = temp, row.names = FALSE)
-    encoded_log <- base64encode(temp)
+    encoded_log <- caTools::base64encode(temp)
     browseURL(paste0(pre_fill_link, encoded_log))
   }
 }

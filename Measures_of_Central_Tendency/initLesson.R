@@ -1,5 +1,7 @@
 #Measures of Central Tendency
 
+swirl_options(swirl_logging = TRUE)
+
 baseball <- read.csv("https://kevin-carriere-jyyd.squarespace.com/s/baseball.csv")
 #bimodal <- imager::load.image("https://static1.squarespace.com/static/5a1855c81f318d6ebcce6e54/5af4702e88251b5dfff59172/5af47078575d1f531c846f78/1525971626976/bimodal.png?format=1500w")
 colors <- c("Mode", "Median", "Mean")
@@ -40,7 +42,7 @@ mean_median_mode <- ggplot(baseball, aes(atbats)) + geom_histogram(bins=80) + ge
 # throughout the lesson.
 
 example <- ggplot(data=data, aes(x=noskew)) + 
-  geom_freqpoly(aes(color="")) + 
+  geom_freqpoly(aes(color="Quiz 1")) + 
   geom_freqpoly(data=data, aes(x=posskew, color="Quiz 2")) + 
   geom_freqpoly(data=data, aes(x=negskew, color="Quiz 3")) + 
   xlab("") + 

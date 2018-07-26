@@ -6,207 +6,256 @@
   Organization: Georgetown University
   Version: 2.4.3
 
+#1
 - Class: text
   Output: "In this class, we will review how we can understand our data - how we can describe this data that we have."
 
+#2
 - Class: text
   Output: "The big one that many people always ask is - well, what is the 'typical' person in your data?"
 
+#3
 - Class: text
   Output: "This question is not as simple as it may first appear. There are three ways to measure typicality - or average."
-  
 
+#4
 - Class: text
   Output: "They are called mean, median, and mode. \n\n The times when we use each will depend most heavily on the characteristics of our data and the type of data we are working with. \n\n We'll work our way backwards, starting with the mode first."
 
+#5
 - Class: text
   Output: "Mode is defined as most commonly occuring value. "
 
+#6
 - Class: text
   Output: "For example, I've loaded some data into your Environment called Baseball. It is the statistics for the Angels and Dodgers from 2002. \n\n We downloaded it from http://www.stat.ucla.edu/labs/datasets/ ."
 
+#7
 - Class: cmd_question
   Output: "Let's visualize how many individuals we have at each position in our dataset. We'll make another histogram. \n\n Type the following: ggplot(data=baseball, aes(x=pos))+geom_histogram(stat=\"count\")"
   CorrectAnswer: ggplot(data=baseball, aes(x=pos))+geom_histogram(stat="count")
   AnswerTests: omnitest(correctExpr='ggplot(data=baseball, aes(x=pos))+geom_histogram(stat=\"count\")')
 
+#8
 - Class: mult_question
   Output: "Looking at this, what is the mode position in our dataset?"
   AnswerChoices: 1B;2B;DH;OF;P
   CorrectAnswer: P
   AnswerTests: omnitest(correctVal='P')
 
+#9
 - Class: text
   Output: "Yes, exactly. So, the most typical position, in terms of the mode, is a pitcher."
 
+#10
 - Class: text
   Output: "So, we can use the mode when the variable is nominal. As we learned in previous lessons, this is when a variable just goes by name, and there's no ranking. \n\n Clearly, there's no difference between a Designed Hitter (DH) and a Pitcher (P)."
-  
+
+#11
 - Class: text
   Output: "If a variable is nominal, it's the ONLY measure of central tendency we can use."
 
+#12
 - Class: text
   Output: "We also can use the mode to describe any most common value of any distribution of measurement."
 
+#13
 - Class: text
   Output: "There are benefits to the mode. While the mean and median will only give us one value, mode can show multiple values."
 
+#14
 - Class: cmd_question
   Output: "For example, let's look at a bimodal distribution that was published. Type plot(bimodal). I have recreated an estimate of their original graph - but the point is in the visual, not in its preciseness (read the article for the true values!).  \n\n Sullivan, R. (2005). The age pattern of first-birth rates among us women the binmodal 1990s. Demography, 42(2), 259-273."
   CorrectAnswer: plot(bimodal)
   AnswerTests: omnitest(correctExpr='plot(bimodal)')
 
+#15
 - Class: text
   Output: "There's two peaks here when women first have children in the U.S. There's one peak around age 20, and another at age 31."
 
+#16
 - Class: text
   Output: "The next measure of central tendency is the median."
-  
+
+#17
 - Class: text
   Output: "The median is the value in the middle when the list is sorted from low to high. i.e. the 50th percentile."
 
+#18
 - Class: mult_question
   Output: "Think about the numbers 1, 2, 3, 4, 5. Which is the median?"
   AnswerChoices: 1;2;3;4;5
   CorrectAnswer: 3
   AnswerTests: omnitest(correctVal='3')
-  
+
+#19
 - Class: mult_question
   Output: "Exactly. Well, that was easy. When it's an odd number, it's easy to see the middle number. But what about when it's an even number? \n\n Think about the numbers 1, 2, 3, 4. Which is the median?"
   AnswerChoices: 1;2;3;4;1.5;2.5;3.5
   CorrectAnswer: 2.5
   AnswerTests: omnitest(correctVal='2.5')
   Hint: "if there are only four values, then there is no 'middle' number. So what can we do instead? Well, if we take the two most middle numbers, we can find their average!"
-  
+
+#20
 - Class: text
   Output: "Right! In even numbered data sets, we take the two most-middle numbers and take their average. Here, it was the 2nd and 3rd number in the dataset."
-  
+
+#21
 - Class: cmd_question
   Output: "Let's look at the median number of at bats between these two teams. We'll use the function sort(), and pass it one argument, baseball$atbats."
   CorrectAnswer: sort(baseball$atbats)
   AnswerTests: omnitest(correctExpr='sort(baseball$atbats)')
 
+#22
 - Class: mult_question
   Output: "Now, we know from the Environment in the top right that there are 44 players (or observations) in our dataset. With 44 observations, what two observations would be the most middle? (Note: Asking not for the actual atbat numbers, but the two points between 1 and 44)."
   AnswerChoices: 1 and 40; 21 and 22; 22 and 23; 22 and 24
   CorrectAnswer: 22 and 23
   AnswerTests: omnitest(correctVal='22 and 23')
-  
+
+#23
 - Class: mult_question
   Output: "Now, looking at sort(baseball$atbats), we can count to the 22nd and 23rd observations. Take those two observations and get their average. What is the median value?"
   AnswerChoices: 69.5;80;65;68
   CorrectAnswer: 69.5
   AnswerTests: omnitest(correctVal='69.5')
-  
+
+#24
 - Class: cmd_question
   Output: "There's two other ways we can look at this. The simpliest is just passing baseball$atbats to the function median(). Do that now."
   CorrectAnswer: median(baseball$atbats)
   AnswerTests: omnitest(correctExpr='median(baseball$atbats)')
 
+#25
 - Class: cmd_question
   Output: "And, finally, let's take a step by step look at something called a cumulative frequency distribution. We're going to plot a new graph. Type ggplot(baseball, aes(atbats)) + stat_ecdf(geom = \"point\")"
   CorrectAnswer: ggplot(baseball, aes(atbats)) + stat_ecdf(geom = "point")
   AnswerTests: omnitest(correctExpr='ggplot(baseball, aes(atbats)) + stat_ecdf(geom = "point")')
 
+#26
 - Class: cmd_question
   Output: "Now push the up arrow so we can get back what we just typed. At the end of the command we just typed, write + geom_vline(xintercept=69.5) + geom_hline(yintercept=.50)"
   CorrectAnswer: ggplot(baseball, aes(atbats)) + stat_ecdf(geom = "point") + geom_vline(xintercept=69.5) + geom_hline(yintercept=.50)
   AnswerTests: omnitest(correctExpr='ggplot(baseball, aes(atbats)) + stat_ecdf(geom = "point") + geom_vline(xintercept=69.5) + geom_hline(yintercept=.50)')
 
+#27
 - Class: text
   Output: "So, let's talk about this graph. On the x axis is the number of at bats. On the y axis is from 0 to 1. It represents the percent of data that has already been accounted for. So when we drew that horizontal line with geom_hline, we drew it at the 50th percentile."
 
+#28
 - Class: text
   Output: "We can use the median when the variable is ordinal, interval, or ratio."
 
+#29
 - Class: text
   Output: "We also use it when the mean would give us a misleading average. For example, we usually hear the median household income, not the average household income. That is because there is a huge skew with the extreme rich pushing the average up. The median is not influenced by the data - it is really just the 50th percentile. "
-  
+
+#30
 - Class: text
   Output: "At bats is actually pretty skewed. There's a lot to the left - pitchers don't bat that much. And there a few (but not many) observations far out - players who bat all the time."
 
+#31
 - Class: mult_question
   Output: "So, let's think about this. We know there are many observations to the left. Is the median probably higher or lower than the mode?"
   AnswerChoices: Lower; Higher; Equal to;
   CorrectAnswer: Higher
   AnswerTests: omnitest(correctVal='Higher')
-  
+
+#32
 - Class: mult_question
   Output: "So, let's think about this. We know there are many observations to the left. Is the median probably higher or lower than the mean?"
   AnswerChoices: Lower; Higher; Equal to;
   CorrectAnswer: Lower
   AnswerTests: omnitest(correctVal='Lower')
-  
+
+#33
 - Class: cmd_question
   Output: "I've visualized this for you. Type mean_median_mode now."
   CorrectAnswer: mean_median_mode
   AnswerTests: omnitest(correctExpr='mean_median_mode')
 
+#34
 - Class: text
   Output: "Mean is the final measure of central tendency. This is the average of all values in a variable. We're always going to be talking about two different kinds of means. \n\n The sample mean, which is almost always what we will have - is the sum of all values divided by the number of values. This is displayed as Xbar.  \n\n And there is the  population mean, which is displayed by the lower case greek symbol sigma."
 
+#35
 - Class: text
   Output: "The mean can be sensitive to extreme values. We saw in our at bats example how the mean was quite larger than both our median and our mode."
 
+#36
 - Class: text
   Output: "There are three types of distributions we'll focus on. Our first example, at bats, showed our mean was larger than our median. This is called a positive skew."
 
+#37
 - Class: text
   Output: "The mean is pulled positively away from the median in a positive skew."
 
+#38
 - Class: text
   Output: "When the mean is smaller than the median, that is called a negative skew."
 
+#39
 - Class: text
   Output: "The mean is pulled negatively away from the median in a negative skew."
 
+#40
 - Class: text
   Output: "If the mean equals the median, there is no skew."
 
+#41
 - Class: cmd_question
   Output: "I've loaded a graph to look at the three kinds of skews. Type example into the Console now."
   CorrectAnswer: example
   AnswerTests: omnitest(correctExpr='example')
 
+#42
 - Class: mult_question
   Output: "So, let's look at Quiz 1. We see that there are many values towards the right side. There are some outliers to the left side. We discussed how the mean is sensitive to outliers."
   AnswerChoices: Positive Skew;Negative Skew;No Skew
   CorrectAnswer: Negative Skew
   AnswerTests: omnitest(correctVal='Negative Skew')
 
+#43
 - Class: mult_question
   Output: "So, let's look at Quiz 2. We see that there are many values towards the left side. There are some outliers to the right side. We discussed how the median is not sensitive to outliers."
   AnswerChoices: Positive Skew;Negative Skew;No Skew
   CorrectAnswer: Positive Skew
   AnswerTests: omnitest(correctVal='Positive Skew')
 
+#44
 - Class: mult_question
   Output: "So, let's look at Quiz 3. We see that the values are equally distributed."
   AnswerChoices: Positive Skew;Negative Skew;No Skew
   CorrectAnswer: No Skew
   AnswerTests: omnitest(correctVal='No Skew')
 
+#45
 - Class: text
   Output: "In our third example, with no skew, it's important to notice how similar this looks to the normal distribution. Note that in these no skew'd distributions, the mean equals the median and equals the mode."
 
+#46
 - Class: text
-  Output: "Finally, let's quickly review hot to take an average."
+  Output: "Finally, let's quickly review how to take an average."
 
+#47
 - Class: cmd_question
   Output: "There is a list of numbers taken from our dataset stored in your Environment under sample_double. Type sample_double into the Console now to view it."
   CorrectAnswer: sample_double
   AnswerTests: omnitest(correctExpr='sample_double')
-  
+
+#48
 - Class: cmd_question
   Output: "Add all five of these values up and then divide by the number of values. Your output in the console should be the average."
   CorrectAnswer: 17.8
   AnswerTests: omnitest(correctVal=17.8)
 
+#49
 - Class: cmd_question
   Output: "There is of course also an function we can use to get the same answer. Pass sample_double into the function mean() now."
   CorrectAnswer: mean(sample_double)
   AnswerTests: omnitest(correctExpr='mean(sample_double)')
 
+#50
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
   AnswerChoices: Yes;No
@@ -214,6 +263,7 @@
   AnswerTests: submit_log()
   Hint: hint
 
+#51
 - Class: mult_question
   Output: Would you like to answer five short questions about this lesson to Google Forms so that your instructor may evaluate your opinion on this lesson and improve it for others?
   AnswerChoices: Yes;No

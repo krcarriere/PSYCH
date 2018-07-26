@@ -2,3 +2,5 @@ dplyr
 swirl
 ggplot2
 wesanderson
+caTools
+base64enc

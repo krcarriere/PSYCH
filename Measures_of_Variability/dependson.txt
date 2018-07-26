@@ -4,3 +4,5 @@ psych
 stats
 latex2exp
 ggplot2
+caTools
+base64enc

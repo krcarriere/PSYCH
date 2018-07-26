@@ -44,7 +44,7 @@ submit_log_two <- function(){
   selection <- getState()$val
   if(selection == "Yes"){
     # Please edit the link below
-    pre_fill_link <- "https://docs.google.com/forms/d/1y9qCdtrCnuX56DuDKHXS7UDxJ8Q84Nt-u9AtBSr-PSM"
+    pre_fill_link <- "https://docs.google.com/forms/d/e/1FAIpQLSd0IYp40T8PBFNIw5_dwh3lYc2ic3KkxB-gcFzccjyyIhBTSQ/viewform?usp=pp_url&entry.1487757760"
     
     # Do not edit the code below
     if(!grepl("=$", pre_fill_link)){

@@ -2,3 +2,5 @@ swirl
 plyr
 dplyr
 latex2exp
+caTools
+base64enc

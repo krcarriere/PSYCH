@@ -2,3 +2,5 @@ swirl
 ggplot2
 plyr
 swirlify
+caTools
+base64enc
