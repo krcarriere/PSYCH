@@ -1,6 +1,7 @@
 swirl
 dplyr
+rstatix 
+ggplot2
 latex2exp
 caTools
 base64enc
-lsr

@@ -1,6 +1,8 @@
 swirl
-ggplot2
-plyr
 swirlify
+ggplot2
+rstatix
+dplyr
+emmeans
 caTools
 base64enc

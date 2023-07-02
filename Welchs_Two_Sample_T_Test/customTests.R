@@ -1,4 +1,4 @@
-# Two Way ANOVA Between
+# Welch's Two Sample T-Test
 
 script_results_identical <- function(result_name) {
   # Get e
@@ -26,7 +26,6 @@ script_results_identical <- function(result_name) {
   identical(user_res, correct_res)
 }
 
-
 getState <- function(){
   #Whenever swirl is running, its callback is at the top of its call stack.
   #Swirl's state, named e, is stored in the environment of the callback.
@@ -42,8 +41,7 @@ submit_log <- function(){
   selection <- getState()$val
   if(selection == "Yes"){
     # Please edit the link below
-    
-    pre_fill_link <- "https://docs.google.com/forms/d/e/1FAIpQLScr-tKGvUCzdl1QXsQcJ_YdtcedoDXjNxoR5EoCbHnzCcda5g/viewform?usp=pp_url&entry.996111921"
+    pre_fill_link <- "https://docs.google.com/forms/d/e/1FAIpQLSdolKxA7FqS24-15AmpSqH2I8bg3y3JV-jgxHebOek3ep2OSg/viewform?usp=pp_url&entry.996111921"
     # Do not edit the code below
     if(!grepl("=$", pre_fill_link)){
       pre_fill_link <- paste0(pre_fill_link, "=")
@@ -68,4 +66,3 @@ submit_log <- function(){
     browseURL(paste0(pre_fill_link, encoded_log))
   }
 }
-

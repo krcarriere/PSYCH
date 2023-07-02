@@ -1,156 +1,190 @@
 - Class: meta
-  Course: Psychology Statistics
-  Lesson: Two Sample T Tests
-  Author: Kevin R. Carriere
+  Course: Psychological Statistics You Can Handle
+  Lesson: Independent Sample T-Tests
+  Author: Kevin R. Carriere, Jason Kilgore
   Type: Standard
-  Organization: Georgetown University
+  Organization: Washington & Jefferson College
   Version: 2.4.3
-#swirlify("Two Sample T Tests", "UGPsychStats")
-#1
+
+- Class: script
+  Output: To save the notes for this module, copy and paste the code provided into your own RNotebook. Type submit() when you have finished saving these notes. 
+  AnswerTests: script_results_identical('saved')
+  Hint: "Don't change anything, just type submit(). If you did and you don't know how to fix it, just type skip() and you'll be all set."
+  Script: Notes.R
+  
 - Class: text
-  Output: In the last class, we talked about 1 sample t-tests. This is when tested a sample's mean against a population mean.
+  Output: In the last module, we talked about 1 sample t-tests. This is when tested a sample's mean against a population mean.
 
 - Class: text
-  Output: However, that's not really interesting. What we want to learn in Psychology is what are differences between groups.
+  Output: However, what we want to test is if there are differences between groups.
   
 - Class: text
   Output: For example, sometimes we give a drug to one group, and don't give a drug to others. We want to see if the drug makes any difference in their lives. 
+
+- Class: figure
+  Output: This is the equation for the independent samples t-test.
+  Figure: isttest.R
+  FigureType: new
+
+- Class: text
+  Output: "We calculate this by taking the mean of group 1 (X1) and subtracting off the mean of group 2 (X2) and dividing that by the pooled standard error."
+
+- Class: figure
+  Output: "The pooled variance, or standard deviation squared, takes the degrees of freedom of each group and multiplies that by the variance. This permits a weighted average of the variance, where we will favor the group with higher sample sizes (if sample sizes are uneven)."
+  Figure: pooledvariance.R
+  FigureType: new
+
+- Class: text
+  Output: The assumptions of the independent samples t-test are as follows-
+
+- Class: text
+  Output: (1) Independence of observations. Each subject should only belong to one group. 
+
+- Class: text
+  Output: (2) Random samples. Both samples must be randomly sampled from the population.
+
+- Class: text
+  Output: (3) Normal distribution. The response variable is normally distributed between each population.
   
 - Class: text
-  Output: This is called the Two Sample T-Test. We also can call it the Independent Samples T Test.
-
-- Class: cmd_question
-  Output: Let's load the ttest formula. Type plot.equation(twosamplettest) now.
-  CorrectAnswer: plot.equation(twosamplettest)
-  AnswerTests: omnitest(correctExpr='plot.equation(twosamplettest)')
+  Output: (4) Equivalence of variances. The standard deviation of the distribution is equal in both populations. 
 
 - Class: text
-  Output: This is called the Two Sample T-Test.
+  Output: We cover violations of (3) in Wilcoxon Signed Rank Test and violations of (4) in Welch's Two Sample T-Test. 
   
 - Class: text
-  Output: "It may look daunting, but really, it's just treating the two groups as separate. The top of the equation is the same - we're taking the differences between groups."
-
-- Class: text
-  Output: "The bottom is also similar to the 1 Sample T. But each group's N is done on its own."
-
-- Class: cmd_question
-  Output: Let's load the variance formula. Type plot.equation(variance) now.
-  CorrectAnswer: plot.equation(variance)
-  AnswerTests: omnitest(correctExpr='plot.equation(variance)')
-
-#10
-- Class: text
-  Output: "S^2 is also similar. You can see (xi-x1)^2 just means that we'll take each individual value from the first group and subtract it from the first group's average, and square it. Then, we do the same for the second group (noted by j)."
+  Output: But for now, let us consider datasets that do not have violations of these assumptions.
 
 #Explain the data
 - Class: text
-  Output: "Today, we're going to use real data from a published paper. These researchers tested to see if a hiring manager hearing the person's voice would be more or less likely to hire the person compared to if they just read their resumes.  \n\nTo read the paper, see: Schroeder, J., & Epley, N. 2015. The sound of intellect: Speech reveals a thoughtful mind increase a job candidates appeal. Psychological Science. 877-891."
+  Output: "Researchers wanted to test if there was a difference between vocal presentation of skills (giving a speech) and written presentation of skills (writing a speech) on how likely a job candidate was to be hired. Participants were randomly assigned to either listen to a recording of a job candidate's speech or read a paper copy of a job candidate's speech, and then asked to rate the candidate on intellect (composed of an intelligence rating, a competence rating, and a thoughtfulness rating), overall impression, and the likelihood of hiring the candidate. "
+
+- Class: text
+  Output: "The citation for this study is Schroeder, J., & Epley, N. (2015). The Sound of Intellect: Speech Reveals a Thoughtful Mind, Increasing a Job Candidate’s Appeal. Psychological Science, 26(6), 877–891. https://doi.org/10.1177/0956797615572906."
+ 
+- Class: cmd_question
+  Output: Let's look at the data now by piping (|>) our dataset (df) into head(). 
+  CorrectAnswer: df |> head()
+  AnswerTests: omnitest(correctExpr='df |> head()')
+  Hint: Try df |> head().
+
+- Class: text
+  Output: At one point, the authors write the following - "In particular, the recruiters believed that the job candidates had greater intellect—were more competent, thoughtful, and intelligent—when they listened to pitches (M = 5.63, SD = 1.61) than when they read pitches (M = 3.65, SD = 1.91), t(37) = 3.53, p < .01, 95% CI of the difference = [0.85, 3.13], d = 1.16]". 
+
+- Class: text
+  Output: Can we replicate that?
+  
+- Class: cmd_question
+  Output: Let's run a t-test on the data, seeing if audio assists perceived intellect ratings. Take our data, df, and pipe it (|>) into the t.test() function. Pass that function three arguments, Intellect_Rating~Condition, data=_, and var.equal=TRUE .
+  CorrectAnswer: df |> t.test(Intellect_Rating~Condition, data=_, var.equal=TRUE)
+  AnswerTests: omnitest(correctExpr='df |> t.test(Intellect_Rating~Condition, data=_, var.equal=TRUE)')
+  Hint: df |> t.test(Intellect_Rating~Condition, data=_, var.equal=TRUE)
+
+- Class: text
+  Output: While the t-test output gives us our means, it doesn't provide us the standard deviations. While we've learned how to get the standard deviation of a single variable, we haven't talked about how to get the standard deviation of a single variable grouped by multiple levels. You might know this already if you've taken GGPlots Grouped Bar Plots or Basic Tidyverse Verbs. Remember, they wrote- "when they listened to pitches (M = 5.63, SD = 1.61) than when they read pitches (M = 3.65, SD = 1.91)"
+
+- Class: script
+  Output: Make sure to save your script before you type submit().
+  AnswerTests: script_results_identical('sum_intellect')
+  Hint: Follow the notes in the script, and be sure you saved your script (using the save button or ctrl+S) before typing submit() in the Console.
+  Script: summarise.R
 
 - Class: cmd_question
-  Output: Let's run a t-test on the data, seeing if audio assists hiring decision ratings. Use the function t.test(), pass it two arguments, data=data, and Hire_Rating~condition.
-  CorrectAnswer: t.test(data=data, Hire_Rating~condition)
-  AnswerTests: omnitest(correctExpr='t.test(data=data, Hire_Rating~condition)')
-  Hint: Don't forget about capitals!
+  Output: Print out the results of your script in the console now by typing in sum_intellect. 
+  CorrectAnswer: sum_intellect
+  AnswerTests: omnitest(correctExpr='sum_intellect')
+  Hint: Type sum_intellect. 
+  
+- Class: text
+  Output: And finally, we can also get that effect size they report (95% CI of the difference = [0.85, 3.13], d = 1.16].)
+
+- Class: cmd_question
+  Output: To get their effect size, we need to use a new function, and we will pipe (|>) our data (df) into it.  In the lsr library, there is a function called cohensD(). It takes at least two inputs, the formula (Intellect_Rating ~ Condition), the data (for us, because we are piping, remember data=_). Let's try just those two inputs now.
+  CorrectAnswer: df |> cohensD(Intellect_Rating~Condition, data=_)
+  AnswerTests: omnitest(correctExpr='df |> cohensD(Intellect_Rating~Condition, data=_)')
+  Hint: df |> cohensD(Intellect_Rating~Condition, data=_)
+
+- Class: cmd_question
+  Output: Great job! Unfortunately, that's not what they reported. Their effect size was 1.16, and ours is 1.13. What can we do? Well, cohensD takes another argument, method. Let's set method = "raw" instead of pooled, and try again. Remember you can hit the up arrow on your keyboard to bring up your hard work.
+  CorrectAnswer: df |> cohensD(Intellect_Rating~Condition, data=_, method="raw")
+  AnswerTests: omnitest(correctExpr='df |> cohensD(Intellect_Rating~Condition, data=_, method="raw")')
+  Hint: df |> cohensD(Intellect_Rating~Condition, data=_, method="raw")
+
+- Class: text
+  Output: We got it! So what's the difference? 
+  
+- Class: figure
+  Output: It comes down to these two formulas to calculate effect size. The one on the left is method="pooled", while the one on the right is method="raw". The left one uses our pooled standard deviation equation we are used to, while the one on the right does not (notice the only difference is subtracting two from the denominator of the square root. While the left is an unbiased estimator of the population variance, it is not necessarily true that taking the square root of an unbiased estimator will necessarily lead to an unbiased estimator of the standard deviation. It is also worth acknowledging that the differences reported are relatively minor, and decrease in size of the differences as N increases. Still, we will choose the method that is the most conservative (i.e., provides the smallest effect size), which is always method="pooled", or not setting method equal to anything.
+  Figure: cohensdiff.R
+  FigureType: new
+
+- Class: cmd_question
+  Output: Scroll back through your commands using the up arrow and let's re-enter the t.test() formula. As a reminder, or if you can't find it, take our data, df, and pipe it (|>) into the t.test() function. Pass that function three arguments, Intellect_Rating~Condition, data=_, and var.equal=TRUE .
+  CorrectAnswer: df |> t.test(Intellect_Rating~Condition, data=_, var.equal=TRUE)
+  AnswerTests: omnitest(correctExpr='df |> t.test(Intellect_Rating~Condition, data=_, var.equal=TRUE)')
+  Hint: df |> t.test(Intellect_Rating~Condition, data=_, var.equal=TRUE)
+
 
 - Class: mult_question
   Output: Based on this test, what is the p value?
-  AnswerChoices: 0.01208; -2.6399; 0.4241; -3.2265; 0.98792
-  CorrectAnswer: 0.01208
-  AnswerTests: omnitest(correctVal='0.01208')
+  AnswerChoices: 0.01208; 0.41376; -2.6201; 37; 4.7142; 2.88888; 3.23702; 0.001144
+  CorrectAnswer: 0.001144
+  AnswerTests: omnitest(correctVal='0.001144')
+  Hint: Where does it say p=value=?
   
 - Class: mult_question
   Output: Based on this test, is there enough evidence to reject the null hypothesis at the 95% confidence level?
   AnswerChoices: Yes;No
   CorrectAnswer: Yes
   AnswerTests: omnitest(correctVal='Yes')
-  Hint: Is .01208 smaller or larger than .05?
+  Hint: Is .001144 smaller or larger than .05?
+
+- Class: text
+  Output: Let's practice summarizing our data again, this time, to get the means and standard deviations of Hire_Rating. 
   
-- Class: mult_question
-  Output: Based on this test, is there enough evidence to reject the null hypothesis at the 99% confidence level?
-  AnswerChoices: Yes;No
-  CorrectAnswer: No
-  AnswerTests: omnitest(correctVal='No')
-  Hint: Is .01208 smaller or larger than .01?
+- Class: script
+  Output: Make sure to save your script before you type submit().
+  AnswerTests: script_results_identical('sum_hire')
+  Hint: Follow the notes in the script, and be sure you saved your script (using the save button or ctrl+S) before typing submit() in the Console.
+  Script: summarise2.R
+  
+- Class: cmd_question
+  Output: Print out the results of your script in the console now by typing in sum_hire. 
+  CorrectAnswer: sum_hire
+  AnswerTests: omnitest(correctExpr='sum_hire')
+  Hint: Type sum_hire
+  
+- Class: text
+  Output: In another study, researchers wanted to test if there was a difference between frozen goals (goals you continually set but make no effort to achieve) and active goals (goals you set and make efforts to achieve). They randomly assigned people to either think about frozen or active goals and asked them to rate characteristics of these goals, including how important it was to achieve this goal, how difficult it was to achieve it, and how much progress they made on it. 
 
 - Class: text
-  Output: Exactly. So, for the independent samples t-test, we had two groups, and we tested to see if they were different. This is like testing boys vs. girls. There are two groups, and you can only be in one of them.
-
+  Output: They write, "The purpose of this study was to compare the descriptive qualities of frozen goals to active goals. To analyze how frozen goals differed from active goals, we used a series of independent samples t-tests to compare characteristics. "
+  
 - Class: text
-  Output: However, there are other ways we can test people. For example, we could test your attention before and after giving some interesting stimuli. 
-
-- Class: text
-  Output: This is called a Paired-Sample T-Test. It is paired because it's the same sample at two time points. Remember a problem with research is that there could be differences between groups. We try to randomize group assignment to fix this, but we are never sure if our randomization worked. 
-
-- Class: text
-  Output: But, what is more the same than yourself? If we test you between time 1 and time 2, the only thing that changed was time! You are (hopefully) the same person. 
-
-#20
-- Class: text
-  Output: "Paired Samples also have the benefit of reducing the amount of people we need to collect. If we wanted two groups of people (some take drug, some don't), we would need say, 30 people for each group for a total of 60. But, if we used Paired Samples (first we test you without the drug, then we test you with it), we only need 30 people!"
-
-- Class: text
-  Output: "However, there are problems we need to be aware of with Paired Samples, or Within-Subjects designs. One is practice effects. If we first test you on something, then give you some kind of treatment, and test you again, sometimes we can't be sure if it's the treatment that improved your score, or the fact you took the same test twice."
-
-- Class: text
-  Output: "It could also work the other way. You've already taken the test once, so you are tired of taking it and do worse the second time around. This is called fatigue effect."
-
-- Class: text
-  Output: "However, we'll talk more about these problems in class. For now, let's just look at a dataset and paper that used a Paired Samples T-Test."
-
-- Class: text
-  Output: "However, there are problems we need to be aware of with Paired Samples, or Within-Subjects designs. One is practice effects. If we first test you on something, then give you some kind of treatment, and test you again, sometimes we can't be sure if it's the treatment that improved your score, or the fact you took the same test twice."
-
-- Class: text
-  Output: "Today, we will be looking at another dataset. In this study (Study 3), individuals who had partners were asked to write about their day with their partner on Feb. 8th. Then, a week later, they were asked to write about their day on the 14th (Valentine's Day). The researchers classified as these days as extraordinary (Valentine's Day) and ordinary (February 8th). Both times they rated how curious they would be to read what they wrote at a later date. Three months later, half of participants read the extraordinary event, and half read the ordinary event. They again rated how curious they were to read what they wrote. \n\nFor the full citation, see Zhang, T., Kim, T., Brooks, A.W., Gino, F., & Norton, M. I. (2014). A Present for the future: the unexpected value of rediscovery. Psychological Science, 25(10), 1851-1860."
-
-- Class: text
-  Output: "For this lesson, we'll make it a little more simple. We'll just group everything together and consider the question: Did people find their days more extraordinary the day they wrote about it, or three months later?"
-
-- Class: text
-  Output: "So, to make the experiment simpler, we can word it as such. Imagine I asked you to write about your day (it could be your birthday, the holidays, or a regular day). I ask you to immediately rate how extraordinary you find what you wrote. Three months later, I have you read what you wrote and rate again how extraordinary it is you felt."
-
-- Class: text
-  Output: "Here, the independent variable is time. There was Time 1 (immediately following the day) and Time 2 (three months later). As everyone experienced both Time 1 and Time 2, this is Within-Subjects design."
+  Output: "The citation for this paper is Davydenko, M., Werner, K. M., & Milyavskaya, M. (2019). Frozen Goals- Identifying and Defining a New Type of Goal. Collabra: Psychology, 5(1), 17. doi.org/10.1525/collabra.194."
 
 - Class: cmd_question
-  Output: Let's look at what variables are included in this dataset. Run the function names() by passing through our dataset called data2.
-  CorrectAnswer: names(data2)
-  AnswerTests: omnitest(correctExpr='names(data2)')
-  Hint: Don't forget about capitals!
-
-#30
+  Output: The data is loaded in your environment as goalsdf. Our first step when given data is to do what? Examine what it looks like via summary(), head(), tail(), or View(). Exactly. Do one of those now, remembering to pipe |> your dataframe into one of the functions.
+  CorrectAnswer: goalsdf |> summary()
+  AnswerTests: any_of_exprs('summary(goalsdf)', 'goalsdf |> summary()', 'head(goalsdf)', 'goalsdf |> head()', 'tail(goalsdf)', 'goalsdf |> tail()', 'View(goalsdf)', 'goalsdf |> View()')
+  Hint: Generally, we've been using summary(). So, type goalsdf |> summary().
+  
 - Class: text
-  Output: "So, we can see this dataset is set up with the variables T1_Extraordinariness and T2_Extraordinariness."
+  Output: There are a few variables in this dataset. ID is the participant ID. They asked how important achieving the goal was to them (achieve.goal.importance), the progress they've made towards that goal (progress), how important to them it was to have that goal (have.goal.importance), and how difficult it would be to achieve that goal (difficult.achieve). Progress was from a 0-100 scale, while the rest were scales from 1-7.
 
 - Class: cmd_question
-  Output: Let's run our new t.test on this data, seeing if we find events more extraordinary as they get older in time. Use the function t.test(), pass it three arguments, data2$T1_Extraordinariness, data2$T2_Extraordinariness, and paired=TRUE.
-  CorrectAnswer: t.test(data2$T2_Extraordinariness, data2$T1_Extraordinariness, paired=TRUE)
-  AnswerTests: omnitest(correctExpr='t.test(data2$T2_Extraordinariness, data2$T1_Extraordinariness, paired=TRUE)')
-  Hint: Use ?t.test if you have questions. Also remember to be using data2$ !
+  Output: Test one of these response variables. Be sure that your answer takes the data (goalsdf), pipes it (|>) into t.test(), where your equation should be your chosen response variable ~ the grouping explanatory variable, and then data=_ and var.equal=TRUE. 
+  CorrectAnswer: goalsdf |> t.test(progress ~ condition, data=_, var.equal=TRUE)
+  AnswerTests: any_of_exprs('goalsdf |> t.test(progress ~ condition, data=_, var.equal=TRUE)', 'goalsdf |> t.test(have.goal.importance ~ condition, data=_, var.equal=TRUE)', 'goalsdf |> t.test(achieve.goal.importance ~ condition, data=_, var.equal=TRUE)', 'goalsdf |> t.test(difficult.achieve ~ condition, data=_, var.equal=TRUE)')
+  Hint: There are many, but for example, try goalsdf |> t.test(progress ~ condition, data=_, var.equal=TRUE)
 
-- Class: mult_question
-  Output: Based on this test, what is the t statistic?
-  AnswerChoices: 4.177; 0.9554; 4.8079; 0.3983; 0.6769; 129
-  CorrectAnswer: 4.8079
-  AnswerTests: omnitest(correctVal='4.8079')
+- Class: text
+  Output: Great job! That's all. 
 
-- Class: mult_question
-  Output: Based on this test, what is the degrees of freedom?
-  AnswerChoices: 4.177; 0.9554; 4.8079; 0.3983; 0.6769; 129
-  CorrectAnswer: 129
-  AnswerTests: omnitest(correctVal='129')
-
-#33
+  
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
   AnswerChoices: Yes;No
   CorrectAnswer: NULL
   AnswerTests: submit_log()
-  Hint: hint
-
-- Class: mult_question
-  Output: Would you like to answer five short questions about this lesson to Google Forms so that your instructor may evaluate your opinion on this lesson and improve it for others?
-  AnswerChoices: Yes;No
-  CorrectAnswer: NULL
-  AnswerTests: submit_log_two()
   Hint: hint

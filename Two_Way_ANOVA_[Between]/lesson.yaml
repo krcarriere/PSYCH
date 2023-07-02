@@ -3,174 +3,164 @@
   Lesson: Two Way ANOVA [Between]
   Author: Kevin R. Carriere
   Type: Standard
-  Organization: Georgetown University
+  Organization: Washington & Jefferson College
   Version: 2.4.3
+
 #1
+- Class: script
+  Output: To save the notes for this module, copy and paste the code provided into your own RNotebook. Type submit() when you have finished saving these notes. 
+  AnswerTests: script_results_identical('saved')
+  Hint: "Don't change anything, just type submit(). If you did and you don't know how to fix it, just type skip() and you'll be all set."
+  Script: Notes.R
+
 - Class: text
-  Output: In the last class, we reviewed a one-way ANOVA, where a single factor, or variable, with more than 2 levels, was tested.
-#2
+  Output: Today, we are going to go over Factorial ANOVAs when all factors are between-subjects; that is, there can only be one observation per combination of conditions.
+
 - Class: text
-  Output: But, the world is not simply just one variable. There are many variables in the world. And, there are many variables that effect different people differently.
-  #3
+  Output: This module will give an example of a 2x4 and a 2x2, but the same logic and code would equally apply to a 2x2x2 and other designs.
+  
 - Class: text
-  Output: For example, we may have a drug. It could have two levels - either you're given the drug, or you're not. We also record your gender - either you are male, or you are female.
-#4
-- Class: text
-  Output: In this case, we have four groups - males with the drug, males without the drug, females with the drug, females without the drug.
+  Output: To do that, we are going to look at two studies and replicate some of their results.
 #5
 - Class: text
-  Output: ANOVAs can tell us many things. They can tell us then the effect of gender, the effect of the drug, and the effect of the drug depending on gender. 
-#6 
-- Class: cmd_question
-  Output: "So, today, we are going to analyze results from an actual paper, and run our first ANOVA on it. Researchers went to a train track, and recruited 100 participants standing on the Eastbound track and 100 standing on the Westbound track. They were randomly assigned to rate how far away they felt a stop was. The stop was either one or two stops ahead or behind them (So, either 1 stop ahead, 2 stops ahead, 1 stop behind, 2 stops behind). In reality, the stops are equally spread apart. The research question was this - do people subjectively feel that their destination is closer or further away than where they are coming from (behind them)? \n\nI've loaded their dataset, called data. Check the top six rows by calling head(data). \n\nTo see the full citation, see Maglio, S. J., & Polman, E. (2014). Spatial orientation shrinks and expands psychological distance. Psychological Science. 25(7). 1345-1352."
-  CorrectAnswer: head(data)
-  AnswerTests: omnitest(correctVal='head(data)')
-  Hint: head(data)
-#7
+  Output: The first paper has a study that is extremely easy to replicate! They went up to people on a train track and asked them a single question. 
+  
 - Class: text
-  Output: "Great job! You can see that there is a variable called stationname. This is one of four station names the researchers asked participants about. \n\n The second variable is called directionf. We will see later it is either Traveling East or Traveling West. Finally, there is a rating of subjective distance."   
-#8
-- Class: mult_question
-  Output: "This dataset includes two independent variables. One, stationname, has four different stations. The other, directionf, has two different directions. Participants could only be a part of one condition. If we were discussing the kind of ANOVA we would be running, we'd say it was a:"
-  AnswerChoices: 2x2 Between Subjects ANOVA;2x2x2x2 ANOVA;2x4 Between Subjects Design;2x4 Within Subjects Design;2x4 Mixed Design
-  CorrectAnswer: "2x4 Between Subjects Design"
-  AnswerTests: omnitest(correctVal='2x4 Between Subjects Design')
-#9
-- Class: mult_question
-  Output: "Great. What were they measuring - as in, what was their outcome of interest - what was their dependent variable?"
-  AnswerChoices: Direction Facing; Station Name; Participant Number; Subjective Distance Away
-  CorrectAnswer: "Subjective Distance Away"
-  AnswerTests: omnitest(correctVal='Subjective Distance Away')
+  Output: "The citation is - Maglio, S. J., & Polman, E. (2014). Spatial orientation shrinks and expands psychological distance. Psychological Science. 25(7). 1345-1352."
+
+- Class: text
+  Output: "As mentioned, researchers went to a train track. They recruited 100 participants standing on the Eastbound track and 100 standing on the Westbound track. They were randomly assigned to rate how far away they felt a stop was. The stop under question was either one or two stops ahead or behind them (So, either 1 stop ahead, 2 stops ahead, 1 stop behind, 2 stops behind, where behind/ahead depends on direction they were headed)."
+
+- Class: cmd_question
+  Output: "Importantly, the distance from 2-1-0-1-2 was equidistance in reality. The research question was this - do people subjectively feel that their destination is closer or further away than where they are coming from (behind them)? \n\nI've loaded their dataset, called data. Check data by piping (|>) the data into summary()."
+  CorrectAnswer: data |> summary()
+  AnswerTests: omnitest(correctExpr='data |> summary()')
+  Hint: data |> summary()
+
+
+- Class: text
+  Output: "Great job! The first variable is orientation, with N=101 Eastbound and N=101 Westbound.  \n\n The second variable is called station. This is one of four station names the researchers asked participants about. \n\n Finally, there is a rating of subjective distance."   
+
 #10
 - Class: cmd_question
-  Output: "Great! Now let's run our ANOVA. We're going to use the function aov(), which we'll pass this other function, lm(). Inside of lm(), it will take two arguments. The first, data=, needs to correspond to our dataset, which we have called data. The second is an equation. The way we write equations in R is by dependentvariable ~ independentvariable*independentvariabletwo. We'll save this all under a new variable, results."
-  CorrectAnswer: results <- aov(lm(data=data, subjective_distance~stationname*directionf))
-  AnswerTests:  expr_creates_var('results'); any_of_exprs('results <- aov(lm(data=data, subjective_distance~stationname*directionf))', 'results <- aov(lm(data=data, subjective_distance~directionf*stationname))')
-  Hint: "There are two factors - stationname and directionf. Did you remember to save it as a variable called results? Finally, because we're doing an ANOVA, we want to include the interaction. * means interaction, + means just an additional variable. "
-#11
-- Class: cmd_question
-  Output: "Now let's see the results by using the summary() function, passing our ANOVA results, saved as results, to it."
-  CorrectAnswer: summary(results)
-  AnswerTests: omnitest(correctExpr='summary(results)')
-  Hint: summary(results)
-#12
-- Class: mult_question
-  Output: Which variable is not significantly different from each other?
-  AnswerChoices: Station Name; Direction Facing; The Interaction Between Station Name and Direction Facing; Residuals
-  CorrectAnswer: "Direction Facing"
-  AnswerTests: omnitest(correctVal='Direction Facing')
-#13
-- Class: mult_question
-  Output: What can we say about Station Name's significance?
-  AnswerChoices: There is a different but we dont know where; All of them are different from each other; None of them are different
-  CorrectAnswer: "There is a different but we dont know where"
-  AnswerTests: omnitest(correctVal='There is a different but we dont know where')
-#14
+  Output: The first thing we should check is if the data is balanced (That there are an equal number of observations per cell). By the summary alone, we should be able to tell that it won't be, because there are odd numbers in the levels of both factors. Let's take data and pipe (|>) it into select(), where we can list our two factor variables (orientation and station), and then pipe (|>) that into table(). 
+  CorrectAnswer: data |> select(orientation, station) |> table()
+  AnswerTests: omnitest(correctExpr='data |> select(orientation, station) |> table()')
+  Hint: data |> select(orientation, station) |> table()
+
 - Class: text
-  Output: "Exactly. So, we need to run something called post hoc tests. What this does is run t-tests between each of our different groups. Remember we have a 2x4 design, or eight possible conditions. So, there's A, B, C, D, E, F, G, H. Consider that we would need to test A->B, A->C, A->D, A->E, A->F, A->G, and A->H. Then B->C (not B->A because we already tested that). All the way down! We can generalize this idea that for N groups, take N-1, and then add up each number from that on"
-#15
+  Output: Great job. The data is unbalanced. This is an important and frequently overlooked problem with ANOVAs. While ANOVAs will report the same results if factors are balanced, there is small but important differences if our factors are unbalanced in any way (and the more unbalanced, the more differences!). We show this in the Notes with a full example. 
+
 - Class: text
-  Output: "For example, in a study with 6 conditions, N=6 groups. N-1=5. So, 5+4+3+2+1=15. There are 15 different t.tests we can run if we had 6 groups! If you like formulas, it can also be written as k(k-1)/2 where k=number of groups."
+  Output: The quick and dirty takeaway that we will operate under is that if running an ANOVA with an interaction effect and unbalanced groups in your model, you should report Type II sum of squares if the interaction is non-significant and Type III sum of squares if the interaction is significant. 
+
+- Class: text
+  Output: "Some citations to learn more about the Types of Sum of Squares include - Shaw, R. G., & Mitchell-Olds, T. (1993). Anova for Unbalanced Data- An Overview. Ecology, 74(6), 1638–1645. doi.org/10.2307/1939922 \n\n Hector, A., von Felten, S., & Schmid, B. (2010). Analysis of variance with unbalanced data- An update for ecology & evolution. Journal of Animal Ecology, 79(2), 308–316. doi.org/10.1111/j.1365-2656.2009.01634.x."
+
+- Class: text
+  Output: These citations are also in the notes.
+
+- Class: text
+  Output: "The authors write - We carried out a 2 (orientation: toward, away from) × 4 (station: Spadina, St. George, Bloor-Yonge, Sherbourne) analysis of variance  (ANOVA) on closeness ratings, which revealed no main effect of orientation, F < 1, and a main effect of station, F(3, 194) = 24.10, p < .001,  partial eta sq = .27. \n\n  This main effect was qualified by the predicted interaction between orientation and station, F(3, 194) = 16.28, p < .001, partial eta sq = .20."
+
 #16
-- Class: mult_question
-  Output: "So, knowing this: Our study was a 4x2, or eight conditions. How many different t.tests can we run against 8 conditions?"
-  AnswerChoices: 8;4;28;20;15 
-  CorrectAnswer: "20"
-  AnswerTests: omnitest(correctVal="20")
-#17
 - Class: cmd_question
-  Output: "Great. So, let's see those 20 t.tests appear. In class, we'll talk about adjusting our p-value. For now, run the TukeyHSD() function from the stats package, and in that function, pass our results into it."
-  CorrectAnswer: stats::TukeyHSD(results)
-  AnswerTests: omnitest(correctVal='stats::TukeyHSD(results)')
-#18
+  Output: Now let us run our ANOVA. To do so, take our data (data) and pipe (|>) it into the anova_test() function in the rstatix package. It will take three arguments - the first, the formula, which we want to predict subjective_distance by (~) the interaction (*) of orientation and station. Instead of adding (+) these factors, we use * to symbolize the interaction between them. We will also pass a second argument stating that type=3. And finally, our last argument, effect.size, should be set equal to 'pes' for partial eta squared. Try that now.
+  CorrectAnswer: data |> anova_test(subjective_distance ~ orientation * station, type = 3, effect.size='pes')
+  AnswerTests: omnitest(correctExpr='data |> anova_test(subjective_distance ~ orientation * station, type = 3, effect.size="pes")')
+  Hint: "data |> anova_test(subjective_distance ~ orientation * station, type = 3, effect.size='pes')"
+  
 - Class: text
-  Output: "There's a lot! Like we said. It might be best to visualize these results. For the rest of this class, we're going to build together a script that will summarize our results and plot them using ggplot2."
-#19
-- Class: script
-  Output: "I just opened an R script for you. For this question, you will be editting a  function from plyr in the script. Your goal is to re-create the example output shown in the  comments of the script. When you are ready to submit your script, save the script and type 'submit()', or type 'reset()' to reset  the script to its original state."
-  AnswerTests: script_results_identical('new_data')
-  Hint: Order does matter here, so be sure directionf is the first factor you list.
-  Script: ddply_step1.R
+  Output: What we like about anova_test() is that it gives us all of the information reported in one go, and allows us to explicitly call out the type of sum of squares. 
+
+- Class: figure
+  Output: We plot the results here (you'll probably need to readjust your plot window to see it) in our best attempt to replicate their Figure from the paper. A fun fact - the note in their paper states that the bars represent +/- 1 standard error. However, in order to replicate it, we actually need to plot +/- 1.96 standard errors! 
+  Figure: Figure1.R
+  FigureType: New
+
+- Class: text
+  Output: Looking at the graph, what they want to see is whether or not, for example, "Distance from Spadina" is different based on where you are going - Westbound or Eastbound. Each 'stop' needs to be compared - remember, they're all at the same place - they're simply just going in opposite directions! The interaction was significant, so we know that the effect of station does depend on the effect of orientation. But which ones?
+
+- Class: text 
+  Output: We're going to test these differences by using planned comparisons. Planned comparisons is a specific type of post-hoc test when we have specific, a priori comparisons that we want to make - here, we know prior to running the study the comparisons we actually care about is the group differences at each station. This is especially important for this study - with 8 different groups, that is a total of 28 possible comparisons!
 #20
-- Class: script
-  Output: "Great job. Now we need to create 3 more variables - the mean for each group,  the standard deviation for each group, and the standard error for each group. When you are ready to submit your script, save the script and type 'submit()', or type 'reset()' to reset  the script to its original state."
-  AnswerTests: script_results_identical('new_data')
-  Hint: SE can be calculated as SD/sqrt(N).
-  Script: ddply_step2.R
+- Class: cmd_question
+  Output: We're going to take this in three steps. First, we need to rewrite our analysis. Instead of using anova_test(), we are going to pipe our data (data) to lm(). It will take two arguments, our formula (subjective_distance ~ orientation*station) and that data=_ . After that, we will pipe that result into the emmeans() function from the emmeans library, and pass that a single argument, ~orientation*station. 
+  CorrectAnswer: data |> lm(subjective_distance ~ orientation*station, data=_) |> emmeans(~orientation*station) 
+  AnswerTests: omnitest(correctExpr='data |> lm(subjective_distance ~ orientation*station, data=_) |> emmeans(~orientation*station) ')
+  Hint: data |> lm(subjective_distance ~ orientation*station, data=_) |> emmeans(~orientation*station) 
 
 #21
-- Class: cmd_question
-  Output: "Great. Type new_data to see what we've done."
-  CorrectAnswer: new_data
-  AnswerTests: omnitest(correctVal='new_data')
-
-#22
 - Class: script
-  Output: "Great job. Now we can start building our graph. We're actually going to build a graph very similar to the one in the paper! I opened a new script for you, ggplot_step1. Read the directions inside. When you are ready to submit your script, save the script and type 'submit()', or type 'reset()' to reset  the script to its original state."
-  AnswerTests: graph_results_identical('graph')
-  Hint: 
-  Script: ggplot_step1.R
-
-#23
+  Output: Great job. That got us a list of the 8 groups and their estimated marginal means (emmean). Now, if you were to count down, you could count 1, 2, 3... all the way to Westbound Sherbourne being 8.  I've opened up a script for the second part, where we need to declare what we want to compare. Be sure to save your work and then type submit().
+  AnswerTests: script_results_identical('Contrast_List')
+  Hint: Try skip() if you can't get it, and look to see how the answer looks.
+  Script: script1.R
+  
 - Class: cmd_question
-  Output: "Great. Type graph to see our first layer."
-  CorrectAnswer: graph
-  AnswerTests: omnitest(correctVal='graph')
+  Output: Now that we have the Contrast_List built correctly, let's hit up on our keyboard until we get to the function call that provided those emmeans() (starting by piping our data, and ending with emmeans(~orientation*station)). At this point, we just want to pipe one more thing in. So, take that, and pipe (|>) the contrast() function from emmeans, which will take two arguments, Contrast_List and adjust="sidak".
+  CorrectAnswer: data |> lm(subjective_distance ~ orientation*station, data=_) |> emmeans(~orientation*station) |> contrast(Contrast_List, adjust="sidak")
+  AnswerTests: omnitest(correctExpr='data |> lm(subjective_distance ~ orientation*station, data=_) |> emmeans(~orientation*station) |> contrast(Contrast_List, adjust="sidak")')
+  Hint: data |> lm(subjective_distance ~ orientation*station, data=_) |> emmeans(~orientation*station) |> contrast(Contrast_List, adjust="sidak")
 
-#24
-- Class: script
-  Output: "Now we can start building our graph lines. We're actually going to build a graph very similar to the one in the paper! I opened a new script for you, ggplot_step2. Read the directions inside. When you are ready to submit your script, save the script and type 'submit()', or type 'reset()' to reset  the script to its original state."
-  AnswerTests: graph_results_identical('graph')
-  Hint: 
-  Script: ggplot_step2.R
-
-#25
-- Class: cmd_question
-  Output: "Type graph again, see what we've done."
-  CorrectAnswer: graph
-  AnswerTests: omnitest(correctVal='graph')
-
-#26
-- Class: script
-  Output: "Now that we have lines, we'll add both standard error bars and dots to show where these lines end up.  I opened a new script for you, ggplot_step3. Read the directions inside. When you are ready to submit your script, save the script and type 'submit()', or type 'reset()' to reset  the script to its original state."
-  AnswerTests: graph_results_identical('graph')
-  Hint: 
-  Script: ggplot_step3.R
-
-#27
-- Class: cmd_question
-  Output: "Almost there, type graph to see what we've done."
-  CorrectAnswer: graph
-  AnswerTests: omnitest(correctVal='graph')
-
-#28
-- Class: script
-  Output: "Now that we have lines, we'll add both standard error bars and dots to show where these lines end up.  I opened a new script for you, ggplot_step3. Read the directions inside. When you are ready to submit your script,  save the script and type 'submit()', or type 'reset()' to reset the script to its original state."
-  AnswerTests: graph_results_identical('graph')
-  Hint: 
-  Script: ggplot_stepfinal.R
-
-#29
-- Class: cmd_question
-  Output: "Great job! You know the drill, type graph to see the final output."
-  CorrectAnswer: graph
-  AnswerTests: omnitest(correctVal='graph')
-
-#30
 - Class: text
-  Output: "Great job. You can check the paper yourself by going to this link: http://journals.sagepub.com/doi/pdf/10.1177/0956797614530571 and downloading the article yourself to see the graph. You did a very good job coming close to what they presented!"
+  Output: "The authors wished to replicate results that had orginially been found in previous research. The design of the study is a 2 ('time is money' mindset vs. control mindset) by 2 (additional compensation received vs. no additional compensation received) between subjects factorial design. Participants in the Time/Money condition completed a calculation task that involved determining their hourly wage starting from their annual income to activate a 'time is money' mindset. In the control condition, the calculation task consisted of multiplying together random 5-digit numbers. In the compensation condition, participants were informed that they would be paid an additional $0.50 for listening to a music track, while those in the non-compensation condition were not offered this extra monetary incentive."
 
-#31
+- Class: text
+  Output: The citation for this study is - Connors, S., Khamitov, M., Moroz, S., Campbell, L., & Henderson, C. (2016). Time, money, and happiness- Does putting a price on time affect our ability to smell the roses? Journal of Experimental Social Psychology, 67, 60-64. doi.org/10.1016/j.jesp.2015.08.005
+  
+- Class: cmd_question
+  Output: Let's look at the data by piping our dataset, buyhappy, into head().
+  CorrectAnswer: buyhappy |> head()
+  AnswerTests: omnitest(correctExpr='buyhappy |> head()')
+  Hint: buyhappy |> head()
+  
+- Class: cmd_question
+  Output: Let's first check if we have a balanced design. Remember, to do that, take our data, buyhappy, and pipe it into select, where we'll select the two variables, Comp and Mindset, and then pass that through table().
+  CorrectAnswer: buyhappy |> select(Comp, Mindset) |> table()
+  AnswerTests: omnitest(correctExpr='buyhappy |> select(Comp, Mindset) |> table()')
+  Hint: buyhappy |> select(Comp, Mindset) |> table()
+  
+- Class: text
+  Output: Oooh, not balanced. Okay, so we're going to need to pay attention to the type of sum of squares again.
+  #29
+- Class: cmd_question
+  Output: Let us pipe (|>) our dataset, buyhappy, into anova_test(), where we will try and predict individual's Happiness scores by (~) the interaction of Comp and Mindset, and set the second argument of type equal to 3. 
+  CorrectAnswer: buyhappy |> anova_test(Happiness ~ Comp*Mindset, type=3)
+  AnswerTests: omnitest(correctExpr='buyhappy |> anova_test(Happiness ~ Comp*Mindset, type=3)')
+  Hint: Try buyhappy |> anova_test(Happiness ~ Comp*Mindset, type=3) 
+
+- Class: text
+  Output: Great. Now, the authors write - "the nature of this interaction was contrary to that obtained by DeVoe and House. Simple effects analyses revealed that this interaction was driven by differences in compensation received in the control condition rather than the time/money condition. Specifically, participants who performed meaningless calculations reported greater enjoyment when they were explicitly compensated for listening to the music (M = 73.94, SD = 18.51) than when not compensated (M = 63.64, SD = 27.72). In contrast, participants who calculated their hourly wage did not differ in enjoyment scores from the music whether explicitly compensated to listen to it (M = 66.59, SD = 22.37) or not (M = 72.38, SD = 20.17), p = .150"
+  
+- Class: text
+  Output: Let us assume they do not know where these differences lie. 
+
+- Class: cmd_question
+  Output: To do post-hoc comparisons, where we want to test every combination, we will pass our data, buyhappy, and then (|>) use the lm() function with two arguments, Happiness ~ Comp*Mindset and data=_ , and then |> we will pass it the emmeans() function from the emmeans library with the single argument ~Comp*Mindset , and then (|>) we will call the last function, pairs(). Do that now.
+  CorrectAnswer: buyhappy |> lm(Happiness ~ Comp*Mindset, data=_) |> emmeans(~Comp*Mindset) |> pairs()
+  AnswerTests: omnitest(correctExpr='buyhappy |> lm(Happiness ~ Comp*Mindset, data=_) |> emmeans(~Comp*Mindset) |> pairs()')
+  Hint: buyhappy |> lm(Happiness ~ Comp*Mindset, data=_) |> emmeans(~Comp*Mindset) |> pairs()
+  
+- Class: script
+  Output: Let's practice summarising our data by our groups to get those means and standard deviations they reported. When you have finished the script, be sure to save and then type submit().
+  AnswerTests: script_results_identical('sumdata')
+  Hint: Try skip() if you can't get it, and look to see how the answer looks.
+  Script: script2.R
+  
+  #34
+- Class: cmd_question
+  Output: Print out your output by entering sumdata into the console now.
+  CorrectAnswer: sumdata
+  AnswerTests: omnitest(correctExpr='sumdata')
+  Hint: Try typing sumdata into your console now.
+  
+- Class: text
+  Output: Great. We kept the full discussion of sum of squares type within the Notes, so be sure to check it out, as well as the citations we provided for even more learning.
+  
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
   AnswerChoices: Yes;No
   CorrectAnswer: NULL
   AnswerTests: submit_log()
-  Hint: hint
-
-- Class: mult_question
-  Output: Would you like to answer five short questions about this lesson to Google Forms so that your instructor may evaluate your opinion on this lesson and improve it for others?
-  AnswerChoices: Yes;No
-  CorrectAnswer: NULL
-  AnswerTests: submit_log_two()
   Hint: hint

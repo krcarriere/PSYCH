@@ -1,0 +1,151 @@
+- Class: meta
+  Course: Psychological Statistics You Can Handle
+  Lesson: Welch's Two Sample T-Tests
+  Author: Kevin R. Carriere, Jason Kilgore
+  Type: Standard
+  Organization: Washington & Jefferson College
+  Version: 2.4.3
+
+- Class: script
+  Output: To save the notes for this module, copy and paste the code provided into your own RNotebook. Type submit() when you have finished saving these notes. 
+  AnswerTests: script_results_identical('saved')
+  Hint: "Don't change anything, just type submit(). If you did and you don't know how to fix it, just type skip() and you'll be all set."
+  Script: Notes.R
+  
+- Class: text
+  Output: This module will be relatively short, but you should consider taking the Independent Samples T-Test module and Levene's Test section first. 
+  
+- Class: text
+  Output: As a reminder, the assumptions of the independent samples t-test are as follows-
+  
+- Class: text
+  Output: (1) Independence of observations. Each subject should only belong to one group. 
+
+- Class: text
+  Output: (2) Random samples. Both samples must be randomly sampled from the population.
+
+- Class: text
+  Output: (3) Normal distribution. The response variable is normally distributed between each population.
+  
+- Class: text
+  Output: (4) Equivalence of variances. The standard deviation of the distribution is equal in both populations. 
+
+- Class: text
+  Output: This module will focus on the 4th assumption - that the variances between the groups is equal. In particular, what happens when we cannot meet that assumption?
+
+- Class: figure
+  Output: If our two groups have unequal variances, we have to turn to a Welch's T Test. While the independent samples t-test uses a pooled variance in SE, Welch's uses each group's variance in the equation itself, weighting each by the number of observations per group.
+  Figure: welchttest.R
+  FigureType: new
+
+- Class: figure
+  Output: We also punish ourselves for having unequal variances by changing the way we calculate degrees of freedom. If you see a decimal point degrees of freedom, it may suggest that the researchers have in some way tried to account for unequal variances. The equation, as you can see to the right, is pretty long.
+  Figure: welchdf.R
+  FigureType: new
+
+
+- Class: text
+  Output: To understand this test, it's important to work through an example.
+
+- Class: text
+  Output: "Researchers wanted to test if there was a difference in perception between individuals who conceal an identity compared to those who disclose an identity."
+
+- Class: text
+  Output: They write - "After being informed that they would be introduced to a person named 'S' participants in the concealment condition read- 'S holds an identity. Other people do not know  that S holds this identity, because S conceals it from them.” In the disclosure condition, participants read- “S holds an identity. Other people know that S   holds this identity, because S discloses it to them."
+
+- Class: text
+  Output: They then had participants rate S on a series of questions, including their morality and their sociability.
+  
+- Class: text
+  Output: "The citation for this study is Le Forestier, J. M., Page-Gould, E., & Chasteen, A. L. (2022). Concealment stigma: The social costs of concealing. Journal of Experimental Social Psychology, 101, 104340. doi.org/10.1016/j.jesp.2022.104340"
+ 
+- Class: cmd_question
+  Output: The data is loaded into your environment as concealed. Let's view it now by piping (|>) concealed into head().
+  CorrectAnswer: concealed |> head()
+  AnswerTests: omnitest(correctExpr='concealed |> head()')
+  Hint: concealed |> head()
+
+- Class: text
+  Output: The authors write - "A Welch two-sample t-test was conducted to test the effect of condition on perceptions of morality. Participants viewed the target who concealed as less moral (M = 1.74, SE = 0.08) than the target who disclosed (M = 3.49, SE = 0.09; t(404.41) = 14.54, p < .001, d = 1.39; see Fig. 1 for all Study 1 results)."
+  
+- Class: text
+  Output: Prior, they had written - "Homogeneity of variance was assessed for each model prior to analysis. Student’s t-tests were computed where that assumption was met and Welcht-tests were conducted where it was not."
+
+- Class: text
+  Output: Thus, it seems like the authors are suggesting that the variances of perceptions of morality are not equal between the groups. How can we test that? 
+  
+- Class: cmd_question
+  Output: To do this, let's use the levene_test() function from the rstatix package. Start by piping (|>) your dataset (concealed) into levene_test(). It will take a single argument, the equation, which will be moral ~ condition. Try that now. 
+  CorrectAnswer: concealed |> levene_test(moral~condition)
+  AnswerTests: omnitest(correctExpr='concealed |> levene_test(moral~condition)')
+  Hint: concealed |> levene_test(moral~condition)
+
+- Class: text
+  Output: Great job. We can see that the null hypothesis of the homogeneity of variances between the two groups is rejected, suggesting that they do not have equal variances. 
+  
+- Class: figure
+  Output: And we can see in this violin plot a bit of these differences in variances.
+  Figure: Figure1.R
+  FigureType: new
+
+- Class: text
+  Output: Now that we have shown that the variances are not equal, we can proceed using Welch's T-Test. The great thing about Welch's Two Sample T-Test is that it is the default t-test in R. 
+  
+- Class: cmd_question
+  Output: Let's run a Welch's t-test on the data, seeing if concealing a hidden identity changes perceptions of morality. Take our data, concealed, and pipe it (|>) into the t.test() function. Pass that function three arguments, moral~condition, data=_, and var.equal=FALSE.
+  CorrectAnswer: concealed |> t.test(moral~condition, data=_, var.equal=FALSE)
+  AnswerTests: omnitest(correctExpr='concealed |> t.test(moral~condition, data=_, var.equal=FALSE)')
+  Hint: concealed |> t.test(moral~condition, data=_, var.equal=FALSE)
+
+- Class: text
+  Output: An important part to know that makes this the degrees of freedom of the t-test decimals. While dfs are commonly N minus some number, Welch's t-test generally creates fractional degrees of freedom, and generally also makes them smaller by quite a bit (consider that a normal t-test would have df=437)!.
+
+- Class: script
+  Output: The next part of their sentence called out the means and standard errors. Let's calculate those now. 
+  AnswerTests: script_results_identical('sum_moral')
+  Hint: Follow the notes in the script, and be sure you saved your script (using the save button or ctrl+S) before typing submit() in the Console.
+  Script: summarise.R
+
+- Class: cmd_question
+  Output: Print out the results of your script in the console now by typing in sum_moral. 
+  CorrectAnswer: sum_moral
+  AnswerTests: omnitest(correctExpr='sum_moral')
+  Hint: Type sum_moral.
+  
+- Class: text
+  Output: And finally, we can also get that effect size they report. 
+
+- Class: cmd_question
+  Output: To get their effect size, we need to use a new function, and we will pipe (|>) our data (concealed) into it.  In the lsr library, there is a function called cohensD(). It takes at least two inputs, the formula (moral ~ condition), the data (for us, because we are piping, remember data=_). Let's try just those two inputs now.
+  CorrectAnswer: concealed |> cohensD(moral~condition, data=_)
+  AnswerTests: omnitest(correctExpr='concealed |> cohensD(moral~condition, data=_)')
+  Hint: concealed |> cohensD(moral~condition, data=_)
+
+- Class: cmd_question
+  Output: Finally, scroll back up to your t-test, but this time, delete the argument in t.test() that said var.equal=FALSE. 
+  CorrectAnswer: concealed |> t.test(moral~condition, data=_)
+  AnswerTests: omnitest(correctExpr='concealed |> t.test(moral~condition, data=_)')
+  Hint: concealed |> t.test(moral~condition, data=_)
+
+- Class: text
+  Output: The same output was given! That's because R uses Welch's T-test as the default.
+
+- Class: text
+  Output: We want to take this last moment to explain a little bit on why R uses Welch's as the default. The general argument is that it loses very little power (the ability to detect an effect if an effect does exist) if the variances are equal (i.e., you could use Student's t-test) (c.f., Delacre, Lakens, & Leys, 2017) - they go as far as to say run Welch's without considering equal variances at all. 
+
+- Class: text
+  Output: The strength of a Student's T-Test really only shines if the Ns of the smaller group is severely small (N<=5) (de Winter, 2013). 
+  
+- Class: text
+  Output: Since we rarely have a study with groups as small as 5, then it seems best practice to use Welch's as the default, especially due to a minimal loss of power.
+  
+- Class: text
+  Output: Citations are also in the Notes, but see de Winter, J. C. F. (2013). Using the Student’s t-test with extremely small sample sizes. Practical Assessment, Research, and Evaluation, 18(10). doi.org/10.7275/E4R6-DJ05 and Delacre, M., Lakens, D., & Leys, C. (2017). Why Psychologists Should by Default Use Welch’s t-test Instead of Student’s t-test. International Review of Social Psychology, 30(1), 92–101. doi.org/10.5334/irsp.82
+  
+    
+- Class: mult_question
+  Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
+  AnswerChoices: Yes;No
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: hint
