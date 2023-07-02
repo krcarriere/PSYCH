@@ -1,5 +1,0 @@
-swirl
-ggplot2
-psych
-caTools
-base64enc
