@@ -1,5 +1,4 @@
-# One Sample T-Tests
-
+# Pivoting Data
 script_results_identical <- function(result_name) {
   # Get e
   e <- get('e', parent.frame())
@@ -27,6 +26,7 @@ script_results_identical <- function(result_name) {
 }
 
 
+
 getState <- function(){
   #Whenever swirl is running, its callback is at the top of its call stack.
   #Swirl's state, named e, is stored in the environment of the callback.
@@ -42,8 +42,7 @@ submit_log <- function(){
   selection <- getState()$val
   if(selection == "Yes"){
     # Please edit the link below
-    
-    pre_fill_link <- "https://docs.google.com/forms/d/e/1FAIpQLSc6me07p5aQqP-yrIst2okU64WNzW7KlkYf3cPQktS_TuxK8g/viewform?usp=pp_url&entry.996111921"
+    pre_fill_link <- "https://docs.google.com/forms/d/e/1FAIpQLScTmvqFc5byz2Bk3GpFXnWXa2TPTOJE7Zo-lcfdCq2kZYMTrQ/viewform?usp=pp_url&entry.996111921"
     # Do not edit the code below
     if(!grepl("=$", pre_fill_link)){
       pre_fill_link <- paste0(pre_fill_link, "=")

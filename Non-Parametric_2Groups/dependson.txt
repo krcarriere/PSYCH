@@ -1,0 +1,9 @@
+swirl
+swirlify
+datarium
+ggplot2
+rstatix
+stringr
+tidyr
+dplyr
+base64enc

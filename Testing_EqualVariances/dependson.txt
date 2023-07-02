@@ -1,0 +1,7 @@
+swirl
+dplyr
+lmtest
+rstatix
+latex2exp
+base64enc
+ggplot2

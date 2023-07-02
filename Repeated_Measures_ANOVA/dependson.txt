@@ -1,0 +1,11 @@
+stringr
+swirl
+rstatix
+apaTables
+lmerTest
+multcompView
+emmeans
+dplyr
+ggplot2
+latex2exp
+base64enc

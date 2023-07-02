@@ -1,0 +1,8 @@
+swirl
+dplyr
+ggplot2
+rstatix
+rcompanion
+caTools
+base64enc
+egg

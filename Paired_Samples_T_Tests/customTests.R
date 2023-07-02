@@ -1,4 +1,4 @@
-# One Sample T-Tests
+# Paired T-Test Form
 
 script_results_identical <- function(result_name) {
   # Get e
@@ -42,8 +42,8 @@ submit_log <- function(){
   selection <- getState()$val
   if(selection == "Yes"){
     # Please edit the link below
-    
-    pre_fill_link <- "https://docs.google.com/forms/d/e/1FAIpQLSc6me07p5aQqP-yrIst2okU64WNzW7KlkYf3cPQktS_TuxK8g/viewform?usp=pp_url&entry.996111921"
+    #pre_fill_link <- "https://docs.google.com/forms/d/e/1FAIpQLSe6dnM8D9WY_3xHH1eS3Gct-F79ywZOfSQxKpNX-lJM0eQIMg/viewform?usp=pp_url&entry.1487757760"
+    pre_fill_link <- "https://docs.google.com/forms/d/e/1FAIpQLSeu7PX2WokER9iRqxt4amv8VmzZgfgUxE30hlvAZisu9HeP5w/viewform?usp=pp_url&entry.996111921"
     # Do not edit the code below
     if(!grepl("=$", pre_fill_link)){
       pre_fill_link <- paste0(pre_fill_link, "=")
@@ -68,3 +68,4 @@ submit_log <- function(){
     browseURL(paste0(pre_fill_link, encoded_log))
   }
 }
+

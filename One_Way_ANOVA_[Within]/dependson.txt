@@ -1,0 +1,11 @@
+swirl
+swirlify
+rstatix
+emmeans
+lmerTest
+lme4
+datarium
+tidyr
+dplyr
+caTools
+base64enc

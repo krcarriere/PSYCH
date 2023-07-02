@@ -1,0 +1,139 @@
+- Class: meta
+  Course: Psychological Statistics You Can Handle
+  Lesson: One-Way ANOVA [Within]
+  Author: Kevin R. Carriere
+  Type: Standard
+  Organization: Washington & Jefferson College
+  Version: 3.0.0
+
+#1
+- Class: script
+  Output: Here are some notes for this module. When you've saved the notes, type submit().
+  AnswerTests: script_results_identical('saved')
+  Hint: Make sure the last line in your script says saved <- "Y".
+  Script: Notes.R
+
+- Class: text
+  Output: It may be beneficial to you to take the Pivoting Data module before this module, or immediately after, in order to get context for what it means for a dataset to be 'long'.
+
+- Class: text
+  Output: It also may benefit you to review the Paired T-Test module, as we have a good discussion in the Notes about the problems with estimating effect sizes for within-subjects/repeated measures designs.
+
+- Class: text
+  Output: While t-tests can test the difference between Group 1 and Group 2, it cannot test the difference between Group 1, 2, and 3. In order to do that, we would need to run 3 different t-tests (1-2; 2-3; 1-3).
+
+- Class: text
+  Output: This risks inflating our Type I error rate and finding significant differences when the truth is that they are not different. An ANOVA is an omnibus test - it asks "Is there differences between these groups?" without stating where those differences lie. 
+
+- Class: text
+  Output: Overall, R is much happier to analyze data that is between subjects - that is, each person gets exposed to only one condition. It is slightly less well-behaved when we start asking about repeated-measures or within-subject designs, where people are exposed multiple times to multiple different things or measured at multiple time points.
+  
+- Class: text
+  Output: Still, we have tools to tackle these issues, and the notes have other options for you to consider as well.
+  
+- Class: text
+  Output: "We are going to analyze data published on Psychological Science. Participants with neck pain viewed 6 virtual reality scenes while sitting in a chair. The researchers manipulated the VR system to provide normal rotation feedback, reduced rotation feedback, and more rotation feedback and measured how far each participant could move their neck before they experienced pain. "
+  
+- Class: text
+  Output: "The citation is Harvie, D. S., Broecker, M., Smith, R. T., Meulders, A., Madden, V. J., & Moseley, G. L. (2015). Bogus Visual Feedback Alters Onset of Movement-Evoked Pain in People With Neck Pain. Psychological Science, 26(4), 385–392. doi.org/10.1177/0956797614563339"
+
+#10
+- Class: cmd_question
+  Output: I've loaded the data into your environment called pain. Let's look at it by piping pain into head().
+  CorrectAnswer: pain |> head()
+  AnswerTests: omnitest(correctExpr='pain |> head()')
+  Hint: Try pain |> head(). 
+
+- Class: text
+  Output: Notice there are three columns - one that lumps all of the conditions together (Feedback), and one that represents the response variable, how much neck rotation they could preform (Rotation), and a variable called rowid, which represents the participant.
+
+- Class: text
+  Output: We should immediately notice two things based on this. One- this must be repeated measures, since the participant rowid 1 appears multiple times, and since it is formated like this, the data is in the 'long' format already. And, sine we see that rowid 1 appears three times, we can imagine there are three levels to Feedback - Understated, Accurate, Overstated.
+
+- Class: text
+  Output: The authors write - "The repeated measures ANOVA revealed a large overall effect of visual-proprioceptive feedback (condition) on pain-free range of motion F(2, 94) = 18.9, p < .001, ηp 2 = 0.29." 
+
+- Class: cmd_question
+  Output: To analyze this, we will use the anova_test() function in the rstatix package. It takes our dataset, pain, which is piped (|>) into anova_test(). We will then set the dv (dependent variable) argument equal to Rotation, the wid (within-subject ID) argument equal to rowid, and the within argument equal to Feedback, and the effect.size argument equal to "pes" (partial eta squared). Try this now.
+  CorrectAnswer: pain |> anova_test(dv=Rotation, wid=rowid, within=Feedback, effect.size = "pes")
+  AnswerTests: omnitest(correctExpr='pain |> anova_test(dv=Rotation, wid=rowid, within=Feedback, effect.size = "pes")') 
+  Hint: Try pain |> anova_test(dv=Rotation, wid=rowid, within=Feedback, effect.size = "pes"). 
+
+- Class: text
+  Output: Great job. We've achieved the results they mentioned. While they report the partial eta squared, some argue that the default for anova_test(), generalized eta-squared, is a more robust measure of effect size (see Bakeman, 2005) while others suggest reporting both, such as (Lakens, 2013). 
+  
+- Class: text
+  Output: "Bakeman, R. (2005). Recommended effect size statistics for repeated measures designs. Behavior Research Methods, 37(3), 379–384. doi.org/10.3758/BF03192707 \n\n Lakens, D. (2013). Calculating and reporting effect sizes to facilitate cumulative science- A practical primer for t-tests and ANOVAs. Frontiers in Psychology, 4. doi.org/10.3389/fpsyg.2013.00863."
+
+- Class: text
+  Output: However, we would be remiss if we did not discuss the other output that anova_test() gives that the authors did not consider (perhaps they used a different function).
+
+- Class: text
+  Output: Scroll back up to see the output that reads - $'Mauchly's Test for Sphericity'. An assumption of repeated measures is that the variances of the differences between groups are equal (this should remind you very much like our other variance-related tests). But, since it is the differences (T3-T2, T3-T1, T2-T1), the assumption only is relevant if the number of levels of any group is greater than 2 (T2-T1... nothing to compare!).
+
+- Class: text
+  Output: We note that there is concern about Mauchley's test due to low power (Abdi, 2010), but we have not found a suitable, user-friendly test in R with a different approach. 
+
+#20
+- Class: text
+  Output: Abdi, H. (2010). The greenhouse-geisser correction. In N. Salkind (Ed.), Encyclopedia of research design (pp. 1–10). Sage.
+  
+- Class: text
+  Output: If this test is significant, it means we have violated this assumption and we should correct our degrees of freedom. Since the p value is less than our alpha of .05, we reject the null that spherecity was not violated so we should correct our degrees of freedom. 
+
+- Class: text
+  Output: That brings us to the second output, $`Sphericity Corrections`. We want to examine the columns that say GGe and HFe. E stands for episilon, and GG and HF stand for different kind of corrections for the degrees of freedom. If either of these columns is greater than .75, then we will use the HF (Huynd-Feldt) correciton. If it is less than .75, we would use GG (Greenhouse-Geisser) (Haverkamp  & Beauducel 2017)).
+  
+- Class: text
+  Output: Haverkamp, N., & Beauducel, A. (2017). Violation of the Sphericity Assumption and Its Effect on Type-I Error Rates in Repeated Measures ANOVA and Multi-Level Linear Models (MLM). Frontiers in Psychology, 8, 1841. doi.org/10.3389/fpsyg.2017.01841
+  
+- Class: mult_question
+  Output: For this repeated measures ANOVA, do we correct our degrees of freedom, and if so, with which corrections?
+  AnswerChoices: Yes - use Greenhouse-Geisser corrections;Yes - use Huynd-Feldt corrections; No, proceed as the paper did. 
+  CorrectAnswer: Yes - use Huynd-Feldt corrections
+  AnswerTests: omnitest(correctVal='Yes - use Huynd-Feldt corrections')
+  Hint: Was Mauchley significant? If so, was GGe or HFe >.75?
+  
+- Class: cmd_question
+  Output: So, how do we apply these corrections? First, hit the up arrow to bring back your anova_test code. After everything you wrote, pipe that (|>) into the function get_anova_table() where we will give it one argument, correction="HF".
+  CorrectAnswer: pain |> anova_test(dv=Rotation, wid=rowid, within=Feedback, effect.size = "pes") |> get_anova_table(correction="HF")
+  AnswerTests: omnitest(correctExpr='pain |> anova_test(dv=Rotation, wid=rowid, within=Feedback, effect.size = "pes") |> get_anova_table(correction="HF")') 
+  Hint: Try pain |> anova_test(dv=Rotation, wid=rowid, within=Feedback, effect.size = "pes") |> get_anova_table(correction="HF").
+
+- Class: text
+  Output: Great job. Notably, this does not change the calculated F statistic, but due to an adjustment in the degrees of freedom, will change the underlying F critical value. 
+  
+- Class: text
+  Output: Next, the authors write - "All pairwise comparisons were significant (ps < .01). when vision understated true rotation, pain-free range of motion was increased, and this was a medium-sized effect, p = .006, d = 0.67. when vision overstated true rotation, pain-free range of motion was decreased, and this was a large effect, p = .001, d = 0.80."
+  
+- Class: text
+  Output: To get the rest of the results, we need to run two more lines of code. The first is going to get those p values they report.  
+
+- Class: cmd_question
+  Output: To do this, we are going to rewrite our anova as a linear mixed effect model with the random effect of participant. Pipe (|>) our data pain into the lmer() function from the lmerTest package. It will take two arguments, the formula, which is Rotation ~ Feedback + (1|rowid) [notice (1|rowid) represents the random effect of participant] and data=_. We will then pipe that into emmeans() from the emmeans package, which will take the argument ~Feedback, and then we will pipe that into pairs().
+  CorrectAnswer: 'pain |> lmer(Rotation ~ Feedback + (1|rowid), data=_) |> emmeans(~Feedback) |> pairs()'
+  AnswerTests: omnitest(correctExpr='pain |> lmer(Rotation ~ Feedback + (1|rowid), data=_) |> emmeans(~Feedback) |> pairs()')
+  Hint: Try pain |> lmer(Rotation ~ Feedback + (1|rowid), data=_) |> emmeans(~Feedback) |> pairs().
+
+#30
+- Class: cmd_question
+  Output: Finally, they report effect sizes of these comparisons. Another reminder, please check the Paired T-Tests for discussions about effect sizes for within-subject designs. Regardless, let's pipe (|>) our data pain into the cohens_d() function from rstatix and pass it a single formula, Rotation ~ Feedback. 
+  CorrectAnswer: pain |> cohens_d(Rotation ~ Feedback)
+  AnswerTests: omnitest(correctExpr='pain |> cohens_d(Rotation ~ Feedback)')
+  Hint: Try pain |> cohens_d(Rotation ~ Feedback)
+  
+- Class: cmd_question
+  Output: That was their results, yes! However, you forgot something! The data was paired, was it not? Hit the up arrow and add paired=TRUE as a second argument to cohens_d().
+  CorrectAnswer: pain |> cohens_d(Rotation ~ Feedback, paired=TRUE)
+  AnswerTests: omnitest(correctExpr='pain |> cohens_d(Rotation ~ Feedback, paired=TRUE)')
+  Hint: Add paired=TRUE as an argument in cohens_d(). 
+
+- Class: text
+  Output: That was just our little reminder to be sure to check the notes on the Paired T-Test module on effect sizes. As we said then, "It's the wild west out there!"
+
+- Class: mult_question
+  Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
+  AnswerChoices: Yes;No
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: hint

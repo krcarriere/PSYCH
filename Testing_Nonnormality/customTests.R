@@ -1,4 +1,4 @@
-# One Sample T-Tests
+# Testing Non-Normality
 
 script_results_identical <- function(result_name) {
   # Get e
@@ -25,6 +25,31 @@ script_results_identical <- function(result_name) {
   # Compare results
   identical(user_res, correct_res)
 }
+plot_results_identical <- function(result_name) {
+  # Get e
+  e <- get('e', parent.frame())
+  # Get user's result from global
+  if(exists(result_name, globalenv())) {
+    user_res <- get(result_name, globalenv())
+  } else {
+    return(FALSE)
+  }
+  # Source correct result in new env and get result
+  tempenv <- new.env()
+  # Capture output to avoid double printing
+  temp <- capture.output(
+    local(
+      try(
+        source(e$correct_script_temp_path, local = TRUE),
+        silent = TRUE
+      ),
+      envir = tempenv
+    )
+  )
+  correct_res <- get(result_name, tempenv)
+  # Compare results
+  all.equal(set_panel_size(user_res), set_panel_size(correct_res)) 
+}
 
 
 getState <- function(){
@@ -42,8 +67,7 @@ submit_log <- function(){
   selection <- getState()$val
   if(selection == "Yes"){
     # Please edit the link below
-    
-    pre_fill_link <- "https://docs.google.com/forms/d/e/1FAIpQLSc6me07p5aQqP-yrIst2okU64WNzW7KlkYf3cPQktS_TuxK8g/viewform?usp=pp_url&entry.996111921"
+    pre_fill_link <- "https://docs.google.com/forms/d/e/1FAIpQLSeQhEsdAyxs5tzPAWzF5WRDAAmTJ7nOHdQujDCeGAYJ3nDQyw/viewform?usp=pp_url&entry.996111921"
     # Do not edit the code below
     if(!grepl("=$", pre_fill_link)){
       pre_fill_link <- paste0(pre_fill_link, "=")

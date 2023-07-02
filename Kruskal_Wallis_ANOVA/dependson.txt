@@ -1,0 +1,5 @@
+swirl
+swirlify
+dplyr
+rstatix
+stringr

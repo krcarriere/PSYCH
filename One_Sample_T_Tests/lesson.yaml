@@ -1,149 +1,159 @@
 - Class: meta
-  Course: Psychology Statistics
-  Lesson: One Sample T Tests
-  Author: Kevin R. Carriere
+  Course: Psychological Statistics You Can Handle
+  Lesson: One Sample T-Tests
+  Author: Kevin R. Carriere, Jason Kilgore
   Type: Standard
-  Organization: Georgetown University
-  Version: 2.4.3
-#swirlify("One Sample T Tests", "UGPsychStats")
+  Organization: Washington & Jefferson College
+  Version: 3.0.0
+
+- Class: script
+  Output: Here are some notes for this module. When you've saved the notes, type submit().
+  AnswerTests: script_results_identical('saved')
+  Hint: Make sure the last line in your script says saved <- "Y".
+  Script: Notes.R
+
+- Class: figure
+  Output: The one sample t-test is relatively straight forward in mathematical terms. We have our sample mean, xbar, and we want to test if there is a difference between xbar and a hypothesized mean mu, and we calculate that by dividing that difference by the standard deviation divided by the square root of N, which is known as the standard error.
+  Figure: onesamplettest.R
+  FigureType: New
+  
 - Class: text
-  Output: In the last class, we talked about 1 sample z-tests. This is when we know the population mean and the population standard deviation.
+  Output: "There are two main assumptions for a one sample t-test. \n\n (1) The data is randomly sampled from the population. \n\n (2) The variable is normally distributed in the population."
 
 - Class: text
-  Output: However, much of the time we do not know this. 
+  Output: In psychology, we generally utilize a one sample t-test to compare against a scale midpoint, to show more agreement with some hypothesized value. In my work, we ask people "How much do you support human rights?" on a scale of 1 (Strongly Not Support) to 7 (Strongly Support)". We then use a one sample t-test against the hypothesized mean of 4 to show that our participants *do* support human rights more than the midpoint (Neither not support nor support).
   
 - Class: text
-  Output: If we do not receive information about the population standard deviation, then we need to use a different test - the t-test. 
-  
-- Class: text
-  Output: Now, there are many types of t-tests, so in this class we're going to focus on the simplest. The One-Sample T-Test.
-  
-- Class: text
-  Output: What this means is that we have a sample of people, and we want to see if they are significantly different than the population average (or some number).
+  Output: However, we also could pit two endpoints against themselves, and ask where participants' fall. Kind of like when those movies have two people claiming to be the dog's owner, and they stand on opposite sides of the dog and call to it -- which way does the dog run -- to the left, or to the right? This could be measured as a 1 sample t-test (comparing against the dog not choosing either and lying down in the middle).
 
 - Class: text
-  Output: You could imagine we know the average SAT score for the United States, and we want to test to see if the students in our class have, on average, a higher SAT score than the U.S. population. 
-  
-- Class: cmd_question
-  Output: Let's load the ttest formula. Type plot.equation(ttest) now.
-  CorrectAnswer: plot.equation(ttest)
-  AnswerTests: omnitest(correctExpr='plot.equation(ttest)')
+  Output: In one study, researchers wanted to test to see how people thought about their own purchases and how it defines themselves.
 
 - Class: text
-  Output: Great! You might need to use zoom to read it all. So, this should look very similar to the z-test formula we used last class. However, instead, you should notice something different.
+  Output: "The citation for this study is - Chen, E. Y., Chee, M. X., & Feldman, G. (2023). Revisiting the Differential Centrality of Experiential and Material Purchases to the Self- Replication and Extension of Carter and Gilovich (2012). Collabra: Psychology, 9(1), 57785. doi.org/10.1525/collabra.57785"
   
+- Class: text
+  Output: "The prompt to the participants read - Please imagine two people, one of whom knew all about your material purchases (Person M), and the other knew all about your experiential purchases (Person E), but neither knew anything else about you. \n\n Which person would better know the real you, your true, essential self? (1 = Definitely Person M (material), 5 = Both equally, 9 = Definitely Person E (experiential))."
+  
+- Class: text
+  Output: They write - "We conducted a one-sample t-test (two-tailed) against the scale midpoint of 5. Consistent with H1, we found that a person with experiential purchase knowledge is perceived to have a greater insight into one’s true self than a person with material purchase knowledge (M = 6.43, SD = 2.22, t(742) = 17.61, p < .001, d = 0.65, 95% CI [0.57, 0.73])."
+
 #10
-- Class: text
-  Output: The top half is the same - we're going to take our sample mean and substract it from the population mean.
-
-- Class: text
-  Output: What's different is that here we are dividing by S and the square root of n.
-
-- Class: text
-  Output: "So, what is S? S is our standard deviation of our >sample<. The equation, which we've already learned, is shown to the right. That is the important difference! Remember, in z-tests, we were given the population's standard deviation. Here, instead, we only have our sample's standard deviation."
-
-- Class: text
-  Output: "We divide our sample's standard deviation by the square root of our observations. In other words, we take the amount of people we have in our sample and square root that number."
-
-- Class: text
-  Output: "You'll see n or n-1 or n-2 appear a lot in statistics. We will not be getting into the nity-grity of why we do this, however it'll be important for you to remember when we use n, n-1, and when, sometimes, we use n-2."
-
-- Class: text
-  Output: However, it is worthwhile and important to know that n-1 is defined as 'degrees of freedom'. 
-
-- Class: text
-  Output: You can understand it as 'how many of our data points are free to vary?' Imagine we had 5 pieces of fruit. The first person comes, and picks one out of five. The second person comes, and picks one out of four. The third, one of out three. The fourth, one out of two. The last? No choice!
+- Class: cmd_question
+  Output: To run this test, we have a function t.test(). We will pipe (|>) our dataset (purchases) into t.test(), passing three arguments into it -- MPEP_self ~ 1, mu=5, and data=_ . MPEP_self ~ 1 is asking for a one-sample t-test, because we are comparing the variable against no comparison group (signified by the 1). mu=5 says that our hypothesized mean is 5 that we are comparing against, and data=_ is our reference for the data on the left hand side of the pipe. Run this now.
+  CorrectAnswer: purchases |> t.test(MPEP_self ~ 1, mu=5, data=_)
+  AnswerTests: omnitest(correctExpr='purchases |> t.test(MPEP_self ~ 1, mu=5, data=_)')
+  Hint: purchases |> t.test(MPEP_self ~ 1, mu=5, data=_)
   
 - Class: text
-  Output: Because the nth person (5th out of 5) had no choice, he had no freedom to vary in the decision. Therefore, n=5 has degrees of freedom (df) of 4.
+  Output: That got us all of the information besides the effect size and the confidence interval of the effect size.
+
+- Class: cmd_question
+  Output: To get those results, we have a function cohens_d() from the rstatix package. We will pipe (|>) our dataset (purchases) into cohens_d() with three arguments - MPEP_self ~ 1 (just like our t.test), mu=5 (again, the same), and ci=TRUE. Our notes give a list of other ways to code this as well as other packages.
+  CorrectAnswer: purchases |>  cohens_d(MPEP_self ~ 1, mu=5, ci=TRUE)
+  AnswerTests: omnitest(correctExpr='purchases |>  cohens_d(MPEP_self ~ 1, mu=5, ci=TRUE)')
+  Hint: purchases |>  cohens_d(MPEP_self ~ 1, mu=5, ci=TRUE)
+
+- Class: text
+  Output: However, there are times where we cannot satisfy the second assumption of the one sample t-test -- that the data is not normally distributed in the population (or we are not sure).
   
 - Class: text
-  Output: Finally, this whole equation outputs a t-statistic. This is similar to our z statistics we went over before, but is adjusted because we're using samples and not populations.
+  Output: In times like these, we can turn to a non-parametric test.  
+  
+- Class: text
+  Output: In 2022, Frankenhuis and colleagues wanted to know whether or not individuals who lived in relatively challenging conditions were significantly different in a range of measures compared to those who lived in low-risk situations, with their main research question measuring if those who were high-risk detected more threats in ambigious situations compared to a low-risk group.
 
-- Class: mult_question
-  Output: "A professor wants to know if her introductory statistics class has a good grasp of basic math. Six students are chosen at random from the class and given a math proficiency test. The professor wants the class to be able to score above 70 on the test. The six students get scores of 62, 92, 75, 68, 83, and 95. Can the professor have 90 percent confidence that the mean score for the class on the test would be above 70? \n\n Based on this question, what is the degrees of freedom?"
-  AnswerChoices: 90;70;5;6;7;69;89
-  CorrectAnswer: 5
-  AnswerTests: omnitest(correctVal='5')
+- Class: text
+  Output: The high risk group was a "group of community participants who lived in relatively challenging conditions for Dutch standards, in that people were more likely to need governmental support in order to meet their basic needs (e.g., food, housing, safety)." They had "anticipated that on average members of the community sample had experienced higher levels of adversity, including higher levels of exposure to violence in their past or current environments. The other group was a college student sample, who [were] expected to have experienced lower levels of violence (the ‘low-risk group’)". Ive loaded their data in your environment under violence.
+
+- Class: text
+  Output: "The citation for this paper is- Frankenhuis, W. E., Weijman, E. L., de Vries, S. A., van Zanten, M., & Borghuis, J. (2022). Exposure to Violence Is Not Associated With Accuracy in Forecasting Conflict Outcomes. Collabra- Psychology, 8(1), 38604. doi.org/10.1525/collabra.38604"
+
+- Class: text
+  Output: Participants watched 16 videoes of real-life conflicts and were asked to judge whether each conflict would leave to a physical fight. The researchers (but not the participants) knew that half of those conflicts ended in fights, while half did not. One of their measures in this dataset is C. 
+  
+- Class: text
+  Output: "Criterion c represents the threshold for recognizing a signal (i.e., fight) trial: a c of zero indicates no bias, a negative c a low threshold (fight bias; consistent with hostile attribution bias), and a positive c a high threshold (no-fight bias; consistent with rose-colored glasses.)"
 
 #20
+- Class: text
+  Output: So, they would hypothesize that those who were in the high-risk group may have a lower C score (and be fight-biased) while low-risk would be expected to have either no bias or a no-fight bias. 
+  
 - Class: cmd_question
-  Output: Solve in any way you choose to find out the sample's mean. Save it as samplemean.
-  CorrectAnswer: samplemean <- 79.16667
-  AnswerTests: expr_creates_var('samplemean'); omnitest(correctVal=((62+92+75+68+83+95)/6))
-  Hint: Consider adding and dividing by N or using mean(). Extra hint, you'll need to check the help file of mean() to see if you should just list out all the numbers or use something like mean(c()).
+  Output: Look at the data now by running violence |> summary().
+  CorrectAnswer: violence |> summary()
+  AnswerTests: omnitest(correctExpr='violence |> summary()')
+  Hint: Try violence |> summary()
 
-- Class: mult_question
-  Output: To find the sample's standard deviation, we should 
-  AnswerChoices: Divide our mean by the number of observations;Sum up the differences between our observations and the mean and divide by n-1;Sum up the squared differences between our observations and our mean and divide by n-1;Sum up the squared differences between our observations and our mean and divide by n-1 and take the square root of that value;Sum up the squared differences between our observations and our mean;Sum up the squared differences between our observations and our mean and divide by n and take the square root of that value
-  CorrectAnswer: Sum up the squared differences between our observations and our mean and divide by n-1 and take the square root of that value
-  AnswerTests: omnitest(correctVal='Sum up the squared differences between our observations and our mean and divide by n-1 and take the square root of that value')
+- Class: figure
+  Output: For example, we could plot the distribution of our variable, C, on a histogram. The line that is shown is the median. There definitely looks like a positive skew in our variable.
+  Figure: Figure1.R
+  FigureType: new
 
 - Class: text
-  Output: I will make it easy for you and tell you that the standard deviation of this sample is 13.16. If you'd like, for practice solve it on your own and confirm that's the answer.
+  Output: The Shapiro-Wilk test is probably one of the most well-known and used tests for non-normality. However, it is very limited - small sample sizes cause it to have not enough power to detect non-normality, but too large sample sizes will also be rejected for non-normality. 
+ 
+- Class: text
+  Output: There are other tests, such as the Kolmogorov-Smirnov test, but Shapiro-Wilk has been demonstrated to have the most power, so we focus purely on Shapiro-Wilk.
 
 - Class: text
-  Output: In our Environment on the right, you can see that the value samplemean is 79.167.
+  Output: For more information, see Razali, N. M., Wah, Y. B. (2011). Power comparisons of Shapiro-Wilk, Kolmogorov-Smirnov, Lilliefors, and Anderson-Darling tests. Journal of Statistical Modeling and Analytics. 2(1), 21-33.
 
 - Class: cmd_question
-  Output: Now that we know our sample mean is 79.167, our S is 13.16, our N is 6, and the population mean we're testing is 70, solve for t. You'll want to use the sqrt() function.
-  CorrectAnswer: (79.167-70)/(13.16/sqrt(6))
-  AnswerTests: omnitest(correctVal=(79.167-70)/(13.16/sqrt(6)))
-  Hint: Did you use your parantheses? (SampleMean-PopulationMean)/(Sample Standard Deviation/sqrt(N)
-
-- Class: cmd_question
-  Output: Now, our t-distributions look a little different than our normal curve when we have low numbers. Therefore, we need to reference how many degrees of freedom we had in this question. I've created a dataframe that resembles a portion of a handout you might receive in class or find in the back of your book. Just type "twotailed" to see the next step.
-  CorrectAnswer: twotailed
-  AnswerTests: omnitest(correctExpr='twotailed')
+  Output: The function for Shapiro-Wilk is shapiro_test() in the rstatix package. Let's practice our piping technique, so take violence and |> pipe it into shapiro_test(), passing the single argument C .
+  CorrectAnswer: violence |> shapiro_test(C)
+  AnswerTests: omnitest(correctExpr='violence |> shapiro_test(C)')
+  Hint: violence |> shapiro_test(C)
   
 - Class: text
-  Output: On the left we see df going down. These are our degrees of freedom. 
+  Output: Great job. So, indeed, our variable is non-normal. 
 
 - Class: text
-  Output: The three columns represent 3 different alpha levels - .10, .05, and .01. We understand them also as the 90th percentile, the 95th percentile, and the 99th percentile. 
+  Output: "They write - A Wilcoxon signed rank test showed that the average c (M = .11, SE = .04) also was significantly higher than zero (W = 4044.5, p = .018)."
 
 - Class: text
-  Output: Under them are critical values. We call these t-critical values. Our t critical values, for a given df, represent the number we must be larger (or smaller, if negative) than to state a significant result was found.
+  Output:  Let's first practice our one sample wilcoxon sign-ranked test. Since there is no predictor, we need to tell R that we are passing what is known as a null model - there are no predictors. We just want to see if C is greater than zero.
+  
+- Class: cmd_question
+  Output: To do that, take our dataset, violence, and pipe (|>) it into the wilcox_test() function from the rstatix library, passing two arguments - C ~ 1 and mu=0. (mu=0 is the default, but it's good practice to know what we're doing).
+  CorrectAnswer: violence |> wilcox_test(C ~ 1, mu=0)
+  AnswerTests: omnitest(correctExpr='violence |> wilcox_test(C ~ 1, mu=0)')
+  Hint: violence |> wilcox_test(C ~ 1, mu=0)
 
-- Class: mult_question
-  Output: So, we know our df is 5. (We had an N of 6, and df=N-1). What is the t-critical value for a df of 5 and an alpha of .10 (90% confidence)?
-  AnswerChoices: 1.943;2.015;2.571;4.032;2.447;3.708;2.132;2.776
-  CorrectAnswer: 2.015
-  AnswerTests: omnitest(correctVal='2.015')
-
-#30
-- Class: mult_question
-  Output: What is the t-critical value for a df of 5 and an alpha of .05 (95% confidence)?
-  AnswerChoices: 1.943;2.015;2.571;4.032;2.447;3.708;2.132;2.776
-  CorrectAnswer: 2.571
-  AnswerTests: omnitest(correctVal='2.571')
-
-- Class: mult_question
-  Output: Is our t-statistic bigger than 2.015 or 2.571?
-  AnswerChoices: Yes;No;I am not sure
-  CorrectAnswer: No
-  AnswerTests: omnitest(correctVal='No')
-  Hint: We solved for it awhile back and discovered it was 1.706. Is 1.706 bigger than 2.015?
+- Class: script
+  Output: The first part of their sentence called out the mean and standard error. Let's calculate those now. I've. loaded a script for you to fill out to solve for the mean and standard error.
+  AnswerTests: script_results_identical('sum_violence')
+  Hint: Follow the notes in the script, and be sure you saved your script (using the save button or ctrl+S) before typing submit() in the Console.
+  Script: summarise.R
 
 - Class: cmd_question
-  Output: "Let's prove this through R. Use the function t.test(), pass two arguments - scores (I created this - it's the list of the 6 scores), and mu=70."
-  CorrectAnswer: t.test(scores, mu=70)
-  AnswerTests: omnitest(correctExpr='t.test(scores, mu=70)')
+  Output: Print out the results of your script in the console now by typing in sum_violence.
+  CorrectAnswer: sum_violence
+  AnswerTests: omnitest(correctExpr='sum_violence')
+  Hint: Type sum_violence.
 
 - Class: text
-  Output: "We can see that our score 1.706 is pretty close to the t score R provides of 1.7053."
+  Output: They next write - "Separate tests for each group indicated that c did not differ significantly from zero in the community sample (W = 871.50, p = .723) [Hypothesis 2],"
+  
+- Class: cmd_question
+  Output: To do this, hit the up arrow on your console until you get back to your wilcox_test(). Between the dataset and wilcox_test(), we want to add one more step. After the first pipe, let us filter() where risk_group should equal (==) "High-risk group". Then pipe that filter (|>) into the wilcox_test().
+  CorrectAnswer: violence |> filter(risk_group=="High-risk group") |> wilcox_test(C ~ 1)
+  AnswerTests: omnitest(correctExpr='violence |> filter(risk_group=="High-risk group") |> wilcox_test(C ~ 1)')
+  Hint: violence |> filter(risk_group=="High-risk group") |> wilcox_test(C ~ 1)
 
-#33
+- Class: text
+  Output: Finally, they write - "but was significantly higher than zero in the student sample (W = 1169.50, p = .002) [Hypothesis 3]."
+  
+- Class: cmd_question
+  Output: To do this, hit the up arrow on your console. Now, all we need to change is that filter to "Low-risk group".
+  CorrectAnswer: violence |> filter(risk_group=="Low-risk group") |> wilcox_test(C ~ 1)
+  AnswerTests: omnitest(correctExpr='violence |> filter(risk_group=="Low-risk group") |> wilcox_test(C ~ 1)')
+  Hint: violence |> filter(risk_group=="Low-risk group") |> wilcox_test(C ~ 1)
+  
+  
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
   AnswerChoices: Yes;No
   CorrectAnswer: NULL
   AnswerTests: submit_log()
-  Hint: hint
-
-- Class: mult_question
-  Output: Would you like to answer five short questions about this lesson to Google Forms so that your instructor may evaluate your opinion on this lesson and improve it for others?
-  AnswerChoices: Yes;No
-  CorrectAnswer: NULL
-  AnswerTests: submit_log_two()
   Hint: hint

@@ -1,0 +1,196 @@
+- Class: meta
+  Course: Psychological Statistics You Can Handle
+  Lesson: Testing For Non-Normality
+  Author: Kevin R. Carriere
+  Type: Standard
+  Organization: Washington & Jefferson College
+  Version: 3.0.0
+
+- Class: script
+  Output: To save the notes for this module, copy and paste the code provided into your own RNotebook. Type submit() when you have finished saving these notes. 
+  AnswerTests: script_results_identical('saved')
+  Hint: "Don't change anything, just type submit(). If you did and you don't know how to fix it, just type skip() and you'll be all set."
+  Script: Notes.R
+  
+- Class: text
+  Output: "One of the many assumptions for parametric tests is that our samples are drawn from normal distributions. But this might not be the case. If it's not the case, we might want to turn to non-parametric tests."
+  
+- Class: text
+  Output: "In the modules, we'll review how important these assumptions are,  the limitations of the nonparametric tests, and even the tests that we'll talk about today."
+
+- Class: text
+  Output: "There are three main ways we can test for non-normality. \n\n 1. QQPlots (A visual test) \n\n 2. Multiple histograms (A visual test) \n\n 3. Shapiro-Wilk Test. "
+
+- Class: text
+  Output: The first one we will go over is a QQPlot. 
+
+- Class: text
+  Output: A qqplot is a plot that plots all of the observed points on the x axis, and on the Y axis, it plots where the points would be if the observations were following a normal distribution.
+
+- Class: figure
+  Output: For example, this graph is data that is drawn from a normal distribution. 
+  Figure: qqnormal.R
+  FigureType: new
+  
+- Class: figure
+  Output: We can add a line to it, and the closer those dots fall to the line, the more normal it is. Since these observations on the x axis truly do come from a normal distribution, they do a very good job staying on that line.
+  Figure: qqline.R
+  FigureType: add
+  
+#add description of study
+- Class: text
+  Output: I've loaded some data in your environment called Stickers. This comes from the Wilcoxon Sign-Rank module, and in it, they _____.
+
+# give citation
+- Class: text
+  Output: Citation is "Hennefield, L., & Markson, L. (2017). Four-year-old Children Align their Preferences with those of their Peers. Collabra- Psychology, 3(1), 14. doi.org/10.1525/collabra.89."
+  
+- Class: cmd_question
+  Output: There are two ways to make a qqplot. The first way is what we'll call the fast way. Right now, type in the function qqnorm(), and pass in the argument Stickers$Difference.Kept 
+  CorrectAnswer: qqnorm(Stickers$Difference.Kept)
+  AnswerTests: omnitest(correctExpr='qqnorm(Stickers$Difference.Kept)')
+  Hint: qqnorm(Stickers$Difference.Kept)
+
+- Class: cmd_question
+  Output: To help our visualization, now enter qqline(Stickers$Difference.Kept)
+  CorrectAnswer: qqline(Stickers$Difference.Kept)
+  AnswerTests: omnitest(correctExpr='qqline(Stickers$Difference.Kept)')
+  Hint: qqline(Stickers$Difference.Kept)
+  
+- Class: text
+  Output: Great. If the data was normal, the points would be hugging the line.
+
+- Class: mult_question
+  Output: "Do you think these datapoints hug the line well? "
+  AnswerChoices: Yes; No
+  CorrectAnswer: No
+  AnswerTests: omnitest(correctVal='No')
+  Hint: "While the middle kind of does, those ends are really off, and even in the middle, they don't follow that diagonal. "
+  
+- Class: text
+  Output: There is another way we can make these graphs as well. We can use ggplot! Let's turn to some scripts to make ggplot qqplots.
+  
+- Class: script
+  Output: "Make sure to save your script before you type submit()."
+  AnswerTests: plot_results_identical('qqdiff')
+  Hint: "Follow the notes in the script, and be sure you saved your script (using the save button or ctrl+S) before typing submit() in the Console."
+  Script: pairedqq.R
+
+- Class: cmd_question
+  Output: Print out your work by typing qqdiff into the console.
+  CorrectAnswer: qqdiff
+  AnswerTests: omnitest(correctExpr='qqdiff')
+  Hint: qqdiff 
+
+- Class: text
+  Output: However, this has been for paired samples. What if you had two (or more) independent samples? Then, we want to compare not if the differences are normal, but that each group's variable distribution is normal. 
+
+# Explain study
+- Class: text
+  Output: For this example, we are going to draw from the module on Kruskal–Wallis ANOVAs. In this paper, they investigated whether or not the ominous background music that often accompanies shark footage in documentaries impacts individual's perceptions of sharks. Their data showed that participants rated sharks more negatively and less positively after viewing a 60-second video clip of swimming sharks set to ominous background music, compared to participants who watched the same video clip set to uplifting background music, or silence. Attitudes toward sharks did not differ among participants assigned to audio-only control treatments.
+  
+- Class: text
+  Output: "The citation is Nosal, A. P., Keenan, E. A., Hastings, P. A., & Gneezy, A. (2016). The Effect of Background Music in Shark Documentaries on Viewers’ Perceptions of Sharks. PLOS ONE, 11(8), e0159279. doi.org/10.1371/journal.pone.0159279."
+  
+- Class: text
+  Output: Because we want to consider more than 1 qqplot(), this is where the strength of ggplot() comes in, specifically, facet_wrap().
+  
+- Class: script
+  Output: Make sure to save your script before you type submit().
+  AnswerTests: plot_results_identical('indqq')
+  Hint: Follow the notes in the script, and be sure you saved your script (using the save button or ctrl+S) before typing submit() in the Console.
+  Script: independentqq.R
+
+- Class: cmd_question
+  Output: Print out your work by typing indqq into the console.
+  CorrectAnswer: indqq
+  AnswerTests: omnitest(correctExpr='indqq')
+  Hint: indqq 
+  
+- Class: text
+  Output: Here, the qqplot()s are for each level of our independent variable. You may notice how while they stay on the line for a large majority of the data, the tails are off of the line. 
+  
+- Class: text
+  Output: Great job. Next up is our histograms. 
+  
+- Class: text
+  Output: A benefit of histograms is that they may help visually pick up on behavior in our data that we wouldn't see at first glance in a qqplot().
+  
+- Class: text
+  Output: Just like qqplot, there is both a fast and ggplot() version of histogramming.
+  
+- Class: cmd_question
+  Output: The fast way is hist(). hist() takes a single argument, which we can pass as Stickers$Difference.Kept. Try that now.
+  CorrectAnswer: hist(Stickers$Difference.Kept)
+  AnswerTests: omnitest(correctExpr='hist(Stickers$Difference.Kept)')
+  Hint: hist(Stickers$Difference.Kept)
+
+- Class: text
+  Output: Great job! Sometimes, the looks can be relatively deceiving. This looks adequately normal. But if we plot the normal distribution on top of this - 
+  
+- Class: figure
+  Output: There seems to be some non-normality going on, with some negative/left skew.
+  Figure: histnormal.R
+  FigureType: new
+  
+- Class: text
+  Output: We can also create histograms in ggplot() using the geom_histogram() geom. Since it is a histogram, it will only take an x value as an aesthetic, since the y value is the frequency observed.
+  
+- Class: script
+  Output: Make sure to save your script before you type submit().
+  AnswerTests: plot_results_identical('indhist')
+  Hint: Follow the notes in the script, and be sure you saved your script (using the save button or ctrl+S) before typing submit() in the Console.
+  Script: independenthist.R
+
+- Class: cmd_question
+  Output: Output your work by typing indhist into your console now.
+  CorrectAnswer: indhist
+  AnswerTests: omnitest(correctExpr='indhist')
+  Hint: indhist
+
+- Class: text
+  Output: Each group looks like it has its own problems with normality. Our eyes are particularly drawn to the V. Uplifting group, which seems to have quite a large negative skew.
+  
+- Class: text
+  Output: The last test we can do is the Shapiro-Wilk test. It is our 'quantifiable' test. 
+  
+- Class: text
+  Output: The Shapiro-Wilk test is probably one of the most well-known and used tests for non-normality. However, it is very limited - small sample sizes cause it to have not enough power to detect non-normality, but too large sample sizes will also be rejected for non-normality. 
+ 
+- Class: text
+  Output: There are other tests, such as the Kolmogorov-Smirnov test, but Shapiro-Wilk has been demonstrated to have the most power, so we focus purely on Shapiro-Wilk.
+
+- Class: text
+  Output: For more information, see Razali, N. M., Wah, Y. B. (2011). Power comparisons of Shapiro-Wilk, Kolmogorov-Smirnov, Lilliefors, and Anderson-Darling tests. Journal of Statistical Modeling and Analytics. 2(1), 21-33.
+
+- Class: cmd_question
+  Output: The function for Shapiro-Wilk is shapiro_test() in the rstatix package. Let's practice our piping technique, so take Stickers and |> pipe it into shapiro_test(), passing the single argument Difference.Kept .
+  CorrectAnswer: Stickers |> shapiro_test(Difference.Kept)
+  AnswerTests: omnitest(correctExpr='Stickers |> shapiro_test(Difference.Kept)')
+  Hint: Stickers |> shapiro_test(Difference.Kept)
+
+- Class: text
+  Output: Since the p value is less than our alpha of .05, we can reject the null hypothesis that the data came from a normal distribution.
+
+- Class: cmd_question
+  Output: For multiple groups, we first take our data, Sharks, and then pipe |> in the function group_by(), where we pass the argument Condition (our grouping variable), and then we pipe |> our shapiro_test() with PositiveRatings as the one argument. 
+  CorrectAnswer: Sharks |> group_by(Condition) |> shapiro_test(PositiveRatings)
+  AnswerTests: omnitest(correctExpr='Sharks |> group_by(Condition) |> shapiro_test(PositiveRatings)')
+  Hint: Sharks |> group_by(Condition) |> shapiro_test(PositiveRatings)
+  
+- Class: text
+  Output: "However, it's important to note that due to the central limit theorem, with large sample sizes, the sampling distribution of sample means behaves as if the sample is from a noraml distribution. The question of robustness focuses primarily on mean-based tests, *not* based on tests that test based on variances (like ANOVA)."
+  
+- Class: text
+  Output: "Some textbooks will recommend transforming data to see if the transformed data better fits the assumptions of normality. While this is a valid way to handle non-normal data, we also note the difficulties in theoretical and practical interpretation of transformed data (Osborne, 2019)."
+  
+- Class: text
+  Output: "Full citation for that work is - Osborne, J. (2019). Notes on the use of data transformations. Practical Assessment, Research, and Evaluation. 8(6). 10.7275/4vng-5608"
+  
+  
+- Class: mult_question
+  Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
+  AnswerChoices: Yes;No
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: hint

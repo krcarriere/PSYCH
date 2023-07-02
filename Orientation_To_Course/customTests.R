@@ -1,4 +1,4 @@
-# One Sample T-Tests
+# Course Orientation
 
 script_results_identical <- function(result_name) {
   # Get e
@@ -23,27 +23,28 @@ script_results_identical <- function(result_name) {
   )
   correct_res <- get(result_name, tempenv)
   # Compare results
-  identical(user_res, correct_res)
+  all.equal(user_res, correct_res)
 }
 
 
 getState <- function(){
-  #Whenever swirl is running, its callback is at the top of its call stack.
-  #Swirl's state, named e, is stored in the environment of the callback.
-  environment(sys.function(1))$e
+#Whenever swirl is running, its callback is at the top of its call stack.
+#Swirl's state, named e, is stored in the environment of the callback.
+
+   environment(sys.function(1))$e
 }
 
-#Retrieve the log from swirl's state
+# Retrieve the log from swirl's state
 getLog <- function(){
-  getState()$log
+ getState()$log
 }
 
 submit_log <- function(){
   selection <- getState()$val
   if(selection == "Yes"){
     # Please edit the link below
+    pre_fill_link <- "https://docs.google.com/forms/d/e/1FAIpQLSfqF-YfYrBjTbM9eVG_Ygbv6VpWVzgA1gyEW-NXyzX9wJ5U4A/viewform?usp=pp_url&entry.996111921"
     
-    pre_fill_link <- "https://docs.google.com/forms/d/e/1FAIpQLSc6me07p5aQqP-yrIst2okU64WNzW7KlkYf3cPQktS_TuxK8g/viewform?usp=pp_url&entry.996111921"
     # Do not edit the code below
     if(!grepl("=$", pre_fill_link)){
       pre_fill_link <- paste0(pre_fill_link, "=")

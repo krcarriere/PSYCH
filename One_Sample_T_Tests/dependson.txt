@@ -1,4 +1,9 @@
+MASS
 swirl
-latex2exp
-caTools
+swirlify
+dplyr
+lsr
+effsize
+rstatix
 base64enc
+ggplot2

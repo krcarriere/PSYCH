@@ -1,0 +1,9 @@
+swirl
+swirlify
+ggplot2
+rstatix
+multcomp
+multcompView
+emmeans
+dplyr
+base64enc

@@ -1,0 +1,139 @@
+- Class: meta
+  Course: Psychological Statistics You Can Handle
+  Lesson: Non-Parametric Tests for 2 Groups
+  Author: Kevin R. Carriere & Jason Kilgore
+  Type: Standard
+  Organization: Washington & Jefferson College
+  Version: 3.0.0
+
+- Class: script
+  Output: Here are some notes for this module. When you've saved the notes, type submit().
+  AnswerTests: script_results_identical('saved')
+  Hint: Make sure the last line in your script says saved <- "Y".
+  Script: Notes.R
+
+
+- Class: text
+  Output: Welcome to the Non-Parametric Tests for 2 Groups Module.
+  
+- Class: text
+  Output: We will spend most of our time talking and analyzing the Wilcoxon Sign Rank Test. The Wilcoxon Sign Rank Test is a non-parametric statistical test used to compare two related samples, pairs of observations, or repeated measurements on a single sample to assess whether their population median ranks differ. 
+  
+- Class: text
+  Output: It is often applied when the assumptions of a paired t-test are not met, such as when the data does not follow a normal distribution. The test is widely used in fields like psychology, medicine, and social sciences to analyze data from experiments involving pre-test and post-test measurements, or matched-pair studies.
+
+- Class: text
+  Output: The Mann-Whitney U-Test is the non-paired alternative to the Wilcoxon Sign-Rank Test. It would be equivalent to the independent samples t-test. 
+  
+- Class: text
+  Output: The Wilcoxon Sign Rank Test is based on the sign of the differences between paired observations. The test calculates the signed ranks of the differences, which are then used to test the null hypothesis that the median of the differences is zero. The test is often used when the data is non-normally distributed or the sample size is small.
+  
+- Class: text
+  Output: "Here are the key assumptions for this test -  \n\n (1) Paired data-  The data should consist of two related samples or repeated measurements on the same subjects. For example, you might have before-and-after measurements from a clinical trial, or test scores from students before and after an intervention. \n\n (2) Ordinal or continuous data -  The variables being compared must be either ordinal or continuous. Ordinal data is measured on an ordered scale, such as rankings or Likert scale responses, while continuous data can take on any value within a range, like height or weight. \n\n (3) Symmetry - The distribution of differences between the paired observations should be symmetric around the median. While the test doesn't assume normality, it does require that the distribution of differences is not heavily skewed. \n\n (4) Independence - The differences between paired observations should be independent of each other. This means that the outcome of one pair should not affect the outcome of another pair."
+
+- Class: text
+  Output: Assumptions (1), (2), and (4) are based on study design more than anything, and so we won't talk much about them. Assumption (3) is a tricky one, and generally hard to meet! If you fail to meet it, there is the Sign Test module that functions as the Sign-Rank test without the assumption of equal distributions.
+
+- Class: text
+  Output: "In one study, four-year-old children watched videos of two boys and two girls expressing a preference for one of two stickers. The children then completed a resource distribution task where they distributed either 10 liked or 10 disliked stickers between themselves and another child. The results showed that children tended to keep more of the liked than disliked stickers for themselves, indicating that their distribution patterns were influenced by their peers' preferences. "
+  
+- Class: text
+  Output: The citation for this study is - "Hennefield, L., & Markson, L. (2017). Four-year-old Children Align their Preferences with those of their Peers. Collabra- Psychology, 3(1), 14. doi.org/10.1525/collabra.89"
+
+- Class: cmd_question
+  Output: Let's look at our data to see what it looks like. Pipe our data, Stickers, into head() and give head the single argument n=10.
+  CorrectAnswer: Stickers |> head(n=10)
+  AnswerTests: omnitest(correctExpr='Stickers |> head(n=10)')
+  Hint: Stickers |> head(n=10)
+  
+- Class: text
+  Output: You can see how there's four columns. The distributions column notes if the child kept equal number of liked or disliked, more liked, or if they kept all of the stickers.
+  
+- Class: text
+  Output: The authors write - "It is unclear how to classify the 6 children who kept all the stickers.  Indeed, some researchers differentiate between prosocial (distributing at  least one) and non-prosocial (keeping all) children, and exclude those non-prosocial children from subsequent analyses."
+
+- Class: cmd_question
+  Output: 'Let us filter out those six kids. Pipe Stickers (|>) into the filter() function from dplyr, where we will pass the argument Distributions!="kept all". Be sure to reassign your dataset back to Stickers.'
+  CorrectAnswer: Stickers <- Stickers |> filter(Distributions!="kept all")
+  AnswerTests: omnitest(correctExpr='Stickers <- Stickers |> filter(Distributions!="kept all")')
+  Hint: Stickers <- Stickers |> filter(Distributions!="kept all")
+
+- Class: cmd_question
+  Output: "Now, let's create a difference variable to check to see if it is symmetric. To do this, take our data, Stickers, and pipe (|>) it into the mutate() function. Inside of that function, let's create a new variable, called DifferenceKept, and make it equal to Liked.Kept - Disliked.Kept. Be sure to reassign it as Stickers. Try that now."
+  CorrectAnswer: Stickers <- Stickers |> mutate(Difference.Kept = Liked.Kept - Disliked.Kept)
+  AnswerTests: omnitest(correctExpr='Stickers <- Stickers |> mutate(Difference.Kept = Liked.Kept - Disliked.Kept)')
+  Hint: Stickers <- Stickers |> mutate(Difference.Kept = Liked.Kept - Disliked.Kept)
+
+- Class: cmd_question
+  Output: Great. Let's see how it looks! Take your data, Stickers, and pipe (|>) it into ggplot(). Inside of ggplot(), pass the function aes(), where it'll take the argument x=Difference.Kept. Close out ggplot(), and then add (+) two more functions - geom_histogram() and (+) geom_vline(xintercept=median(Difference.Kept))
+  CorrectAnswer: Stickers |> ggplot(aes(x = Difference.Kept)) + geom_histogram() + geom_vline(xintercept = median(Stickers$Difference.Kept))
+  AnswerTests: omnitest(correctExpr='Stickers |> ggplot(aes(x = Difference.Kept)) + geom_histogram() + geom_vline(xintercept = median(Stickers$Difference.Kept))')
+  Hint: Stickers |> ggplot(aes(x = Difference.Kept)) + geom_histogram() + geom_vline(xintercept = median(Stickers$Difference.Kept))
+
+- Class: text
+  Output: Overall, we're not sold that this distribution is symmetric. Notice the extra to the right of the median. Still, for now, let's continue with how the paper analyzed this data. 
+  
+- Class: text
+  Output: "The paper reads - A Wilcoxon Signed-Rank test indicates that, overall, children kept marginally more liked (M = 6.5) than disliked (M = 6.1) stickers, (Z = –1.799, p = .072)."
+
+- Class: cmd_question
+  Output: "The way we'll analyze this is through wilcox.test() in the stats package. It will take three  arguments - Stickers$Liked.Kept, Stickers$Disliked.Kept, and exact=FALSE."
+  CorrectAnswer: wilcox.test(Stickers$Liked.Kept, Stickers$Disliked.Kept, exact=FALSE)
+  AnswerTests: omnitest(correctExpr='wilcox.test(Stickers$Liked.Kept, Stickers$Disliked.Kept, exact=FALSE)')
+  Hint: wilcox.test(Stickers$Liked.Kept, Stickers$Disliked.Kept, exact=FALSE)
+
+- Class: cmd_question
+  Output: However, it is important to note something important - this is actually the Mann Whitney U-Test! We have forgotten to tell R that these are paired observations. Hit up on your console, and add a fourth argument, paired=TRUE.
+  CorrectAnswer: wilcox.test(Stickers$Liked.Kept, Stickers$Disliked.Kept, exact=FALSE, paired=TRUE)
+  AnswerTests: omnitest(correctExpr='wilcox.test(Stickers$Liked.Kept, Stickers$Disliked.Kept, exact=FALSE, paired=TRUE)')
+  Hint: wilcox.test(Stickers$Liked.Kept, Stickers$Disliked.Kept, exact=FALSE, paired=TRUE)
+
+- Class: text
+  Output: Indeed! If only the researchers had remembered to note that paired=TRUE, they would have been able to argue that there was actually a significant difference at their alpha of .05.
+
+- Class: cmd_question
+  Output: Now, to get the z-score of this, let's take that in two steps. First step - hit the up arrow on your keyboard to get to our last function (our sign-rank test). At the beginning, create an object called signrank and assign your code to that object.
+  CorrectAnswer: signrank <- wilcox.test(Stickers$Liked.Kept, Stickers$Disliked.Kept, exact=FALSE, paired=TRUE)
+  AnswerTests: omnitest(correctExpr='signrank <- wilcox.test(Stickers$Liked.Kept, Stickers$Disliked.Kept, exact=FALSE, paired=TRUE)')
+  Hint: signrank <- wilcox.test(Stickers$Liked.Kept, Stickers$Disliked.Kept, exact=FALSE, paired=TRUE)
+
+- Class: mult_question
+  Output: If you were to type signrank$ into your console, a list of possible variables would show up. Which of the following does not appear? 
+  AnswerChoices: statistic;parameter; p.value; null.value; alternative; method; data.name; sign
+  CorrectAnswer: sign
+  AnswerTests: omnitest(correctVal='sign')
+  Hint: You could also click the arrow in your Environment next to signrank and see the list there!
+
+- Class: cmd_question
+  Output: Now that we see how even something as simple as a function call also creates variables (similar to a data frame in some ways), we can pass signrank$p.value through qnorm(). However, inside, be sure to divide that argument by 2 because we want a two-tailed test. That will get us our Z statistic.
+  CorrectAnswer: qnorm(signrank$p.value/2)
+  AnswerTests: omnitest(correctExpr='qnorm(signrank$p.value/2)')
+  Hint: qnorm(signrank$p.value/2)
+
+- Class: text
+  Output: You can also treat the Wilcoxon signed rank test as a one sample test as well. 
+  
+- Class: text
+  Output: "The next paper explored the association between individuals' ability to accurately forecast conflict outcomes and their past and current experiences with violence. The study was conducted with 127 participants from the Netherlands, including both a community sample and college students. a Wilcoxon signed rank test that was used to determine whether participants were able to accurately discriminate between signal (fight) and no-signal (no-fight) trials. The parameter d’ was used as a measure of accuracy, with a higher d’ indicating greater accuracy."
+
+- Class: text
+  Output: They write - "A Wilcoxon signed rank test indicated that the average d’ (M = .21, SE = .05)  was significantly higher than zero (W = 3307.50, p < .001).   This indicates that on average for the two samples combined, participants did better than chance."
+
+- Class: cmd_question
+  Output: Let's get that output. The data is loaded as violence. Use wilcox.test() and pass violence$dprime into it.
+  AnswerTests: omnitest(correctExpr='wilcox.test(violence$dprime)')
+  CorrectAnswer: wilcox.test(violence$dprime)
+  Hint: wilcox.test(violence$dprime)
+  
+- Class: cmd_question
+  Output: While the comparison is set at default to 0, you can set the comparison to any number - for example, is some scale less than or equal to the median (3.5 on a 7 point scale?). Hit the up arrow, and include a second argument in your wilcox.test() that says mu=3.5 . 
+  AnswerTests: omnitest(correctExpr='wilcox.test(violence$dprime, mu=3.5)')
+  CorrectAnswer: wilcox.test(violence$dprime, mu=3.5)
+  Hint: wilcox.test(violence$dprime, mu=3.5)
+    
+- Class: mult_question
+  Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
+  AnswerChoices: Yes;No
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: hint

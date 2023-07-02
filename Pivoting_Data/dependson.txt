@@ -1,0 +1,7 @@
+swirl
+swirlify
+dplyr
+tidyr
+tibble
+latex2exp
+base64enc

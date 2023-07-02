@@ -1,0 +1,11 @@
+swirl
+swirlify
+dplyr
+tidyr
+lsr
+rstatix
+effsize
+datasets
+latex2exp
+caTools
+base64enc

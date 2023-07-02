@@ -1,0 +1,1 @@
+plotNormalHistogram(Stickers$Difference.Kept)

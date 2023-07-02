@@ -1,4 +1,4 @@
-# One Sample T-Tests
+# Wilcoxon Sign Rank
 
 script_results_identical <- function(result_name) {
   # Get e
@@ -26,7 +26,6 @@ script_results_identical <- function(result_name) {
   identical(user_res, correct_res)
 }
 
-
 getState <- function(){
   #Whenever swirl is running, its callback is at the top of its call stack.
   #Swirl's state, named e, is stored in the environment of the callback.
@@ -42,8 +41,7 @@ submit_log <- function(){
   selection <- getState()$val
   if(selection == "Yes"){
     # Please edit the link below
-    
-    pre_fill_link <- "https://docs.google.com/forms/d/e/1FAIpQLSc6me07p5aQqP-yrIst2okU64WNzW7KlkYf3cPQktS_TuxK8g/viewform?usp=pp_url&entry.996111921"
+    pre_fill_link <- "https://docs.google.com/forms/d/e/1FAIpQLSewIVuHfwbmy_59u7Q1Q3oUnhcBf4Q5hzVk30qZpeznm3AfNQ/viewform?usp=pp_url&entry.996111921"
     # Do not edit the code below
     if(!grepl("=$", pre_fill_link)){
       pre_fill_link <- paste0(pre_fill_link, "=")

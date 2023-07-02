@@ -1,0 +1,216 @@
+- Class: meta
+  Course: Psychological Statistics You Can Handle
+  Lesson: Two Way ANOVA Within Subjects
+  Author: Kevin R. Carriere & Jason Kilgore
+  Type: Standard
+  Organization: Washington & Jefferson College
+  Version: 3.0.0
+
+- Class: script
+  Output: Here are some notes for this module. When you've saved the notes, type submit().
+  AnswerTests: script_results_identical('saved')
+  Hint: Make sure the last line in your script says saved <- "Y".
+  Script: Notes.R
+
+- Class: text
+  Output: This module will expand what we have discussed in the One-Way ANOVA [Within] module to considering ANOVAs with multiple factors, where at least one of the factors is repeated. 
+  
+- Class: text
+  Output: "There are numerous assumptions of a within-subjects or repeated measures ANOVA."
+#9
+- Class: text
+  Output: "They are as follows - \n\n (1) Compound Symmetry - The correlation between repeated measures for each participant remains constant across time. \n\n (2) Sphericity - The variances of the differences between any 2 time points is the same, irrespective of how distant the measurements are. \n\n (3) Observations within each combination of factors are randomly sampled from the population and independent from other observations within the group."
+
+#10
+- Class: text
+  Output: "\n\n(4) The observations within each combination are normally distributed (5) with no significant outliers. \n\n (6) Time intervals are equally spaced out." 
+
+#11
+- Class: text
+  Output: "(7) All subjects are measured at all time intervals, with no missing not at random. \n\n (8) Response variables generally must be categorical."
+
+#12
+- Class: text
+  Output: "The ones we will focus most on in this module are (4) Combinations are normally distributed, (5) No significant outliers, with caution, and (2) Sphericity."
+
+
+#14 - DESCRIBE STUDY
+- Class: text
+  Output: "We have loaded up a dataset for you from a paper we examined in the testing Equal Variances module. \n\nResearchers wanted to replicate and extend a paper from 2004. In their 2022 study, they present participants with someone looking for help to load a sofa into a van. Some participants were told that if someone were to help the person, that helper would receive 50 cents ($0.50), which they called low cash payment. Others were told the helper would receive $5, which they called medium cash payment. Others were told that the helper would not receive a payment for helping (With mention control) and others were told nothing about the payment (Without mention control). They also tested to see if it was sweets (candy or chocolate) instead of cash, but we won't analyze those. Participants were asked, based on this information, participants were asked how much they expected people to help this poor sofa-moving soul."
+
+- Class: text
+  Output: "The citation for this paper is - Imada, H., Chan, W. F., Ng, Y. K., Man, L. H., Wong, M. S., Cheng, B. L., & Feldman, G. (2022). Rewarding More Is Better for Soliciting Help, Yet More So for Cash Than for Goods: Revisiting and Reframing the Tale of Two Markets With Replications and Extensions of Heyman and Ariely (2004). Collabra: Psychology, 8(1), 32572. doi.org/10.1525/collabra.32572"
+
+#16
+- Class: cmd_question
+  Output: Let's examine the data by piping the dataset, HeymanLong, into the head() function, but add the number 10 as an arugment into head(). This will show us 10 rows of the dataset instead of 6.
+  CorrectAnswer: HeymanLong |> head(10)
+  AnswerTests: omnitest(correctExpr('HeymanLong |> head(10)'))
+  Hint: Enter HeymanLong |> head(10) into your console.
+
+#17
+- Class: text
+  Output: "We can see that there are four columns. One, ReponseId, reflects an anonymous tag of the participant. We can see that each participant is observed 6 times, because there are six rows for each ResponseId. This is called the long format of data, and is the best way to have the data set up, since each row reflects one observation of one person."
+
+#18
+- Class: text
+  Output: "There seems to be two categorical variables - PayLevel and PayForm, with PayLevel having two levels (Low and Medium) and PayForm having three levels (Candy, Cash, Monetized Candy). Finally, there is our response variable of interest, PWH, or perceived willingness to help."
+
+#19
+- Class: exact_question
+  Output: "Our first assumption to check is normality within each group pair. Since it is a 3 (PayForm) x 2 (PayLevel) model, we should expect how many groups? Enter the whole number into your Console."
+  CorrectAnswer: 6
+  AnswerTests: omnitest(correctVal='6')
+  Hint: To solve for the number of groups, multiply the factors together.
+
+#20
+- Class: text
+  Output: "You should already have some background knowledge for how we can test for (4) - if you haven't, be sure to review Testing For Nonnormality."
+
+- Class: cmd_question
+  Output: "Take our dataset, HeymanLong, and pipe (|>) it into group_by(), where we want to specify we have two grouping variables, PayLevel, PayForm, and then pipe (|>) that into shapiro_test() from the rstatix package, passing the argument PWH as our response variable. "
+  CorrectAnswer: HeymanLong |> group_by(PayLevel, PayForm) |> shapiro_test(PWH)
+  AnswerTests: omnitest(correctExpr='HeymanLong |> group_by(PayLevel, PayForm) |> shapiro_test(PWH)')
+  Hint: "HeymanLong |> group_by(PayLevel, PayForm) |> shapiro_test(PWH)"
+
+#21 -
+- Class: text
+  Output: "Great job. Now, this might look bad, but ANOVAs can be relatively robust to violations of the normality assumption. For more information, we recommend reading Schmider, E., Ziegler, M., Danay, E., Beyer, L., Bühner, M. (2010). Is it really robust? Reinvestigating the robustness of ANOVA against violations of the normal distribution assumption. Methodology, 6(4), 147-151."
+  
+#22
+- Class: text
+  Output: "However, since they all are rejected, we should at least be slightly cautious. We can test to see if there are significant outliers per group that may be causing this problem."
+
+#23
+- Class: cmd_question
+  Output: "We can also do this using rstatix. Hit up on your console. Where you had shapiro_wilk(PWH), change that to identify_outliers(PWH)."
+  CorrectAnswer: HeymanLong |> group_by(PayLevel, PayForm) |> identify_outliers(PWH)
+  AnswerTests: omnitest(correctExpr='HeymanLong |> group_by(PayLevel, PayForm) |> identify_outliers(PWH)')
+  Hint: HeymanLong |> group_by(PayLevel, PayForm) |> identify_outliers(PWH)
+
+#24
+- Class: text
+  Output: "identify_outliers() defines an outlier as any value above the 3rd quartile + 1.5 times the interquartile range (or 1st Q minus 1.5IQR) and extreme outliers are +/- 3*IQR."
+
+#25
+- Class: text
+  Output: The helpfile notes, and we completely agree, that, quote - "Data points that are labelled outliers in boxplots are not considered as troublesome as those considered extreme points and might even be ignored." 
+  
+#26
+- Class: text
+  Output: "Since there are no extreme outliers, our data seems okay to assumption (5). We recommend never removing observations that are true for is.outlier but false for is.extreme, but researchers may find justification for removing outliers that are true for is.extreme, but even then, we recommend caution against risks of p-hacking and Type I errors, see Bakker, M., & Wicherts, J. M. (2014). Outlier removal, sum scores, and the inflation of the type I error rate in independent samples t tests- The power of alternatives and recommendations. Psychological Methods, 19(3), 409–427. doi.org/10.1037/met0000014" 
+  
+#27
+- Class: text
+  Output: "Our last assumption is that of sphericity. Again, rstatix library will come to the rescue. The authors, when reporting their results, state - We first carried out a 3 (payment form: cash vs. candy vs. monetized candy)  x 2 (payment level: low vs. medium) within-subject ANOVA on the expected  willingness to help (see Figure 1 for descriptive statistics). Mauchly’s test revealed that the assumption of sphericity was violated for the main effect of the payment form and the interaction term."
+
+#28
+- Class: text
+  Output: "It should be noted that Sphericity can only be tested if number of groups > 2. Since we're testing the variance between any two time points, it is stating that the variance in T1-T3 is the same as T2-T3 is the same as T1-T2. With only two time points or groups, there's nothing to compare against."
+  
+#29
+- Class: script
+  Output: Let's use anova_test() to find out more about our results and the results reported by the authors. When you're ready, type submit().
+  AnswerTests: script_results_identical('pwh_anova')
+  Hint: "Does yours look like this -  HeymanLong |> anova_test(dv=PWH, wid=ResponseId, within=c(PayLevel, PayForm)) ? "
+  Script: mauchley.R
+  
+#30
+- Class: cmd_question
+  Output: Let's print out our ANOVA results now by typing pwh_anova.
+  CorrectAnswer: pwh_anova
+  AnswerTests: omnitest(correctExpr='pwh_anova')
+  Hint: Write pwh_anova now.
+  
+#31:
+- Class: text
+  Output: We can see there are three main outputs, signified by $. The second one is $'Mauchly's Test for Sphericity.' Both PayForm (remember, 3 levels), and the moderating effect of PayLevel on PayForm (6 possible levels) is significant, which means that we reject the null hypothesis that the variances between any two timepoints is the same. The statistic reported, W (it should be episilon) ranges from 0 to 1, where larger is better.
+  
+#32:
+- Class: text
+  Output: The general rule of thumb is if episilon is greater than .75, we can use what are known as Huynh-Feldt corrections, but if it's less than .75, we should use Greenhouse-Geisser corrections. GG corrections are more conservative, so sometimes authors will opt to just be as conservative as possible in their analyses. 
+  
+- Class: text
+  Output: And indeed, the authors write that - "and we employed Greenhouse-Geisser corrected degrees of freedom." though the episilon suggests they did not have to do that.
+  
+- Class: text
+  Output: How can we employ this correction?
+  
+- Class: script
+  Output: We will pipe  our anova_test() function into a complimentary function get_anova_table(), and pass along inside of that the argument correction="GG".  When you're ready, type submit().
+  AnswerTests: script_results_identical('pwh_anova')
+  Hint: 'Does yours look like this -  HeymanLong |> anova_test(dv=PWH, wid=ResponseId, within=c(PayLevel, PayForm)) |> get_anova_table(correction="GG") ? '
+  Script: correction.R
+ 
+- Class: cmd_question
+  Output: You know the drill - let's see our results now with pwh_anova. 
+  CorrectAnswer: pwh_anova
+  AnswerTests: omnitest(correctExpr='pwh_anova')
+  Hint: Write pwh_anova now.
+
+- Class: text
+  Output: First, we want to notice what happened (scroll up to compare). The DFd and DFn changed, but the F stat stayed the same. However, the small change in the DFd/DFn permits a change in the F critical value.
+  
+- Class: cmd_question
+  Output: To show this, let's find out what the f critical value would be for uncorrected PayForm. Using qf(), pass the alpha/2 (.025), the DFn (2), the DFd (1996), and lower.tail=FALSE.
+  CorrectAnswer: qf(.025, 2, 1996, lower.tail=FALSE)
+  AnswerTests: omnitest(correctExpr='qf(.025, 2, 1996, lower.tail=FALSE)')
+  Hint: Write qf(.025, 2, 1996, lower.tail=FALSE)
+
+- Class: cmd_question
+  Output: Compare this to the f critical of our corrected PayForm. Using qf(), pass the alpha/2 (.025), the DFn (1.76), the DFd (1752.32), and lower.tail=FALSE.
+  CorrectAnswer: qf(.025, 1.76, 1752.32, lower.tail=FALSE)
+  AnswerTests: omnitest(correctExpr='qf(.025, 1.76, 1752.32, lower.tail=FALSE)')
+  Hint: Write qf(.025, 1.76, 1752.32, lower.tail=FALSE).
+  
+- Class: text
+  Output: Since our corrected critical value is larger than our non-corrected, we make it slightly more difficult for ourselves to reject the null hypothesis due to the violations of sphericity.
+  
+- Class: cmd_question
+  Output: Let's remind us of what the results were - type in pwh_anova again.
+  CorrectAnswer: pwh_anova
+  AnswerTests: omnitest(correctExpr='pwh_anova')
+  Hint: Write pwh_anova now.
+
+- Class: text
+  Output: "The authors write - We found a large effect for  the payment form, F(1.76, 1752.33) = 161.56, p .001, η2p  = .14, 90% CI [.12, .16]. The main effect of the payment level was also large,  F(1, 998) = 1679.32, p .001, η2p  = .63, 90% CI [.60, .65]. Finally, we found an interaction effect,   F(1.90, 1900.34) = 428.58, p .001, η2p  = .30, 90% CI [.27, .33], supporting H1."
+
+- Class: text
+  Output: "We've gotten most of that! The only part we haven't been able to get yet is two things - the partial eta squared reported (that n2p = .14) and the 90% CI of the partial eta squared."
+  
+- Class: script
+  Output: We will add onto our anova_test() function to ask for the partial eta squared effect sizes.  When you're ready, type submit().
+  AnswerTests: script_results_identical('pwh_anova')
+  Hint: 'Does yours look like this -  HeymanLong |> anova_test(dv=PWH, wid=ResponseId, within=c(PayLevel, PayForm), effect.size="pes") |> get_anova_table(correction="GG") ? '
+  Script: fullanova.R
+  
+- Class: cmd_question
+  Output: You know the drill - let's see our results now with pwh_anova. 
+  CorrectAnswer: pwh_anova
+  AnswerTests: omnitest(correctExpr='pwh_anova')
+  Hint: Write pwh_anova now.
+
+- Class: cmd_question
+  Output: anova_test() is not currently capable of giving us the 90% CI of partial eta squared. However, we can use the get.ci.partial.eta.squared() function from apaTables. To demonstrate, let's just do the effect size CI for  PayLevel:PayFor. It wants four things - the F statistic (F.value=428.576), the DFn (df1=1.90), the DFd (df2=1900.34), and the confidence interval (conf.level=.90). 
+  CorrectAnswer: get.ci.partial.eta.squared(F.value=428.576, df1=1.90, df2=1900.34, conf.level=.90)
+  AnswerTests: omnitest(correctExpr='get.ci.partial.eta.squared(F.value=428.576, df1=1.90, df2=1900.34, conf.level=.90)')
+  Hint: get.ci.partial.eta.squared(F.value=428.576, df1=1.90, df2=1900.34, conf.level=.90) 
+
+- Class: text
+  Output: Great job. To get the group means of these, we recommend checking out the Basic Tidyverse Verbs module and looking for group_by() and summarise(). 
+  
+- Class: text
+  Output: To plot these means, we recommend checking out the Basics of GGPlot2 - Grouped Bar Plot module. We also included some basics in the Notes.
+
+- Class: text
+  Output: To learn how to pivot data into the long format from the wide format, we recommend checking out the Pivoting Longer and Wider module.
+  
+- Class: text
+  Output: Finally, to consider how to do a repeated measures model as a linear model, we recommend you check out the Notes as well. 
+  
+- Class: mult_question
+  Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
+  AnswerChoices: Yes;No
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: hint

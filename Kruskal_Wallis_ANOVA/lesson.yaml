@@ -1,0 +1,124 @@
+- Class: meta
+  Course: Psychological Statistics You Can Handle
+  Lesson: Kruskal-Wallis ANOVA
+  Author: Kevin R. Carriere
+  Type: Standard
+  Organization: Washington & Jefferson College
+  Version: 3.0.0
+  
+  #1
+- Class: script
+  Output: Here are some notes for this module. When you've saved the notes, type submit().
+  AnswerTests: script_results_identical('saved')
+  Hint: Make sure the last line in your script says saved <- "Y".
+  Script: Notes.R
+
+- Class: text
+  Output: The Kruskal-Wallis test is a nonparametric test based on rankings. It is the Mann-Whitney U-Test expanded beyond two groups, and is the non-parametric alternative to an ANOVA. 
+  
+- Class: text
+  Output: Take the Testing NonNormality module to learn how we can test this assumption. For now, we are going to go ahead and assume that the authors were correct in their assumption testing and that a Kruskal-Wallis ANOVA was the right approach.
+  
+- Class: text
+  Output: Since it is the Mann-Whitney expanded, it carries the same assumptions. We still have to assume that all groups are random samples from their own populations, and the distribution of the variable have the same shape in every population.
+  
+- Class: text
+  Output: It also has very little power with small sample sizes, but has roughly equivalent power to an ANOVA with large sample sizes.
+  
+- Class: text
+  Output: The null hypothesis of the Mann-Whitney test, and the Kruskal-Wallis, is that the mean rank of the groups are the same. 
+
+- Class: text
+  Output: If the distributions of the groups are similar (as noted as one of our assumptions), then we can make the additional claim that the medians of the groups are the same as our null hypothesis. However, this assumption does suggest that the only difference is a shift of the distributions, and additive shifts in distributions effect the mean as much as they effect the median, so a claim could be made that this is testing a difference in means as well. 
+
+- Class: text
+  Output: Some citations for these discussions - "Campbell, M. J. (2006). Teaching non-parametric statistics to students in health sciences. ICOTS 7. IASE, ISI Salvador, Bahia, Brazil. and Hart, A. (2001). Mann-Whitney test is not just a test of medians - Differences in spread can be important. British Medical Journal, 323(7309), 391–393. doi.org/10.1136/bmj.323.7309.391"
+
+- Class: text
+  Output: "We are going to analyze data published on PLoS One. In this paper, they investigated whether or not the ominous background music that often accompanies shark footage in documentaries impacts individual's perceptions of sharks. Their data showed that participants rated sharks more negatively and less positively after viewing a 60-second video clip of swimming sharks set to ominous background music, compared to participants who watched the same video clip set to uplifting background music, or silence. Attitudes toward sharks did not differ among participants assigned to audio-only control treatments."
+  
+#10
+- Class: text
+  Output: "The citation is Nosal, A. P., Keenan, E. A., Hastings, P. A., & Gneezy, A. (2016). The Effect of Background Music in Shark Documentaries on Viewers’ Perceptions of Sharks. PLOS ONE, 11(8), e0159279. doi.org/10.1371/journal.pone.0159279"
+
+- Class: cmd_question
+  Output: I've loaded the data into your environment called Sharks. Let's look at it by piping Sharks into head().
+  CorrectAnswer: Sharks |> head()
+  AnswerTests: omnitest(correctExpr='Sharks |> head()')
+  Hint: Try Sharks |> head(). 
+
+- Class: text
+  Output: Notice there are three factor columns - one that lumps all of the conditions together (Condition) and one that treats each true factor as its own column (AudioVideo and MusicChoice). While in our Two-Way ANOVAs, we want the latter, Kruskal-Wallis doesn't appreciate interaction terms in the same way, and therefore, we want all of the conditions to be a single column (Condition). 
+  
+- Class: text
+  Output: The authors write - "There was a significant effect of experimental treatment on... negative (Kruskal-Wallis H = 62.423, df = 5, p < 0.001) ... ratings of  sharks."
+
+- Class: cmd_question
+  Output: To check their answer, we will pipe (|>) our dataset, Sharks, into kruskal_test() from the rstatix package, where we will pass the equation NegativeRatings ~ Condition .
+  CorrectAnswer: Sharks |> kruskal_test(NegativeRatings ~ Condition)
+  AnswerTests: omnitest(correctExpr='Sharks |> kruskal_test(NegativeRatings ~ Condition)')
+  Hint: Try Sharks |> kruskal_test(NegativeRatings ~ Condition) . Maybe you forgot the s in NegativeRatings?
+
+- Class: text
+  Output: Great job. We can see the H=62.423, the df=5, and the p<.001.
+  
+- Class: text
+  Output: Next they write - "Participants in the V-ominous treatment rated sharks significantly more negatively  (M = 5.07) than those in the V-uplifting (M = 4.33; Dunn’s Z = 2.993, Bonferroni-adjusted  p = 0.042) and V-silence treatments (M = 4.43; Z = 3.023, p = 0.038)."
+
+- Class: script
+  Output: Let's tackle the means first. 
+  AnswerTests: mean_results_identical('vidmeans')
+  Hint: vidmeans <- Sharks |>  filter(AudioVideo=="Video") |> group_by(Condition) |> summarise(mean = mean(NegativeRatings, na.rm=TRUE)) should get it for you!
+  Script: mean.R
+
+#18
+- Class: cmd_question
+  Output: Let's see your output by typing vidmeans now.
+  CorrectAnswer: vidmeans
+  AnswerTests: omnitest(correctExpr='vidmeans')
+  Hint: Try typing vidmeans into your console.
+  
+- Class: cmd_question
+  Output: Great. Now, the second half of that sentence talked about some Dunn's Z value. Dunn's Test is a post-hoc test for ranked data, generally used after one does a Kruskal-Wallis test. We can call it by piping Sharks into dunn_test() with two arguments, our equation of NegativeRatings ~ Condition, and p.adjust.method="bonferroni", since the authors mention correcting for multiple comparisons. Since there are 6 groups, the possible comparisons grow quite large -- 15 total (5+4+3+2+1).
+  CorrectAnswer: Sharks |> dunn_test(NegativeRatings~Condition, p.adjust.method="bonferroni") 
+  AnswerTests: omnitest(correctExpr='Sharks |> dunn_test(NegativeRatings~Condition, p.adjust.method="bonferroni") ')
+  Hint: Try Sharks |> dunn_test(NegativeRatings~Condition, p.adjust.method="bonferroni") . 
+
+- Class: cmd_question
+  Output: Something nice to notice about rstatix is when possible, it does output in "A tibble". This means we can do tidy verbs onto it. That first column is not helpful for us - we know it's NegativeRatings. Hit up on your keyboard, and at the end of your dunn_test(), pipe (|>) that through select(), where we will unselect .y.  using the dash (-.y.).
+  CorrectAnswer: Sharks |> dunn_test(NegativeRatings~Condition, p.adjust.method="bonferroni") |> select(-.y.)
+  AnswerTests: omnitest(correctExpr='Sharks |> dunn_test(NegativeRatings~Condition, p.adjust.method="bonferroni")  |> select(-.y.)')
+  Hint: Try Sharks |> dunn_test(NegativeRatings~Condition, p.adjust.method="bonferroni") |> select(-.y.). 
+
+- Class: cmd_question
+  Output: That's still a lot - so let's take this one step more advanced. At the end of that, let's pipe this one more time into filter(). We will pass another function into filter(), called str_detect() in the stringr package, which will take two arguments. The first, is the column we're looking at, which will be group1, and the second, which will be the pattern of the string we're looking for, which will be "V." in quotes. Try that now. 
+  CorrectAnswer: Sharks |> dunn_test(NegativeRatings~Condition, p.adjust.method="bonferroni") |> select(-.y.) |> filter(str_detect(group1, "V."))
+  AnswerTests: omnitest(correctExpr='Sharks |> dunn_test(NegativeRatings~Condition, p.adjust.method="bonferroni")  |> select(-.y.) |> filter(str_detect(group1, "V."))')
+  Hint: Try Sharks |> dunn_test(NegativeRatings~Condition, p.adjust.method="bonferroni") |> select(-.y.)  |> filter(str_detect(group1, "V.")) 
+
+- Class: mult_question
+  Output: Great job. The text had read - "Participants in the V-ominous treatment rated sharks significantly more negatively  (M = 5.07) than those in the V-uplifting (M = 4.33; Dunn’s Z = 2.993, Bonferroni-adjusted  p = 0.042) and V-silence treatments (M = 4.43; Z = 3.023, p = 0.038)."  Which comparison reported does our statistics disagree with - that is, which one of these comparisons is different from the text?
+  AnswerChoices: V. Silence vs. V. Ominous; V. Uplifting vs. V. Silence; V. Uplifting vs. V. Ominous
+  CorrectAnswer: V. Uplifting vs. V. Ominous
+  AnswerTests: omnitest(correctVal='V. Uplifting vs. V. Ominous')
+  Hint: Which one does not have the same Dunn's Z or p value?
+  
+- Class: text
+  Output: Yeah, we're not exactly sure either, since our means were correct. We imagine it was a small typographical error on the author's part - something that happens quite a bit! This is the joy of having open data, we always can double check the work of others, and we all learn from it.
+  
+- Class: cmd_question
+  Output: Finally, while they don't do it in this paper, we also can report the effect size of this test, using kruskal_effsize(). Scroll up using the up key on your keyboard until you find your kruskal_test() answer, and then instead, do kruskal_effsize().
+  CorrectAnswer: Sharks |> kruskal_effsize(NegativeRatings ~ Condition)
+  AnswerTests: omnitest(correctExpr='Sharks |> kruskal_effsize(NegativeRatings ~ Condition)')
+  Hint: Try Sharks |> kruskal_effsize(NegativeRatings ~ Condition) . Maybe you forgot the s in NegativeRatings?
+
+- Class: text
+  Output: Great job. The helpfile states that magnitude is defined as .01-.05 as a small effect, .06-.13 as a medium effect, and .14 and higher as a large effect for partial eta-squared (see Cohen, 1988).
+
+  
+- Class: mult_question
+  Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
+  AnswerChoices: Yes;No
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: hint

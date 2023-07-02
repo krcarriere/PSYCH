@@ -1,0 +1,230 @@
+- Class: meta
+  Course: PSYCH - Psychological Statistics You Can Handle
+  Lesson: Homogeneity of Variances - Levene's Test
+  Author: Kevin R. Carriere, Jason Kilgore
+  Type: Standard
+  Organization: Washington & Jefferson College
+  Version: 3.0.0
+
+#1
+- Class: script
+  Output: Here are some notes for this module. When you've saved the notes, type submit().
+  AnswerTests: script_results_identical('saved')
+  Hint: Make sure the last line in your script says saved <- "Y".
+  Script: Notes.R
+
+- Class: text
+  Output: You may want to exit() if you have not first reviewed your basics on GGPlot, specifically on the violin plot and facet_grid(). 
+
+- Class: text
+  Output: In many of our parametric tests, they come with the assumption that each group we are analyzing has the same variance. We also can expand this definition when we turn to regressions, where we are assuming that the variance remains the same across the range of values.
+
+- Class: text
+  Output: This can be a tough assumption to meet.
+  
+- Class: text
+  Output: But, how do we examine whether or not this assumption is made?
+  
+- Class: text
+  Output: The most basic way, especially when simply considering the variance between two groups, is to use the F Test, where we check the ratio between the variance of Group 1 and the variance of Group 2. If they are equal, the ratio between them should be 1. A short rule of thumb is that if the variance ratio is >3, you probably have some inequality between variances of groups.
+  
+- Class: text
+  Output: However, the F Test is very sensitive to outliers and non-normality, and so we consider it only as a first check building our priors.
+  
+- Class: text
+  Output: Instead, we will use 'the best' test of testing non-normality, Levene's Test. However, it should be noted that Levene's Test also has its own problems - it has very low power with low sample sizes and struggles when sample sizes are very uneven (c.f. Nordstrokke & Zumbo, 2007).
+  
+- Class: text
+  Output: The full prior citation is - Nordstokke, D. W. & Zumbo, B. D. (2007). A Cautionary Tale about Levene’s Tests for Equal Variances. Journal of Educational Research & Policy Studies, 7(1), 1–14.
+
+#10
+- Class: text
+  Output: In 2022, Frankenhuis and colleagues wanted to know whether or not individuals who lived in relatively challenging conditions were significantly different in a range of measures compared to those who lived in low-risk situations, with their main research question measuring if those who were high-risk detected more threats in ambigious situations compared to a low-risk group.
+  
+- Class: text
+  Output: The high risk group was a "group of community participants who lived in relatively challenging conditions for Dutch standards, in that people were more likely to need governmental support in order to meet their basic needs (e.g., food, housing, safety)." They had "anticipated that on average members of the community sample had experienced higher levels of adversity, including higher levels of exposure to violence in their past or current environments. The other group was a college student sample, who [were] expected to have experienced lower levels of violence (the ‘low-risk group’)". Ive loaded their data in your environment under data.
+
+- Class: text
+  Output: "The citation for this paper is- Frankenhuis, W. E., Weijman, E. L., de Vries, S. A., van Zanten, M., & Borghuis, J. (2022). Exposure to Violence Is Not Associated With Accuracy in Forecasting Conflict Outcomes. Collabra- Psychology, 8(1), 38604. doi.org/10.1525/collabra.38604"
+  
+- Class: cmd_question
+  Output: Look at the data now by running data |> summary().
+  CorrectAnswer: data |> summary()
+  AnswerTests: omnitest(correctExpr='data |> summary()')
+  Hint: Try data |> summary()
+
+- Class: mult_question
+  Output: How many total variables are in this dataset?
+  AnswerChoices: 7; 6; 127; 4
+  CorrectAnswer: 7
+  AnswerTests: omnitest(correctVal='7')
+  Hint: Look in your Environment tab.
+
+- Class: text
+  Output: Great job. So, there are seven variables. We will, for now, look primarily at risk_group (whether or not the participants were either high-risk or low-risk) and poverty_dev (whether they had their basic needs met in their past, measured on a 1-7 scale, where 7 is having all of their needs met and 1 is not having their needs met.). 
+  
+- Class: cmd_question
+  Output: Our first step when given a dataset should be to visualize it. Let us use ggplot2 to plot a violin plot. To do this, remember to take our data, data, and pipe (|>) it into ggplot(). ggplot() takes one argument, aes(), which itself takes two arguments, our variables. Our y variable (y) should be equal to (=) poverty_dev, and our x variable (x) will be our explanatory variable equal to (=)risk_group.
+  CorrectAnswer: data |> ggplot(aes(x=risk_group, y=poverty_dev))+geom_violin()
+  AnswerTests: any_of_exprs('data |> ggplot(aes(x=risk_group, y=poverty_dev))+geom_violin()', 'data %>% ggplot(aes(x=risk_group, y=poverty_dev)) + geom_violin()')
+  Hint: data |> ggplot(aes(x=risk_group, y=poverty_dev))+geom_violin()
+
+- Class: mult_question
+  Output: What group looks like it has a larger variance than the other?
+  AnswerChoices: High risk group; Low-risk group
+  CorrectAnswer: High risk group
+  AnswerTests: omnitest(correctVal='High risk group')
+  Hint: Which of the two have a larger spread in the data? 
+  
+- Class: text
+  Output: Indeed! They look quite different in their variances. This may suggest that there is differences in the variances. So, visually, we should be concerned.
+  
+- Class: text
+  Output: There are a few ways to quantify this difference. In this course, we will consider Levene's Test. Levene's tests the null hypothesis that the variances are homogeneous - that there is no difference in variances between the groups. 
+
+#20
+- Class: cmd_question
+  Output: In order to use this test, we can use the function levene_test() in the rstatix package. To run this test, pipe the data into levene_test(). The first argument in the function is the equation we are interested in testing, written by our response variable ~ explanatory variable. Try it now.
+  CorrectAnswer: data |> levene_test(poverty_dev ~ risk_group)
+  AnswerTests: omnitest(correctExpr='data |> levene_test(poverty_dev ~ risk_group)')
+  Hint: Put the following in your console -  data |> levene_test(poverty_dev ~ risk_group)
+  
+- Class: text
+  Output: So we can see that the df1 (1) of this test represents k-1, where K is the number of groups. df2 (125) represents N-k, where N is the number of observations, and k is the number of groups. Our test statistic, 9.70, is tested against an F distribution with (1,125) degrees of freedom. That gives a p-value of .00229.
+  
+- Class: mult_question
+  Output: What do you conclude about this data given an alpha of .05?
+  AnswerChoices: We reject the null hypothesis - there is evidence their variances are different; We reject the null hypothesis - there is evidence their variances are the same; We fail to reject the null hypothesis - there is evidence their variances are different;  We fail to reject the null hypothesis - there is evidence their variances are different.
+  CorrectAnswer: We reject the null hypothesis - there is evidence their variances are different
+  AnswerTests: omnitest(correctVal='We reject the null hypothesis - there is evidence their variances are different')
+  Hint: Is the p value less than an alpha of .05?
+
+- Class: text
+  Output: Exactly. The researchers astutely noticed this as well, and so they proceeded with Welch's T-Test, a specific type of T-Test that does not assume the variances are equal.
+
+- Class: text
+  Output: We can do Levene's Test on more than just two groups. 
+
+- Class: text
+  Output: In another study, researchers wanted to replicate and extend a paper from 2004. In their 2022 study, they present participants with someone looking for help to load a sofa into a van. Some participants were told that if someone were to help the person, that helper would receive 50 cents ($0.50), which they called low cash payment. Others were told the helper would receive $5, which they called medium cash payment. Others were told that the helper would not receive a payment for helping (With mention control) and others were told nothing about the payment (Without mention control). They also tested to see if it was sweets (candy or chocolate) instead of cash, but we won't analyze those. Participants were asked, based on this information, participants were asked how much they expected people to help this poor sofa-moving soul.
+  
+- Class: text
+  Output: They had a hypothesis -  The expected willingness to help in the nonpayment condition is higher than in the low monetary payment condition. 
+  
+- Class: text
+  Output: The citation for this study is "Imada, H., Chan, W. F., Ng, Y. K., Man, L. H., Wong, M. S., Cheng, B. L., & Feldman, G. (2022). Rewarding More Is Better for Soliciting Help, Yet More So for Cash Than for Goods. Revisiting and Reframing the Tale of Two Markets With Replications and Extensions of Heyman and Ariely (2004). Collabra Psychology, 8(1), 32572. https://doi.org/10.1525/collabra.32572".
+  
+  
+- Class: cmd_question
+  Output: I've loaded their dataset in your environment as well, called df2. Run summary(df2) to learn more about it.
+  CorrectAnswer: df2 |> summary()
+  AnswerTests: omnitest(correctExpr='df2 |> summary()')
+  Hint: df2 |> summary()
+
+- Class: cmd_question
+  Output: And to understand the variables, let's tabulate using table() on the Condition variable.  
+  CorrectAnswer: df2 |> select(Condition) |> table()
+  AnswerTests: any_of_exprs('df2 |> select(Condition) |> table()', 'df2 %>% select(Condition) %>% table()', 'df2 %>% select(Condition) %>% table', 'table(df2$Condition)')
+  Hint: One way to do it would be to write df2 |> select(Condition) |> table(), or you can write table(df2$Condition).
+  
+- Class: text
+  Output: "Now, we won't look at the results here (but they did find that not being told the chance of money had participants report higher expectations of help compared to the low money condition). Instead, they used a Welch's ANOVA - a specific kind of ANOVA that does not assume homogeneity of variances! "
+  
+- Class: cmd_question
+  Output: "They write: In the pre-registration, we did not explicitly mention whether we would use a conventional Fisher’s or Welch’s ANOVA. However, given that Levene’s test indicated that the assumption of equal variance was violated (F(3, 1097) = 3.77, p = .01).... Can we replicate this result? Let us try what we've learned so far on this dataset, running Expected ~ Condition through levene_test(), and piping the df2 on the left hand side."
+  CorrectAnswer: df2 |> levene_test(Expected ~ Condition)
+  AnswerTests: omnitest(correctExpr='df2 |> levene_test(Expected ~ Condition)')
+  Hint: df2 |> levene_test(Expected ~ Condition)
+
+- Class: cmd_question
+  Output: Uh oh! That is not what they had. While our df1 (3) and df2 (1097) are the same, our test statistics (3.77 v 0.827) and p values (p=.01 v. p=.479) are different. We might wonder what is going on. Let's pull up the help file of levene_test().
+  CorrectAnswer: ?levene_test
+  AnswerTests: omnitest(correctExpr='?levene_test')
+  Hint: ?levene_test
+
+- Class: text
+  Output: See how the third argument is called center, and its default value is median. The description states that mean gives the original Levene's Test results, but median is more robust. Did the authors choose the original test?
+
+- Class: text
+  Output: "As a reminder, they write: In the pre-registration, we did not explicitly mention whether we would use a conventional Fisher’s or Welch’s ANOVA. However, given that Levene’s test indicated that the assumption of equal variance was violated (F(3, 1097) = 3.77, p = .01)."
+
+- Class: cmd_question
+  Output: "Let's try that again, but this time, inside of levene_test(), pass a second argument after Expected ~ Condition, to set center equal to mean. Continue to pipe the dataset, df2, on the left hand side."
+  CorrectAnswer: df2 |> levene_test(Expected ~ Condition, center=mean)
+  AnswerTests: omnitest(correctExpr='df2 |> levene_test(Expected ~ Condition, center=mean)')
+  Hint: df2 |> levene_test(Expected ~ Condition, center=mean)
+
+- Class: text
+  Output: It looks like indeed they did! Great job.
+  
+- Class: text
+  Output: Now, Levene's Test has its own set of limitations. Levene's Test is sensitive to sample size, and will more easily be able to reject when sample size is large. You should make your own judgement call on deciding how big of a sample is big enough. 
+
+- Class: text
+  Output: Also, as we saw, there are differences between what kind of test you are running even within Levene's - are we testing the means, or the medians? The center being set to median is generally preferred when you have a clear skewed distribution of your Y variable within a group, while the mean is preferred for symmetrically tailed distributions.
+
+- Class: text
+  Output: So, before we toss this analysis to the side, we should check to see if the data, per group, is relatively symmetrical or if there is a skew. It may be the case that the authors were correct in their analysis of Levene's Test and using the mean *if* there is no skew. 
+  
+- Class: cmd_question
+  Output: We can check this  by plotting our data. Let us pass our data frame, df2, into a ggplot() call, where we want the aes() x value to be Expected. We will add onto that call that we want to plot geom_histogram() and that we also want to facet_wrap(~Condition). 
+  CorrectAnswer: df2 |> ggplot(aes(x=Expected))+geom_histogram()+facet_wrap(~Condition)
+  AnswerTests: omnitest(correctExpr='df2 |> ggplot(aes(x=Expected))+geom_histogram()+facet_wrap(~Condition)')
+  Hint: df2 |> ggplot(aes(x=Expected))+geom_histogram()+facet_wrap(~Condition)
+
+- Class: mult_question
+  Output: Which group has a strong skew?
+  AnswerChoices: Low cash; Medium cash; With mention; without mention; None; All
+  CorrectAnswer: Low cash
+  AnswerTests: omnitest(correctVal='Low cash')
+  Hint: Only one of the four groups shows a strong positive skew. Which one?
+
+- Class: text
+  Output: Indeed. This is too bad, because as we saw, the difference between center=mean and center=median was quite significant! Because there was a skew, we should have set center=median. That would have led us to fail to reject the null hypotheses that there was differences in variance between groups, and the authors should have continued with a standard one-way ANOVA.
+
+- Class: text
+  Output: "Still, we can commonly apply this test to our lessons. We also can consider the heteroskedascity of regression error terms. "
+
+- Class: text
+  Output: "For example, in the original dataset, we could try and estimate one of the dependent variables in their study. As the authors write, C represents the threshold for recognizing a signal (i.e., fight) trial: a c of zero indicates no bias, a negative c a low threshold (fight bias; consistent with hostile attribution bias, and a positive c a high threshold (no-fight bias; consistent with rose-colored glasses.  We could try and predict individual's bias to perceive fights (C) by both their current and past basic needs (poverty_current) and (poverty_dev) and one's own involvement in violence as a youth (YRB_dev)."
+
+- Class: cmd_question
+  Output: "I have created the linear model that estimates this already in your environment. Run summary(cLM) to see it."
+  CorrectAnswer: summary(cLM)
+  AnswerTests: omnitest(correctExpr='summary(cLM)')
+  Hint: Write summary(cLM)
+
+- Class: text
+  Output: Nice job!
+
+- Class: text
+  Output: Remember, the simpliest explanation of a regression is trying to draw a line of best fit through a scatterplot. We use these coefficients to estimate what our data says is our most expected observation, given certain values. We call this the "fitted" values. But these fitted values differ from the truth - what our data actually shows. We call that distance from the estimated line to the actual points the residuals.
+  
+- Class: cmd_question
+  Output: We can pass cLM into ggplot(), naming the aes() for x to be .fitted and y to be .resid. Add on a point geom (geom_point()) after the ggplot call.
+  CorrectAnswer: cLM |> ggplot(aes(x=.fitted, y=.resid))+geom_point()
+  AnswerTests: omnitest(correctExpr='cLM |> ggplot(aes(x=.fitted, y=.resid))+geom_point()')
+  Hint: cLM |> ggplot(aes(x=.fitted, y=.resid))+geom_point()
+  
+- Class: text
+  Output: You should review the regression module for more information, but we can see in this case, there is a clear < spreading pattern. The residuals grow in size as we move across the x axis. This funnel shape is a good sign that we might have heteroskedascity - that the variance is not the same across all levels of X.
+  
+- Class: cmd_question
+  Output: In the library lmtest, there is a function called bptest(). This stands for the Breusch-Pagan Test, a test for the heteroskedascity of residuals if given a model. Pass our model, cLM, into bptest().
+  CorrectAnswer: bptest(cLM)
+  AnswerTests: omnitest(correctExpr='bptest(cLM)')
+  Hint: bptest(cLM)
+
+- Class: text
+  Output: And indeed we do! Since we reject the null hypothesis that there is homoskedacsticity, there is evidence to suggest that our residuals are indeed heteroskedastic. We might defer to use *robust* standard errors.
+
+- Class: text
+  Output: "And now we've tested homogeneity of variances in multiple ways - using levene_test() for categorical-focused models, and using bptest() to test the residuals of linear models. We considered how Levene's can be based on both the mean (good if not skewed) or median (robust, and able to handle skewed data), but also reflected on Levene's own limitations. In various other modules, we also address how some of our models are robust themselves to these violations (like ANOVA), while others can easily be addressed (robust standard errors)."
+
+  
+- Class: mult_question
+  Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
+  AnswerChoices: Yes;No
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: hint
