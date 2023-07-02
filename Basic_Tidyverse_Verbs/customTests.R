@@ -1,4 +1,4 @@
-# Chi Square Test
+# Basic Tidyverse Verbs
 
 script_results_identical <- function(result_name) {
   # Get e
@@ -37,11 +37,13 @@ getLog <- function(){
   getState()$log
 }
 
+
+
 submit_log <- function(){
   selection <- getState()$val
   if(selection == "Yes"){
     # Please edit the link below
-    pre_fill_link <- "https://docs.google.com/forms/d/e/1FAIpQLSeMYIkAwblUfMuTHcYhocFc427C5kJ6rWFs2vPW4BlgUdb8Og/viewform?usp=pp_url&entry.996111921="
+    pre_fill_link <- "https://docs.google.com/forms/d/e/1FAIpQLScEf6CDOgOsEzJkjaizQH-AotZyOIa9rf_zQYWN-1ziH9x9ew/viewform?usp=pp_url&entry.996111921"
     # Do not edit the code below
     if(!grepl("=$", pre_fill_link)){
       pre_fill_link <- paste0(pre_fill_link, "=")

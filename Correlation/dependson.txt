@@ -1,9 +1,8 @@
 swirl
 swirlify
 dplyr
-ggplot2
-lmtest
+psych
 rstatix
-rcompanion
+corrplot
 latex2exp
 base64enc

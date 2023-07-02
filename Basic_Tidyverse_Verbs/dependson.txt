@@ -1,0 +1,6 @@
+swirl
+dplyr
+base64enc
+purrr
+tibble
+ggplot2

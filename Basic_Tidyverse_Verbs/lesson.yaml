@@ -1,0 +1,187 @@
+- Class: meta
+  Course: PSYCH - Psychological Statistics You Can Handle
+  Lesson: Basic Tidyverse Verbs
+  Author: Kevin R. Carriere & Jason Kilgore
+  Type: Standard
+  Organization: Washington & Jefferson College
+  Version: 3.0.0
+
+#1
+- Class: script
+  Output: To save the notes for this module, copy and paste the code provided into your own RNotebook. Type submit() when you have finished saving these notes. 
+  AnswerTests: script_results_identical('saved')
+  Hint: "Don't change anything, just type submit(). If you did and you don't know how to fix it, just type skip() and you'll be all set."
+  Script: Notes.R
+
+- Class: text
+  Output: It is recommended you take the Basics in R module first. 
+  
+- Class: text
+  Output: Throughout this course, we are going to what is called 'pipe' quite a bit, to the extent that sometimes, it may even be viewed as inefficient. That may be true - however, our goal is to ensure you are so comfortable with piping that it becomes second nature to you, and as such, we have chosen to overuse piping to impart this lesson throughout the modules.
+
+- Class: text
+  Output: The goal of tidy coding strives to make our code readable - it asks us to consider the idea that functions are verbs in a sentence - telling us what our nouns (objects) will do. 
+
+- Class: text
+  Output: The pipe operator (|>) provides a way for us to do multiple functions in a more readable way.
+
+- Class: text
+  Output: When you see a pipe (|> or %>%) you should read this as "and then". So, the code data |> head() reads, "Take our data and then use head() on it." We will be using what is known as the base pipe (|>) throughout this module. The original pipe, %>%, comes from the magrittr package (a tidy package). We won't get you bogged down into the differences (shrinking every update!) but just note that the base R pipe (|>) is quickly becoming the standard.
+
+- Class: text
+  Output: The second goal (we get more into this goal in our Pivoting Data Module) is to ensure that a tidy dataset should have 1 row for every participant-observation. 
+  
+- Class: cmd_question
+  Output: Let's start our understanding of verbs and nouns by loading a dataset. R has many datasets pre-loaded into it for practice, and we'll use one of the most common ones, iris, for this module. Create a new object called data and store (<-) the object iris to it.  
+  CorrectAnswer: data <- iris
+  AnswerTests: omnitest(correctExpr='data <- iris')
+  Hint: Try data <- iris.
+
+- Class: cmd_question
+  Output: Great job. Now, let's take our data and then pipe (|>) it into head(). 
+  CorrectAnswer: data |> head()
+  AnswerTests: omnitest(correctExpr='data |> head()')
+  Hint: Try data |> head(). 
+
+#10
+- Class: mult_question
+  Output: What variable is listed first?
+  AnswerChoices: Sepal.Length; Sepal.Width; Petal.Length; Petal.Width; Species
+  CorrectAnswer: Sepal.Length
+  AnswerTests: omnitest(correctVal='Sepal.Length')
+  Hint: What one shows first?
+  
+- Class: text
+  Output: Now, many times, you may be handling datasets with hundreds of variables! That might be overwhelming, or you might want to do an analysis on a select few of those variables (see our Correlation module). 
+# Select
+
+- Class: cmd_question
+  Output: We can use the select() verb to assist us here. Let's start by storing a new object, data_select, and we'll assign it the output of the sentence "Take my data, and then (|>) select() the variables Petal.Length and Species." select() just takes names of columns with a comma between each, so it should be as straightforward as select(Petal.Length, Species).
+  CorrectAnswer: data_select <- iris |> select(Petal.Length, Species)
+  AnswerTests: omnitest(correctExpr='data_select <- iris |> select(Petal.Length, Species)')
+  Hint: Try data_select <- iris |> select(Petal.Length, Species)
+
+#View Select
+- Class: cmd_question 
+  Output:  Use the View() function to view the contents of data_select. Pipe data_select into View().
+  CorrectAnswer: data_select |> View()
+  AnswerTests: omnitest(correctExpr='data_select |> View()')
+  Hint: Try data_select |> View()
+  
+# everything()
+- Class: cmd_question 
+  Output: Great job. Now, what if you still want all of the variables, but you just want them ordered differently? Let's store this output as data_select2. In this, let's pipe our data into select(), and inside of select, we'll list Petal.Length and Species variables, along with all other variables by using the everything() argument. Try that now.
+  CorrectAnswer: data_select2 <- iris |> select(Petal.Length, Species, everything())
+  AnswerTests: omnitest(correctExpr='data_select2 <- iris |> select(Petal.Length, Species, everything())')
+  Hint: Try data_select2 <- iris |> select(Petal.Length, Species, everything())
+  
+- Class: cmd_question
+  Output: Great job. Did it work? Let's see. Take our data_select2 dataset and pipe it into names(). names() is a function that will list, in order, the column names.
+  CorrectAnswer: data_select2 |> names()
+  AnswerTests: omnitest(correctExpr='data_select2 |> names()')
+  Hint: Try data_select2 |> names(). 
+
+- Class: cmd_question 
+  Output: We can also use the - sign to remove variables we don't want anymore. For example, we could use the select() verb to remove the Species variable from data_select2. Pipe data_select2 into select(), with -Species as the argument. Then, use the names() verb to view the names of the variables in the resulting dataframe. This also shows you how you can pipe multiple functions into each other. 
+  CorrectAnswer: data_select2 |> select(-Species) |> names()
+  AnswerTests: omnitest(correctExpr='data_select2 |> select(-Species) |> names()')
+  Hint: Try data_select2 |> select(-Species) |> names()
+  
+- Class: text
+  Output: That generally covers our select verb. So, if we can add and remove columns (variables), how do we remove observations (rows)? For that, we have the filter() function.
+  
+- Class: cmd_question 
+  Output: For example, let's take our data and pipe (|>) it into filter(), and use the filter() verb to keep only the rows where Sepal.Width is less than (<) 2.5.
+  CorrectAnswer: data |> filter(Sepal.Width<2.5)
+  AnswerTests: omnitest(correctExpr='data |> filter(Sepal.Width<2.5)')
+  Hint: Did you do data |> filter(Sepal.Width<2.5) ?
+  
+#filter multiple
+- Class: cmd_question 
+  Output: We can include multiple filter conditionals in a variety of ways. You might just have two filter() verb steps, the first piping into the second. Or, you could combine it into one. Let's pipe data into filter() and keep only the rows where Sepal.Width is less than 2.5 and (&) the Species is equal to (==) "setosa" using a single filter() command.
+  CorrectAnswer: data |> filter(Sepal.Width<2.5 & Species=="setosa")
+  AnswerTests: omnitest(correctExpr='data |> filter(Sepal.Width<2.5 & Species=="setosa")')
+  Hint: Try data |> filter(Sepal.Width<2.5 & Species=="setosa")
+  
+#20
+- Class: script
+  Output: Let's practice writing a long sentence combining what we've learned.
+  AnswerTests: script_results_identical('length.table')
+  Hint: Try skip() if you can't get it, and look to see how the answer looks.
+  Script: combine.R
+
+- Class: text
+  Output: The main workhorse for data analysis is definitely mutate() however. mutate() is used to create new variables. In our scripts when we analyze data, it's not uncommon for the mutate() function to be 50 lines of code long, because we are creating so many different variables at the outset.
+
+- Class: text
+  Output: The mutate() verb just takes a list of NewVariable = WayToCreateIt calls, with a comma separating each. 
+  
+#mutate to create new variables
+- Class: cmd_question 
+  Output:  For example, let's pipe data_select2 into mutate() and create a new variable named DoublePL that is equal to two times Petal.Length variable. Then, pipe the resulting dataframe into head() to view the first few rows.
+  CorrectAnswer: data_select2 |>  mutate(DoublePL = Petal.Length*2 ) |> head()
+  AnswerTests: any_of_exprs('data_select2 |>  mutate(DoublePL = Petal.Length*2 ) |> head()', 'data_select2 |>  mutate(DoublePL = 2*Petal.Length) |> head()')
+  Hint: Try data_select2 |>  mutate(DoublePL = Petal.Length*2 ) |> head(). 
+
+# case_when()
+- Class: script
+  Output: Let's learn another function, case_when(), which is helpful when doing more complex mutations.
+  AnswerTests: script_results_identical('data_select2')
+  Hint: Use skip() if you're stuck.
+  Script: casewhen.R
+  
+#mean() and rowwise() ? do it wrong first
+- Class: cmd_question 
+  Output: In Psychology, we love to make averages of things - multiple questions averaged together on a scale to get an average score, for example. mutate() handles that. Let's pipe data_select2 into mutate(), and then we'll create a new variable called Sepal.Avg which we will set equal to the mean() function, where we will pass through that function the list (c() ) of Sepal.Width and Sepal.Length. Once that is done, pipe that into head() so we can see our results.
+  CorrectAnswer: data_select2 |>  mutate( Sepal.Avg = mean(c(Sepal.Length, Sepal.Width))) |> head()
+  AnswerTests: any_of_exprs('data_select2 |>  mutate( Sepal.Avg = mean(c(Sepal.Length, Sepal.Width))) |> head()', 'data_select2 |>  mutate( Sepal.Avg = mean(c(Sepal.Width, Sepal.Length))) |> head()')
+  Hint: Try data_select2 |>  mutate( Sepal.Avg = mean(c(Sepal.Length, Sepal.Width))) |> head()
+
+- Class: text
+  Output: Uh oh! Our average is the same per observation! That's because we didn't tell R to think in terms of rows, so it's currently thinking in terms of the data as a whole. 
+  
+# test to see if i can switch the order?
+- Class: cmd_question 
+  Output:  There is a quick fix to this. Hit the up arrow key to get to your last answer. Prior to mutate(...), we need to add one additional pipe function, rowwise(). At that point (Where now it reads -- take our data, and then, consider it by row, and then mutate...), we'll be good to go! Try that now. 
+  CorrectAnswer: data_select2 |>  rowwise() |> mutate( Sepal.Avg = mean(c(Sepal.Length, Sepal.Width))) |> head()
+  AnswerTests: omnitest(correctExpr='data_select2 |>  rowwise() |> mutate( Sepal.Avg = mean(c(Sepal.Length, Sepal.Width))) |> head()')
+  Hint: Try data_select2 |>  rowwise() |> mutate( Sepal.Avg = mean(c(Sepal.Length, Sepal.Width))) |> head()
+#summarise
+- Class: cmd_question 
+  Output:  We might want to say "Well, what is the average of this across the data set"? While mutate() creates new variables, summarise() can create new datasets - datasets that have summarised variables based on our specifications. Just like mutate(), it takes things in terms of NewVariable = WayToCalculateIt. Pipe data_select2 into summarise() to calculate the mean of the Sepal.Width variable, and call this meanSW (for mean Sepal.Width).
+  CorrectAnswer: data_select2 |>  summarise(meanSW = mean(Sepal.Width))
+  AnswerTests: omnitest(correctExpr='data_select2 |>  summarise(meanSW = mean(Sepal.Width))')
+  Hint: Try data_select2 |>  summarise(meanSW = mean(Sepal.Width))
+  
+#group_by()
+- Class: cmd_question 
+  Output: That's nice (and can be helpful when reporting things like scale means in the methods section). But what if we want to know what each group's average is? Just like rowwise(), there is a function we can put in between data_select2 and summarise(), and it is called group_by(). Hit the up arrow, and between your pipe, add group_by() where the one argument in group_by() will be our Species variable. 
+  CorrectAnswer: data_select2 |>  group_by(Species) |> summarise(meanSW = mean(Sepal.Width))
+  AnswerTests: omnitest(correctExpr='data_select2 |>  group_by(Species) |> summarise(meanSW = mean(Sepal.Width))')
+  Hint: Try data_select2 |>  group_by(Species) |> summarise(meanSW = mean(Sepal.Width))
+
+#30
+
+- Class: text
+  Output: The notes walk through how to expand on summarise() to get you standard deviations and standard errors as well.
+
+- Class: text
+  Output: We also want to note that both rowwise() and group_by() make underlying changes to the data. The notes walk through some important examples of this behavior. If you ever re-save your data after grouping (data <- data |> group_by()), you will need to eventually ungroup() that data to bring it back to normal (data <- data |> ungroup()).
+
+#arrange
+- Class: cmd_question 
+  Output: Hit up on your keyboard. At the end of this sentence, add one more pipe, and then pass the verb arrange() with the single argument meanSW. 
+  CorrectAnswer: data_select2 |>  group_by(Species) |> summarise(meanSW = mean(Sepal.Width)) |> arrange(meanSW)
+  AnswerTests: omnitest(correctExpr='data_select2 |>  group_by(Species) |> summarise(meanSW = mean(Sepal.Width)) |> arrange(meanSW)')
+  Hint: Try data_select2 |>  group_by(Species) |> summarise(meanSW = mean(Sepal.Width)) |> arrange(meanSW)
+  
+- Class: text
+  Output: That's it! There's a lot you can do with the tidyverse library. We hope that was helpful.
+
+#34
+- Class: mult_question
+  Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
+  AnswerChoices: Yes;No
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: hint

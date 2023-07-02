@@ -1,4 +1,5 @@
-# Chi Square Test
+# GGplot grouped bar plots
+
 
 script_results_identical <- function(result_name) {
   # Get e
@@ -23,8 +24,35 @@ script_results_identical <- function(result_name) {
   )
   correct_res <- get(result_name, tempenv)
   # Compare results
-  identical(user_res, correct_res)
+  all.equal(user_res, correct_res)
 }
+
+plot_results_identical <- function(result_name) {
+  # Get e
+  e <- get('e', parent.frame())
+  # Get user's result from global
+  if(exists(result_name, globalenv())) {
+    user_res <- get(result_name, globalenv())
+  } else {
+    return(FALSE)
+  }
+  # Source correct result in new env and get result
+  tempenv <- new.env()
+  # Capture output to avoid double printing
+  temp <- capture.output(
+    local(
+      try(
+        source(e$correct_script_temp_path, local = TRUE),
+        silent = TRUE
+      ),
+      envir = tempenv
+    )
+  )
+  correct_res <- get(result_name, tempenv)
+  # Compare results
+  all.equal(set_panel_size(user_res), set_panel_size(correct_res)) 
+}
+
 
 getState <- function(){
   #Whenever swirl is running, its callback is at the top of its call stack.
@@ -41,7 +69,7 @@ submit_log <- function(){
   selection <- getState()$val
   if(selection == "Yes"){
     # Please edit the link below
-    pre_fill_link <- "https://docs.google.com/forms/d/e/1FAIpQLSeMYIkAwblUfMuTHcYhocFc427C5kJ6rWFs2vPW4BlgUdb8Og/viewform?usp=pp_url&entry.996111921="
+    pre_fill_link <- "https://docs.google.com/forms/d/e/1FAIpQLScvlcDi_wL3LPrY3c-GFF7lB0TaMS3PnLANHTZJ66Jw4Qs7Hw/viewform?usp=pp_url&entry.996111921"
     # Do not edit the code below
     if(!grepl("=$", pre_fill_link)){
       pre_fill_link <- paste0(pre_fill_link, "=")

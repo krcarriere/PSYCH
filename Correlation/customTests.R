@@ -1,5 +1,4 @@
-# Chi Square Test
-
+# Correlations
 script_results_identical <- function(result_name) {
   # Get e
   e <- get('e', parent.frame())
@@ -23,7 +22,7 @@ script_results_identical <- function(result_name) {
   )
   correct_res <- get(result_name, tempenv)
   # Compare results
-  identical(user_res, correct_res)
+  all.equal(user_res, correct_res)
 }
 
 getState <- function(){
@@ -41,7 +40,7 @@ submit_log <- function(){
   selection <- getState()$val
   if(selection == "Yes"){
     # Please edit the link below
-    pre_fill_link <- "https://docs.google.com/forms/d/e/1FAIpQLSeMYIkAwblUfMuTHcYhocFc427C5kJ6rWFs2vPW4BlgUdb8Og/viewform?usp=pp_url&entry.996111921="
+    pre_fill_link <- "https://docs.google.com/forms/d/e/1FAIpQLSeROuf9W7I4GN6pQhIwoaz5pR89FB0v8NwrsAYLBO1LF9JhfQ/viewform?usp=pp_url&entry.996111921"
     # Do not edit the code below
     if(!grepl("=$", pre_fill_link)){
       pre_fill_link <- paste0(pre_fill_link, "=")
