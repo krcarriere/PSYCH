@@ -1,4 +1,0 @@
-swirl
-ggplot2
-caTools
-base64enc
