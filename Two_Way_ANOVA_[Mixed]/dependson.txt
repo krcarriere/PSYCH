@@ -1,7 +1,0 @@
-swirl
-plyr
-ggplot2
-stats
-base64enc
-caTools
-base64enc
