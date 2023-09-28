@@ -11,7 +11,7 @@ This course requires you also install the swirl package. Once RStudio has loaded
 
 Then, once it is installed, type "library(swirl)". To install this course, please run install_course("Psychology_Statistics"). You can also directly install from my github with install_course_github("krcarriere", "Psychology_Statistics").
 
-##For Teachers
+## For Teachers
 
 If you are a teacher looking to use this course in your classroom, please follow the following instructions.
 
