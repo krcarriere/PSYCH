@@ -34,7 +34,7 @@
   Output: "The ones we will focus most on in this module are (4) Combinations are normally distributed, (5) No significant outliers, with caution, and (2) Sphericity."
 
 
-#14 - DESCRIBE STUDY
+#14 - 
 - Class: text
   Output: "We have loaded up a dataset for you from a paper we examined in the testing Equal Variances module. \n\nResearchers wanted to replicate and extend a paper from 2004. In their 2022 study, they present participants with someone looking for help to load a sofa into a van. Some participants were told that if someone were to help the person, that helper would receive 50 cents ($0.50), which they called low cash payment. Others were told the helper would receive $5, which they called medium cash payment. Others were told that the helper would not receive a payment for helping (With mention control) and others were told nothing about the payment (Without mention control). They also tested to see if it was sweets (candy or chocolate) instead of cash, but we won't analyze those. Participants were asked, based on this information, participants were asked how much they expected people to help this poor sofa-moving soul."
 
