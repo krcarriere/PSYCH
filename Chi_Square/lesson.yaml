@@ -1,7 +1,7 @@
 - Class: meta
   Course: PSYCH - Psychological Statistics You Can Handle
   Lesson: Chi Square
-  Author: Kevin R. Carriere, Jason Kilgore
+  Author: Kevin R. Carriere & Jason Kilgore
   Type: Standard
   Organization: Washington & Jefferson College
   Version: 3.0.0
@@ -11,22 +11,22 @@
   Output: Welcome to the chi-square module! In this module, we will learn about the chi-square test, a statistical method used to determine if there is a significant association between categorical variables. We will focus on the chi-square test of independence. Let's get started!
 
 - Class: script
-  Output: Notes for this section have opened as Notes.R. Don't change anything, but save them for yourself, and once you have them saved, type submit().
+  Output: Notes for this section have opened as Notes.R. Don't change anything but save them for yourself, and once you have them saved, type submit().
   AnswerTests: script_results_identical('mtcars.Table')
-  Hint: "Notes for this section have opened as Notes.R. \n\n Save them for yourself, and once you have them saved, type submit(). \n\n If you edited something, check that no words are in black (only code), and that mtcars.Table on lines 52-54 is read as mtcars.Table <- mtcars |> select(am, vs) |> table()."
+  Hint: "Notes for this section have opened as Notes.R. \n\n Save them for yourself, and once you have them saved, type submit(). \n\n If you edited something, check that no words are in black (only code) and that mtcars.Table on lines 52-54 is read as mtcars.Table <- mtcars |> select(am, vs) |> table()."
   Script: Notes.R
   
 - Class: text
-  Output: "Chi-Square tests are used to examine proportions. For example, how do we test if a dice is a fair, balanced dice?"
+  Output: "Chi-Square tests are used to examine proportions. For example, how do we test if a dice is fair and balanced?"
 
 - Class: text
-  Output: "Before we dive into the chi-square test, let's make sure we understand its assumptions. The chi-square test requires that- \n\n 1. The data must be categorical (ordinal or nominal). \n\n 2. The observations should be independent. \n\n 3. The sample should be large enough, with an expected frequency of at least 5 in each cell of the contingency table."
+  Output: "Before diving into the chi-square test, ensure we understand its assumptions. The chi-square test requires that- \n\n 1. The data must be categorical (ordinal or nominal). \n\n 2. The observations should be independent. \n\n 3. The sample should be large enough, with an expected frequency of at least 5 in each contingency table cell."
 
 - Class: text
   Output: We'll practice the Chi-Square Test of Independence on a published study.
   
 - Class: text
-  Output: "The study aimed to examine dishonesty in a controlled setting. Researchers used a matrix task in which participants had to find two numbers that sum to 10 within matrices under time pressure. Afterward, participants reported how many matrices they solved correctly, providing an opportunity to cheat by exaggerating their performance for a larger reward."
+  Output: "The study aimed to examine dishonesty in a controlled setting. Researchers used a matrix task where participants had to find two numbers that sum to 10 within matrices under time pressure. Afterward, participants reported how many matrices they solved correctly, allowing them to cheat by exaggerating their performance for a larger reward."
   
 - Class: text
   Output: "The study had two conditions- check and regular. In the check condition, after the participants completed the task, the correct solutions were projected on a screen, and participants were asked to compare their responses and count how many they had found. In the regular condition, participants were given ample time to count how many matrices they solved correctly, but no additional information was provided. Participants in both conditions had an equal opportunity to cheat by overclaiming the amount of matrices they had solved correctly."
@@ -36,22 +36,22 @@
 
 #9
 - Class: cmd_question
-  Output: Let's check the data by calling CheatData and piping it into the head() function.
+  Output: Check the data by calling CheatData and piping it into the head() function.
   CorrectAnswer: CheatData |> head()
   AnswerTests: omnitest(correctExpr='CheatData |> head()')
   Hint: Try CheatData |> head()
 
 - Class: text
-  Output: "repCor (reported) represents the number of matrices that participants claimed to have solved correctly, as reported by them on their answer sheet. cirCor (correct) represents the number of matrices that were actually solved correctly, based on the evaluation of the participants' work sheets by researchers. These variables are used to assess the prevalence of overreporting (i.e., when participants claim to have solved more matrices correctly than they actually did), which might indicate dishonesty."
+  Output: "repCor (reported) represents the number of matrices that participants claimed to have solved correctly, as reported by them on their answer sheet. cirCor (correct) represents the number of matrices solved correctly based on the evaluation of the participants' worksheets by researchers. These variables assess the prevalence of overreporting (i.e., when participants claim to have solved more matrices correctly than they did), which might indicate dishonesty."
   
 - Class: cmd_question
-  Output: Let's see how many times participants lied based on their condition. Take your data, and then using the pipe function, select() the variables repCor and condition, and then pipe those two variables into table().
+  Output: Let's see how often participants lied based on their condition. Take your data, and then using the pipe function, select() the variables repCor and condition, and then pipe those two variables into table().
   CorrectAnswer: CheatData |> select(repCor,condition) |> table()
   AnswerTests: omnitest(correctExpr='CheatData |> select(repCor,condition) |> table()')
   Hint: Try CheatData |> select(repCor,condition) |> table()
   
 - Class: cmd_question
-  Output: Great job. Now, hit the up arrow on your keyboard to bring back up that last function you wrote. Now, at the end of that, pipe in one more piece, mosaicplot(), with a single argument, color=c("gold", "darkred")
+  Output: Great job. Now, hit the up arrow on your keyboard to back up that last function you wrote. Now, at the end of that, pipe in one more piece, mosaicplot(), with a single argument, color=c("gold", "darkred")
   CorrectAnswer: CheatData |> select(repCor,condition) |> table() |> mosaicplot(color=c("gold", "darkred"))
   AnswerTests: omnitest(correctExpr='CheatData |> select(repCor,condition) |> table() |> mosaicplot(color=c("gold", "darkred"))')
   Hint: Try CheatData |> select(repCor,condition) |> table() |> mosaicplot(color=c("gold", "darkred"))
@@ -60,7 +60,7 @@
   Output: "The size of each section would represent the frequency of each combination of repCor and condition. Based on the provided data, the sections would be as follows- The mosaic plot would show that in the check condition, a larger proportion of participants told the truth compared to the regular condition. Conversely, in the regular condition, there is a higher proportion of participants who overreported compared to the check condition."
 
 - Class: cmd_question
-  Output: We can clean up the mosaic plot by adding a few more arguments into it. Why don't you add in a comma after darkred") and then add xlab = "Truthiness", ylab = "Condition",  main = "My Mosaic").
+  Output: We can clean up the mosaic plot by adding more arguments. Why don't you add in a comma after darkred") and then add xlab = "Truthiness", ylab = "Condition",  main = "My Mosaic").
   CorrectAnswer: CheatData |> select(repCor,condition) |> table() |> mosaicplot(color=c("gold", "darkred"), xlab="Truthiness", ylab="Condition", main = "My Mosaic")
   AnswerTests: omnitest(correctExpr=' CheatData |> select(repCor,condition) |> table() |> mosaicplot(color=c("gold", "darkred"), xlab="Truthiness", ylab="Condition", main = "My Mosaic")')
   Hint: Try CheatData |> select(repCor,condition) |> table() |> mosaicplot(color=c("gold", "darkred"), xlab="Truthiness", ylab="Condition", main = "My Mosaic")
@@ -75,13 +75,13 @@
   Output: Let's take this sentence bit by bit. First, let's tackle (χ2(1, n = 233) = 16.54, p < .001, - the chi square test itself.
   
 - Class: cmd_question
-  Output: Hit the up arrow until you get to your CheatData |> select() |> table() call. From there, we want to pipe one more thing - chisq_test() from the rstatix package (which has been loaded for you). Include correct=FALSE in the call to chisq_test().
+  Output: Hit the up arrow until you get to your CheatData |> select() |> table() call. From there, we want to pipe another thing - chisq_test() from the rstatix package (which has been loaded for you). Include correct=FALSE in the call to chisq_test().
   CorrectAnswer: CheatData |> select(repCor,condition) |> table() |> chisq_test(correct=FALSE)
   AnswerTests: omnitest(correctExpr='CheatData |> select(repCor,condition) |> table() |> chisq_test(, correct=FALSE)')
   Hint: Try CheatData |> select(repCor,condition) |> table() |> chisq_test(correct=FALSE).
   
 - Class: text
-  Output: Nailed it! Next, they describe things a little bit prior to giving that information. In the regular condition, 40.00% of the participants overreported  (i.e., percentage of participants whose Nreported was greater than theirNcorrect),  ... In the check condition, this figure dropped to 16.10%. \n\n
+  Output: Nailed it! Next, they describe things before giving that information. In the regular condition, 40.00% of the participants overreported  (i.e., the percentage of participants whose Nreported was greater than theirNcorrect),  ... In the check condition, this figure dropped to 16.10%. \n\n
 
 - Class: figure
   Output: The thing is - there is no 40%! How did they get that? Have you figured it out?
@@ -89,7 +89,7 @@
   FigureType: new
 
 - Class: cmd_question
-  Output: Hit the up arrow until you get to your CheatData |> select() |> table() |> chisq_test()  call. From there, we want to pipe one more thing - chisq_descriptives().
+  Output: Hit the up arrow until you get to your CheatData |> select() |> table() |> chisq_test()  call. From there, we want to pipe another thing - chisq_descriptives().
   CorrectAnswer: CheatData |> select(repCor,condition) |> table() |> chisq_test(correct=FALSE) |> chisq_descriptives()
   AnswerTests: omnitest(correctExpr='CheatData |> select(repCor,condition) |> table() |> chisq_test(, correct=FALSE) |> chisq_descriptives()')
   Hint: Try CheatData |> select(repCor,condition) |> table() |> chisq_test(correct=FALSE) |> chisq_descriptives()
@@ -105,42 +105,42 @@
   Output: "Exactly. 40% of people within that single column lied (46/(46+69))=.40."
 
 - Class: figure
-  Output: The expected column is also part of how we calculate the chi square statistic in the first place. The equation for chi square is here, where we just sum the squared difference of the observed value minus the expected value, all divided by the expected. Expected values are calculated as the product of the total row and column N divided by the total N. If you are curious, go back to the last figure, scroll up, and use play() to take some time to solve for some of the expected.
+  Output: The expected column is also part of how we calculate the chi-square statistic in the first place. The equation for chi-square is here, where we just sum the squared difference of the observed value minus the expected value, all divided by the expected. Expected values are calculated as the product of the total row and column N divided by the total N. If you are curious, go back to the last figure, scroll up, and use play() to take some time to solve for some of the expected.
   Figure: chisquare.R
   FigureType: new
   
 - Class: text
-  Output: "The last piece was the following -  (χ2(1, n = 233) = 16.54, p < .001, Cohen’s w = .27 where they mention Cohen's w. Just like Cohen's d, Cohen's w is a measure of effect size."
+  Output: "The last piece was the following -  (χ2(1, n = 233) = 16.54, p < .001, Cohen’s w = .27 where they mention Cohen's w. Like Cohen's d, Cohen's w is a measure of effect size."
   
 - Class: figure
-  Output: Cohen's w, or omega, can be pretty easily calculated by hand if it is a 2x2 table, since it is simply the square root of the ratio of the chi squared value and the total N.
+  Output: Cohen's w, or omega, can be easily calculated by hand if it is a 2x2 table since it is simply the square root of the ratio of the chi-squared value and the total N.
   Figure: omega.R
   FigureType: new
 
 - Class: exact_question
-  Output: Given a chi square statistic of 16.54, and an N of 233, and remembering sqrt() is our function for square root, what is the effect size? 
+  Output: Given a chi-square statistic of 16.54, an N of 233, and remembering sqrt() is our function for square root, what is the effect size? 
   CorrectAnswer: sqrt(16.54/233)
   AnswerTests: omnitest(correctVal = sqrt(16.54/233))
   Hint: Try dividing and using the sqrt() function.
   
 - Class: cmd_question
-  Output: There is also a function in the rcompanion library called cohenW(). If we pass in our contigency table (remember, take our data, and then select repCor and condition, and then use the table() function) and then call cohenW(), let's see what we get.
+  Output: There is also a function in the rcompanion library called cohenW(). If we pass in our contingency table (remember, take our data, and then select repCor and condition, and then use the table() function) and then call cohenW(), let's see what we get.
   CorrectAnswer: CheatData |> select(repCor,condition) |> table() |> cohenW()
   AnswerTests: omnitest(correctExpr = 'CheatData |> select(repCor,condition) |> table() |> cohenW()')
   Hint: CheatData |> select(repCor,condition) |> table() |> cohenW()
   
 - Class: text
-  Output: "The researchers also wanted to investigate the relationship between the participants making mistakes on their work sheet and overreporting in the regular condition compared to the check condition. They were particularly interested in comparing the proportions of overreporting between these two conditions for those who made one or more mistakes. They write 'In contrast, participants who did make one or more mistakes on their work sheet, were much more likely to overreport in the regular condition compared to the check condition (i.e., 74.55% and 18.64%, respectively; χ2(1, n = 114) = 35.86, p < .001, Cohen’s w = .56)."
+  Output: "The researchers also wanted to investigate the relationship between the participants making mistakes on their worksheet and overreporting in the regular condition compared to the check condition. They were particularly interested in comparing the proportions of overreporting between these two conditions for those who made one or more mistakes. They write, 'In contrast, participants who did make one or more mistakes on their worksheet were much more likely to overreport in the regular condition compared to the check condition (i.e., 74.55% and 18.64%, respectively; χ2(1, n = 114) = 35.86, p < .001, Cohen’s w = .56)."
 
 - Class: script
-  Output: Make sure to save your script before you type submit().
+  Output: Save your script before you type submit().
   AnswerTests: script_results_identical('chi_results')
   Hint: Follow the notes in the script, and be sure you saved your script (using the save button or ctrl+S) before typing submit() in the Console.
   Script: filter_chisq.R
   
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
-  AnswerChoices: Yes;No
+  AnswerChoices: Yes; No
   CorrectAnswer: NULL
   AnswerTests: submit_log()
   Hint: hint

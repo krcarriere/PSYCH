@@ -8,9 +8,9 @@
 
 #1
 - Class: script
-  Output: To save the notes for this module, copy and paste the code provided into your own RNotebook. Type submit() when you have finished saving these notes. 
+  Output: To save the notes for this module, copy and paste the code provided into your RNotebook. Type submit() when you have finished saving these notes. 
   AnswerTests: script_results_identical('saved')
-  Hint: "Don't change anything, just type submit(). If you did and you don't know how to fix it, just type skip() and you'll be all set."
+  Hint: "Don't change anything, just type submit(). If you did and you don't know how to fix it, just type skip(), and you'll be all set."
   Script: Notes.R
   
 - Class: text
@@ -22,15 +22,15 @@
 
 #3
 - Class: text
-  Output: "The first thing to understand is what you're looking at. We have four corners of rStudio. \n\n The top left is where scripts and files will be uploaded. \n\n The top right is our Environment. This is where our datasets, variables, and functions will be stored. There are other tabs here- history and presentation - we can ignore. You can see in Environment we have one dataset called data and two values called variable and variable_two. \n\n The bottom left is where we are! This is where we'll be typing the most to interact with this class. Our output - what happens after we give code - shows here as well.\n\n The bottom right has a lot of info. Sometimes plots will display that we'll make under plots. Packages is a ton of different programs others have made - like this package, swirl. If you like games, you might consider packages to be like downloadable content, or DLC. Finally, the help tab will show us info about functions. \n\n If you aren't seeing four windows, you might want to look for some horizontal or vertical bars that you can drag and expand to make each window smaller or larger." 
+  Output: "The first thing to understand is what you're looking at. We have four corners of rStudio. \n\n The top left is where scripts and files will be uploaded. \n\n The top right is our Environment. This is where our datasets, variables, and functions will be stored. There are other tabs here- history and presentation - that we can ignore. You can see in Environment we have one dataset called data and two values called variable and variable_two. \n\n The bottom left is where we are! This is where we'll be typing the most to interact with this class. Our output - what happens after we give code - also shows here.\n\n The bottom right has a lot of info. Sometimes, plots will display that we'll make under plots. Packages are a ton of different programs others have made - like this package, swirl. If you like games, you might consider packages to be like downloadable content or DLC. Finally, the help tab will show us info about functions. \n\n If you aren't seeing four windows, you might want to look for some horizontal or vertical bars that you can drag and expand to make each window smaller or larger." 
 
 #4
 - Class: text
-  Output: "So, let's work our way around these corners." 
+  Output: "So, let's work around these corners." 
 
 #5
 - Class: text
-  Output: "On the top right, click the arrow next to the word data. If you don't see this, click the Environment tab first. It should expand on the right side and list out 5 names."
+  Output: "On the top right, click the arrow next to the word data. If you don't see this, click the Environment tab first. It should expand on the right side and list out five names."
   
 #6
 - Class: mult_question
@@ -42,11 +42,11 @@
 
 #7
 - Class: text
-  Output: "These are our variables! This dataset has 5 variables. You might even have noticed there are 150 observations within this dataset. You can tell this because next to data, there is a second column that says 150 obs. of 5 variables."
+  Output: "These are our variables! This dataset has five variables. You might even have noticed there are 150 observations within this dataset. You can tell this because next to data, there is a second column that says 150 obs. of 5 variables."
 
 #8
 - Class: cmd_question
-  Output: "Next, we want to explore what the top left is about. So, let's type the following into the Console, or the bottom left. When I ask you to type things, it should always go into the Console. \n\n This time, type View(data) and hit enter." 
+  Output: "Next, we want to explore what the top left is about. So, let's type the following into the Console or the bottom left. It should always go into the Console when I ask you to type things. \n\n This time, type View(data) and hit enter." 
   CorrectAnswer: View(data)
   AnswerTests: omnitest(correctExpr='View(data)')
   Hint: Try typing View(data).
@@ -57,23 +57,23 @@
 
 #10
 - Class: text
-  Output: "So what did we just do? We used this function called View(), and passed it one argument - data."
+  Output: "So what did we just do? We used this function called View() and passed it one argument - data."
 
 #11
 - Class: text
-  Output: "It opened up a sheet in the top left. It kind of looked like an excel sheet, in some ways. This is what data looks like when we analyze it. We'll discuss more about how to set up data in later classes."
+  Output: "It opened up a sheet in the top left. It looked like an Excel sheet, in some ways. This is what data looks like when we analyze it. We'll discuss how to set up data in later classes."
 
 #12
 - Class: text
-  Output: "One thing that's important is that capitalization is EXTREMELY important in R. If I capitalize something, please be sure to capitalize it as well!"
+  Output: "One important thing is that capitalization is EXTREMELY important in R. If I capitalize something, please be sure to capitalize it as well!"
 
 #13
 - Class: text
-  Output: "View() (with a capital V) was a function that accepted 1 argument. If I say a function, it means something that has an open and close parenthesis at the end of it. mean(), for instance. Functions can have many arguments. We separate them by using commas."
+  Output: "View() (with a capital V) was a function that accepted one argument. If I say a function, it means something with an open and closed parenthesis at the end of it. mean(), for instance. Functions can have many arguments. We separate them by using commas."
 
 #14
 - Class: cmd_question
-  Output: "For example. Let's take the function rnorm(). This is a function that, given 3 arguments, will output a list of numbers for us. \n\n We can learn about this function by typing ?rnorm into the Console. Do that now." 
+  Output: "For example. Let's take the function rnorm(). This is a function that, given three arguments, will output a list of numbers for us. \n\n We can learn about this function by typing ?rnorm into the Console. Do that now." 
   CorrectAnswer: ?rnorm
   AnswerTests: omnitest(correctExpr='?rnorm')
   Hint: Try typing ?rnorm.
@@ -84,7 +84,7 @@
 
 #16
 - Class: cmd_question
-  Output: "Now, as a test, pass 3 arguments into it. Type rnorm(10, 5, 1)." 
+  Output: "Now, as a test, pass three arguments into it. Type rnorm(10, 5, 1)." 
   CorrectAnswer: rnorm(10, 5, 1)
   AnswerTests: omnitest(correctExpr='rnorm(10, 5, 1)')
   Hint: Try typing rnorm(10, 5, 1).
@@ -92,14 +92,14 @@
 #17
 - Class: mult_question
   Output: "Looking at the help file, rnorm() states it has three arguments. When we typed in rnorm(10, 5, 1), what does the 5 represent?"
-  AnswerChoices: Mean equal to 5;SD equal to 5;N equal to 5;lower.tail equal to 5;vector of probabilities equal to 5
+  AnswerChoices: Mean equal to 5; SD equal to 5; N equal to 5; lower.tail equal to 5; vector of probabilities equal to 5
   CorrectAnswer: Mean equal to 5
   AnswerTests: omnitest(correctVal="Mean equal to 5")
   Hint: "Rnorm()'s usage says n, mean=0, sd=1. The 5 was the second of our inputs."
 
 #18
 - Class: cmd_question
-  Output: "Right! That was the lazy way. As coders, we always want to be specific and clear what's going on. So, try again, but this time, type rnorm(10, mean=5, sd=1)." 
+  Output: "Right! That was the lazy way. As coders, we always want to be specific and clear about what's going on. So, try again, but type rnorm(10, mean=5, sd=1)." 
   CorrectAnswer: rnorm(n=10, mean=5, sd=1)
   AnswerTests: omnitest(correctExpr='rnorm(n=10, mean=5, sd=1)')
   Hint: Try typing rnorm(n=10, mean=5, sd=1).
@@ -114,11 +114,11 @@
 
 #21
 - Class: text
-  Output: "What happens if we downloaded a package that also made their own function called View()? How would R know which to use?"
+  Output: "What happens if we downloaded a package that also made its own function called View()? How would R know which to use?"
 
 #22
 - Class: text
-  Output: "In order to be the best coders, we will always let R know which packages we're calling these special functions from. For example, I've downloaded a package for you called psych."
+  Output: "To be the best coders, we will always let R know which packages we're calling these special functions from. For example, I've downloaded a package for you called psych."
 
 #23
 - Class: text
@@ -133,15 +133,15 @@
 
 #25
 - Class: text
-  Output: "Note that we can also create our own functions. I will sometimes load functions into your workspace for you. They work the same way - FunctionName() and some given arguments."
+  Output: "Note that we can also create our functions. I will sometimes load functions into your workspace for you. They work similarly - FunctionName() and some given arguments."
   
 #26
 - Class: text
-  Output: "However, we almost will never have a variable stored as a Value (see the right hand side). Variables should always reside in our dataset, and we should always keep them there."
+  Output: "However, we almost will never have a variable stored as a Value (see the right-hand side). Variables should always reside in our dataset, and we should always keep them there."
 
 #27
 - Class: text
-  Output: "And this is one of the most important parts about R - calling variables from a dataset. You have already examined the dataset we loaded via View(data). You saw that it has 5 columns, or five variables."
+  Output: "And this is one of the most important parts about R - calling variables from a dataset. You have already examined the dataset we loaded via View(data). You saw that it has five columns, or five variables."
 
 #28
 - Class: cmd_question 
@@ -159,7 +159,7 @@
   
 #30
 - Class: text
-  Output: "The next thing we need to learn is storing values. We can do this one of two ways - using the equal sign or using the <- sign. As we use the equal sign for other things, we will always use the <- method of storing. We will always store to the left (<-) but it should be noted that it is indeed possible to store to the right (->) though this is generally not recommended." 
+  Output: "The next thing we need to learn is storing values. We can do this one of two ways - using the equal sign or the <- sign. As we use the equal sign for other things, we will always use the <- storage method. We will always store to the left (<-), but it should be noted that it is indeed possible to store to the right (->), though this is generally not recommended." 
 
 #31
 - Class: cmd_question
@@ -174,15 +174,15 @@
 
 #33
 - Class: text
-  Output: "What if we spelt it wrong? Or, we wanted to change it to say the class name was Introduction to R?"
+  Output: "What if we spelled it wrong? Or we wanted to change it to say the class name was Introduction to R?"
 
 #34
 - Class: text
-  Output: "We can go back into the Console and click inside. Now, hit the up arrow key. If you did this correctly, the last thing you typed in should show up. So, for our purposes, class_name <- \"Psychology\"."
+  Output: "We can go back into the Console and click inside. Now, hit the up arrow key. If you did this correctly, the last thing you typed in should appear. So, for our purposes, class_name <- \"Psychology\"."
 
 #35
 - Class: cmd_question
-  Output: "Once you've pulled up the last thing we typed, go ahead and change class_name to be equal to \"Introduction to R\"."
+  Output: "Once you've pulled up the last thing we typed, change class_name to be equal to \"Introduction to R\"."
   CorrectAnswer: class_name <- "Introduction to R"
   AnswerTests: omnitest(correctExpr='class_name <- "Introduction to R"')
   Hint: Try typing class_name <- "Introduction to R". 
@@ -197,11 +197,11 @@
 
 #38
 - Class: text
-  Output: There is also the integer class, which is also a number, but has no decimal points. 
+  Output: There is also the integer class, which is a number but has no decimal points. 
 
 #39
 - Class: text
-  Output: Species is of a class called factor. These are typically things like our independent variables - gender, hair color, treatment or not. We don't do much math with factors on their own - but of course, they are critical for us to run our statistics and considering how some variable differs as a result of some factor.
+  Output: Species are of a class called factor. These are typically things like our independent variables - gender, hair color, treatment or not. We don't do much math with factors on their own - but of course, they are critical for us to run our statistics and consider how some variable differs due to some factor.
 
 #40
 - Class: cmd_question
@@ -227,19 +227,19 @@
 
 #44
 - Class: text
-  Output: Notice how I had you put quotes around the words. This is critically important - There is an important difference between "Dr. C" and Dr. C. If we're writing any kind of text into our dataset, we want to use quotes. If we are referring to some variable, we opt out of quotes. 
+  Output: Notice how I had you put quotes around the words. This is critically important - There is an essential difference between "Dr. C" and Dr. C. If we're writing any text into our dataset, we want to use quotes. If we are referring to some variable, we opt out of quotes. 
 
 #45
 - Class: text
-  Output: "Now let's review what we've learned about R."
+  Output: "Now, let's review what we've learned about R."
 
 #45
 - Class: mult_question
-  Output: "There are a few ways to store a value in R. We discussed two of them. However, in this class, which way will we store values?"
+  Output: "There are a few ways to store a value in R. We discussed two. However, in this class, which way will we store values?"
   AnswerChoices: ValueName <- Input;ValueName = Input; ValueName == Input; ValueName -> Input
   CorrectAnswer: ValueName <- Input
   AnswerTests: omnitest(correctVal="ValueName <- Input")
-  Hint: "Two of these answers are correct. But, for ease, we want to only use one. Which one?"
+  Hint: "Two of these answers are correct. But, for ease, we want only to use one. Which one?"
 
 #46
 - Class: mult_question
@@ -268,19 +268,19 @@
 #49
 - Class: mult_question
   Output: "If I say call popquiz::secretFunction(), what is 'popquiz'?"
-  AnswerChoices: The name of the function;The name of the package;The name I called it;The name of the first argument
+  AnswerChoices: The name of the function;The name of the package;The name I called it; The name of the first argument
   CorrectAnswer: The name of the package
   AnswerTests: omnitest(correctVal="The name of the package")
   Hint: "describe() could be written as psych::describe()."
 
 #50
 - Class: text
-  Output: "Alright! That's about everything! We will frequently say take function X() and pass it three arguments, so you will want to make sure you understand what I'm saying!"
+  Output: "Alright! That's about everything! We will frequently say take function X() and pass it three arguments, so you will want to ensure you understand what I'm saying!"
 
   
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
-  AnswerChoices: Yes;No
+  AnswerChoices: Yes; No
   CorrectAnswer: NULL
   AnswerTests: submit_log()
   Hint: hint

@@ -1,6 +1,6 @@
 - Class: meta
   Course: Psychological Statistics You Can Handle
-  Lesson: One Sample T-Tests
+  Lesson: One Sample T-Test
   Author: Kevin R. Carriere, Jason Kilgore
   Type: Standard
   Organization: Washington & Jefferson College
@@ -13,21 +13,21 @@
   Script: Notes.R
 
 - Class: figure
-  Output: The one sample t-test is relatively straight forward in mathematical terms. We have our sample mean, xbar, and we want to test if there is a difference between xbar and a hypothesized mean mu, and we calculate that by dividing that difference by the standard deviation divided by the square root of N, which is known as the standard error.
+  Output: The one-sample t-test is straightforward in mathematical terms. We have our sample mean, xbar, and we want to test if there is a difference between xbar and a hypothesized mean, mu. We calculate that by dividing that difference by the standard deviation divided by the square root of N, known as the standard error.
   Figure: onesamplettest.R
   FigureType: New
   
 - Class: text
-  Output: "There are two main assumptions for a one sample t-test. \n\n (1) The data is randomly sampled from the population. \n\n (2) The variable is normally distributed in the population."
+  Output: "There are two main assumptions for a one-sample t-test. \n\n (1) The data is randomly sampled from the population. \n\n (2) The variable is normally distributed in the population."
 
 - Class: text
-  Output: In psychology, we generally utilize a one sample t-test to compare against a scale midpoint, to show more agreement with some hypothesized value. In my work, we ask people "How much do you support human rights?" on a scale of 1 (Strongly Not Support) to 7 (Strongly Support)". We then use a one sample t-test against the hypothesized mean of 4 to show that our participants *do* support human rights more than the midpoint (Neither not support nor support).
+  Output: In psychology, we generally utilize a one-sample t-test to compare against a scale midpoint to show more agreement with some hypothesized value. In my work, we ask people, "How much do you support human rights?" on a scale of 1 (Strongly Not Support) to 7 (Strongly Support)". We then use a one-sample t-test against the hypothesized mean of 4 to show that our participants *do* support human rights more than the midpoint (Neither not support nor support).
   
 - Class: text
-  Output: However, we also could pit two endpoints against themselves, and ask where participants' fall. Kind of like when those movies have two people claiming to be the dog's owner, and they stand on opposite sides of the dog and call to it -- which way does the dog run -- to the left, or to the right? This could be measured as a 1 sample t-test (comparing against the dog not choosing either and lying down in the middle).
+  Output: However, we also could pit two endpoints against themselves and ask where participants fall. Like when those movies have two people claiming to be the dog's owner, and they stand on opposite sides of the dog and call to it -- which way does the dog run -- to the left or right? This could be measured as a 1 sample t-test (comparing against the dog not choosing either and lying down in the middle).
 
 - Class: text
-  Output: In one study, researchers wanted to test to see how people thought about their own purchases and how it defines themselves.
+  Output: In one study, researchers wanted to test how people thought about their purchases and how they define them.
 
 - Class: text
   Output: "The citation for this study is - Chen, E. Y., Chee, M. X., & Feldman, G. (2023). Revisiting the Differential Centrality of Experiential and Material Purchases to the Self- Replication and Extension of Carter and Gilovich (2012). Collabra: Psychology, 9(1), 57785. doi.org/10.1525/collabra.57785"
@@ -40,7 +40,7 @@
 
 #10
 - Class: cmd_question
-  Output: To run this test, we have a function t.test(). We will pipe (|>) our dataset (purchases) into t.test(), passing three arguments into it -- MPEP_self ~ 1, mu=5, and data=_ . MPEP_self ~ 1 is asking for a one-sample t-test, because we are comparing the variable against no comparison group (signified by the 1). mu=5 says that our hypothesized mean is 5 that we are comparing against, and data=_ is our reference for the data on the left hand side of the pipe. Run this now.
+  Output: We have a function t.test() to run this test. We will pipe (|>) our dataset (purchases) into t.test(), passing three arguments into it -- MPEP_self ~ 1, mu=5, and data=_ . MPEP_self ~ 1 asks for a one-sample t-test because we are comparing the variable against no comparison group (signified by the 1). mu=5 says that our hypothesized mean is five that we are comparing against, and data=_ is our reference for the data on the left-hand side of the pipe. Run this now.
   CorrectAnswer: purchases |> t.test(MPEP_self ~ 1, mu=5, data=_)
   AnswerTests: omnitest(correctExpr='purchases |> t.test(MPEP_self ~ 1, mu=5, data=_)')
   Hint: purchases |> t.test(MPEP_self ~ 1, mu=5, data=_)
@@ -49,35 +49,35 @@
   Output: That got us all of the information besides the effect size and the confidence interval of the effect size.
 
 - Class: cmd_question
-  Output: To get those results, we have a function cohens_d() from the rstatix package. We will pipe (|>) our dataset (purchases) into cohens_d() with three arguments - MPEP_self ~ 1 (just like our t.test), mu=5 (again, the same), and ci=TRUE. Our notes give a list of other ways to code this as well as other packages.
+  Output: We have a function cohens_d() from the rstatix package to get those results. We will pipe (|>) our dataset (purchases) into cohens_d() with three arguments - MPEP_self ~ 1 (just like our t.test), mu=5 (again, the same), and ci=TRUE. Our notes give a list of other ways to code this, as well as other packages.
   CorrectAnswer: purchases |>  cohens_d(MPEP_self ~ 1, mu=5, ci=TRUE)
   AnswerTests: omnitest(correctExpr='purchases |>  cohens_d(MPEP_self ~ 1, mu=5, ci=TRUE)')
   Hint: purchases |>  cohens_d(MPEP_self ~ 1, mu=5, ci=TRUE)
 
 - Class: text
-  Output: However, there are times where we cannot satisfy the second assumption of the one sample t-test -- that the data is not normally distributed in the population (or we are not sure).
+  Output: However, there are times when we cannot satisfy the second assumption of the one-sample t-test -- that the data is not normally distributed in the population (or we are not sure).
   
 - Class: text
-  Output: In times like these, we can turn to a non-parametric test.  
+  Output: We can turn to a non-parametric test in times like these.  
   
 - Class: text
-  Output: In 2022, Frankenhuis and colleagues wanted to know whether or not individuals who lived in relatively challenging conditions were significantly different in a range of measures compared to those who lived in low-risk situations, with their main research question measuring if those who were high-risk detected more threats in ambigious situations compared to a low-risk group.
+  Output: In 2022, Frankenhuis and colleagues wanted to know whether or not individuals who lived in relatively challenging conditions were significantly different in a range of measures compared to those who lived in low-risk situations, with their primary research question measuring if those who were high-risk detected more threats in ambiguous situations compared to a low-risk group.
 
 - Class: text
-  Output: The high risk group was a "group of community participants who lived in relatively challenging conditions for Dutch standards, in that people were more likely to need governmental support in order to meet their basic needs (e.g., food, housing, safety)." They had "anticipated that on average members of the community sample had experienced higher levels of adversity, including higher levels of exposure to violence in their past or current environments. The other group was a college student sample, who [were] expected to have experienced lower levels of violence (the ‘low-risk group’)". Ive loaded their data in your environment under violence.
+  Output: The high-risk group was a "group of community participants who lived in relatively challenging conditions for Dutch standards, in that people were more likely to need governmental support to meet their basic needs (e.g., food, housing, safety)." They had "anticipated that on average members of the community sample had experienced higher levels of adversity, including higher levels of exposure to violence in their past or current environments. The other group was a college student sample, who [were] expected to have experienced lower levels of violence (the ‘low-risk group’)". I've loaded their data in your environment under violence.
 
 - Class: text
   Output: "The citation for this paper is- Frankenhuis, W. E., Weijman, E. L., de Vries, S. A., van Zanten, M., & Borghuis, J. (2022). Exposure to Violence Is Not Associated With Accuracy in Forecasting Conflict Outcomes. Collabra- Psychology, 8(1), 38604. doi.org/10.1525/collabra.38604"
 
 - Class: text
-  Output: Participants watched 16 videoes of real-life conflicts and were asked to judge whether each conflict would leave to a physical fight. The researchers (but not the participants) knew that half of those conflicts ended in fights, while half did not. One of their measures in this dataset is C. 
+  Output: Participants watched 16 videos of real-life conflicts and were asked to judge whether each would lead to a physical fight. The researchers (but not the participants) knew that half of those conflicts ended in fights, while half did not. One of their measures in this dataset is C. 
   
 - Class: text
-  Output: "Criterion c represents the threshold for recognizing a signal (i.e., fight) trial: a c of zero indicates no bias, a negative c a low threshold (fight bias; consistent with hostile attribution bias), and a positive c a high threshold (no-fight bias; consistent with rose-colored glasses.)"
+  Output: "Criterion c represents the threshold for recognizing a signal (i.e., fight) trial: a c of zero indicates no bias, a negative c a low threshold (fight bias; consistent with hostile attribution bias), and a positive c a high threshold (no-fight bias; consistent with rose-colored glasses.)."
 
 #20
 - Class: text
-  Output: So, they would hypothesize that those who were in the high-risk group may have a lower C score (and be fight-biased) while low-risk would be expected to have either no bias or a no-fight bias. 
+  Output: So, they would hypothesize that those in the high-risk group may have a lower C score (and be fight-biased) while low-risk would be expected to have either no or no-fight bias. 
   
 - Class: cmd_question
   Output: Look at the data now by running violence |> summary().
@@ -86,12 +86,12 @@
   Hint: Try violence |> summary()
 
 - Class: figure
-  Output: For example, we could plot the distribution of our variable, C, on a histogram. The line that is shown is the median. There definitely looks like a positive skew in our variable.
+  Output: For example, we could plot the distribution of our variable, C, on a histogram. The line that is shown is the median. There is a positive skew in our variable.
   Figure: Figure1.R
   FigureType: new
 
 - Class: text
-  Output: The Shapiro-Wilk test is probably one of the most well-known and used tests for non-normality. However, it is very limited - small sample sizes cause it to have not enough power to detect non-normality, but too large sample sizes will also be rejected for non-normality. 
+  Output: The Shapiro-Wilk test is one of the most well-known and used tests for non-normality. However, it is very limited - small sample sizes cause it to have not enough power to detect non-normality. Still, too large sample sizes will also be rejected for non-normality. 
  
 - Class: text
   Output: There are other tests, such as the Kolmogorov-Smirnov test, but Shapiro-Wilk has been demonstrated to have the most power, so we focus purely on Shapiro-Wilk.
@@ -112,16 +112,16 @@
   Output: "They write - A Wilcoxon signed rank test showed that the average c (M = .11, SE = .04) also was significantly higher than zero (W = 4044.5, p = .018)."
 
 - Class: text
-  Output:  Let's first practice our one sample wilcoxon sign-ranked test. Since there is no predictor, we need to tell R that we are passing what is known as a null model - there are no predictors. We just want to see if C is greater than zero.
+  Output:  Let's first practice our one sample Wilcoxon sign-ranked test. Since there is no predictor, we need to tell R that we are passing what is known as a null model - there are no predictors. We want to see if C is greater than zero.
   
 - Class: cmd_question
-  Output: To do that, take our dataset, violence, and pipe (|>) it into the wilcox_test() function from the rstatix library, passing two arguments - C ~ 1 and mu=0. (mu=0 is the default, but it's good practice to know what we're doing).
+  Output: To do that, take our dataset, violence, and pipe (|>) into the wilcox_test() function from the rstatix library, passing two arguments - C ~ 1 and mu=0. (mu=0 is the default, but it's good practice to know what we're doing).
   CorrectAnswer: violence |> wilcox_test(C ~ 1, mu=0)
   AnswerTests: omnitest(correctExpr='violence |> wilcox_test(C ~ 1, mu=0)')
   Hint: violence |> wilcox_test(C ~ 1, mu=0)
 
 - Class: script
-  Output: The first part of their sentence called out the mean and standard error. Let's calculate those now. I've. loaded a script for you to fill out to solve for the mean and standard error.
+  Output: The first part of their sentence called out the mean and standard error. Let's calculate those now. I've loaded a script for you to fill out to solve for the mean and standard error.
   AnswerTests: script_results_identical('sum_violence')
   Hint: Follow the notes in the script, and be sure you saved your script (using the save button or ctrl+S) before typing submit() in the Console.
   Script: summarise.R
@@ -136,7 +136,7 @@
   Output: They next write - "Separate tests for each group indicated that c did not differ significantly from zero in the community sample (W = 871.50, p = .723) [Hypothesis 2],"
   
 - Class: cmd_question
-  Output: To do this, hit the up arrow on your console until you get back to your wilcox_test(). Between the dataset and wilcox_test(), we want to add one more step. After the first pipe, let us filter() where risk_group should equal (==) "High-risk group". Then pipe that filter (|>) into the wilcox_test().
+  Output: To do this, hit the up arrow on your console until you return to your wilcox_test(). We want to add one more step between the dataset and wilcox_test(). After the first pipe, let us filter() where risk_group should equal (==) "High-risk group". Then pipe that filter (|>) into the wilcox_test().
   CorrectAnswer: violence |> filter(risk_group=="High-risk group") |> wilcox_test(C ~ 1)
   AnswerTests: omnitest(correctExpr='violence |> filter(risk_group=="High-risk group") |> wilcox_test(C ~ 1)')
   Hint: violence |> filter(risk_group=="High-risk group") |> wilcox_test(C ~ 1)
@@ -145,7 +145,7 @@
   Output: Finally, they write - "but was significantly higher than zero in the student sample (W = 1169.50, p = .002) [Hypothesis 3]."
   
 - Class: cmd_question
-  Output: To do this, hit the up arrow on your console. Now, all we need to change is that filter to "Low-risk group".
+  Output: To do this, hit the up arrow on your console. Now, we need to change that filter to "Low-risk group".
   CorrectAnswer: violence |> filter(risk_group=="Low-risk group") |> wilcox_test(C ~ 1)
   AnswerTests: omnitest(correctExpr='violence |> filter(risk_group=="Low-risk group") |> wilcox_test(C ~ 1)')
   Hint: violence |> filter(risk_group=="Low-risk group") |> wilcox_test(C ~ 1)
@@ -153,7 +153,7 @@
   
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
-  AnswerChoices: Yes;No
+  AnswerChoices: Yes; No
   CorrectAnswer: NULL
   AnswerTests: submit_log()
   Hint: hint

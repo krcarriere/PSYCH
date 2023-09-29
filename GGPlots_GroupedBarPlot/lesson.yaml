@@ -1,7 +1,7 @@
 - Class: meta
   Course: Psychological Statistics You Can Handle
   Lesson: GGPlots - Grouped Bar Charts
-  Author: Kevin R. Carriere
+  Author: Kevin R. Carriere & Jason Kilgore
   Type: Standard
   Organization: Washington & Jefferson College
   Version: 3.0.0
@@ -15,13 +15,13 @@
   
 #2
 - Class: text
-  Output: In this module, we are going to focus on how to create grouped bar charts. This is the classic chart that is shown in many psychology journals. To complete this, it is recommended you review Basic Tidyverse Verbs to remember group_by() and summarise().
+  Output: In this module, we will focus on how to create grouped bar charts. This is the classic chart that is shown in many psychology journals. To complete this, you should review Basic Tidyverse Verbs to remember group_by() and summarise().
   #3
 - Class: text
-  Output: We will talk through a lot of modifications as well that you can make. Remember, you can always play around on your own with play(), but follow our instructions while learning in here.
+  Output: We will talk through a lot of modifications as well that you can make. Remember, you can always play on your own with play(), but follow our instructions while learning here.
 #4
 - Class: figure
-  Output: In this module, we are going to replicate Figure 1 in Grossmann & Kross, 2014. We'll get really close to making it perfect.
+  Output: In this module, we will replicate Figure 1 in Grossmann & Kross, 2014. We'll get close to making it perfect.
   Figure: finalanswer.R
   FigureType: new
   
@@ -31,18 +31,18 @@
 
 #6 
 - Class: cmd_question
-  Output: Let's start by looking at the data that will lead us to this figure. Pipe (|>) Paradox into head().
+  Output: Let's start by looking at the data leading us to this figure. Pipe (|>) Paradox into head().
   CorrectAnswer: Paradox |> head()
   AnswerTests: omnitest(correctExpr='Paradox |> head()')
   Hint: Paradox |> head()
   
 #7
 - Class: text
-  Output: So, we have three columns. Two, representing both experimental factors, and the dependent variable we are plotting, which is a score on some writing they did in a study.
+  Output: So, we have three columns. Two, representing both experimental factors and the dependent variable we are plotting is a score on some writing they did in a study.
   
 #8
 - Class: text
-  Output: To make a grouped bar chart, we want to summarise our data down into two main columns- the means, and what we want to plot for whiskers (here, the standard errors).
+  Output: To make a grouped bar chart, we want to summarise our data into two primary columns- the means and what we want to plot for whiskers (here, the standard errors).
 
 #9
 - Class: script
@@ -53,39 +53,39 @@
   
 #10
 - Class: cmd_question
-  Output: Let's start by setting up our ggplot space. Take your new dataframe, psum, and pipe (|>) it into ggplot(). ggplot() will take one argument. The argument, aes(), is itself a function, so it will take three arguments. aes() stands for aesthetics - what do we want our plot to look like. Well, we want the x axis to be the factor of Target (x=Target), we want the y axis to be the new response variable (we called it mean), and we want to fill our colors by the other factor, Perspective (fill=Perspective). Enter that now.
+  Output: Let's start by setting up our ggplot space. Take your new dataframe, psum, and pipe (|>) it into ggplot(). ggplot() will take one argument. The argument, aes(), is a function so that it will take three arguments. aes() stands for aesthetics - what do we want our plot to look like? Well, we want the x-axis to be the factor of Target (x=Target), we want the y-axis to be the new response variable (we called it mean), and we want to fill our colors with the other factor, Perspective (fill=Perspective). Enter that now.
   CorrectAnswer: p_sum |> ggplot(aes(x=Target, y=mean, fill=Perspective))
   AnswerTests: omnitest(correctExpr='p_sum |> ggplot(aes(x=Target, y=mean, fill=Perspective))')
   Hint: Maybe you got tripped up where everything goes? Try p_sum |> ggplot(aes(x=Target, y=mean, fill=Perspective))
   
 #11
 - Class: cmd_question
-  Output: Great. Notice that fill= determined the inside of the columns. From now on, we're going to be adding layers to this plot. Since they are layers, the order could matter. For example, we definitely want the bars plotted first, and then the whiskers, so that the whiskers are on top of the bars. So, let's start there. Hit up on your keyboard, and at the end of your work, type + and then write geom_col(), for a column-based geom.
+  Output: Great. Notice that fill= determined the inside of the columns. From now on, we will be adding layers to this plot. Since they are layers, the order could matter. For example, we want the bars plotted first, and then the whiskers, so that the whiskers are on top of the bars. So, let's start there. Hit up on your keyboard, and at the end of your work, type + and then write geom_col() for a column-based geom.
   CorrectAnswer: p_sum |> ggplot(aes(x=Target, y=mean, fill=Perspective))+geom_col()
   AnswerTests: omnitest(correctExpr='p_sum |> ggplot(aes(x=Target, y=mean, fill=Perspective))+geom_col()')
   Hint: Try p_sum |> ggplot(aes(x=Target, y=mean, fill=Perspective))+geom_col()
   
 #12
 - Class: cmd_question
-  Output: Hit up again! Inside of geom_col, we want to add four arguments. While fill= focuses on the inside of objects, color= focuses on the outside of objects. We want the outside color (the outline of the shape) to be "black". How might we do that? Next, we'll set the width equal to 0.5 and the size equal to 0.2. Size references the outline of the shape, while width references the shape itself. Finally, add the final argument position=position_dodge(.5).
+  Output: Hit up again! Inside of geom_col, we want to add four arguments. While fill= focuses on the inside of objects, color= focuses on the outside. We want the outside color (the shape outline) to be "black". How might we do that? Next, we'll set the width equal to 0.5 and the size equal to 0.2. Size references the shape's outline, while width references the shape itself. Finally, add the final argument position=position_dodge(.5).
   CorrectAnswer: p_sum |> ggplot(aes(x=Target, y=mean, fill=Perspective))+ geom_col(color="black",  width=0.5, size=.2, position=position_dodge(.5))
   AnswerTests: omnitest(correctExpr='p_sum |> ggplot(aes(x=Target, y=mean, fill=Perspective))+ geom_col(color="black",  width=0.5, size=.2, position=position_dodge(.5))')
   Hint: Try p_sum |> ggplot(aes(x=Target, y=mean, fill=Perspective))+ geom_col(color="black",  width=0.5, size=.2, position=position_dodge(.5))
   
 #13
 - Class: text
-  Output: One third of the way there! Already, it's looking a lot more like what we were expecting. That position=position_dodge() separated everything for us, and the .5 adds some extra padding between Self and Other.
+  Output: One-third of the way there! Already, it's looking a lot more like what we were expecting. That position=position_dodge() separated everything for us, and the .5 adds extra padding between Self and Other.
   
 #14
 - Class: cmd_question
-  Output: Hit up again! Let's make those colors correct. Now, since we know we want to change the fill, we can do this through adding (+) a new layer called scale_fill_manual(), which will take the argument values=, and it will equal a list c() of two things, "darkgrey" and "white". 
+  Output: Hit up again! Let's make those colors correct. Now, since we know we want to change the fill, we can do this by adding (+) a new layer called scale_fill_manual(), which will take the argument values=, and it will equal a list c() of two things, "darkgrey" and "white". 
   CorrectAnswer: p_sum |> ggplot(aes(x=Target, y=mean, fill=Perspective))+ geom_col(color="black",  width=0.5, size=.2, position=position_dodge(.5)) + scale_fill_manual(values=c("darkgrey", "white"))
   AnswerTests: omnitest(correctExpr='p_sum |> ggplot(aes(x=Target, y=mean, fill=Perspective))+ geom_col(color="black",  width=0.5, size=.2, position=position_dodge(.5)) + scale_fill_manual(values=c("darkgrey", "white"))')
   Hint: Try p_sum |> ggplot(aes(x=Target, y=mean, fill=Perspective))+ geom_col(color="black",  width=0.5, size=.2, position=position_dodge(.5)) + scale_fill_manual(values=c("darkgrey", "white"))
   
 #15
 - Class: text
-  Output: Great job. This ggplot call is starting to get a bit long. Let's switch to scripts.
+  Output: Great job. This ggplot call is getting a bit long. Let's switch to scripts.
   
 #16
 - Class: script
@@ -96,7 +96,7 @@
   
 #17
 - Class: cmd_question
-  Output: Output what you've done so far by typing in plot into the console.
+  Output: Output what you've done so far by typing plot into the console.
   AnswerTests: omnitest(correctExpr='plot')
   CorrectAnswer: plot
   Hint: Type plot. 
@@ -110,7 +110,7 @@
   
 #19
 - Class: cmd_question
-  Output: Output what you've done so far by typing in plot into the console.
+  Output: Output what you've done so far  by typing plot into the console.
   AnswerTests: omnitest(correctExpr='plot')
   CorrectAnswer: plot
   Hint: Type plot.
@@ -124,7 +124,7 @@
   
 #21
 - Class: cmd_question
-  Output: Output what you've done so far by typing in plot into the console.
+  Output: Output what you've done by typing plot into the console.
   AnswerTests: omnitest(correctExpr='plot')
   CorrectAnswer: plot
   Hint: Type plot.
@@ -138,7 +138,7 @@
   
 #23
 - Class: cmd_question
-  Output: Output what you've done so far by typing in plot into the console.
+  Output: Output what you've done by typing plot into the console.
   AnswerTests: omnitest(correctExpr='plot')
   Hint: Type plot.
   CorrectAnswer: plot
@@ -152,19 +152,19 @@
   
 #25
 - Class: cmd_question
-  Output: Output what you've done so far by typing in plot into the console.
+  Output: Output what you've done by typing plot into the console.
   AnswerTests: omnitest(correctExpr='plot')
   CorrectAnswer: plot
   Hint: Type plot
 
 #26
 - Class: text
-  Output: You've done it! Whew. Hopefully you can see how customizable ggplot can be, and you've learned some both basics (geom_col and geom_errorbar) as well as more advanced (themes, all the themes!) ways to change ggplot2 around.
+  Output: You've done it! Whew. Hopefully, you can see how customizable ggplot can be, and you've learned some basics (geom_col and geom_errorbar) and more advanced (themes, all the themes!) ways to change ggplot2 around.
   
   
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
-  AnswerChoices: Yes;No
+  AnswerChoices: Yes; No
   CorrectAnswer: NULL
   AnswerTests: submit_log()
   Hint: hint

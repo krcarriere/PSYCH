@@ -1,7 +1,7 @@
 - Class: meta
   Course: Psychological Statistics You Can Handle
   Lesson: Correlations
-  Author: Kevin R. Carriere
+  Author: Kevin R. Carriere & Jason Kilgore
   Type: Standard
   Organization: Washington & Jefferson College
   Version: 3.0.0
@@ -9,7 +9,7 @@
 - Class: script
   Output: Here are some notes for this module. When you've saved the notes, type submit().
   AnswerTests: script_results_identical('saved')
-  Hint: Make sure the last line in your script says saved <- "Y".
+  Hint: Make sure the last line in your script reads as: saved <- "Y".
   Script: Notes.R
 
 - Class: text
@@ -19,10 +19,10 @@
   Output: "Before we compute the correlation matrix, let's remind ourselves of the assumptions for a Pearson's correlation: \n\n 1. Linearity: The relationship between the two variables should be linear. \n\n 2. Bivariate Normality: The two variables should be normally distributed.\n\n 3. Homoscedasticity: The variability in one variable should be the same at all levels of the other variable.\n\n 4. Independence: The pairs of variables should be independent of each other."
 
 - Class: text
-  Output: If these assumptions are violated, it might be more appropriate to use Spearman's correlation. Spearman's correlation does not require a linear relationship and is more robust against outliers. It measures the monotonic relationship between two variables, meaning it assesses how well the relationship between two variables can be described using a monotonic function.
+  Output: If these assumptions are violated, using Spearman's correlation might be more appropriate. Spearman's correlation does not require a linear relationship and is more robust against outliers. It measures the monotonic relationship between two variables, meaning it assesses how well the relationship between two variables can be described using a monotonic function.
 
 - Class: text
-  Output: You generally see correlation matrices as the first table in a results section. It is good to report in order to assist in meta-analyses. 
+  Output: You generally see correlation matrices as the first table in a results section. It is good to report to assist in meta-analyses. 
 
 - Class: text
   Output: For example, we can look at a short report a student of one of ours got published. 
@@ -31,26 +31,26 @@
   Output: The citation for this data is Marshall, M., & Carriere, K.R. (2023). To post or not to post- Companies supporting mental health relates to stronger consumer support. Current Psychology.
   
 - Class: cmd_question
-  Output: Let us take a look at the first few rows of the first dataset, loaded into your environment as 'activism'. Please type-  activism |> head()
+  Output: Let us look at the first few rows of the first dataset, loaded into your environment as 'activism'. Please type-  activism |> head()
   CorrectAnswer: activism |> head()
   Hint: Use the head function to display the first few rows of the dataset.
   AnswerTests: omnitest(correctExpr="head(activism)")
   
 - Class: text
-  Output: As you can see, we've already selected only the variables that are continuous or that would go into the correlation matrix. You may have to do this on your own (see the Notes). 
+  Output: As you can see, we've already selected only the continuous variables that would go into the correlation matrix. You may have to do this independently (see the Notes). 
   
   #10
 - Class: text
-  Output: The first variable, TOT, is a variable that represents how much people would be willing to interact with a shop. It was their dependent variable. There was also another variable, CARE, that represented how much participants felt the shop cared about a given social issue. Each participant also reported their age and their own measure of mental health called the GHQ, or general health questionnaire.
+  Output: The first variable, TOT, is a variable that represents how much people would be willing to interact with a shop. It was their dependent variable. Another variable, CARE, also represented how much participants felt the shop cared about a given social issue. Each participant also reported their age and their measure of mental health, called the GHQ, or general health questionnaire.
 
 - Class: cmd_question
-  Output: Now, assuming our first dataset meets the assumptions of Pearson's correlation, let's compute the correlation matrix. We'll use two ways - first, the most straightforward, pipe (|>) activism into cor().
+  Output: Now, assuming our first dataset meets the assumptions of Pearson's correlation, let's compute the correlation matrix. We'll use two ways - first, the most straightforward is to pipe (|>) activism into cor().
   CorrectAnswer: activism |> cor()
   Hint: Use the cor function to compute the correlation matrix.
   AnswerTests: omnitest(correctExpr="activism |> cor()")
 
 - Class: cmd_question 
-  Output: While not used very often, you could also do a quick plot of your correlation matrix using corrplot from the corrplot library. This will create a correlogram. There are many possible modifications - we'll leave it to you to work through the documentation on. But, to see what it looks like, hit up on your keyboard to get to your last activism |> cor() argument, and pipe (|>) one additional function, corrplot(). 
+  Output: While not used very often, you could also plot your correlation matrix using corrplot from the corrplot library. This will create a correlogram. There are many possible modifications - we'll leave it to you to work through the documentation. But, to see what it looks like, hit up on your keyboard to get to your last activism |> cor() argument, and pipe (|>) one additional function, corrplot(). 
   CorrectAnswer: activism |> cor() |> corrplot()
   Hint: Use the corrplot() function to visualize the correlation matrix. 
   AnswerTests: omnitest(correctExpr="activism |> cor() |> corrplot()")
@@ -62,24 +62,24 @@
   AnswerTests: omnitest(correctExpr="activism |> corr.test()")
 
 - Class: text
-  Output: Great job. You can see it prints out three things - first, the correlation matrix. Two, it will print out the N for each correlation (becoming a matrix if there are unequal N)/ And three, the p values. Notice the note at the bottom - probability values above the diagonal adjust for multiple comparisons, and we should always report those.
+  Output: Great job. It prints out three things - first, the correlation matrix. Two, it will print out the N for each correlation (becoming a matrix if there are unequal N)/ And three, the p values. Notice the note at the bottom - probability values above the diagonal adjust for multiple comparisons, and we should always report those.
 
 #15
 - Class: mult_question
-  Output: Adjusting for multiple tests, what is the p value for the correlation between TOT and age?
+  Output: Adjusting for multiple tests, what is the p-value for the correlation between TOT and age?
   AnswerChoices: .72;.04;.73; .24; .80; .00; 1.00
   CorrectAnswer: .72
   AnswerTests: omnitest(correctVal='.72')
   Hint: Look at the top half of the correlation matrix. 
   
 - Class: cmd_question
-  Output: It also notes that " To see confidence intervals of the correlations, print with the short=FALSE option". Hit the up arrow, and add an additional pipe, where we will add print(short=FALSE).
+  Output: It also notes, "To see confidence intervals of the correlations, print with the short=FALSE option". Hit the up arrow, and add pipe, where we will add print(short=FALSE).
   CorrectAnswer: activism |> corr.test() |> print(short=FALSE)
   Hint: activism |> corr.test() |> print(short=FALSE)
   AnswerTests: omnitest(correctExpr="activism |> corr.test() |> print(short=FALSE)")
   
 - Class: cmd_question
-  Output: If you wanted strictly a single correlation between X and Y, we can use the cor.test() function to simply be cor.test(x= , y=) and use the dollar sign notation to pick out the variables in particular. For example, try cor.test(activism$TOT, activism$CARE). Notice, importantly, this has a single r in cor.test, not the double r in psych::corr.test().
+  Output: If you wanted strictly a single correlation between X and Y, we could use the cor.test() function to be cor.test(x= , y=) and use the dollar sign notation to pick out the variables in particular. For example, try cor.test(activism$TOT, activism$CARE). Importantly, this has a single r in cor.test, not the double r in psych::corr.test().
   CorrectAnswer: cor.test(activism$TOT, activism$CARE)
   Hint: cor.test(activism$TOT, activism$CARE)
   AnswerTests: omnitest(correctExpr='cor.test(activism$TOT, activism$CARE)')
@@ -91,26 +91,26 @@
   AnswerTests: omnitest(correctExpr='activism |> select(TOT, CARE) |> cor_test()')
   
 - Class: cmd_question
-  Output: If you believe your data fits a Spearman correlation, you can add the argument method="spearman" to many of these functions. Hit the up arrow until you get to your corr.test() function, and then add method="spearman" as an argument. 
+  Output: If your data fits a Spearman correlation, add the argument method="spearman" to many of these functions. Hit the up arrow until you get to your corr.test() function, and then add method="spearman" as an argument. 
   CorrectAnswer: activism |> corr.test(method="spearman")
   Hint: activism |> corr.test(method="spearman")
   AnswerTests: omnitest(correctExpr="activism |> corr.test(method='spearman')")
 
 - Class: mult_question
-  Output: Adjusting for multiple tests, what is the p value for the correlation between TOT and age?
+  Output: Adjusting for multiple tests, what is the p-value for the correlation between TOT and age?
   AnswerChoices: .14;.00;.05;.97;.01;.05
   CorrectAnswer: .14
   AnswerTests: omnitest(correctVal='.14')
   Hint: Look at the top half of the correlation matrix for p values.
   
 - Class: cmd_question
-  Output: Finally, we can also use the psych library to get the Cronbach's Alpha of a scale. We loaded a second dataset from Sarah's paper, where we selected only the variables that made up the General Health Questionnaire which she used as a control. The data is called ghq. Pipe it into names to view the question names.
+  Output: Finally, we can also use the psych library to get Cronbach's Alpha of a scale. We loaded a second dataset from Sarah's paper, where we selected only the variables that made up the General Health Questionnaire, which she used as a control. The data is called ghq. Pipe it into names to view the question names.
   CorrectAnswer: ghq |> names()
   AnswerTests: omnitest(correctExpr='ghq |> names()')
   Hint: Pipe ghq into names().
 
 - Class: cmd_question
-  Output: We can see how we have multiple questions that make up the GHQ. We can pipe this into the alpha() function from the psych library. Try that now.
+  Output: We can see how multiple questions make up the GHQ. We can pipe this into the alpha() function from the psych library. Try that now.
   CorrectAnswer: ghq |> alpha()
   AnswerTests: omnitest(correctExpr='ghq |> alpha()')
   Hint: Pipe ghq into alpha()
@@ -120,7 +120,7 @@
   
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
-  AnswerChoices: Yes;No
+  AnswerChoices: Yes; No
   CorrectAnswer: NULL
   AnswerTests: submit_log()
   Hint: hint

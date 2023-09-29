@@ -1,7 +1,7 @@
 - Class: meta
   Course: Psychological Statistics You Can Handle
   Lesson: Independent Sample T-Tests
-  Author: Kevin R. Carriere, Jason Kilgore
+  Author: Kevin R. Carriere & Jason Kilgore
   Type: Standard
   Organization: Washington & Jefferson College
   Version: 2.4.3
@@ -9,17 +9,17 @@
 - Class: script
   Output: To save the notes for this module, copy and paste the code provided into your own RNotebook. Type submit() when you have finished saving these notes. 
   AnswerTests: script_results_identical('saved')
-  Hint: "Don't change anything, just type submit(). If you did and you don't know how to fix it, just type skip() and you'll be all set."
+  Hint: "Don't change anything, just type submit(). If you did and you don't know how to fix it, just type skip(), and you'll be all set."
   Script: Notes.R
   
 - Class: text
-  Output: In the last module, we talked about 1 sample t-tests. This is when tested a sample's mean against a population mean.
+  Output: In the last module, we talked about 1 sample t-test. This is when a sample's mean against a population's mean.
 
 - Class: text
-  Output: However, what we want to test is if there are differences between groups.
+  Output: However, we want to test whether there are differences between groups.
   
 - Class: text
-  Output: For example, sometimes we give a drug to one group, and don't give a drug to others. We want to see if the drug makes any difference in their lives. 
+  Output: For example, sometimes we give a drug to one group and don't give a drug to others. We want to see if the drug makes any difference in their lives. 
 
 - Class: figure
   Output: This is the equation for the independent samples t-test.
@@ -30,7 +30,7 @@
   Output: "We calculate this by taking the mean of group 1 (X1) and subtracting off the mean of group 2 (X2) and dividing that by the pooled standard error."
 
 - Class: figure
-  Output: "The pooled variance, or standard deviation squared, takes the degrees of freedom of each group and multiplies that by the variance. This permits a weighted average of the variance, where we will favor the group with higher sample sizes (if sample sizes are uneven)."
+  Output: "The pooled variance, or standard deviation squared, takes the degrees of freedom of each group and multiplies that by the variance. This permits a weighted variance average, where we will favor the group with higher sample sizes (if sample sizes are uneven)."
   Figure: pooledvariance.R
   FigureType: new
 
@@ -50,14 +50,14 @@
   Output: (4) Equivalence of variances. The standard deviation of the distribution is equal in both populations. 
 
 - Class: text
-  Output: We cover violations of (3) in Wilcoxon Signed Rank Test and violations of (4) in Welch's Two Sample T-Test. 
+  Output: We cover violations of (3) in the Wilcoxon Signed Rank Test and violations of (4) in Welch's Two Sample T-Test. 
   
 - Class: text
   Output: But for now, let us consider datasets that do not have violations of these assumptions.
 
 #Explain the data
 - Class: text
-  Output: "Researchers wanted to test if there was a difference between vocal presentation of skills (giving a speech) and written presentation of skills (writing a speech) on how likely a job candidate was to be hired. Participants were randomly assigned to either listen to a recording of a job candidate's speech or read a paper copy of a job candidate's speech, and then asked to rate the candidate on intellect (composed of an intelligence rating, a competence rating, and a thoughtfulness rating), overall impression, and the likelihood of hiring the candidate. "
+  Output: "Researchers wanted to test if there was a difference between vocal presentation of skills (giving a speech) and written presentation of skills (writing a speech) on how likely a job candidate was to be hired. Participants were randomly assigned to either listen to a recording of a job candidate's speech or read a paper copy of a job candidate's speech and then asked to rate the candidate on intellect (composed of an intelligence rating, a competence rating, and a thoughtfulness rating), overall impression, and the likelihood of hiring the candidate. "
 
 - Class: text
   Output: "The citation for this study is Schroeder, J., & Epley, N. (2015). The Sound of Intellect: Speech Reveals a Thoughtful Mind, Increasing a Job Candidate’s Appeal. Psychological Science, 26(6), 877–891. https://doi.org/10.1177/0956797615572906."
@@ -81,10 +81,10 @@
   Hint: df |> t.test(Intellect_Rating~Condition, data=_, var.equal=TRUE)
 
 - Class: text
-  Output: While the t-test output gives us our means, it doesn't provide us the standard deviations. While we've learned how to get the standard deviation of a single variable, we haven't talked about how to get the standard deviation of a single variable grouped by multiple levels. You might know this already if you've taken GGPlots Grouped Bar Plots or Basic Tidyverse Verbs. Remember, they wrote- "when they listened to pitches (M = 5.63, SD = 1.61) than when they read pitches (M = 3.65, SD = 1.91)"
+  Output: While the t-test output gives us our means, it doesn't provide standard deviations. While we've learned how to get the standard deviation of a single variable, we haven't talked about how to get the standard deviation of a single variable grouped by multiple levels. If you've taken GGPlots Grouped Bar Plots or Basic Tidyverse Verbs, you might know this already. Remember, they wrote- "when they listened to pitches (M = 5.63, SD = 1.61) than when they read pitches (M = 3.65, SD = 1.91)"
 
 - Class: script
-  Output: Make sure to save your script before you type submit().
+  Output: Save your script before you type submit().
   AnswerTests: script_results_identical('sum_intellect')
   Hint: Follow the notes in the script, and be sure you saved your script (using the save button or ctrl+S) before typing submit() in the Console.
   Script: summarise.R
@@ -99,13 +99,13 @@
   Output: And finally, we can also get that effect size they report (95% CI of the difference = [0.85, 3.13], d = 1.16].)
 
 - Class: cmd_question
-  Output: To get their effect size, we need to use a new function, and we will pipe (|>) our data (df) into it.  In the lsr library, there is a function called cohensD(). It takes at least two inputs, the formula (Intellect_Rating ~ Condition), the data (for us, because we are piping, remember data=_). Let's try just those two inputs now.
+  Output: To get their effect size, we need to use a new function, and we will pipe (|>) our data (df) into it.  In the lsr library, there is a function called cohensD(). It takes at least two inputs: the formula (Intellect_Rating ~ Condition) and the data (for us, because we are piping, remember data=_). Let's try just those two inputs now.
   CorrectAnswer: df |> cohensD(Intellect_Rating~Condition, data=_)
   AnswerTests: omnitest(correctExpr='df |> cohensD(Intellect_Rating~Condition, data=_)')
   Hint: df |> cohensD(Intellect_Rating~Condition, data=_)
 
 - Class: cmd_question
-  Output: Great job! Unfortunately, that's not what they reported. Their effect size was 1.16, and ours is 1.13. What can we do? Well, cohensD takes another argument, method. Let's set method = "raw" instead of pooled, and try again. Remember you can hit the up arrow on your keyboard to bring up your hard work.
+  Output: Great job! Unfortunately, that's not what they reported. Their effect size was 1.16, and ours is 1.13. What can we do? Well, cohensD takes another argument, method. Let's set method = "raw" instead of pooled and try again. Remember, you can hit the up arrow on your keyboard to bring up your hard work.
   CorrectAnswer: df |> cohensD(Intellect_Rating~Condition, data=_, method="raw")
   AnswerTests: omnitest(correctExpr='df |> cohensD(Intellect_Rating~Condition, data=_, method="raw")')
   Hint: df |> cohensD(Intellect_Rating~Condition, data=_, method="raw")
@@ -114,19 +114,19 @@
   Output: We got it! So what's the difference? 
   
 - Class: figure
-  Output: It comes down to these two formulas to calculate effect size. The one on the left is method="pooled", while the one on the right is method="raw". The left one uses our pooled standard deviation equation we are used to, while the one on the right does not (notice the only difference is subtracting two from the denominator of the square root. While the left is an unbiased estimator of the population variance, it is not necessarily true that taking the square root of an unbiased estimator will necessarily lead to an unbiased estimator of the standard deviation. It is also worth acknowledging that the differences reported are relatively minor, and decrease in size of the differences as N increases. Still, we will choose the method that is the most conservative (i.e., provides the smallest effect size), which is always method="pooled", or not setting method equal to anything.
+  Output: It comes down to these two formulas to calculate effect size. The one on the left is method="pooled", while the one on the right is method="raw". The left one uses our pooled standard deviation equation we are used to, while the one on the right does not (notice the only difference is subtracting two from the denominator of the square root. While the left is an unbiased estimator of the population variance, it is not necessarily true that taking the square root of an unbiased estimator will necessarily lead to an unbiased estimator of the standard deviation. It is also worth acknowledging that the differences reported are relatively minor and decrease in size of the differences as N increases. Still, we will choose the most conservative method (i.e., provides the smallest effect size), which is always method="pooled" or not setting method equal to anything.
   Figure: cohensdiff.R
   FigureType: new
 
 - Class: cmd_question
-  Output: Scroll back through your commands using the up arrow and let's re-enter the t.test() formula. As a reminder, or if you can't find it, take our data, df, and pipe it (|>) into the t.test() function. Pass that function three arguments, Intellect_Rating~Condition, data=_, and var.equal=TRUE .
+  Output: Scroll back through your commands using the up arrow, and let's re-enter the t.test() formula. As a reminder, or if you can't find it, take our data, df, and pipe it (|>) into the t.test() function. Pass that function three arguments, Intellect_Rating~Condition, data=_, and var.equal=TRUE .
   CorrectAnswer: df |> t.test(Intellect_Rating~Condition, data=_, var.equal=TRUE)
   AnswerTests: omnitest(correctExpr='df |> t.test(Intellect_Rating~Condition, data=_, var.equal=TRUE)')
   Hint: df |> t.test(Intellect_Rating~Condition, data=_, var.equal=TRUE)
 
 
 - Class: mult_question
-  Output: Based on this test, what is the p value?
+  Output: Based on this test, what is the p-value?
   AnswerChoices: 0.01208; 0.41376; -2.6201; 37; 4.7142; 2.88888; 3.23702; 0.001144
   CorrectAnswer: 0.001144
   AnswerTests: omnitest(correctVal='0.001144')
@@ -134,16 +134,16 @@
   
 - Class: mult_question
   Output: Based on this test, is there enough evidence to reject the null hypothesis at the 95% confidence level?
-  AnswerChoices: Yes;No
+  AnswerChoices: Yes; No
   CorrectAnswer: Yes
   AnswerTests: omnitest(correctVal='Yes')
   Hint: Is .001144 smaller or larger than .05?
 
 - Class: text
-  Output: Let's practice summarizing our data again, this time, to get the means and standard deviations of Hire_Rating. 
+  Output: This time, let's practice summarizing our data again to get the means and standard deviations of Hire_Rating. 
   
 - Class: script
-  Output: Make sure to save your script before you type submit().
+  Output: Save your script before you type submit().
   AnswerTests: script_results_identical('sum_hire')
   Hint: Follow the notes in the script, and be sure you saved your script (using the save button or ctrl+S) before typing submit() in the Console.
   Script: summarise2.R
@@ -155,10 +155,10 @@
   Hint: Type sum_hire
   
 - Class: text
-  Output: In another study, researchers wanted to test if there was a difference between frozen goals (goals you continually set but make no effort to achieve) and active goals (goals you set and make efforts to achieve). They randomly assigned people to either think about frozen or active goals and asked them to rate characteristics of these goals, including how important it was to achieve this goal, how difficult it was to achieve it, and how much progress they made on it. 
+  Output: In another study, researchers wanted to test if there was a difference between frozen goals (goals you continually set but make no effort to achieve) and active goals (goals you set and make an effort to achieve). They randomly assigned people to think about frozen or active goals and asked them to rate the characteristics of these goals, including how important it was to achieve this goal, how difficult it was to achieve it, and how much progress they made on it. 
 
 - Class: text
-  Output: They write, "The purpose of this study was to compare the descriptive qualities of frozen goals to active goals. To analyze how frozen goals differed from active goals, we used a series of independent samples t-tests to compare characteristics. "
+  Output: They write, "The purpose of this study was to compare the descriptive qualities of frozen goals to active goals. To analyze how frozen goals differed from active goals, we used a series of independent sample t-tests to compare characteristics. "
   
 - Class: text
   Output: "The citation for this paper is Davydenko, M., Werner, K. M., & Milyavskaya, M. (2019). Frozen Goals- Identifying and Defining a New Type of Goal. Collabra: Psychology, 5(1), 17. doi.org/10.1525/collabra.194."
@@ -170,7 +170,7 @@
   Hint: Generally, we've been using summary(). So, type goalsdf |> summary().
   
 - Class: text
-  Output: There are a few variables in this dataset. ID is the participant ID. They asked how important achieving the goal was to them (achieve.goal.importance), the progress they've made towards that goal (progress), how important to them it was to have that goal (have.goal.importance), and how difficult it would be to achieve that goal (difficult.achieve). Progress was from a 0-100 scale, while the rest were scales from 1-7.
+  Output: There are a few variables in this dataset. ID is the participant ID. They asked how important achieving the goal was to them (achieve.goal.importance), the progress they've made towards that goal (progress), how important to them it was to have that goal (have.goal.importance), and how difficult it would be to achieve that goal (difficult.achieve). Progress was from a 0-100 scale, while the rest ranged from 1-7.
 
 - Class: cmd_question
   Output: Test one of these response variables. Be sure that your answer takes the data (goalsdf), pipes it (|>) into t.test(), where your equation should be your chosen response variable ~ the grouping explanatory variable, and then data=_ and var.equal=TRUE. 
@@ -184,7 +184,7 @@
   
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
-  AnswerChoices: Yes;No
+  AnswerChoices: Yes; No
   CorrectAnswer: NULL
   AnswerTests: submit_log()
   Hint: hint

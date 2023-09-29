@@ -1,35 +1,35 @@
 - Class: meta
   Course: PSYCH - Psychological Statistics You Can Handle
   Lesson: Pivoting Data Longer and Wider
-  Author: Kevin R. Carriere, Jason Kilgore
+  Author: Kevin R. Carriere & Jason Kilgore
   Type: Standard
   Organization: Washington & Jefferson College
   Version: 3.0.0
 
 #1
 - Class: script
-  Output: To save the notes for this module, copy and paste the code provided into your own RNotebook. Type submit() when you have finished saving these notes. 
+  Output: To save the notes for this module, copy and paste the code provided into your RNotebook. Type submit() when you have finished saving these notes. 
   AnswerTests: script_results_identical('saved')
-  Hint: "Don't change anything, just type submit(). If you did and you don't know how to fix it, just type skip() and you'll be all set."
+  Hint: "Don't change anything, just type submit(). If you did and you don't know how to fix it, just type skip(), and you'll be all set."
   Script: Notes.R
 
 - Class: text
-  Output: Pivoting data is an essential part of really upgrading your R coding knowledge.
+  Output: Pivoting data is essential to upgrading your R coding knowledge.
   
 - Class: text
-  Output: When we are talking about pivoting data, we mean reshaping data --- turning some columns into additional rows, or adding more columns and reducing the number of rows.
+  Output: When discussing pivoting data, we mean reshaping data --- turning some columns into additional rows or adding more columns and reducing the number of rows.
 
 - Class: text
-  Output: When we add columns, we are adding more columns to the right of a data. In this way, we are making our data wider.
+  Output: When we add columns, we add more columns to the right of the data. In this way, we are making our data wider.
   
 - Class: text
-  Output: When we add rows, we are reducing the number of columns and adding more rows to the data. In this way, we are making our data longer.
+  Output: When we add rows, we reduce the number of columns and add more rows to the data. In this way, we are making our data longer.
   
 - Class: text
-  Output: In tidyr, there exists two functions, pivot_wider() and pivot_longer(), that serve these purposes. 
+  Output: In tidyr, two functions, pivot_wider() and pivot_longer(), serve these purposes. 
   
 - Class: text
-  Output: We will start with pivot_longer(). You will most commonly face pivoting longer when dealing with a study of repeated measures - when you ask a participant to respond to the same question at multiple time points, or under different conditions. 
+  Output: We will start with pivot_longer(). You will most commonly face pivoting longer when dealing with a study of repeated measures - when you ask a participant to respond to the same question at multiple time points or under different conditions. 
  
 - Class: text
   Output: The first study comes from Heyman et al. (YEAR). They wanted to test to see if 
@@ -38,40 +38,40 @@
   Output: The citation is Heyman, T., Vankrunkelsven, H., Voorspoels, W., White, A., Storms, G., & Verheyen, S. (2020). When Cheating is an Honest Mistake- A Critical Evaluation of the Matrix Task as a Measure of Dishonesty. Collabra- Psychology, 6(1), 12. doi.org/10.1525/collabra.294
   
 - Class: cmd_question
-  Output: To do this, we have loaded a dataset from the Repeated Measures ANOVA module prior to us having fixed it up. Check what variables are in the dataset by piping the dataset name, HeymanWide, into names().
+  Output: To do this, we have loaded a dataset from the Repeated Measures ANOVA module before we fixed it up. Check the variables in the dataset by piping the dataset name HeymanWide, into names().
   CorrectAnswer: HeymanWide |> names()
   AnswerTests: omnitest(correctExpr='HeymanWide |> names()')
   Hint: Try HeymanWide |> names().
 
 - Class: text
-  Output: Great. So, we can see there are 9 columns. One, ResponseId, identifies the participant. The other 8 columns are the eight different conditions each participant was exposed to. Remember, a tidy dataset should have one row per observation - which would be equal to each participant having 8 rows, since we observed them in eight different conditions. 
+  Output: Great. So, there are nine columns. One, ResponseId, identifies the participant. The other eight columns are the different conditions to which each participant was exposed. Remember, a tidy dataset should have one row per observation - equal to each participant having eight rows since we observed them in eight different conditions. 
 
 - Class: text
-  Output: The great thing about pivot_longer is that is it extremely flexible. There are many ways we can pivot the data. We'll start by considering three key arguments in pivot_longer -- cols, names_to, and values_to. 
+  Output: The great thing about pivot_longer is that it is highly flexible. There are many ways we can pivot the data. We'll start by considering three key arguments in pivot_longer -- cols, names_to, and values_to. 
 
 - Class: text
-  Output: cols takes a list of columns to pivot. You also can tell it a list of columns to NOT pivot using -. Depending how many variables you have, depends what you should probably use. 
+  Output: cols takes a list of columns to pivot. You also can tell it a list of columns NOT to pivot using -. How many variables you have depends on what you should use. 
  
 - Class: text
-  Output: Next, consider what pivot_longer is doing. It will create one column that serves as a factor with as many levels as there are pivoted columns. The names_to="" argument will define what we call that column.
+  Output: Next, consider what pivot_longer is doing. It will create one column that serves as a factor with as many levels as pivoted columns. The names_to="" argument will define what we call that column.
 
 - Class: text
-  Output: It also creates a column that will be the values that gets pulled out from the cell from the column that was just named. We define how we name that column in the values_to="" argument.
+  Output: It also creates a column that will be the values pulled out from the cell from the column that was just named. We define how we name that column in the values_to="" argument.
   
 - Class: script
-  Output: Let's try pivoting the wide data into the long format.  When you're ready, save your script and then type submit().
+  Output: Let's try pivoting the wide data into the long format.  When you're ready, save your script and type submit().
   AnswerTests: script_results_identical('HeymanLong')
   Hint: 'HeymanLong <- HeymanWide |> pivot_longer(cols = -"ResponseId", names_to = "Condition", values_to = "PHelp")'
   Script: pivotlonger.R
 
 - Class: cmd_question
-  Output: Great job. Let's view what this new data looks like by piping our newly created dataset, HeymanLong, into head(10).
+  Output: Great job. Let's view this new data by piping our newly created dataset, HeymanLong, into head(10).
   CorrectAnswer: HeymanLong |> head(10)
   AnswerTests: omnitest(correctExpr="HeymanLong |> head(10)")
   Hint: Try HeymanLong |> head(10)
 
 - Class: text
-  Output: The notes walk through a few more examples of how pivoting might be important for your data, including shortcuts to selecting columns (starts_with(c("Pre", "Post"))) and when you might have multiple variables you want to pivot (a pre/post measure of likelihood and a pre/post measure of guilt).
+  Output: The notes walk through a few more examples of how pivoting might be necessary for your data, including shortcuts to selecting columns (starts_with(c("Pre", "Post"))) and when you might have multiple variables you want to pivot (a pre/post measure of likelihood and a pre/post measure of guilt).
 
 - Class: text
   Output: pivot_wider() does the reverse - it takes data and creates multiple columns based on that data. 
@@ -80,17 +80,17 @@
   Output: Imagine, for instance, you are working with someone who wants to analyze the data in Jamovi or SPSS. This would require that the data be *wide*, not long. And imagine you only had HeymanLong to give them. How could we turn it back to the wide format?
   
 - Class: text
-  Output: For the basic pivot_wider, it has a sister set of arguments to pivot_longer. While pivot_longer() took id=, names_to=, values_to=, pivot_wider takes id_cols=, names_from=, values_from=. 
+  Output: The basic pivot_wider has a sister set of arguments to pivot_longer. While pivot_longer() took id=, names_to=, values_to=, pivot_wider takes id_cols=, names_from=, values_from=. 
   
 - Class: script
-  Output: Let's try re-pivoting the long data back into wide. When you're ready, save your script and then type submit().
+  Output: Let's try re-pivoting the long data back into wide. When you're ready, save your script and type submit().
   AnswerTests: script_results_identical('HeymanWide2')
-  Hint: 'HeymanWide2 <- HeymanLong |> pivotwider(id_cols = "ResponseId", names_from = "Condition", values_from = "PHelp")'
+  Hint: 'HeymanWide2 <- HeymanLong |> pivot_wider(id_cols = "ResponseId", names_from = "Condition", values_from = "PHelp")'
   Script: pivotwider.R
 
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
-  AnswerChoices: Yes;No
+  AnswerChoices: Yes; No
   CorrectAnswer: NULL
   AnswerTests: submit_log()
   Hint: hint

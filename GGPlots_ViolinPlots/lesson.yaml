@@ -1,7 +1,7 @@
 - Class: meta
   Course: Psychological Statistics You Can Handle
   Lesson: GGPlots - Violin Plots
-  Author: Kevin R. Carriere
+  Author: Kevin R. Carriere & Jason Kilgore
   Type: Standard
   Organization: Washington & Jefferson College
   Version: 3.0.0
@@ -15,33 +15,33 @@
 
 #2
 - Class: text
-  Output: In this module, we are going to focus on how to create violin plots. Violin plots are a great base layer to stack more information on top of. 
+  Output: In this module, we will focus on how to create violin plots. Violin plots are a great base layer to stack more information on top of. 
 #3
 
 - Class: text
-  Output: Violin plots show the distribution of the variable. It both tells us a lot about the variable itself, but also can act as a visual check if variances between groups are plausibly equal, and if the response variable within groups looks normally distributed. 
+  Output: Violin plots show the distribution of the variable. It tells us a lot about the variable itself. Still, it can also visually check if variances between groups are plausibly equal and if the response variable within groups looks normally distributed. 
 #4
 - Class: figure
-  Output: For example, this graph shows the violin plot graphed behind a boxplot, so that the viewer sees not only the distribution, but the median, first and third quartiles, the IQR, and any outliers.
+  Output: For example, this graph shows the violin plot graphed behind a boxplot so that the viewer sees not only the distribution but also the median, first and third quartiles, the IQR, and any outliers.
   Figure: Figure1.R
   FigureType: New
 #5
 - Class: figure
-  Output: While this figure uses half of a violin plot (from the PupillometryR package) to create what has been called a Raincloud plot.
+  Output: This figure uses half of a violin plot (from the PupillometryR package) to create what has been called a Raincloud plot.
   Figure: Figure2.R
   FigureType: New
 #6
 - Class: figure
-  Output: While finally, this violin plot plots the mean as a reference point within the distribution.
+  Output: Finally, this violin plot plots the mean as a reference point within the distribution.
   Figure: Figure3.R
   FigureType: New
   #7
 - Class: text
-  Output: We will talk through a lot of modifications as well that you can make. Remember, you can always play around on your own with play(), but follow our instructions while learning in here.
+  Output: We will talk through a lot of modifications as well that you can make. Remember, you can always play independently with play(), but follow our instructions while learning here.
 #8
 
 - Class: figure
-  Output: In this module, we are going to (almost) perfectly replicate Figure 1 in Nalborczyk (2022). The notes will have the complete solution with the addition of one more package, but for educational purposes, we're going to default to a more basic layer (geom_jitter instead of geom_quasirandom).
+  Output: In this module, we will (almost) perfectly replicate Figure 1 in Nalborczyk (2022). The notes will have the complete solution with adding one more package, but for educational purposes, we will default to a more fundamental layer (geom_jitter instead of geom_quasirandom).
   Figure: finalanswer.R
   FigureType: new
   
@@ -51,43 +51,43 @@
 
 #10 
 - Class: cmd_question
-  Output: Let's start by looking at the data that will lead us to this figure. Pipe (|>) Violin into head(10).
+  Output: Let's start by looking at the data leading to this figure. Pipe (|>) Violin into head(10).
   CorrectAnswer: Violin |> head(10)
   AnswerTests: omnitest(correctExpr='Violin |> head(10)')
   Hint: Violin |> head(10)
   
 #11
 - Class: text
-  Output: For this graph, we don't want to talk about what the variables mean, but instead, grapple with visualizing data without even knowing what things stand for. We can see there are four columns. One, ID, seems to represent participant ID. Since it's repeated, we can tell that this data is in the long format, and that there are many observations per participant. How many observations? 9 (note the change to 103 at 10). This, looking at the next two columns, suggests that each variable probably has 3 levels (for a total of 9 conditions per participant). Then there is a single numeric variable. Since there's only 1 numeric variable, we know that will go on our y axis. We can also see that BAS, DIS, and RUM are on the x axis, which we can identify in our data as the variable condition. 
+  Output: For this graph, we don't want to talk about what the variables mean but instead grapple with visualizing data without knowing what things stand for. We can see there are four columns. One, ID, seems to represent participant ID. Since it's repeated, we can tell that this data is in the long format and that there are many observations per participant. How many observations? 9 (note the change to 103 at 10). Looking at the following two columns, this suggests that each variable probably has three levels (for nine conditions per participant). Then, there is a single numeric variable. Since there's only one numeric variable, we know that will go on our y-axis. We can also see that BAS, DIS, and RUM are on the x-axis, which we can identify as the variable condition in our data. 
 
 #12
 - Class: text
-  Output: Since a violin plot graphs distributions, that means we probably need to give it all of our data. This is unlike grouped barplots, which graphs means, and can do well with just being given summarised data.
+  Output: Since a violin plot graphs distributions, we probably need to give it all our data. Unlike grouped bar plots, which graphs mean, this can do well with just being given summarised data.
 
 #13
 - Class: cmd_question
-  Output: Let's start by setting up our ggplot space. Take your dataset, Violin, and pipe (|>) it into ggplot(). ggplot() will take one argument. The argument, aes(), is itself a function, so it will take two arguments. aes() stands for aesthetics - what do we want our plot to look like. Well, we want the x axis (x) to be (=) condition, and we want the y axis (y) to be (=) value. After we close that off, and add (+) geom_violin() to our plot as well. Enter that now.
+  Output: Let's start by setting up our ggplot space. Take your dataset, Violin, and pipe (|>) it into ggplot(). ggplot() will take one argument. The argument, aes(), is a function that will take two arguments. aes() stands for aesthetics - what do we want our plot to look like? Well, we want the x-axis (x) to be (=) condition, and we want the y-axis (y) to be (=) value. After we close that off, we also add (+) geom_violin() to our plot. Enter that now.
   CorrectAnswer: Violin |> ggplot(aes(x=condition, y=value))+geom_violin()
   AnswerTests: omnitest(correctExpr='Violin |> ggplot(aes(x=condition, y=value))+geom_violin()')
   Hint: "Does yours look like this -  Violin |> ggplot(aes(x=condition, y=value))+geom_violin()"
   
 #14
 - Class: cmd_question
-  Output: Hit the up arrow. Next up, let's deal with the other variable in our dataset, muscle. The way it created three mini-plots is through a function called facet_wrap(). Add (+) facet_wrap(~muscle) to your call now.
+  Output: Hit the up arrow. Next, let's deal with the other variable in our dataset, muscle. It created three mini-plots through a function called facet_wrap(). Add (+) facet_wrap(~muscle) to your call now.
   CorrectAnswer: Violin |> ggplot(aes(x=condition, y=value))+geom_violin() + facet_wrap(~muscle)
   AnswerTests: omnitest(correctExpr='Violin |> ggplot(aes(x=condition, y=value))+geom_violin() + facet_wrap(~muscle)')
   Hint: Maybe you got tripped up where everything goes? Try Violin |> ggplot(aes(x=condition, y=value))+geom_violin() + facet_wrap(~muscle)
   
 
 - Class: script
-  Output: Next, let's add some arguments to make our violin plots look prettier. Inside of geom_violin, we need to specify a few things. We want the inside of the shape (fill) to be "black" the outline of the shape (color) to be "white", the transparency of the shape (alpha) to be .15, and finally a line to be drawn at the 0.5 quantile (draw_quantile). When you're ready, save and type submit().
+  Output: Add some arguments to make our violin plots look prettier. Inside geom_violin, we need to specify a few things. We want the inside of the shape (fill) to be "black" the outline of the shape (color) to be "white", the transparency of the shape (alpha) to be .15, and finally, a line to be drawn at the 0.5 quantile (draw_quantile). When you're ready, save and type submit().
   AnswerTests: plot_results_identical('plot')
   Hint: Violin |> ggplot(aes(x=condition, y=value))+geom_violin(fill = "black", alpha = 0.15, colour = "white", draw_quantiles = 0.5) + facet_wrap(~muscle)
   Script: ggplot1.R
   
 #16
 - Class: cmd_question
-  Output: Output what you've done so far by typing in plot into the console.
+  Output: Output what you've done by typing plot into the console.
   AnswerTests: omnitest(correctExpr='plot')
   CorrectAnswer: plot
   Hint: Type plot.
@@ -95,35 +95,35 @@
 #17
 
 - Class: script
-  Output: Great. Now let's add the mean point and mean lines to the plot. When you're ready, save and type submit().
+  Output: Great. Let's add the mean point and lines to the plot. When you're ready, save and type submit().
   AnswerTests: plot_results_identical('plot')
   Script: ggplot2.R
   Hint: stat_summary(fun = mean, geom = "point", size = 3) + stat_summary(fun = mean, geom = "line", linewidth = 1, aes(group=muscle)) to your script.
   
 #18
 - Class: cmd_question
-  Output: NowOutput what you've done so far by typing in plot into the console.
+  Output: NowOutput what you've done so far by typing plot into the console.
   AnswerTests: omnitest(correctExpr='plot')
   CorrectAnswer: plot
   Hint: Type plot.
 
 #19
 - Class: script
-  Output: Now let's add the confidence intervals of the mean and the points of each observation. Output what you've done so far by typing in plot into the console. When you're ready, save and type submit().
+  Output: Now, let's add the confidence intervals of the mean and the points of each observation—output what you've done so far by typing in plot into the console. When you're ready, save and type submit().
   AnswerTests: plot_results_identical('plot')
   Hint: Try adding stat_summary(fun.data = mean_cl_normal, geom = "errorbar",  size = 1,  width = 0) + geom_jitter(width=.10,alpha=0.3) to the script.
   Script: ggplot3.R
   
 #20
 - Class: cmd_question
-  Output: Output what you've done so far by typing in plot into the console.
+  Output: Output what you've done by typing plot into the console.
   AnswerTests: omnitest(correctExpr='plot')
   CorrectAnswer: plot
   Hint: Type plot.
 
 #21
 - Class: script
-  Output: Finally, let's clean up the x and y axes labels and change the font size. When you're ready, save and type submit().
+  Output: Finally, clean up the x and y axes labels and change the font size. When you're ready, save and type submit().
   AnswerTests: plot_results_identical('plot')
   Hint: Try adding xlab("Condition")+ ylab("Natural logarithm of peak amplitude")+ theme_bw(base_size = 12) to the script.
   Script: ggplot4.R
@@ -137,12 +137,12 @@
 
 #23
 - Class: text
-  Output: You've done it! Whew. Hopefully you can see how customizable ggplot can be, and you've learned some both basics (geom_violin() and geom_jitter()) as well as more advanced (facet_wrap()) ways to change ggplot2 around.
+  Output: You've done it! Whew. Hopefully, you can see how customizable ggplot can be, and you've learned some both basics (geom_violin() and geom_jitter()) as well as more advanced (facet_wrap()) ways to change ggplot2 around.
   
   
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
-  AnswerChoices: Yes;No
+  AnswerChoices: Yes; No
   CorrectAnswer: NULL
   AnswerTests: submit_log()
   Hint: hint

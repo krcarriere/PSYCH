@@ -15,13 +15,13 @@
   Script: Notes.R
 
 - Class: text
-  Output: This module is focused on Paired T-Tests (also called Dependent Samples T-Test or Within-Subjects T-Test).
+  Output: This module focuses on Paired T-Tests (Dependent Samples T-Test or Within-Subjects T-Test).
 
 - Class: text
-  Output: For example, we could test your attention before and after giving some interesting stimuli. 
+  Output: For example, we could test your attention before and after giving some exciting stimuli. 
 
 - Class: figure
-  Output: This is called a Paired-Sample T-Test. It is paired because it's the same sample at two time points. Remember a problem with research is that there could be differences between groups. We try to randomize group assignment to fix this, but we are never sure if our randomization worked. 
+  Output: This is called a Paired-Sample T-test. It is paired because it's the same sample at two-time points. Remember, a problem with research is that there could be differences between groups. We tried to randomize group assignments to fix this, but we are unsure if our randomization worked. 
   Figure: pairedttest.R
   FigureType: New
 
@@ -29,31 +29,31 @@
   Output: The t statistic we are calculating is taking the mean difference of the pairs, Yd, and subtracting it from some hypothesized true mean value, generally 0 (because we hypothesize no difference), and we divide that by the standard error of the mean differences, defined as the standard deviation divided by the square root of n.
   
 - Class: text
-  Output: "Paired Samples also have the benefit of reducing the amount of people we need to collect. If we wanted two groups of people (some take drug, some don't), we would need say, 30 people for each group for a total of 60. But, if we used Paired Samples (first we test you without the drug, then we test you with it), we only need 30 people!"
+  Output: "Paired Samples also reduce the number of people we need to collect. If we wanted two groups of people (some take drugs, some don't), we would need 30 people for each group for a total of 60. But, if we used Paired Samples (first we test you without the drug, then we test you with it), we only need 30 people!"
 
 - Class: text
-  Output: "However, there are problems we need to be aware of with Paired Samples, or Within-Subjects designs. One is practice effects. If we first test you on something, then give you some kind of treatment, and test you again, sometimes we can't be sure if it's the treatment that improved your score, or the fact you took the same test twice."
+  Output: "However, there are problems we need to be aware of with Paired Samples or Within-Subjects designs. One is practice effects. If we first test you on something, then give you some treatment, and test you again, sometimes we can't be sure if it's the treatment that improved your score or the fact you took the same test twice."
 
 - Class: text
-  Output: "It could also work the other way. You've already taken the test once, so you are tired of taking it and do worse the second time around. This is called fatigue effect."
+  Output: "It could also work the other way. You've already taken the test once, so you are tired of taking it and do worse the second time. This is called the fatigue effect."
 
 - Class: text
   Output: "The assumptions of a paired t-test are - \n\n (1) The samples are randomly selected from the population. \n\n (2) The pairs of observations are independent from other pairs. \n\n (3) The difference between the pairs are normally distributed. "
 
 - Class: text
-  Output: In this module, we won't test the assumption - but you should check out the testing non-normality module to learn how to do this. Remember, for paired tests, we want to test the *difference*! That might require you to create a new variable.
+  Output: In this module, we won't test the assumption - but you should check out the testing non-normality module to learn how to do this. Remember, we want to test the *difference*for paired tests! That might require you to create a new variable.
 
 - Class: text
   Output: "We'll start our foray into Paired T-Tests by loading, not a study this time, but a portion of a large dataset. "
 
 - Class: text
-  Output: "Researchers followed participants over three time points during the pandemic. For our purposes, we have loaded the question where researchers asked how effective people perceived wearing an effective mask (1: Not at all to 5: Extremely Effective) to be in order to stop the spread of COVID-19. "
+  Output: "Researchers followed participants over three time points during the pandemic. For our purposes, we have loaded the question where researchers asked how effective people perceived wearing an effective mask (1: Not at all to 5: Extremely Effective) to be to stop the spread of COVID-19. "
 
 - Class: text
   Output: The citation for this dataset is - "Pfleger, A., Jensen, E.A., Lorenz, L., Watzlawik, M., Wagoner, B., & Herbig, L. (2021). Viral Communication- Longitudinal Survey Data on the Social Dimensions of the COVID-19 Pandemic [Data set]. Zenodo. doi.org/10.5281/ZENODO.5779516".
   
 - Class: text
-  Output: We would just like to note, before we move on, that this is individual citizen's perceptions of mask wearing effectiveness - not the true effectiveness, nor the opinions of scientific experts or epidemologists. 
+  Output: We would like to note, before we move on, that this is individual citizens' perceptions of mask-wearing effectiveness - not the actual effectiveness, nor the opinions of scientific experts or epidemiologists. 
 
 - Class: cmd_question
   Output: With that said, let's look at the data a bit. Pipe (|>) the dataset, Masking, into the function head().
@@ -62,22 +62,22 @@
   Hint: Masking |> head()
   
 - Class: text
-  Output: This data is in what we call the wide form - that is, there are multiple columns for each person. This is the common form that data is put into for software like SPSS, JASP, or Jamovi. 
+  Output: This data is in what we call the wide form - that is, there are multiple columns for each person. This is the standard form that data is put into for software like SPSS, JASP, or Jamovi. 
   
 - Class: text
-  Output: You should check out the Pivoting Data module to learn how to change this data into the long form, which is the 'most tidy' form of data, where each row represents a single observation. Since this data is one person over three time points, in an ideal world, our data would have three rows for each participant, with one column for "Mask Efficieny", one column for "Time Period", and one column for "Participant ID". 
+  Output: You should check out the Pivoting Data module to learn how to change this data into the long form, the 'most tidy' form of data, where each row represents a single observation. Since this data is one person over three time points, in an ideal world, our data would have three rows for each participant, with one column for "Mask Efficiency", one column for "Period", and one column for "Participant ID." 
 
 - Class: text
-  Output: However, R can handle analyzing the data both ways for our basic statistics, so we'll go over both kinds of ways.
+  Output: However, R can handle analyzing the data for our basic statistics, so we'll go over both ways.
 
 - Class: cmd_question
-  Output: So, let's test to see if perceptions of masking differed between Time 1 (October to December 2020) and Time 2 (March 2021). In order to do that, we have an function, t.test(), which will take three arguments. The first two is our variables, Masking$MaskEff_T1 and Masking$MaskEff_T2. The third argument is paired=TRUE -- we have to let R know that these variables are from the same person. Try this now.
+  Output: So, let's test whether perceptions of masking differed between Time 1 (October to December 2020) and Time 2 (March 2021). To do that, we have a function, t.test(), which will take three arguments. The first two are our variables, Masking$MaskEff_T1 and Masking$MaskEff_T2. The third argument is paired=TRUE -- we must let R know that these variables are from the same person. Try this now.
   CorrectAnswer: t.test(Masking$MaskEff_T1, Masking$MaskEff_T2, paired = TRUE) 
   AnswerTests: omnitest(correctExpr='t.test(Masking$MaskEff_T1, Masking$MaskEff_T2, paired = TRUE) ')
   Hint: t.test(Masking$MaskEff_T1, Masking$MaskEff_T2, paired = TRUE) 
 
 - Class: mult_question
-  Output: As you can see, the mean difference going from Time 1 to Time 2 is .2922. Does this mean perceived effectiveness went up or down?
+  Output: As you can see, the mean difference from Time 1 to Time 2 is .2922. Does this mean perceived effectiveness went up or down?
   CorrectAnswer: Down
   AnswerChoices: Up; Down
   AnswerTests: omnitest(correctVal='Down')
@@ -90,14 +90,14 @@
   Output: The citation for this study is "Mazar, A., & Wood, W. (2022). Illusory Feelings, Elusive habits- People overlook habits in explanations of behavior. Psychological Science, 33(4), 563–578. doi.org/10.1177/09567976211045345"
 
 - Class: text
-  Output: The psychologists had individuals do a task where they quickly formed a habit to press the Z key on their keyboard. After the habit formed, they then asked participants if they would be willing to assist for 5 mores minutes for no additional compensation, where Z was coded to be Yes. 
+  Output: The psychologists had individuals do a task where they quickly formed a habit of pressing the Z key on their keyboard. After the habit formed, they asked participants if they would be willing to assist for five mores minutes for no additional compensation, where Z was coded to be Yes. 
   
 
 - Class: text
-  Output: After the participant answered, they asked the participants on percentage scales (0% = not at all important to 50% or more = extremely important), the extent to which their decision to help or not was due to habits (I responded automatically, without thinking) and mood, (My mood at the time (I felt good/bad)).
+  Output: After the participants answered, they asked the participants on percentage scales (0% = not at all important to 50% or more = extremely important), the extent to which their decision to help or not was due to habits (I responded automatically, without thinking) and mood, (My mood at the time (I felt good/bad)).
 
 - Class: text
-  Output: They report - "To test the perceived effects of habits and mood, we used a dependent-samples  t test to assess the within participants difference in attributions to mood compared with habits. Participants strongly attributed their behavior to mood over habits (mean difference = 17.07, 95% CI = [15.63, 18.51]), t(799) = 23.22, p < .001, d = 1.14, 95% CI = [1.01, 1.26]." 
+  Output: They report - "To test the perceived effects of habits and mood, we used a dependent-samples t-test to assess the within participants difference in attributions to mood compared with habits. Participants strongly attributed their behavior to mood over habits (mean difference = 17.07, 95% CI = [15.63, 18.51]), t(799) = 23.22, p < .001, d = 1.14, 95% CI = [1.01, 1.26]." 
 
 - Class: cmd_question
   Output: The data is loaded in your environment as habits. Our first step when given data is to do what? Examine what it looks like via summary(), head(), tail(), or View(). Exactly. Do one of those now, remembering to pipe |> your dataframe into one of the functions.
@@ -106,22 +106,22 @@
   Hint: Generally, we've been using summary(). So, type habits |> summary().
 
 - Class: cmd_question
-  Output: So, was there a difference in how people attributed their habit and their mood to helping the researchers? We have our t.test() function, which will take three arguments. The first two are our variables, habits$mood and habits$habit .  The third argument is paired=TRUE -- we have to let R know that these variables are from the same person. Try this now.
+  Output: So, was there a difference in how people attributed their habits and mood to helping the researchers? We have our t.test() function, which will take three arguments. The first two are our variables, habits$mood, and habits$habit .  The third argument is paired=TRUE -- we must let R know that these variables are from the same person. Try this now.
   CorrectAnswer: t.test(habits$mood, habits$habit, paired = TRUE)
   AnswerTests: omnitest(correctExpr='t.test(habits$mood, habits$habit, paired = TRUE)')
   Hint: t.test(habits$mood, habits$habit, paired = TRUE)
 
 - Class: text
-  Output: Now, before we get into that last part of the sentence - the effect size (d="1.14") - we need to put up some yellow warning lights. 
+  Output: Before we get into that last part of the sentence - the effect size (d="1.14") - we need to put up some yellow warning lights. 
   
 - Class: text
-  Output: The quick and dirty version is we're about to show you how no one can agree on how to calculate Cohen's d for within subjects effects. 
+  Output: The quick and dirty version is we're about to show you how no one can agree on calculating Cohen's d for within-subjects effects. 
   
 - Class: text
-  Output: Now, some argue that a paired-samples t-test's effect size is equivalent to a one sample t-test on the difference score (Lakens, 2013), but this hasty assumption has been challenged in literature many times (Bonett, 2013).
+  Output: Now, some argue that a paired-sample t-test's effect size is equivalent to a one-sample t-test on the difference score (Lakens, 2013), but this hasty assumption has been challenged in literature many times (Bonett, 2013).
   
 - Class: text
-  Output: While not peer reviewed, many times while searching R code you may come across blog posts that frankly talk through statistical questions much more succiently than academic articles. We found this blog post - jakewestfall.org/blog/index.php/2016/03/25/five-different-cohens-d-statistics-for-within-subject-designs/ - a good starting place for that discussion.
+  Output: While not peer-reviewed, many times while searching R code, you may come across blog posts that talk through statistical questions more succinctly than academic articles. This blog post - jakewestfall.org/blog/index.php/2016/03/25/five-different-cohens-d-statistics-for-within-subject-designs/ - is a good starting place for that discussion.
 
 - Class: text
   Output: Full citations of those sources are-  Lakens, D. (2013). Calculating and reporting effect sizes to facilitate cumulative science- A practical primer for t-tests and ANOVAs. Frontiers in Psychology, 4. doi.org/10.3389/fpsyg.2013.00863
@@ -130,7 +130,7 @@
   Output: And - Bonett, D. G. (2015). Interval Estimation of Standardized Mean Differences in Paired-Samples Designs. Journal of Educational and Behavioral Statistics, 40(4), 366–376. doi.org/10.3102/1076998615583904
 
 - Class: cmd_question
-  Output: Let's first just get their effect size out of the way. To do this, we're going to do something a bit new - we're going to tell R that we want the package effsize's version of cohen.d(). To do that, we have to write effsize::cohen.d() as the name of the function. We will pass it four arguments - habits$mood, habits$habit, paired=TRUE, and na.rm=TRUE. 
+  Output: Let's first get their effect size out of the way. To do this, we're going to do something a bit new - we're going to tell R that we want the package effsize's version of cohen.d(). We must write effsize::cohen.d() as the function's name to do that. We will pass it four arguments - habits$mood, habits$habit, paired=TRUE, and na.rm=TRUE. 
   CorrectAnswer: effsize::cohen.d(habits$mood, habits$habit, paired = TRUE, na.rm = TRUE)
   AnswerTests: omnitest(correctExpr='effsize::cohen.d(habits$mood, habits$habit, paired = TRUE, na.rm = TRUE)')
   Hint: effsize::cohen.d(habits$mood, habits$habit, paired = TRUE, na.rm = TRUE)
@@ -142,22 +142,22 @@
   Hint: effsize::cohen.d(habits$mood, habits$habit, paired = TRUE, na.rm = TRUE, within=FALSE)
 
 - Class: text
-  Output: In the independent samples t-test module, we used the lsr package's cohensD() to calculate our effect size. Their paired method would get us the value of within=FALSE, and their pooled method would get us close (but not exactly) our within=TRUE calculation (1.132). They have other methods that could estimate an effect size up to 1.225! We note that only effsize::cohen.d() was able to replicate the effect size in the paper.  
+  Output: In the independent samples t-test module, we calculated our effect size using the lsr package's cohensD(). Their paired method would get us the value of within=FALSE, and their pooled method would get us close (but not precisely) to our within=TRUE calculation (1.132). They have other methods that could estimate an effect size up to 1.225! We note that only effsize::cohen.d() could replicate the effect size in the paper.  
 
 - Class: cmd_question
-  Output: We also want to briefly mention that ideally a tidy dataset has one observation per row. Since this is paired, ideally each person has two rows - one for each response. We've loaded a tidy dataset - habits_long - in your environment as well. Check it quickly with the method of your choice.
+  Output: We also want to briefly mention that, ideally, a tidy dataset has one observation per row. Since this is paired, ideally, each person has two rows - one for each response. We've also loaded a tidy dataset - habits_long - in your environment. Check it quickly with the method of your choice.
   CorrectAnswer: habits_long |> summary()
   AnswerTests: any_of_exprs('summary(habits_long)', 'habits_long |> summary()', 'head(habits_long)', 'habits_long |> head()', 'tail(habits_long)', 'habits_long |> tail()', 'View(habits_long)', 'habits_long |> View()')
   Hint: Generally, we've been using summary(). So, type habits_long |> summary().
 
 - Class: cmd_question
-  Output: With this long dataset, pipe it into t_test() in the rstatix package. The variables have new names now, but we can set it as a formula. So two arguments - Response ~ Type and paired=TRUE.
+  Output: With this long dataset, pipe it into t_test() in the rstatix package. The variables have new names now, but we can set it as a formula. So, two arguments - Response ~ Type and paired=TRUE.
   CorrectAnswer: habits_long |> t_test(Response ~ Type, data=_, paired=TRUE)
   AnswerTests: omnitest(correctExpr='habits_long |> t_test(Response ~ Type, data=_, paired=TRUE)')
   Hint: habits_long |> t_test(Response ~ Type, data=_, paired=TRUE)
 
 - Class: cmd_question
-  Output: Great job. And to finish off this section and discuss of effect sizes, let's use the pipe friendly package of rstatix's cohens_d(), passing it the formula of Response ~ Type, with paired=TRUE as a second argument. Don't forget to pipe (|>) your dataset on the left first (habits_long).
+  Output: Great job. And to finish off this section and discuss effect sizes, let's use the pipe-friendly package of rstatix's cohens_d(), passing it the formula of Response ~ Type, with paired=TRUE as a second argument. Don't forget to pipe (|>) your dataset on the left first (habits_long).
   CorrectAnswer: habits_long |> cohens_d(Response ~ Type, paired=TRUE)
   AnswerTests: omnitest(correctExpr="habits_long |> cohens_d(Response ~ Type, paired=TRUE)")
   Hint: habits_long |> cohens_d(Response ~ Type, paired=TRUE)
@@ -165,7 +165,7 @@
 #40
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
-  AnswerChoices: Yes;No
+  AnswerChoices: Yes; No
   CorrectAnswer: NULL
   AnswerTests: submit_log()
   Hint: hint

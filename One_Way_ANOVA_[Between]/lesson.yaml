@@ -13,13 +13,13 @@
   Script: Notes.R
 
 - Class: text
-  Output: While t-tests can test the difference between Group 1 and Group 2, it cannot test the difference between Group 1, 2, and 3. In order to do that, we would need to run 3 different t-tests (1-2; 2-3; 1-3).
+  Output: While t-tests can test the difference between Group 1 and Group 2, they cannot test the difference between Group 1, 2, and 3. To do that, we would need to run three different t-tests (1-2; 2-3; 1-3).
 
 - Class: text
-  Output: This risks inflating our Type I error rate and finding significant differences when the truth is that they are not different. An ANOVA is an omnibus test - it asks "Is there differences between these groups?" without stating where those differences lie. 
+  Output: This risks inflating our Type I error rate and finding significant differences when the truth is that they are not different. An ANOVA is an omnibus test - it asks, "Is there differences between these groups?" without stating where those differences lie. 
 
 - Class: text
-  Output: "We are going to analyze data published on Psychological Science. The purpose of this study was to determine how much Soloman's paradox holds true, that is, do we reason more about other individuals problems than our own. \n\n Participants were randomly assigned to one of 4 conditions to imagine a scenario in which their partner had cheated on either them or their friends partner had cheated on them and asked to write a response on how to handle the situation."
+  Output: "We are going to analyze data published on Psychological Science. This study aimed to determine how much Soloman's paradox holds true: do we reason more about other individuals' problems than our own. \n\n Participants were randomly assigned to one of 4 conditions to imagine a scenario in which their partner had cheated on either them or their friend's partner had cheated on them and asked to write a response on how to handle the situation."
   
 - Class: text
   Output: "The citation is Grossmann, I., & Kross, E. (2014). Exploring Solomon’s Paradox- Self-Distancing Eliminates the Self-Other Asymmetry in Wise Reasoning About Close Relationships in Younger and Older Adults. Psychological Science, 25(8), 1571–1580. doi.org/10.1177/0956797614535400"
@@ -31,7 +31,7 @@
   Hint: Try Solomon |> head(). 
 
 - Class: text
-  Output: Notice there are two columns - one that lumps all of the conditions together (Condition) and one that represents the response variable, how much wisdom is attributed. 
+  Output: Notice there are two columns - one that lumps all conditions together (Condition) and one that represents the response variable, how much wisdom is attributed. 
 
 - Class: cmd_question
   Output: How many levels are in this condition? Let's check by taking our data, Solomon, and then (|>) select()ing the column Condition, and then (|>) using the function table(). 
@@ -43,43 +43,43 @@
   Output: Great. We have four levels of a single variable. 
 
 - Class: text
-  Output: The purpose of this study was to determine how much Soloman's paradox holds true, that is, do we reason more about other individuals problems than our own. Participants were randomly assigned to one of 4 conditions to imagine a scenario in which their partner had cheated on either them or their friends partner had cheated on them and asked to write a response on how to handle the situation.
+  Output: This study aimed to determine how much Soloman's paradox holds true, that is, do we reason more about other individuals' problems than our own. Participants were randomly assigned to one of 4 conditions to imagine a scenario in which their partner had cheated on either them or their friend's partner had cheated on them and asked to write a response on how to handle the situation.
 
 - Class: text
   Output: These responses were rated on how wise the participant's response was. Let us do an ANOVA to test whether or not there was a difference in condition.
   
 - Class: cmd_question
-  Output: There are many ways we can approach this question, and the notes go through a bunch of ways as well. For this module, we will take our data, Solomon, and pipe it through the lm() function. In the lm() function, include two arguments - Wisdom ~ Condition (signifying we want to predict Wisdom based on our condition), and data=_, which means that the data is whatever is on the left side of the pipe. Be sure to save what you've done as wis_model. 
+  Output: There are many ways we can approach this question, and the notes go through many ways as well. We will take our data, Solomon, for this module and pipe it through the lm() function. In the lm() function, include two arguments - Wisdom ~ Condition (signifying we want to predict Wisdom based on our condition), and data=_, which means that the data is whatever is on the left side of the pipe. Be sure to save what you've done as wis_model. 
   CorrectAnswer:  wis_model <- Solomon |> lm(Wisdom ~ Condition, data=_)
   AnswerTests: omnitest(correctExpr='wis_model <- Solomon |> lm(Wisdom ~ Condition, data=_)')
   Hint: Try wis_model <- Solomon |> lm(Wisdom ~ Condition, data=_)  
 
 - Class: cmd_question
-  Output: Now that you've created and saved a linear model (that's what lm stands for) we can take a look at it in a few different ways. Let's first look at it in the way we might be taught first - as an ANOVA. take wis_model and pipe it into anova().
+  Output: Now that you've created and saved a linear model (that's what lm stands for), we can look at it in a few different ways. Let's look at it in the way we might be taught - as an ANOVA. take wis_model and pipe it into anova().
   CorrectAnswer:  wis_model |> anova()
   AnswerTests: omnitest(correctExpr='wis_model |> anova()')
   Hint: Try wis_model |> anova()
 
 - Class: cmd_question
-  Output: Great! This is our first note that it is linear models all the way down. ANOVA is simply a special wrapper of linear models. To see the output of the linear regression, pipe wis_model into summary().
+  Output: Great! This is our first note that it is linear models all the way down. ANOVA is simply a special wrapper of linear models. To see the linear regression output, pipe wis_model into summary().
   CorrectAnswer:  wis_model |> summary()
   AnswerTests: omnitest(correctExpr='wis_model |> summary()')
   Hint: Try wis_model |> summary()
 
 - Class: text
-  Output: Great job. We recommend you look at the regression module to completely understand what is going on here, but briefly, we see all four levels of our Condition - (Other-Distanced is represented by (Intercept)). Moreover, the Estimates are the other three levels and their difference in score  compared to that base category of Other-Distanced. What that means is that Other_Distanced has an average of .3345, while Other-Immersed is .1396 less than Other-Distanced. We also can tell that this comparison is not significantly different (p=.575).
+  Output: Great job. We recommend you look at the regression module to understand what is going on here completely. Still, briefly, we see all four levels of our Condition - (Other-Distanced is represented by (Intercept)). Moreover, the Estimates are the other three levels and their difference in score compared to the base category of Other-Distanced. That means that Other_Distanced has an average of .3345, while Other-Immersed is .1396 less than Other-Distanced. We also can tell that this comparison is not significantly different (p=.575).
 
 - Class: cmd_question
-  Output: Don't believe us? Let's prove it. Take your data, Solomon, and pipe it into group_by(), where we will give it a single argument Condition, and then pipe that into summarise() where we will pass it one argument, WisMean = mean(Wisdom, na.rm=TRUE)
+  Output: Don't believe us? Let's prove it. Take your data, Solomon, and pipe it into group_by(), where we will give it a single argument Condition, and then pipe that into summarise(), where we will pass it one argument, WisMean = mean(Wisdom, na.rm=TRUE)
   CorrectAnswer:  Solomon |> group_by(Condition) |> summarise(WisMean = mean(Wisdom, na.rm=TRUE))
   AnswerTests: omnitest(correctExpr='Solomon |> group_by(Condition) |> summarise(WisMean = mean(Wisdom, na.rm=TRUE))')
   Hint: Try Solomon |> group_by(Condition) |> summarise(WisMean = mean(Wisdom, na.rm=TRUE)).
 
 - Class: text
-  Output: And now we can see how the (Intercept) indeed does represent the WisMean for Other-Distanced. How neat! 
+  Output: And now we can see how the (Intercept) represents the WisMean for Other-Distanced. How neat! 
 
 - Class: cmd_question
-  Output: We can do post-hoc tests in a variety of ways. In the notes, we outline a few others, but let's proceed with the workhorse method of post-hoc tests. We'll take our model, wis_model, and pipe it into the emmeans() function from the emmeans() library. In that function, we'll give it a single argument, ~Condition (telling it make estimated marginal means by Condition).
+  Output: We can do post-hoc tests in a variety of ways. We outline a few others in the notes, but let's proceed with the workhorse method of post-hoc tests. We'll pipe our model, wis_model, into the emmeans() function from the emmeans() library. In that function, we'll give it a single argument, ~Condition (telling it to make estimated marginal means by Condition).
   CorrectAnswer:  wis_model |> emmeans(~Condition)
   AnswerTests: omnitest(correctExpr='wis_model |> emmeans(~Condition)')
   Hint: Try wis_model |> emmeans(~Condition)
@@ -91,25 +91,25 @@
   Hint: Try wis_model |> emmeans(~Condition) |> pairs()
   
 - Class: text
-  Output: Now this is very different from planned contrasts. A post-hoc is generally done when you haven't made any a priori assumptions about where you think significance will lie. Because of this, we correct the alpha value needed to reach statistical significance. But, if you knew ahead of time, what you wanted to test, you could use planned contrasts instead. 
+  Output: Now, this is very different from planned contrasts. A post-hoc is generally done when you haven't made any a priori assumptions about where you think significance will lie. Because of this, we correct the alpha value needed to reach statistical significance. But, if you knew what you wanted to test ahead of time, you could use planned contrasts instead. 
   
 - Class: text
-  Output: That's exactly what authors of this paper did. They write - We performed planned contrasts- Participants in the other-immersed and other-distanced conditions showed higher levels of wisdom than participants in the self-immersed condition, t(113) = 3.93, p < .001, ηp2 = .12.
+  Output: That's exactly what the authors of this paper did. They write - We performed planned contrasts- Participants in the other-immersed and other-distanced conditions showed higher levels of wisdom than participants in the self-immersed condition, t(113) = 3.93, p < .001, ηp2 = .12.
 
 - Class: text
-  Output: A good sign of planned contrasts is that they provide the comparison of multiple groups at once - did you catch how they combined the OTHER conditions against the singular self-immersed condition? That's not possible using Tukey or any post-hoc test.
+  Output: A good sign of planned contrasts is that they compare multiple groups at once - did you catch how they combined the OTHER conditions against the singular self-immersed condition? That's not possible using Tukey or any post-hoc test.
   
 - Class: text
-  Output: There are some important notes about preforming planned contrasts.
+  Output: There are some critical notes about performing planned contrasts.
 
 - Class: text
-  Output: "1. The sum of the coefficients for a particular contrast must equal zero. \n\n 2. Groups of means that are to be averaged together are assigned the same coefficient. \n\n 3. Means that are not included in the comparison of a particular contrast are assigned a coefficient of 0.  \n\n 4. If there are A treatment groups, at most there can be (A-1) orthogonal contrasts (although there are many possible sets of orthogonal contrasts) \n\n 5. All of the pair-wise cross products (of the coefficients) must sum to zero across all contrasts."
+  Output: "1. The sum of the coefficients for a particular contrast must equal zero. \n\n 2. Groups of means to be averaged together are assigned the same coefficient. \n\n 3. Means not included in the comparison of a particular contrast are assigned a coefficient of 0.  \n\n 4. If there are A treatment groups, at most, there can be (A-1) orthogonal contrasts (although there are many possible sets of orthogonal contrasts) \n\n 5. All pair-wise cross products (of the coefficients) must sum to zero across all contrasts."
   
 - Class: text
   Output: "Above, when we did model |> emmeans() without pairs, you might have noticed that the factors are listed in a specific order -  O-D, O-I, S-D, S-I."
   
 - Class: text
-  Output: "This represents a list of numbers. Now, the quote above had them wanting to compare Other-Distance AND Other-Immersed against Self-Immersed. We can represent this through numbers. Consider that O-D is the first in the list, O-I is the second, S-D is the third, and S-I is the 4th in the list."
+  Output: "This represents a list of numbers. The quote above had them wanting to compare Other-Distance AND Other-Immersed against Self-Immersed. We can represent this through numbers. Consider that O-D is the first in the list, O-I is the second, S-D is the third, and S-I is the 4th in the list."
 
 - Class: cmd_question
   Output:  Let's create a new object called Comparisons, and we'll set it equal to the function list(). This function will get a single argument, OthervSI = c(-1, -1, 0, 2). Notice four numbers - for the four conditions! Since S-D is not in the comparison, we zero out the third in the list, and since O-D and O-I are going to be combined, we keep them in the same negative direction and have them be sure that if we add up the comparison list, it would equal zero. Try that now. 

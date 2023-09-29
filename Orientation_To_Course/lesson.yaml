@@ -8,19 +8,19 @@
  
 #1
 - Class: text
-  Output: In this course, we hope to provide you with the knowledge and tools to perform basic analyses in R including transforming data, visualizing data, and engaging in various types of hypothesis tests.
+  Output: In this course, we hope to provide you with the knowledge and tools to perform fundamental analyses in R, including transforming data, visualizing data, and engaging in various types of hypothesis tests.
 
 - Class: text
-  Output: We estimate that each module should take between 10 to 20 minutes to complete. However, in order to best assist your learning of R, we recommend that you take a bit longer.
+  Output: We estimate that each module should take between 10 to 20 minutes to complete. However, to best assist your learning of R, we recommend that you take a bit longer.
 
 - Class: text
   Output: Each module will follow the same basic formula.
   
 - Class: text
-  Output: First, we will present you with Notes for the module. These notes are designed to run whenever you need - they use datasets built within R so if you ever need a refresher for how a function works, you can turn to these notes.
+  Output: First, we will present you with Notes for the module. These notes are designed to run whenever you need - they use datasets built within R, so you can turn to these notes if you ever need a refresher on how a function works.
 
 - Class: figure
-  Output: We recommend that as soon as the Notes pop up, you click the top left corner of RStudio where there is this icon (shown in the plot window).
+  Output: We recommend that as soon as the Notes pop up, you click the top left corner of RStudio, where there is this icon (shown in the plot window).
   Figure: figure1.R
   FigureType: new
   
@@ -33,10 +33,10 @@
   Output: We recommend you copy and paste the notes for the Module into this separate Script and save it as something memorable in a place you can find it. 
 
 - Class: text
-  Output: Once you've copy and pasted the Notes, the instructions will tell you to type submit() to move onto the module itself.
+  Output: Once you've copied and pasted the Notes, the instructions will tell you to type submit() to move on to the module.
   
 - Class: text
-  Output: The Notes script will look something like this (hit enter to see).
+  Output: The Notes script will look like this (hit enter to see).
 
 - Class: script
   Output: Here are some notes for this module. When you've saved the notes in your own personal Notes R Script, type submit().
@@ -45,45 +45,45 @@
   Script: Notes.R
 
 - Class: text
-  Output: After that, the module will go through and teach the lesson. As the swirl() instructions mentioned, if you see a ... it means hit enter. If you're lost, getting the wrong answer will provide you with a hint. If you're still confused, you can use skip() to get the answer given to you.
+  Output: After that, the module will teach the lesson. As the swirl() instructions mentioned, if you see a ..., it means hit enter. If you're lost, getting the wrong answer will give you a hint. If you're still confused, you can use skip() to get the answer given to you.
   
 - Class: text
   Output: The === bar represents your progress through the module, along with the percentage number to indicate how far into the module you are.
 
 - Class: cmd_question
-  Output: Some of the questions may be command line questions. You should type in your answers into the Console. For example, if I wanted you to calculate 2+2, I might say - take 2 and add 2 to it. Try that now. 
+  Output: Some of the questions may be command-line questions. It would be best if you typed in your answers into the Console. For example, if I wanted you to calculate 2+2, I might say - take 2 and add 2 to it. Try that now. 
   CorrectAnswer: 2+2
   Hint: Did you try adding the two numbers together?
   AnswerTests: omnitest(correctExpr='2+2')
   
 - Class: mult_question
-  Output: Other questions may be multiple choice questions. To answer these, you can either choose the number that corresponds to the answer or type the answer out yourself. For example, the name of the course is PSYCH. What is the name of the course?
+  Output: Other questions may be multiple-choice questions. To answer these, you can choose the number corresponding to the answer or type the answer out yourself. For example, the name of the course is PSYCH. What is the name of the course?
   AnswerChoices: PSYCH; R Programming; Swirl; Don't Think Too Hard
   CorrectAnswer: PSYCH
   AnswerTests: omnitest(correctVal='PSYCH')
   Hint: Try typing PSYCH or choose the number that represents that answer. 
   
 - Class: text
-  Output: Finally, other questions will show scripts, and ask you to fill in the correct answers. We use these when we think it's important for you to see how coding is written in a script, instead of in the Console.
+  Output: Finally, other questions will show scripts and ask you to fill in the correct answers. We use these when you need to see how coding is written in a script instead of in the Console.
 
 - Class: text
-  Output: We provide throughout the course all citations for any data we are using (all open access data) as well as any citations for any statistical choices we make.
+  Output: We provide throughout the course all citations for any data we are using (all open access data) and any citations for any statistical choices we make.
   
 - Class: text
-  Output: We recommend that you go through each module twice. First, simply play through the module. Read the instructions, think through what it is asking, and try your best. If you are submitting this for a course, submit that try to your professor (this'll come up at the end).
+  Output: We recommend that you go through each module twice. First, play through the module. Please read the instructions, consider what it asks, and try your best. If you are submitting this for a course, submit that to your professor (that'll come up at the end).
 
 - Class: text
-  Output: After you've done it once, do it again. But, this time, have your own personal notes open. Take your own notes along with the notes provided. The Notes.R will include all of the code that you will use (and more) but it won't contextualize it in terms of the studies analyzed in the course. 
+  Output: After you've done it once, do it again. But, this time, have your notes open. Take your notes along with the notes provided. The Notes.R will include all of the code you will use (and more) but won't contextualize it in terms of the studies analyzed in the course. 
 
 - Class: text
-  Output: Once you have done it twice, go through the Notes that you have made and see how the functions work outside of a psychology dataset. Run the lines of code, read the Notes, and see if you can understand at a deeper level what is happening. 
+  Output: Once you have done it twice, review the Notes you made and see how the functions work outside of a psychology dataset. Run the lines of code, read the Notes, and see if you can understand at a deeper level what is happening. 
 
 - Class: text
-  Output: And that's it! Combined with the Course Notes, your own Notes, and a few rounds of swirl, you'll be a pro in no time.
+  Output: And that's it! Combined with the Course Notes, your Notes, and a few swirl rounds, you'll be a pro in no time.
   
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
-  AnswerChoices: Yes;No
+  AnswerChoices: Yes; No
   CorrectAnswer: NULL
   AnswerTests: submit_log()
   Hint: hint
