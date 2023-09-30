@@ -57,9 +57,9 @@
 
 - Class: cmd_question
   Output: We can use the select() verb to assist us here. Let's start by storing a new object, data_select. We'll assign it the output of the sentence "Take my data, and then (|>) select() the variables Petal.Length and Species." select() takes names of columns with a comma between each, so it should be as straightforward as select(Petal.Length, Species).
-  CorrectAnswer: data_select <- iris |> select(Petal.Length, Species)
-  AnswerTests: omnitest(correctExpr='data_select <- iris |> select(Petal.Length, Species)')
-  Hint: Try data_select <- iris |> select(Petal.Length, Species)
+  CorrectAnswer: data_select <- data |> select(Petal.Length, Species)
+  AnswerTests: omnitest(correctExpr='data_select <- data |> select(Petal.Length, Species)')
+  Hint: Try data_select <- data |> select(Petal.Length, Species)
 
 #View Select
 - Class: cmd_question 
@@ -71,9 +71,9 @@
 # everything()
 - Class: cmd_question 
   Output: Great job. What if you still want all of the variables but just want them ordered differently? Let's store this output as data_select2. In this, let's pipe our data into select(), and inside of select, we'll list Petal.Length and Species variables, along with all other variables, by using the everything() argument. Try that now.
-  CorrectAnswer: data_select2 <- iris |> select(Petal.Length, Species, everything())
-  AnswerTests: omnitest(correctExpr='data_select2 <- iris |> select(Petal.Length, Species, everything())')
-  Hint: Try data_select2 <- iris |> select(Petal.Length, Species, everything())
+  CorrectAnswer: data_select2 <- data |> select(Petal.Length, Species, everything())
+  AnswerTests: omnitest(correctExpr='data_select2 <- data |> select(Petal.Length, Species, everything())')
+  Hint: Try data_select2 <- data |> select(Petal.Length, Species, everything())
   
 - Class: cmd_question
   Output: Great job. Did it work? Let's see. Take our data_select2 dataset and pipe it into names(). names() is a function that will list, in order, the column names.
@@ -105,7 +105,7 @@
   
 #20
 - Class: script
-  Output: Let's practice writing a long sentence combining what we've learned.
+  Output: Let's practice writing a long sentence combining what we've learned. I've opened up a script for you, please read and answer the script. When you're ready, save the script and type submit().
   AnswerTests: script_results_identical('length.table')
   Hint: Try skip() if you can't get it, and look to see how the answer looks.
   Script: combine.R
@@ -125,7 +125,7 @@
 
 # case_when()
 - Class: script
-  Output: Let's learn another function, case_when(), which is helpful when doing more complex mutations.
+  Output: Let's learn another function, case_when(), which is helpful when doing more complex mutations. Again, we've loaded a script for you. When you're ready to submit, save your script and type submit(). 
   AnswerTests: script_results_identical('data_select2')
   Hint: Use skip() if you're stuck.
   Script: casewhen.R
@@ -142,10 +142,10 @@
   
 # test to see if I can switch the order?
 - Class: cmd_question 
-  Output:  There is a quick fix to this. Hit the up arrow key to get to your last answer. Before mutate(...), we need to add one additional pipe function, rowwise(). At that point (Where now it reads -- take our data, and then, consider it by row, and then mutate...), we'll be good to go! Try that now. 
+  Output:  There is a quick fix to this. Hit the up arrow key to get to your last answer. Before mutate(...), we need to add one additional pipe function, rowwise(), and then pipe that into mutate. At that point (Where now it reads -- take our data, and then, consider it by row, and then mutate...), we'll be good to go! Try that now. 
   CorrectAnswer: data_select2 |>  rowwise() |> mutate( Sepal.Avg = mean(c(Sepal.Length, Sepal.Width))) |> head()
-  AnswerTests: omnitest(correctExpr='data_select2 |>  rowwise() |> mutate( Sepal.Avg = mean(c(Sepal.Length, Sepal.Width))) |> head()')
-  Hint: Try data_select2 |>  rowwise() |> mutate( Sepal.Avg = mean(c(Sepal.Length, Sepal.Width))) |> head()
+  AnswerTests: any_of_exprs('data_select2 |> rowwise() |> mutate(Sepal.Avg = mean(c(Sepal.Length, Sepal.Width))) |> head()', 'data_select2 |>  rowwise() |> mutate(Sepal.Avg = mean(c(Sepal.Width, Sepal.Length))) |> head()')
+  Hint: Try data_select2 |>  rowwise() |> mutate(Sepal.Avg = mean(c(Sepal.Length, Sepal.Width))) |> head()
 #summarise
 - Class: cmd_question 
   Output:  We might want to say, "Well, what is the average of this across the data set"? While mutate() creates new variables, summarise() can create new datasets that have summarised variables based on our specifications. Like mutate(), it takes things in terms of NewVariable = WayToCalculateIt. Pipe data_select2 into summarise() to calculate the mean of the Sepal.Width variable, and call this meanSW (for mean Sepal.Width).
