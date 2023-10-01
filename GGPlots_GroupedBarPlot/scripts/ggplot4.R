@@ -4,7 +4,7 @@ plot <-
   ggplot(aes(x=Target, y=mean, fill=Perspective)) +
   geom_col(color="black",
            width=0.5,
-           size=.2,
+           linewidth=.2,
            position=position_dodge(.5)) +
   scale_fill_manual(values=c("darkgrey", "white"))+
   geom_errorbar(aes(ymin=mean-se,
@@ -26,10 +26,10 @@ plot <-
   # R hasn't given us a x axis line at zero.
   # We can add horizontal lines using geom_hline().
     # geom_hline() needs at least one argument, yintercept, which we want equal to 0.
-    # We'll also reduce the size, setting size = 0.3 .
+    # We'll also add a second argument to geom_hline to reduce the linewidth, setting linewidth = 0.3 .
 
   # And finally, there's a tiny line between the two targets.
   # We can add a geom_segment() to draw that line. We need 5 arguments
   # It needs to know where it begins on the x axis (x=1.5) and where it ends (xend=1.5)
   # It needs to know where it begins on the y axis (y=0) and where it ends (yend=-.02)
-  # Finally, let's make the size really small, size=.2
+  # Finally, let's make the linewidth really small, linewidth=.2

@@ -27,8 +27,8 @@ mtcars |>
     colour="black",
     # width changes how wide the bars themselves are.
     width=0.5,
-    # size changes how wide the outline of the shape is.
-    size=.2)+
+    # linewidth changes how wide the outline of the shape is.
+    linewidth=.2)+
   
   # You have to define as many colors as your fill variable has levels.
   # You can also change the color itself if you didn't define in inside.
@@ -87,10 +87,10 @@ mtcars |>
         plot.caption = element_text(hjust = 0)
   )+
   # You can add horizontal and vertical lines to places.
-  geom_hline(yintercept=2, size=.3)+
+  geom_hline(yintercept=2, linewidth=.3)+
   geom_vline(xintercept=1.5, color="blue")+
   # You can also add lines of your own.
-  geom_segment(y=0, yend=-.02, x=1.5, xend=1.5, size=.2)
+  geom_segment(y=0, yend=-.02, x=1.5, xend=1.5, linewidth=.2)
 
 
 #don't delete me!

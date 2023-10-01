@@ -46,7 +46,7 @@
 
 #9
 - Class: script
-  Output: Let's use dplyr to create this summary data.  When you're ready, type submit().
+  Output: Let's use dplyr to create this summary data. We have loaded a script for you. Work on it now. When you're ready, type submit().
   AnswerTests: script_results_identical('p_sum')
   Hint: "Does yours look like this -  p_sum <- Paradox |> group_by(Target, Perspective) |> summarise(mean = mean(Wisdom, na.rm=TRUE), sd = sd(Wisdom, na.rm=TRUE), n = sum(!is.na(Wisdom)), se = sd/sqrt(n)? "
   Script: summarise.R
@@ -60,17 +60,17 @@
   
 #11
 - Class: cmd_question
-  Output: Great. Notice that fill= determined the inside of the columns. From now on, we will be adding layers to this plot. Since they are layers, the order could matter. For example, we want the bars plotted first, and then the whiskers, so that the whiskers are on top of the bars. So, let's start there. Hit up on your keyboard, and at the end of your work, type + and then write geom_col() for a column-based geom.
+  Output: Great. Notice that fill=Perspective has not shown itself yet - no fret, it will. From now on, we will be adding layers to this plot. Since they are layers, the order could matter. For example, we want the bars plotted first, and then the whiskers, so that the whiskers are on top of the bars. So, let's start there. Hit up on your keyboard, and at the end of your work, type + and then write geom_col() for a column-based geom.
   CorrectAnswer: p_sum |> ggplot(aes(x=Target, y=mean, fill=Perspective))+geom_col()
   AnswerTests: omnitest(correctExpr='p_sum |> ggplot(aes(x=Target, y=mean, fill=Perspective))+geom_col()')
   Hint: Try p_sum |> ggplot(aes(x=Target, y=mean, fill=Perspective))+geom_col()
   
 #12
 - Class: cmd_question
-  Output: Hit up again! Inside of geom_col, we want to add four arguments. While fill= focuses on the inside of objects, color= focuses on the outside. We want the outside color (the shape outline) to be "black". How might we do that? Next, we'll set the width equal to 0.5 and the size equal to 0.2. Size references the shape's outline, while width references the shape itself. Finally, add the final argument position=position_dodge(.5).
-  CorrectAnswer: p_sum |> ggplot(aes(x=Target, y=mean, fill=Perspective))+ geom_col(color="black",  width=0.5, size=.2, position=position_dodge(.5))
-  AnswerTests: omnitest(correctExpr='p_sum |> ggplot(aes(x=Target, y=mean, fill=Perspective))+ geom_col(color="black",  width=0.5, size=.2, position=position_dodge(.5))')
-  Hint: Try p_sum |> ggplot(aes(x=Target, y=mean, fill=Perspective))+ geom_col(color="black",  width=0.5, size=.2, position=position_dodge(.5))
+  Output: Hit up again! Inside of geom_col, we want to add four arguments. While fill= focuses on the inside of objects, color= focuses on the outside. We want the outside color (the shape outline) to be "black". How might we do that? Next, we'll set the width equal to 0.5 and the linewidth equal to 0.2. Linewidth references the shape's outline, while width references the shape itself. Finally, add the final argument position=position_dodge(.5).
+  CorrectAnswer: p_sum |> ggplot(aes(x=Target, y=mean, fill=Perspective))+ geom_col(color="black",  width=0.5, linewidth=.2, position=position_dodge(.5))
+  AnswerTests: omnitest(correctExpr='p_sum |> ggplot(aes(x=Target, y=mean, fill=Perspective))+ geom_col(color="black",  width=0.5, linewidth=.2, position=position_dodge(.5))')
+  Hint: Try p_sum |> ggplot(aes(x=Target, y=mean, fill=Perspective))+ geom_col(color="black",  width=0.5, linewidth=.2, position=position_dodge(.5))
   
 #13
 - Class: text
@@ -79,9 +79,9 @@
 #14
 - Class: cmd_question
   Output: Hit up again! Let's make those colors correct. Now, since we know we want to change the fill, we can do this by adding (+) a new layer called scale_fill_manual(), which will take the argument values=, and it will equal a list c() of two things, "darkgrey" and "white". 
-  CorrectAnswer: p_sum |> ggplot(aes(x=Target, y=mean, fill=Perspective))+ geom_col(color="black",  width=0.5, size=.2, position=position_dodge(.5)) + scale_fill_manual(values=c("darkgrey", "white"))
-  AnswerTests: omnitest(correctExpr='p_sum |> ggplot(aes(x=Target, y=mean, fill=Perspective))+ geom_col(color="black",  width=0.5, size=.2, position=position_dodge(.5)) + scale_fill_manual(values=c("darkgrey", "white"))')
-  Hint: Try p_sum |> ggplot(aes(x=Target, y=mean, fill=Perspective))+ geom_col(color="black",  width=0.5, size=.2, position=position_dodge(.5)) + scale_fill_manual(values=c("darkgrey", "white"))
+  CorrectAnswer: p_sum |> ggplot(aes(x=Target, y=mean, fill=Perspective))+ geom_col(color="black",  width=0.5, linewidth=.2, position=position_dodge(.5)) + scale_fill_manual(values=c("darkgrey", "white"))
+  AnswerTests: omnitest(correctExpr='p_sum |> ggplot(aes(x=Target, y=mean, fill=Perspective))+ geom_col(color="black",  width=0.5, linewidth=.2, position=position_dodge(.5)) + scale_fill_manual(values=c("darkgrey", "white"))')
+  Hint: Try p_sum |> ggplot(aes(x=Target, y=mean, fill=Perspective))+ geom_col(color="black",  width=0.5, linewidth=.2, position=position_dodge(.5)) + scale_fill_manual(values=c("darkgrey", "white"))
   
 #15
 - Class: text
@@ -89,7 +89,7 @@
   
 #16
 - Class: script
-  Output: When you're ready, save and type submit().
+  Output: We've loaded the first ggplot script. Read and keep working on it. When you're ready, save and type submit().
   AnswerTests: plot_results_identical('plot')
   Hint: Follow the instructions! 
   Script: ggplot1.R
@@ -103,7 +103,7 @@
   
 #18
 - Class: script
-  Output: When you're ready, save and type submit().
+  Output: We've loaded the second ggplot script. Read and keep working on it. When you're ready, save and type submit().
   AnswerTests: plot_results_identical('plot')
   Hint: Follow the instructions! 
   Script: ggplot2.R
@@ -117,7 +117,7 @@
 
 #20
 - Class: script
-  Output: When you're ready, save and type submit().
+  Output: We've loaded the third ggplot script. Read and keep working on it. When you're ready, save and type submit().
   AnswerTests: plot_results_identical('plot')
   Hint: Follow the instructions! 
   Script: ggplot3.R
@@ -131,7 +131,7 @@
 
 #22
 - Class: script
-  Output: When you're ready, save and type submit().
+  Output: We've loaded the fourth ggplot script. Read and keep working on it. When you're ready, save and type submit().
   AnswerTests: plot_results_identical('plot')
   Hint: Follow the instructions! 
   Script: ggplot4.R
@@ -145,7 +145,7 @@
   
 #24
 - Class: script
-  Output: When you're ready, save and type submit().
+  Output: We've loaded the fifth ggplot script. We added a few extra things - feel free to read it and figure out what we did, but there's nothing for you to add. When you're ready, save and type submit().
   AnswerTests: plot_results_identical('plot')
   Hint: Follow the instructions! 
   Script: ggplot5.R

@@ -4,7 +4,7 @@ plot <-
   ggplot(aes(x=Target, y=mean, fill=Perspective)) +
   geom_col(color="black",
            width=0.5,
-           size=.2,
+           linewidth=.2,
            position=position_dodge(.5)) +
   scale_fill_manual(values=c("darkgrey", "white"))+
   geom_errorbar(aes(ymin=mean-se,
@@ -20,5 +20,5 @@ plot <-
     legend.justification ="left")+
   ylab("Wise Reasoning")+
   xlab("")+
-  geom_hline(yintercept=0, size=.3)+
-  geom_segment(y=0, yend=-.02, x=1.5, xend=1.5, size=.2)
+  geom_hline(yintercept=0, linewidth=.3)+
+  geom_segment(y=0, yend=-.02, x=1.5, xend=1.5, linewidth=.2)

@@ -4,7 +4,7 @@ plot <-
   ggplot(aes(x=Target, y=mean, fill=Perspective)) +
   geom_col(color="black",
            width=0.5,
-           size=.2,
+           linewidth=.2,
            position=position_dodge(.5)) +
   scale_fill_manual(values=c("darkgrey", "white"))+
   geom_errorbar(aes(ymin=mean-se,
