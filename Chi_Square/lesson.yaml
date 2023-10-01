@@ -20,7 +20,7 @@
   Output: "Chi-Square tests are used to examine proportions. For example, how do we test if a dice is fair and balanced?"
 
 - Class: text
-  Output: "Before diving into the chi-square test, ensure we understand its assumptions. The chi-square test requires that- \n\n 1. The data must be categorical (ordinal or nominal). \n\n 2. The observations should be independent. \n\n 3. The sample should be large enough, with an expected frequency of at least 5 in each contingency table cell."
+  Output: "Before diving into the chi-square test, we should review its assumptions. The chi-square test requires that- \n\n 1. The data must be categorical (ordinal or nominal). \n\n 2. The observations should be independent. \n\n 3. The sample should be large enough, with an expected frequency of at least 5 in each contingency table cell."
 
 - Class: text
   Output: We'll practice the Chi-Square Test of Independence on a published study.
@@ -45,7 +45,7 @@
   Output: "repCor (reported) represents the number of matrices that participants claimed to have solved correctly, as reported by them on their answer sheet. cirCor (correct) represents the number of matrices solved correctly based on the evaluation of the participants' worksheets by researchers. These variables assess the prevalence of overreporting (i.e., when participants claim to have solved more matrices correctly than they did), which might indicate dishonesty."
   
 - Class: cmd_question
-  Output: Let's see how often participants lied based on their condition. Take your data, and then using the pipe function, select() the variables repCor and condition, and then pipe those two variables into table().
+  Output: Let's see how often participants lied based on their condition. Take your data, CheatData, and then using the pipe function, select() the variables repCor and condition, and then pipe those two variables into table().
   CorrectAnswer: CheatData |> select(repCor,condition) |> table()
   AnswerTests: omnitest(correctExpr='CheatData |> select(repCor,condition) |> table()')
   Hint: Try CheatData |> select(repCor,condition) |> table()
@@ -57,7 +57,7 @@
   Hint: Try CheatData |> select(repCor,condition) |> table() |> mosaicplot(color=c("gold", "darkred"))
 
 - Class: text
-  Output: "The size of each section would represent the frequency of each combination of repCor and condition. Based on the provided data, the sections would be as follows- The mosaic plot would show that in the check condition, a larger proportion of participants told the truth compared to the regular condition. Conversely, in the regular condition, there is a higher proportion of participants who overreported compared to the check condition."
+  Output: "The size of each section represents the frequency of each combination of repCor and condition. Based on the provided data, the sections would be as follows- The mosaic plot would show that in the check condition, a larger proportion of participants told the truth compared to the regular condition. Conversely, in the regular condition, there is a higher proportion of participants who overreported compared to the check condition."
 
 - Class: cmd_question
   Output: We can clean up the mosaic plot by adding more arguments. Why don't you add in a comma after darkred") and then add xlab = "Truthiness", ylab = "Condition",  main = "My Mosaic").
@@ -81,7 +81,7 @@
   Hint: Try CheatData |> select(repCor,condition) |> table() |> chisq_test(correct=FALSE).
   
 - Class: text
-  Output: Nailed it! Next, they describe things before giving that information. In the regular condition, 40.00% of the participants overreported  (i.e., the percentage of participants whose Nreported was greater than theirNcorrect),  ... In the check condition, this figure dropped to 16.10%. \n\n
+  Output: Nailed it! Next, they describe things before giving that information. In the regular condition, 40.00% of the participants overreported  (i.e., the percentage of participants whose Nreported was greater than theirNcorrect),  ... In the check condition, this figure dropped to 16.10%.
 
 - Class: figure
   Output: The thing is - there is no 40%! How did they get that? Have you figured it out?
@@ -137,6 +137,12 @@
   AnswerTests: script_results_identical('chi_results')
   Hint: Follow the notes in the script, and be sure you saved your script (using the save button or ctrl+S) before typing submit() in the Console.
   Script: filter_chisq.R
+
+- Class: cmd_question
+  Output: Let's see the results by typing in your saved object, chi_results, into the Console.
+  CorrectAnswer: chi_results
+  AnswerTests: omnitest(correctExpr = 'chi_results')
+  Hint: chi_results
   
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
