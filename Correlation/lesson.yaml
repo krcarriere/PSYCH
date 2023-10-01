@@ -9,7 +9,7 @@
 - Class: script
   Output: Here are some notes for this module. When you've saved the notes, type submit().
   AnswerTests: script_results_identical('saved')
-  Hint: Make sure the last line in your script reads as: saved <- "Y".
+  Hint: Make sure the last line in your script reads as saved <- "Y".
   Script: Notes.R
 
 - Class: text
@@ -41,7 +41,7 @@
   
   #10
 - Class: text
-  Output: The first variable, TOT, is a variable that represents how much people would be willing to interact with a shop. It was their dependent variable. Another variable, CARE, also represented how much participants felt the shop cared about a given social issue. Each participant also reported their age and their measure of mental health, called the GHQ, or general health questionnaire.
+  Output: The first variable, TOT, is a variable that represents how much people would be willing to interact with a shop. It was their dependent variable. Another variable, CARE, represented how much participants felt the shop cared about a given social issue. Each participant also reported their age and their measure of mental health, called the GHQ, or general health questionnaire.
 
 - Class: cmd_question
   Output: Now, assuming our first dataset meets the assumptions of Pearson's correlation, let's compute the correlation matrix. We'll use two ways - first, the most straightforward is to pipe (|>) activism into cor().
@@ -62,7 +62,7 @@
   AnswerTests: omnitest(correctExpr="activism |> corr.test()")
 
 - Class: text
-  Output: Great job. It prints out three things - first, the correlation matrix. Two, it will print out the N for each correlation (becoming a matrix if there are unequal N)/ And three, the p values. Notice the note at the bottom - probability values above the diagonal adjust for multiple comparisons, and we should always report those.
+  Output: Great job. It prints out three things - first, the correlation matrix. Two, it will print out the N for each correlation (becoming a matrix if there are unequal N). And three, the p values. Notice the note at the bottom - probability values above the diagonal adjust for multiple comparisons, and we should always report those.
 
 #15
 - Class: mult_question
@@ -94,7 +94,7 @@
   Output: If your data fits a Spearman correlation, add the argument method="spearman" to many of these functions. Hit the up arrow until you get to your corr.test() function, and then add method="spearman" as an argument. 
   CorrectAnswer: activism |> corr.test(method="spearman")
   Hint: activism |> corr.test(method="spearman")
-  AnswerTests: omnitest(correctExpr="activism |> corr.test(method='spearman')")
+  AnswerTests: omnitest(any_of_exprs="activism |> corr.test(method='spearman')", 'activism |> corr.test(method="spearman") |> print(short=FALSE)')
 
 - Class: mult_question
   Output: Adjusting for multiple tests, what is the p-value for the correlation between TOT and age?
@@ -116,7 +116,7 @@
   Hint: Pipe ghq into alpha()
 
 - Class: text
-  Output: There's a lot of output, but at the top, it shows that the raw_alpha is 0.89. That's all that is needed - select the variables that make up your scale and pass it into the alpha function.
+  Output: There's a lot of output, but at the top, it shows that the raw_alpha is 0.89. That's all that is needed.
   
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
