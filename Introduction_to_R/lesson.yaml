@@ -99,7 +99,7 @@
 
 #18
 - Class: cmd_question
-  Output: "Right! That was the lazy way. As coders, we always want to be specific and clear about what's going on. So, try again, but type rnorm(10, mean=5, sd=1)." 
+  Output: "Right! That was the lazy way. As coders, we always want to be specific and clear about what's going on. So, try again, but type rnorm(n=10, mean=5, sd=1)." 
   CorrectAnswer: rnorm(n=10, mean=5, sd=1)
   AnswerTests: omnitest(correctExpr='rnorm(n=10, mean=5, sd=1)')
   Hint: Try typing rnorm(n=10, mean=5, sd=1).
@@ -133,107 +133,112 @@
 
 #25
 - Class: text
+  Output: "You can explicitly call the package's function by writing packagename::functionname(). So, for example, you also could write psych::describe()." 
+
+
+#26
+- Class: text
   Output: "Note that we can also create our functions. I will sometimes load functions into your workspace for you. They work similarly - FunctionName() and some given arguments."
   
-#26
+#27
 - Class: text
   Output: "However, we almost will never have a variable stored as a Value (see the right-hand side). Variables should always reside in our dataset, and we should always keep them there."
 
-#27
+#28
 - Class: text
   Output: "And this is one of the most important parts about R - calling variables from a dataset. You have already examined the dataset we loaded via View(data). You saw that it has five columns, or five variables."
 
-#28
+#29
 - Class: cmd_question 
   Output: "If you wanted to call just one of those variables at any time, say, Sepal.Length, you could type data$Sepal.Length . The first part is the name of the dataset (here, data), and the second part is the name of the variable, here, Sepal.Length, indicated by that dollar sign next to the variable name. Try typing data$Sepal.Length now."
   CorrectAnswer: data$Sepal.Length
   AnswerTests: omnitest(correctExpr='data$Sepal.Length')
   Hint: Try typing data$Sepal.Length
 
-#29
+#30
 - Class: cmd_question
   Output: "Awesome! Now combine that with what we did with describe(), and have R run the describe function on the variable Sepal.Length in the dataset called data."
   CorrectAnswer: describe(data$Sepal.Length)
   AnswerTests: omnitest(correctExpr='describe(data$Sepal.Length)')
   Hint: Try typing describe(data$Sepal.Length).
   
-#30
+#31
 - Class: text
   Output: "The next thing we need to learn is storing values. We can do this one of two ways - using the equal sign or the <- sign. As we use the equal sign for other things, we will always use the <- storage method. We will always store to the left (<-), but it should be noted that it is indeed possible to store to the right (->), though this is generally not recommended." 
 
-#31
+#32
 - Class: cmd_question
   Output: "Let's store a new value called class_name. We'll set it to \"Psychology\" Try this now."
   CorrectAnswer: class_name <- "Psychology"
   AnswerTests: omnitest(correctExpr='class_name <- "Psychology"')
   Hint: Try typing class_name <- "Psychology". 
 
-#32
+#33
 - Class: text
   Output: "You can see on the top right, in our Environment, that we've created a new value called class_name."
 
-#33
+#34
 - Class: text
   Output: "What if we spelled it wrong? Or we wanted to change it to say the class name was Introduction to R?"
 
-#34
+#35
 - Class: text
   Output: "We can go back into the Console and click inside. Now, hit the up arrow key. If you did this correctly, the last thing you typed in should appear. So, for our purposes, class_name <- \"Psychology\"."
 
-#35
+#36
 - Class: cmd_question
   Output: "Once you've pulled up the last thing we typed, change class_name to be equal to \"Introduction to R\"."
   CorrectAnswer: class_name <- "Introduction to R"
   AnswerTests: omnitest(correctExpr='class_name <- "Introduction to R"')
   Hint: Try typing class_name <- "Introduction to R". 
 
-#36
+#37
 - Class: text
   Output: The last thing we need to learn about R for now is that different data is stored differently. We notice in our data that Sepal.Length has the word num next to it.
 
-#37
+#38
 - Class: text
   Output: This means that it is data that is understood as numbers. Its 'class' is numeric. We can do mathematical functions to numeric class objects.
 
-#38
+#39
 - Class: text
   Output: There is also the integer class, which is a number but has no decimal points. 
 
-#39
+#40
 - Class: text
   Output: Species are of a class called factor. These are typically things like our independent variables - gender, hair color, treatment or not. We don't do much math with factors on their own - but of course, they are critical for us to run our statistics and consider how some variable differs due to some factor.
 
-#40
+#41
 - Class: cmd_question
   Output: The class_name value we just created was words, right? We call these characters. Use the function class(), and pass it one argument, class_name.
   CorrectAnswer: class(class_name)
   AnswerTests: omnitest(correctExpr='class(class_name)')
   Hint: class(class_name)
 
-#41
+#42
 - Class: text
   Output: Finally, we have things called lists. If we look at variable_two, we notice how it has the class integer. But it says it's from [1:100].
 
-#42
+#43
 - Class: text
   Output: That means there's a list of 100 different integers. We create lists using the c() function.
 
-#43
+#44
 - Class: cmd_question
   Output: Pass three arguments into the function c() - "I", "Love", and "R", and store it as name.
   CorrectAnswer: name <- c("I", "Love", "R")
   AnswerTests: expr_creates_var('name'); omnitest(correctExpr='name <- c("I", "Love", "R")')
   Hint: name <- c("I", "Love", "R")
 
-#44
+#45
 - Class: text
   Output: Notice how I had you put quotes around the words. This is critically important - There is an essential difference between "Dr. C" and Dr. C. If we're writing any text into our dataset, we want to use quotes. If we are referring to some variable, we opt out of quotes. 
 
-#45
+#46
 - Class: text
   Output: "Now, let's review what we've learned about R."
 
-#45
+#47
 - Class: mult_question
   Output: "There are a few ways to store a value in R. We discussed two. However, in this class, which way will we store values?"
   AnswerChoices: ValueName <- Input;ValueName = Input; ValueName == Input; ValueName -> Input
@@ -241,7 +246,7 @@
   AnswerTests: omnitest(correctVal="ValueName <- Input")
   Hint: "Two of these answers are correct. But, for ease, we want only to use one. Which one?"
 
-#46
+#48
 - Class: mult_question
   Output: "What are things like View(), describeBy(), and plot() called?"
   AnswerChoices: Factors;Values;Functions;Parenthesis
@@ -249,7 +254,7 @@
   AnswerTests: omnitest(correctVal="Functions")
   Hint: "If we see some text followed by a (), it means something specific."
 
-#47
+#49
 - Class: mult_question
   Output: "In these functions, what are the things called that we put inside of the ()?"
   AnswerChoices: Arguments;Topics;Values;Details
@@ -257,7 +262,7 @@
   AnswerTests: omnitest(correctVal="Arguments")
   Hint: "We discussed how View() had one __, but rnorm() had three of them. Look at your help file for rnorm."
 
-#48
+#50
 - Class: mult_question
   Output: "If we have multiple arguments in one function, how do we separate them?"
   AnswerChoices: Commas;Semi-colons;Colons;Exclamation Marks;R just knows
@@ -265,7 +270,7 @@
   AnswerTests: omnitest(correctVal="Commas")
   Hint: "Look at the help file for rnorm(). How do they list the different inputs?"
 
-#49
+#51
 - Class: mult_question
   Output: "If I say call popquiz::secretFunction(), what is 'popquiz'?"
   AnswerChoices: The name of the function;The name of the package;The name I called it; The name of the first argument
@@ -273,11 +278,11 @@
   AnswerTests: omnitest(correctVal="The name of the package")
   Hint: "describe() could be written as psych::describe()."
 
-#50
+#52
 - Class: text
   Output: "Alright! That's about everything! We will frequently say take function X() and pass it three arguments, so you will want to ensure you understand what I'm saying!"
 
-  
+#53
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
   AnswerChoices: Yes; No
