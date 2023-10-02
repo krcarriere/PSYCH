@@ -35,7 +35,7 @@
   Output: Some citations for these discussions - "Campbell, M. J. (2006). Teaching non-parametric statistics to students in health sciences. ICOTS 7. IASE, ISI Salvador, Bahia, Brazil. and Hart, A. (2001). Mann-Whitney test is not just a test of medians - Differences in spread can be important. British Medical Journal, 323(7309), 391–393. doi.org/10.1136/bmj.323.7309.391"
 
 - Class: text
-  Output: "We are going to analyze data published on PLoS One. In this paper, they investigated whether or not the ominous background music often accompanies shark footage in documentaries impacts an individual's perceptions of sharks. Their data showed that participants rated sharks more negatively and less positively after viewing a 60-second video clip of swimming sharks set to ominous background music, compared to participants who watched the same video clip set to uplifting background music or silence. Attitudes toward sharks did not differ among participants assigned to audio-only control treatments."
+  Output: "We are going to analyze data published in PLoS One. In this paper, they investigated whether or not the ominous background music often accompanies shark footage in documentaries impacts an individual's perceptions of sharks. Their data showed that participants rated sharks more negatively and less positively after viewing a 60-second video clip of swimming sharks set to ominous background music, compared to participants who watched the same video clip set to uplifting background music or silence. Attitudes toward sharks did not differ among participants assigned to audio-only control treatments."
   
 #10
 - Class: text
