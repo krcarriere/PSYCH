@@ -59,13 +59,13 @@
   Hint: Stickers <- Stickers |> filter(Distributions!="kept all")
 
 - Class: cmd_question
-  Output: "Now, let's create a difference variable to check if it is symmetric. To do this, take our data, Stickers and pipe (|>) it into the mutate() function. Inside of that function, let's create a new variable called DifferenceKept, and make it equal to Liked.Kept - Disliked.Kept. Be sure to reassign it as Stickers. Try that now."
+  Output: "Now, let's create a difference variable to check if it is symmetric. To do this, take our data, Stickers and pipe (|>) it into the mutate() function. Inside of that function, let's create a new variable called Difference.Kept, and make it equal to Liked.Kept - Disliked.Kept. Be sure to reassign it as Stickers. Try that now."
   CorrectAnswer: Stickers <- Stickers |> mutate(Difference.Kept = Liked.Kept - Disliked.Kept)
   AnswerTests: omnitest(correctExpr='Stickers <- Stickers |> mutate(Difference.Kept = Liked.Kept - Disliked.Kept)')
   Hint: Stickers <- Stickers |> mutate(Difference.Kept = Liked.Kept - Disliked.Kept)
 
 - Class: cmd_question
-  Output: Great. Let's see how it looks! Take your data, Stickers, and pipe (|>) it into ggplot(). Inside of ggplot(), pass the function aes(), where it'll take the argument x=Difference.Kept. Close out ggplot(), and then add (+) two more functions - geom_histogram() and (+) geom_vline(xintercept=median(Difference.Kept))
+  Output: Great. Let's see how it looks! Take your data, Stickers, and pipe (|>) it into ggplot(). Inside of ggplot(), pass the function aes(), where it'll take the argument x=Difference.Kept. Close out ggplot(), and then add (+) two more functions - geom_histogram() and (+) geom_vline(xintercept=median(Stickers$Difference.Kept))
   CorrectAnswer: Stickers |> ggplot(aes(x = Difference.Kept)) + geom_histogram() + geom_vline(xintercept = median(Stickers$Difference.Kept))
   AnswerTests: omnitest(correctExpr='Stickers |> ggplot(aes(x = Difference.Kept)) + geom_histogram() + geom_vline(xintercept = median(Stickers$Difference.Kept))')
   Hint: Stickers |> ggplot(aes(x = Difference.Kept)) + geom_histogram() + geom_vline(xintercept = median(Stickers$Difference.Kept))
@@ -99,10 +99,10 @@
 
 - Class: mult_question
   Output: If you were to type signrank$ into your console, a list of possible variables would show up. Which of the following does not appear? 
-  AnswerChoices: statistic;parameter; p.value; null.value; alternative; method; data.name; sign
+  AnswerChoices: statistic; parameter; p.value; null.value; alternative; method; data.name; sign
   CorrectAnswer: sign
   AnswerTests: omnitest(correctVal='sign')
-  You can also click the arrow in your Environment next to signrank and see the list there!
+  Hint: You can also click the arrow in your Environment next to signrank and see the list there!
 
 - Class: cmd_question
   Output: Now that we see how even something as simple as a function call also creates variables (similar to a data frame in some ways), we can pass signrank$p.value through qnorm(). However, inside, divide that argument by two because we want a two-tailed test. That will get us our Z statistic.
