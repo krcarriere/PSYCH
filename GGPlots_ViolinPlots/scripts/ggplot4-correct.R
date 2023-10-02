@@ -33,7 +33,7 @@ plot <-
   ) +
   xlab("Condition")+ # We'll pass the argument "Condition" into the x axis label (xlab())
   ylab("Natural logarithm of peak amplitude")+ # We'll pass the argument "Natural logarithm of peak amplitude" into the y axis label (ylab())
-  theme_bw( # We'll set the theme to be a specific theme called bw theme_bw()
+  theme_bw( # We'll set the theme by passing the function theme_bw()
     base_size = 12) # Inside of that theme_bw(), we'll set the base font size (base_size) to be equal to 12.
   # and you've done it!
 

@@ -13,9 +13,8 @@ plot <-
   facet_wrap(~muscle)+
   stat_summary(
     # We want the function (fun) to be set to mean
-    # We want to represent this mean (geom) to a "point" with 
-    # We want the size (size) to be set to 3,
-    # Lastly, we want the position to be equal to position_dodge(0.8)
+    # We want this shape (geom) to equal "point" 
+    # We want the size (size) to be set to 3
   ) +
   stat_summary(
     # Repeat what you did above a second time below. (Truly, copy and paste!). 

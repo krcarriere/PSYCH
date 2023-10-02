@@ -12,8 +12,8 @@ plot <-
   facet_wrap(~muscle)+
   stat_summary( 
     fun = mean, # We want the function (fun) to be set to mean
-    geom = "point", # We want to represent this mean (geom) to a "point" with 
-    size = 3# We want the size (size) to be set to 3,
+    geom = "point", # We want this shape (geom) to equal "point"
+    size = 3 # We want the size (size) to be set to 3,
     
   ) +
   stat_summary(
@@ -22,4 +22,5 @@ plot <-
     linewidth = 1, # And instead of size=3, have it say linewidth=1
     # We also need to add one more argument, where we set the aes() of group to be equal to muscle.
     aes(group=muscle)
+    
   ) 

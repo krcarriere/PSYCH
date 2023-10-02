@@ -62,7 +62,7 @@
 
 #12
 - Class: text
-  Output: Since a violin plot graphs distributions, we probably need to give it all our data. Unlike grouped bar plots, which graphs mean, this can do well with just being given summarised data.
+  Output: Since a violin plot graphs distributions, we probably need to give it all our data. Unlike grouped bar plots, which graphs means, grouped bar plots can do well with just being given summarised data.
 
 #13
 - Class: cmd_question
@@ -102,14 +102,14 @@
   
 #18
 - Class: cmd_question
-  Output: NowOutput what you've done so far by typing plot into the console.
+  Output: Now output what you've done so far by typing plot into the console.
   AnswerTests: omnitest(correctExpr='plot')
   CorrectAnswer: plot
   Hint: Type plot.
 
 #19
 - Class: script
-  Output: Now, let's add the confidence intervals of the mean and the points of each observation—output what you've done so far by typing in plot into the console. When you're ready, save and type submit().
+  Output: Now, let's add the confidence intervals of the mean and the points of each observation. When you're ready, save and type submit().
   AnswerTests: plot_results_identical('plot')
   Hint: Try adding stat_summary(fun.data = mean_cl_normal, geom = "errorbar",  size = 1,  width = 0) + geom_jitter(width=.10,alpha=0.3) to the script.
   Script: ggplot3.R
