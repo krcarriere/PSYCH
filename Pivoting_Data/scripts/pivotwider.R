@@ -5,6 +5,7 @@ ____ <-
    ____ |>
   pivot_wider(
     # id_cols wants to know what columns represent the individual.
+    # In our data, this column is called ResponseId .
     # This would also include any control variables and non-pivoted variables.
     id_cols = 
     # It also wants to know how to create the column names. 

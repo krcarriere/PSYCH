@@ -32,10 +32,10 @@
   Output: We will start with pivot_longer(). You will most commonly face pivoting longer when dealing with a study of repeated measures - when you ask a participant to respond to the same question at multiple time points or under different conditions. 
  
 - Class: text
-  Output: The first study comes from Heyman et al. (YEAR). They wanted to test to see if 
+  Output: The first study comes from Imada et al. (2022). They present participants with someone looking for help to load a sofa into a van. Some participants were told that if someone were to help the person, that helper would receive 50 cents ($0.50), which they called a low cash payment. Others were told the helper would receive $5, which they called a medium cash payment. Others were told that the helper would not receive a payment for helping (With mention of control), and others were told nothing about the payment (Without mention of control). They also tested to see if it was sweets (candy or chocolate) instead of cash, but we won't analyze those. Based on this information, participants were asked how much they expected people to help this poor sofa-moving soul.
   
 - Class: text
-  Output: The citation is Heyman, T., Vankrunkelsven, H., Voorspoels, W., White, A., Storms, G., & Verheyen, S. (2020). When Cheating is an Honest Mistake- A Critical Evaluation of the Matrix Task as a Measure of Dishonesty. Collabra- Psychology, 6(1), 12. doi.org/10.1525/collabra.294
+  Output: The citation is Imada, H., Chan, W. F., Ng, Y. K., Man, L. H., Wong, M. S., Cheng, B. L., & Feldman, G. (2022). Rewarding More Is Better for Soliciting Help, Yet More So for Cash Than for Goods: Revisiting and Reframing the Tale of Two Markets With Replications and Extensions of Heyman and Ariely (2004). Collabra: Psychology, 8(1), 32572. doi.org/10.1525/collabra.32572
   
 - Class: cmd_question
   Output: To do this, we have loaded a dataset from the Repeated Measures ANOVA module before we fixed it up. Check the variables in the dataset by piping the dataset name HeymanWide, into names().
@@ -59,7 +59,7 @@
   Output: It also creates a column that will be the values pulled out from the cell from the column that was just named. We define how we name that column in the values_to="" argument.
   
 - Class: script
-  Output: Let's try pivoting the wide data into the long format.  When you're ready, save your script and type submit().
+  Output: Let's try pivoting the wide data into the long format. We've loaded a script for you to work with. When you're ready, save your script and type submit().
   AnswerTests: script_results_identical('HeymanLong')
   Hint: 'HeymanLong <- HeymanWide |> pivot_longer(cols = -"ResponseId", names_to = "Condition", values_to = "PHelp")'
   Script: pivotlonger.R
@@ -88,6 +88,10 @@
   Hint: 'HeymanWide2 <- HeymanLong |> pivot_wider(id_cols = "ResponseId", names_from = "Condition", values_from = "PHelp")'
   Script: pivotwider.R
 
+
+- Class: text
+  Output: pivot_longer() and pivot_wider() are two workhorse functions for data scientists. The notes go through a few other examples of how you can use different functions to manipulate your data into the exact form you want. Combine this Module with Basic Tidyverse Verbs to really get a strong handle on coding in R.
+  
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
   AnswerChoices: Yes; No
