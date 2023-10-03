@@ -6,4 +6,5 @@ lsr
 effsize
 rstatix
 base64enc
+latex2exp
 ggplot2

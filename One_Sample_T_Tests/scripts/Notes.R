@@ -39,6 +39,22 @@ airquality |> sign_test(Temp ~ 1, mu=80)
   ) |>
   round(2)
 
+  # In the module, we mentioned you could plot the data as a histogram.
+  # Here, we show two ways to plot a histogram. A histogram will plot the frequency
+  # of the data. As such, it only has one variable being plotted.
+  
+  # We can use ggplot() to plot this.
+  airquality |>
+    ggplot(aes(x=Temp))+
+    geom_histogram(binwidth=.2)+
+    xlab("Temperature values")+
+    ylab("Frequency of observation")+
+    geom_vline(xintercept=median(airquality$Temp), color="red")
+  
+# Or we can do it quickly without piping (boo!).
+
+hist(airquality$Temp)
+  
 
 # dont delete me
 

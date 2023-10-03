@@ -85,13 +85,16 @@
   AnswerTests: omnitest(correctExpr='violence |> summary()')
   Hint: Try violence |> summary()
 
+- Class: text
+  Output: There are a variety of ways in which we can test to see if the variable is normally distributed.
+  
 - Class: figure
-  Output: For example, we could plot the distribution of our variable, C, on a histogram. The line that is shown is the median. There is a positive skew in our variable.
+  Output: For example, we could plot the distribution of our variable, C, on a histogram. The line that is shown is the median. There is a positive skew in our variable. We include more information about this in the Notes.
   Figure: Figure1.R
   FigureType: new
 
 - Class: text
-  Output: The Shapiro-Wilk test is one of the most well-known and used tests for non-normality. However, it is very limited - small sample sizes cause it to have not enough power to detect non-normality. Still, too large sample sizes will also be rejected for non-normality. 
+  Output: However, the Shapiro-Wilk test is one of the most well-known and used tests for non-normality. It is very limited - small sample sizes cause it to have not enough power to detect non-normality. Still, too large sample sizes will also be rejected for non-normality. 
  
 - Class: text
   Output: There are other tests, such as the Kolmogorov-Smirnov test, but Shapiro-Wilk has been demonstrated to have the most power, so we focus purely on Shapiro-Wilk.
@@ -104,6 +107,9 @@
   CorrectAnswer: violence |> shapiro_test(C)
   AnswerTests: omnitest(correctExpr='violence |> shapiro_test(C)')
   Hint: violence |> shapiro_test(C)
+
+- Class: text
+  Output: The null hypothesis is that there is no difference between the distribution of the variable and the normal distribution. If we find sufficient evidence to reject that null hypothesis (conventionally, at an alpha of .05), then we reject the hypothesis that there is no difference between the distribution of the variable and the normal distribution.
   
 - Class: text
   Output: Great job. So, indeed, our variable is non-normal. 
@@ -150,6 +156,8 @@
   AnswerTests: omnitest(correctExpr='violence |> filter(risk_group=="Low-risk group") |> wilcox_test(C ~ 1)')
   Hint: violence |> filter(risk_group=="Low-risk group") |> wilcox_test(C ~ 1)
   
+- Class: text
+  Output: Great job. Now you have some practice and notes about one sample tests, including the one sample t-test and the Wilcoxon signed-rank test.
   
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?

@@ -16,9 +16,9 @@
 sum_violence <- 
   NameOfDataSet |>  #Change this to violence
   summarise(
-    Mean = mean(ResponseVariable, na.rm=TRUE), #Change this to c
-    SD = sd(ResponseVariable, na.rm=TRUE) #Change this to c
-    N = sum(!is.na(moral)), # No changes here
+    Mean = mean(ResponseVariable, na.rm=TRUE), #Change this to C
+    SD = sd(ResponseVariable, na.rm=TRUE), #Change this to C
+    N = sum(!is.na(C)), # No changes here
     SE = __ / sqrt(_) # Standard Error is SD / sqrt(N). 
   ) |>
   round(_) # APA style states we should round all values to 2 decimal places.
