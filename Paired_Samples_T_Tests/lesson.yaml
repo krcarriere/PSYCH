@@ -1,7 +1,7 @@
 - Class: meta
   Course: Psychological Statistics You Can Handle
   Lesson: Paired Samples T-Test
-  Author: Kevin R. Carriere, Jason Kilgore
+  Author: Kevin R. Carriere & Jason Kilgore
   Type: Standard
   Organization: Washington & Jefferson College
   Version: 3.0.0
@@ -41,7 +41,7 @@
   Output: "The assumptions of a paired t-test are - \n\n (1) The samples are randomly selected from the population. \n\n (2) The pairs of observations are independent from other pairs. \n\n (3) The difference between the pairs are normally distributed. "
 
 - Class: text
-  Output: In this module, we won't test the assumption - but you should check out the testing non-normality module to learn how to do this. Remember, we want to test the *difference*for paired tests! That might require you to create a new variable.
+  Output: In this module, we won't test the assumptions - but you should check out the testing non-normality module to learn how to do this. Remember, we want to test the *difference* for paired tests! That might require you to create a new variable.
 
 - Class: text
   Output: "We'll start our foray into Paired T-Tests by loading, not a study this time, but a portion of a large dataset. "
@@ -115,10 +115,10 @@
   Output: Before we get into that last part of the sentence - the effect size (d="1.14") - we need to put up some yellow warning lights. 
   
 - Class: text
-  Output: The quick and dirty version is we're about to show you how no one can agree on calculating Cohen's d for within-subjects effects. 
+  Output: We're about to show you how no one can agree on calculating Cohen's d for within-subjects effects. 
   
 - Class: text
-  Output: Now, some argue that a paired-sample t-test's effect size is equivalent to a one-sample t-test on the difference score (Lakens, 2013), but this hasty assumption has been challenged in literature many times (Bonett, 2013).
+  Output: Now, some argue that a paired-sample t-test's effect size is equivalent to a one-sample t-test on the difference score (Lakens, 2013), but this assumption has been challenged in literature many times (Bonett, 2013).
   
 - Class: text
   Output: While not peer-reviewed, many times while searching R code, you may come across blog posts that talk through statistical questions more succinctly than academic articles. This blog post - jakewestfall.org/blog/index.php/2016/03/25/five-different-cohens-d-statistics-for-within-subject-designs/ - is a good starting place for that discussion.
@@ -157,11 +157,14 @@
   Hint: habits_long |> t_test(Response ~ Type, data=_, paired=TRUE)
 
 - Class: cmd_question
-  Output: Great job. And to finish off this section and discuss effect sizes, let's use the pipe-friendly package of rstatix's cohens_d(), passing it the formula of Response ~ Type, with paired=TRUE as a second argument. Don't forget to pipe (|>) your dataset on the left first (habits_long).
+  Output: Great job. Finally, let's use the pipe-friendly package of rstatix's cohens_d(), passing it the formula of Response ~ Type, with paired=TRUE as a second argument. Don't forget to pipe (|>) your dataset on the left first (habits_long).
   CorrectAnswer: habits_long |> cohens_d(Response ~ Type, paired=TRUE)
   AnswerTests: omnitest(correctExpr="habits_long |> cohens_d(Response ~ Type, paired=TRUE)")
   Hint: habits_long |> cohens_d(Response ~ Type, paired=TRUE)
 
+- Class: text
+  Output: In this lesson, we showed you two ways to calculate a within-subjects t-test. The way we recommend is through long datasets and pipe-friendly methods. This would require you to go over the Pivoting Datasets Module. If you don't have your data in the long format (multiple rows per participant), you should default to the clunkier 'data dollarsign variable' method we showed first.
+  
 #40
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
