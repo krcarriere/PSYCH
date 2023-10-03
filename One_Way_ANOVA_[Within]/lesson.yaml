@@ -1,7 +1,7 @@
 - Class: meta
   Course: Psychological Statistics You Can Handle
   Lesson: One-Way ANOVA [Within]
-  Author: Kevin R. Carriere
+  Author: Kevin R. Carriere & Jason Kilgore
   Type: Standard
   Organization: Washington & Jefferson College
   Version: 3.0.0
@@ -39,7 +39,7 @@
 
 #10
 - Class: cmd_question
-  Output: I've loaded the data into your environment called pain. Let's look at it by piping pain into head().
+  Output: We've loaded the data into your environment called pain. Let's look at it by piping pain into head().
   CorrectAnswer: pain |> head()
   AnswerTests: omnitest(correctExpr='pain |> head()')
   Hint: Try pain |> head(). 
@@ -60,7 +60,7 @@
   Hint: Try pain |> anova_test(dv=Rotation, wid=rowid, within=Feedback, effect.size = "pes"). 
 
 - Class: text
-  Output: Great job. We've achieved the results they mentioned. While they report the partial eta squared, some argue that the default for anova_test(), generalized eta-squared, is a more robust measure of effect size (see Bakeman, 2005), while others suggest reporting both, such as (Lakens, 2013). 
+  Output: Great job. We've achieved the results they mentioned. While they report the partial eta squared, some argue that the default for anova_test(), generalized eta-squared, is a more robust measure of effect size (see Bakeman, 2005), while others suggest reporting both, such as Lakens, (2013). 
   
 - Class: text
   Output: "Bakeman, R. (2005). Recommended effect size statistics for repeated measures designs. Behavior Research Methods, 37(3), 379–384. doi.org/10.3758/BF03192707 \n\n Lakens, D. (2013). Calculating and reporting effect sizes to facilitate cumulative science- A practical primer for t-tests and ANOVAs. Frontiers in Psychology, 4. doi.org/10.3389/fpsyg.2013.00863."
@@ -104,20 +104,22 @@
   Output: Great job. Notably, this does not change the calculated F statistic, but due to an adjustment in the degrees of freedom, it will change the underlying F critical value. 
   
 - Class: text
+  Output: In particular, it will increase the F critical value, which will make it more difficult to reject the null hypothesis, and therefore, our p-value will increase as well.
+- Class: text
   Output: Next, the authors write - "All pairwise comparisons were significant (ps < .01). When vision understated true rotation, pain-free range of motion was increased, and this was a medium-sized effect, p = .006, d = 0.67. when vision overstated true rotation, pain-free range of motion decreased, which was a large effect, p = .001, d = 0.80."
   
 - Class: text
   Output: To get the rest of the results, we need to run two more lines of code. The first is going to get those p values they report.  
 
 - Class: cmd_question
-  Output: To do this, we will rewrite our ANOVA as a linear mixed-effect model with the random effect of participants. Pipe (|>) our data pain into the lmer() function from the lmerTest package. It will take two arguments, the formula, which is Rotation ~ Feedback + (1|rowid) [notice (1|rowid) represents the random effect of participant] and data=_. We will then pipe that into means() from the emmeans package, taking the argument ~Feedback, and then we will pipe that into pairs().
+  Output: To do this, we will rewrite our ANOVA as a linear mixed-effect model with the random effect of participants. Pipe (|>) our data pain into the lmer() function from the lmerTest package. It will take two arguments, the formula, which is Rotation ~ Feedback + (1|rowid) [notice (1|rowid) represents the random effect of participant (another way to understand repeated measures)] and data=_. We will then pipe that into emmeans() from the emmeans package, taking the argument ~Feedback, and then we will pipe that into pairs().
   CorrectAnswer: 'pain |> lmer(Rotation ~ Feedback + (1|rowid), data=_) |> emmeans(~Feedback) |> pairs()'
   AnswerTests: omnitest(correctExpr='pain |> lmer(Rotation ~ Feedback + (1|rowid), data=_) |> emmeans(~Feedback) |> pairs()')
   Hint: Try pain |> lmer(Rotation ~ Feedback + (1|rowid), data=_) |> emmeans(~Feedback) |> pairs().
 
 #30
 - Class: cmd_question
-  Output: Finally, they report the effect sizes of these comparisons. Another reminder: please check the Paired T-tests for discussions about effect sizes for within-subject designs. Regardless, let's pipe (|>) our data pain into the cohens_d() function from rstatix and pass it a single formula, Rotation ~ Feedback. 
+  Output: Finally, they report the effect sizes of these comparisons. Another reminder- please check the Paired T-tests for discussions about effect sizes for within-subject designs. Regardless, let's pipe (|>) our data pain into the cohens_d() function from rstatix and pass it a single formula, Rotation ~ Feedback. 
   CorrectAnswer: pain |> cohens_d(Rotation ~ Feedback)
   AnswerTests: omnitest(correctExpr='pain |> cohens_d(Rotation ~ Feedback)')
   Hint: Try pain |> cohens_d(Rotation ~ Feedback)
