@@ -3,13 +3,13 @@
 # Notice how the aes() in ggplot has changed to x= .
 # sample = was a very specific case for geom_qq().
 
-# Practice the same steps - rename the dataset to Sharks.
-# Make your x axis equal PositiveRatings
-# add the geom_ geom_histogram()
-# Replace the facet_wrap() with ~Condition .
+# Step 1: Practice the same steps - rename the dataset to Sharks.
+# Step 2: Make your x axis equal PositiveRatings
+# Step 3: add the geom_ geom_histogram()
+# Step 4: Replace the facet_wrap() with ~Condition .
 
 indhist <- 
-  NameOfDataset |>
-  ggplot(aes(x = ResponseVariable))+
-  geom_histogram()+
-  facet_wrap(~GroupingVariable)
+  NameOfDataset |> #Fix Step 1
+  ggplot(aes(x = ResponseVariable))+ #Fix Step 2
+  geom_WHATGEOM()+ # Fix Step 3
+  facet_wrap(~GroupingVariable) # Fix Step 4

@@ -100,6 +100,16 @@
 - Class: text
   Output: A vital part that makes this the degrees of freedom of the t-test decimals. While dfs are commonly N minus some number, Welch's t-test generally creates fractional degrees of freedom and makes them smaller by quite a bit (consider that an ordinary t-test would have df=437)!
 
+
+- Class: cmd_question
+  Output: Scroll back up to your t-test, but this time, delete the argument in t.test() that said var.equal=FALSE. 
+  CorrectAnswer: concealed |> t.test(moral~condition, data=_)
+  AnswerTests: omnitest(correctExpr='concealed |> t.test(moral~condition, data=_)')
+  Hint: concealed |> t.test(moral~condition, data=_)
+
+- Class: text
+  Output: The exact output was given! That's because R uses Welch's T-test as the default.
+
 - Class: script
   Output: The next part of their sentence called out the means and standard errors. Let's calculate those now. 
   AnswerTests: script_results_identical('sum_moral')
@@ -116,19 +126,10 @@
   Output: Finally, we can also get the effect size they report. 
 
 - Class: cmd_question
-  Output: To get their effect size, we need to use a new function, and we will pipe (|>) our data (concealed) into it.  In the lsr library, there is a function called cohensD(). It takes at least two inputs: the formula (moral ~ condition) and the data (for us because we are piping, remember data=_). Let's try just those two inputs now.
+  Output: To get their effect size, we need to use a new function, and we will pipe (|>) our data (concealed) into it.  In the lsr library, there is a function called cohensD(). It takes at least two inputs- the formula (moral ~ condition) and the data (for us because we are piping, remember data=_). Let's try just those two inputs now.
   CorrectAnswer: concealed |> cohensD(moral~condition, data=_)
   AnswerTests: omnitest(correctExpr='concealed |> cohensD(moral~condition, data=_)')
   Hint: concealed |> cohensD(moral~condition, data=_)
-
-- Class: cmd_question
-  Output: Finally, scroll back up to your t-test, but this time, delete the argument in t.test() that said var.equal=FALSE. 
-  CorrectAnswer: concealed |> t.test(moral~condition, data=_)
-  AnswerTests: omnitest(correctExpr='concealed |> t.test(moral~condition, data=_)')
-  Hint: concealed |> t.test(moral~condition, data=_)
-
-- Class: text
-  Output: The exact output was given! That's because R uses Welch's T-test as the default.
 
 - Class: text
   Output: We want to explain why R uses Welch's as the default. The general argument is that it loses very little power (the ability to detect an effect if an effect does exist) if the variances are equal (i.e., you could use Student's t-test) (c.f., Delacre, Lakens, & Leys, 2017) - they go as far as to say run Welch's without considering equal variances at all. 

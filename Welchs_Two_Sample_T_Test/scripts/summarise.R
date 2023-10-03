@@ -19,7 +19,7 @@ sum_moral <-
   group_by(GroupingVariable) |>  #Change this to condition
   summarise(
     Mean = mean(ResponseVariable, na.rm=TRUE), #Change this to moral
-    SD = sd(ResponseVariable, na.rm=TRUE) #Change this to moral
+    SD = sd(ResponseVariable, na.rm=TRUE), #Change this to moral
     N = sum(!is.na(moral)),
     SE = __ / sqrt(_)
   )

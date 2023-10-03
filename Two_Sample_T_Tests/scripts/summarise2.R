@@ -17,8 +17,9 @@
 # We want to know how the means and standard deviations and Ns of Hire_Rating differed.
 sum_hire <- 
   # Take Our dataset and then |>
-  # group_by() our grouping variable (condition) and then (|>)
-  #we will use that summarise( function 
+  # group_by() our grouping variable (Condition) and then (|>)
+  #we will use that summarise( function (leave the parentheses open) 
+  # And we'll pass three arguments into it.
     Mean = # use the mean() function on our dependent variable, but don't forget to also pass that na.rm=TRUE
     SD = # use the sd() function on our dependent variable, but don't forget to also pass that na.rm=TRUE
     N = sum(!is.na(ResponseVariable)) #Change this to say Hire_Rating

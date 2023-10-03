@@ -29,7 +29,7 @@
   Output: The most basic way, especially when simply considering the variance between two groups, is to use the F Test, where we check the ratio between the variance of Group 1 and the variance of Group 2. If they are equal, the ratio between them should be 1. A short rule of thumb is that if the variance ratio is >3, you probably have some inequality between the variances of groups.
   
 - Class: text
-  Output: However, the F Test is very sensitive to outliers and non-normality, so we consider it only as a first check building our priors.
+  Output: However, the F Test is very sensitive to outliers and non-normality, so we consider it only as a first check.
   
 - Class: text
   Output: Instead, we will use 'the best' test of testing non-normality, Levene's Test. However, it should be noted that Levene's Test also has its problems - it has very low power with low sample sizes and struggles when sample sizes are very uneven (c.f. Nordstrokke & Zumbo, 2007).
@@ -42,7 +42,7 @@
   Output: In 2022, Frankenhuis and colleagues wanted to know whether or not individuals who lived in relatively challenging conditions were significantly different in a range of measures compared to those who lived in low-risk situations, with their primary research question measuring if those who were high-risk detected more threats in ambiguous situations compared to a low-risk group.
   
 - Class: text
-  Output: The high-risk group was a "group of community participants who lived in relatively challenging conditions for Dutch standards, in that people were more likely to need governmental support to meet their basic needs (e.g., food, housing, safety)." They had "anticipated that on average members of the community sample had experienced higher levels of adversity, including higher levels of exposure to violence in their past or current environments. The other group was a college student sample, who [were] expected to have experienced lower levels of violence (the ‘low-risk group’)". I've loaded their data in your environment under data.
+  Output: The high-risk group was a "group of community participants who lived in relatively challenging conditions for Dutch standards, in that people were more likely to need governmental support to meet their basic needs (e.g., food, housing, safety)." They had "anticipated that on average members of the community sample had experienced higher levels of adversity, including higher levels of exposure to violence in their past or current environments. The other group was a college student sample, who [were] expected to have experienced lower levels of violence (the ‘low-risk group’)". We've loaded their data in your environment under data.
 
 - Class: text
   Output: "The citation for this paper is- Frankenhuis, W. E., Weijman, E. L., de Vries, S. A., van Zanten, M., & Borghuis, J. (2022). Exposure to Violence Is Not Associated With Accuracy in Forecasting Conflict Outcomes. Collabra- Psychology, 8(1), 38604. doi.org/10.1525/collabra.38604"
@@ -64,7 +64,7 @@
   Output: Great job. So, there are seven variables. We will, for now, look primarily at risk_group (whether or not the participants were either high-risk or low-risk) and poverty_dev (whether they had their basic needs met in their past, measured on a 1-7 scale, where seven is having all of their needs met and one is not having their needs met.). 
   
 - Class: cmd_question
-  Output: Our first step when given a dataset should be visualizing it. Let us use ggplot2 to plot a violin plot. To do this, remember to take our data data, and pipe (|>) it into ggplot(). ggplot() takes one argument, aes(), which itself takes two arguments, our variables. Our y variable (y) should be equal to (=) poverty_dev and our x variable (x) will be our explanatory variable equal to (=)risk_group.
+  Output: Our first step when given a dataset should be visualizing it. Let us use ggplot2 to plot a violin plot. To do this, remember to take our data data, and pipe (|>) it into ggplot(). ggplot() takes one argument, aes(), which itself takes two arguments, our variables. Our y variable (y) should be equal to (=) poverty_dev and our x variable (x) will be our explanatory variable equal to (=) risk_group. After that, add (+) a layer called geom_violin(). 
   CorrectAnswer: data |> ggplot(aes(x=risk_group, y=poverty_dev))+geom_violin()
   AnswerTests: any_of_exprs('data |> ggplot(aes(x=risk_group, y=poverty_dev))+geom_violin()', 'data %>% ggplot(aes(x=risk_group, y=poverty_dev)) + geom_violin()')
   Hint: data |> ggplot(aes(x=risk_group, y=poverty_dev))+geom_violin()
@@ -73,14 +73,14 @@
   Output: What group looks like it has a larger variance than the other?
   AnswerChoices: High-risk group; Low-risk group
   CorrectAnswer: High-risk group
-  AnswerTests: omnitest(correctVal='High risk group')
+  AnswerTests: omnitest(correctVal='High-risk group')
   Hint: Which of the two has a larger spread in the data? 
   
 - Class: text
   Output: Indeed! They look pretty different in their variances. This may suggest that there are differences in the variances. So, visually, we should be concerned.
   
 - Class: text
-  Output: There are a few ways to quantify this difference. In this course, we will consider Levene's Test. Levene's tests the null hypothesis that the variances are homogeneous - that there is no difference between the groups. 
+  Output: There are a few ways to quantify this difference. In this Module, we will consider Levene's Test. Levene's tests the null hypothesis that the variances are homogeneous - that there is no difference between the variances of the groups. 
 
 #20
 - Class: cmd_question
@@ -116,13 +116,13 @@
   
   
 - Class: cmd_question
-  Output: I've also loaded their dataset in your environment, called df2. Run summary(df2) to learn more about it.
+  Output: We've also loaded their dataset in your environment, called df2. Run df2 |> summary() to learn more about it.
   CorrectAnswer: df2 |> summary()
   AnswerTests: omnitest(correctExpr='df2 |> summary()')
   Hint: df2 |> summary()
 
 - Class: cmd_question
-  Output: To understand the variables, let's tabulate using table() on the Condition variable.  
+  Output: To understand the variables, let's tabulate using table() on the Condition variable.  To do this, take our data, df2, and then (|>) select() the variable we want to look at, Condition, and then (|>) use the table() function.
   CorrectAnswer: df2 |> select(Condition) |> table()
   AnswerTests: any_of_exprs('df2 |> select(Condition) |> table()', 'df2 %>% select(Condition) %>% table()', 'df2 %>% select(Condition) %>% table', 'table(df2$Condition)')
   Hint: One way to do it would be to write df2 |> select(Condition) |> table(), or you can write table(df2$Condition).
@@ -131,7 +131,7 @@
   Output: "Now, we won't look at the results here (but they did find that not being told the chance of money had participants report higher expectations of help compared to the low money condition). Instead, they used Welch's ANOVA - a specific kind of ANOVA that does not assume homogeneity of variances! "
   
 - Class: cmd_question
-  Output: "They write: In the pre-registration, we did not explicitly mention whether we would use a conventional Fisher’s or Welch’s ANOVA. However, given that Levene’s test indicated that the assumption of equal variance was violated (F(3, 1097) = 3.77, p = .01).... Can we replicate this result? Let us try what we've learned on this dataset, running Expected ~ Condition through levene_test() and piping the df2 on the left-hand side."
+  Output: "They write: In the pre-registration, we did not explicitly mention whether we would use a conventional Fisher’s or Welch’s ANOVA. However, given that Levene’s test indicated that the assumption of equal variance was violated (F(3, 1097) = 3.77, p = .01)...." \n\n "Can we replicate this result? Let us try what we've learned on this dataset, running Expected ~ Condition through levene_test() and piping the df2 on the left-hand side."
   CorrectAnswer: df2 |> levene_test(Expected ~ Condition)
   AnswerTests: omnitest(correctExpr='df2 |> levene_test(Expected ~ Condition)')
   Hint: df2 |> levene_test(Expected ~ Condition)
@@ -139,7 +139,7 @@
 - Class: cmd_question
   Output: Uh oh! That is not what they had. While our df1 (3) and df2 (1097) are the same, our test statistics (3.77 v 0.827) and p values (p=.01 v. p=.479) are different. We might wonder what is going on. Let's pull up the help file of levene_test().
   CorrectAnswer: ?levene_test
-  AnswerTests: omnitest(correctExpr='?levene_test')
+  AnswerTests: any_of_exprs('?levene_test', '?levene_test()')
   Hint: ?levene_test
 
 - Class: text

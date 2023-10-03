@@ -10,9 +10,10 @@ mtcars <- mtcars |>
 mtcars |> 
   t.test(mpg ~ vs, data=_, var.equal=TRUE)
 
-## While we are adamant pipers and formulas when possible, it can be done without.
+## While we are adamant pipers, it can be done without.
 
-t.test(mtcars$mpg, mtcars$vs, var.equal=TRUE)
+t.test(mtcars$mpg ~ mtcars$vs, var.equal=TRUE)
+
 
 
 library(lsr)

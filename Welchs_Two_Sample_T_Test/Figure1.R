@@ -1,4 +1,4 @@
-concealed |>
+plot1 <- concealed |>
   ggplot(aes(x=condition, y=moral)) +
   geom_violin(
     aes(fill=condition))+
@@ -12,3 +12,6 @@ concealed |>
   theme(
     legend.position="none"
   )
+
+plot(plot1)
+rm(plot1)

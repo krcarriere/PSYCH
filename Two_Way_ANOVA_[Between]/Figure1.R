@@ -14,11 +14,11 @@ Fig1 <-
   ) |> 
   ggplot(aes(x=station, y=mean, group = orientation))+
   geom_line(aes(color=orientation),
-            size = 1.5)+
+            linewidth = 1.5)+
   geom_errorbar(aes(ymin=mean - se*1.96,
                     ymax=mean + se*1.96),
                 width = 0.05, 
-                size = 0.2)+
+                linewidth = 0.2)+
   geom_point(aes(fill = orientation),
              color= "black",
              shape = 21,
@@ -34,7 +34,7 @@ Fig1 <-
     panel.background = element_blank(), 
     panel.grid = element_blank(),
     axis.text.x = element_text(face = "bold", angle = 45, hjust=1),
-    axis.line.y = element_line(color="black", size=0.1),
+    axis.line.y = element_line(color="black", linewidth=0.1),
     legend.direction = "vertical",
     legend.justification = "left",
     legend.position = "top",

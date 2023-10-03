@@ -114,8 +114,7 @@ difficult.achieve = c(1L, 5L, 5L, 6L, 6L, 4L, 7L, 4L, 4L,
                       6L, 6L, 6L, 7L, 3L, 7L, 7L, 6L, 7L, 5L, 3L, 7L, 6L, 7L, 7L, 
                       4L, 5L, 6L, 5L, 4L, 6L, 5L, 7L, 6L, 4L, 6L, 6L, 3L, 5L, 4L, 
                       3L, 5L, 6L, 7L, 6L, 2L, 5L, 6L, 7L, 7L, 7L, 7L, 6L, 6L, 6L, 
-                      1L, 2L, 6L, 3L, 6L, 4L, 3L, NA, NA, NA, NA, NA, NA, NA, NA, 
-                      NA, NA, NA, NA, NA), condition = c("Real Goal", "Real Goal", 
+                      1L, 2L, 6L, 3L, 6L, 4L, 3L), condition = c("Real Goal", "Real Goal", 
                                                          "Real Goal", "Real Goal", "Real Goal", "Real Goal", "Real Goal", 
                                                          "Real Goal", "Real Goal", "Real Goal", "Real Goal", "Real Goal", 
                                                          "Real Goal", "Real Goal", "Real Goal", "Real Goal", "Real Goal", 
@@ -162,11 +161,7 @@ difficult.achieve = c(1L, 5L, 5L, 6L, 6L, 4L, 7L, 4L, 4L,
                                                          "Frozen Goal", "Frozen Goal", "Frozen Goal", "Frozen Goal", 
                                                          "Frozen Goal", "Frozen Goal", "Frozen Goal", "Frozen Goal", 
                                                          "Frozen Goal", "Frozen Goal", "Frozen Goal", "Frozen Goal", 
-                                                         "Frozen Goal", "Frozen Goal", "Frozen Goal", "Real Goal", 
-                                                         "Real Goal", "Real Goal", "Real Goal", "Real Goal", "Real Goal", 
-                                                         "Real Goal", "Real Goal", "Real Goal", "Real Goal", "Real Goal", 
-                                                         "Real Goal", "Real Goal")), class = "data.frame", row.names = c(NA, 
-                                                                                                                         -224L))
+                                                         "Frozen Goal", "Frozen Goal", "Frozen Goal")), class = "data.frame", row.names = c(NA, -224L))
 
 
 

@@ -149,7 +149,7 @@ iris |>
   geom_point(shape=15, size=4) +
   geom_errorbar(aes(ymin=lower.CL,  
                     ymax=upper.CL),
-                width=0.2, size=0.7) +
+                width=0.2, linewidth=0.7) +
   theme_bw() +
   theme(axis.title=element_text(face="bold"),
         axis.text=element_text(face="bold"),

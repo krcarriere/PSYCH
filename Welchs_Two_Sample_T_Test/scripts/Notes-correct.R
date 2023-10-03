@@ -10,10 +10,6 @@ mtcars <- mtcars |>
 mtcars |> 
   t.test(mpg ~ vs, data=_, var.equal=FALSE)
 
-## While we are adamant pipers and formulas when possible, it can be done without.
-
-t.test(mtcars$mpg, mtcars$vs, var.equal=FALSE)
-
 
 library(lsr)
 # cohensD

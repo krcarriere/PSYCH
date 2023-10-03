@@ -13,7 +13,7 @@
   Script: Notes.R
   
 - Class: text
-  Output: In the last module, we talked about 1 sample t-test. This is when a sample's mean against a population's mean.
+  Output: In the last module, we talked about one sample t-test. This is when a sample's mean against a population's mean.
 
 - Class: text
   Output: However, we want to test whether there are differences between groups.
@@ -84,7 +84,7 @@
   Output: While the t-test output gives us our means, it doesn't provide standard deviations. While we've learned how to get the standard deviation of a single variable, we haven't talked about how to get the standard deviation of a single variable grouped by multiple levels. If you've taken GGPlots Grouped Bar Plots or Basic Tidyverse Verbs, you might know this already. Remember, they wrote- "when they listened to pitches (M = 5.63, SD = 1.61) than when they read pitches (M = 3.65, SD = 1.91)"
 
 - Class: script
-  Output: Save your script before you type submit().
+  Output: We've loaded a script to solve how to get group based standard deviations. Save your script before you type submit().
   AnswerTests: script_results_identical('sum_intellect')
   Hint: Follow the notes in the script, and be sure you saved your script (using the save button or ctrl+S) before typing submit() in the Console.
   Script: summarise.R
@@ -99,13 +99,13 @@
   Output: And finally, we can also get that effect size they report (95% CI of the difference = [0.85, 3.13], d = 1.16].)
 
 - Class: cmd_question
-  Output: To get their effect size, we need to use a new function, and we will pipe (|>) our data (df) into it.  In the lsr library, there is a function called cohensD(). It takes at least two inputs: the formula (Intellect_Rating ~ Condition) and the data (for us, because we are piping, remember data=_). Let's try just those two inputs now.
+  Output: To get their effect size, we need to use a new function, and we will pipe (|>) our data (df) into it.  In the lsr library, there is a function called cohensD(). It takes at least two inputs- the formula (Intellect_Rating ~ Condition) and the data (for us, because we are piping, remember data=_). Let's try just those two inputs now.
   CorrectAnswer: df |> cohensD(Intellect_Rating~Condition, data=_)
   AnswerTests: omnitest(correctExpr='df |> cohensD(Intellect_Rating~Condition, data=_)')
   Hint: df |> cohensD(Intellect_Rating~Condition, data=_)
 
 - Class: cmd_question
-  Output: Great job! Unfortunately, that's not what they reported. Their effect size was 1.16, and ours is 1.13. What can we do? Well, cohensD takes another argument, method. Let's set method = "raw" instead of pooled and try again. Remember, you can hit the up arrow on your keyboard to bring up your hard work.
+  Output: Great job! Unfortunately, that's not what they reported. Their effect size was 1.16, and ours is 1.13. What can we do? Well, cohensD takes another argument, method. Let's set method = "raw". The help file (or typing cohensD( into your console) would show that the default value is method is "pooled" and try again. Remember, you can hit the up arrow on your keyboard to bring up your hard work.
   CorrectAnswer: df |> cohensD(Intellect_Rating~Condition, data=_, method="raw")
   AnswerTests: omnitest(correctExpr='df |> cohensD(Intellect_Rating~Condition, data=_, method="raw")')
   Hint: df |> cohensD(Intellect_Rating~Condition, data=_, method="raw")
@@ -173,7 +173,7 @@
   Output: There are a few variables in this dataset. ID is the participant ID. They asked how important achieving the goal was to them (achieve.goal.importance), the progress they've made towards that goal (progress), how important to them it was to have that goal (have.goal.importance), and how difficult it would be to achieve that goal (difficult.achieve). Progress was from a 0-100 scale, while the rest ranged from 1-7.
 
 - Class: cmd_question
-  Output: Test one of these response variables. Be sure that your answer takes the data (goalsdf), pipes it (|>) into t.test(), where your equation should be your chosen response variable ~ the grouping explanatory variable, and then data=_ and var.equal=TRUE. 
+  Output: Test one of these response variables. Be sure that your answer takes the data (goalsdf), pipe it (|>) into t.test(), where your equation should be your chosen response variable ~ the grouping explanatory variable, and then data=_ and var.equal=TRUE. 
   CorrectAnswer: goalsdf |> t.test(progress ~ condition, data=_, var.equal=TRUE)
   AnswerTests: any_of_exprs('goalsdf |> t.test(progress ~ condition, data=_, var.equal=TRUE)', 'goalsdf |> t.test(have.goal.importance ~ condition, data=_, var.equal=TRUE)', 'goalsdf |> t.test(achieve.goal.importance ~ condition, data=_, var.equal=TRUE)', 'goalsdf |> t.test(difficult.achieve ~ condition, data=_, var.equal=TRUE)')
   Hint: There are many, but for example, try goalsdf |> t.test(progress ~ condition, data=_, var.equal=TRUE)

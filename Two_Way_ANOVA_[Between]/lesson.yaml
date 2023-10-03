@@ -104,6 +104,9 @@
   Hint: data |> lm(subjective_distance ~ orientation*station, data=_) |> emmeans(~orientation*station) |> contrast(Contrast_List, adjust="sidak")
 
 - Class: text
+  Output: Great, let's move onto our second study now.
+  
+- Class: text
   Output: "The authors wished to replicate results originally found in previous research. The study design is a 2 ('time is money' mindset vs. control mindset) by 2 (additional compensation received vs. no additional compensation received) between-subjects factorial design. Participants in the Time/Money condition completed a calculation task that involved determining their hourly wage starting from their annual income to activate a 'time is money' mindset. In the control condition, the calculation task consisted of multiplying together random 5-digit numbers. Participants were informed that they would be paid an additional $0.50 for listening to a music track in the compensation condition. In contrast, those in the non-compensation condition were not offered this extra monetary incentive."
 
 - Class: text
