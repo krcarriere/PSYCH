@@ -1,0 +1,6 @@
+swirl
+broom
+latex2exp
+caTools
+base64enc
+dplyr

@@ -1,0 +1,153 @@
+- Class: meta
+  Course: Psychological Statistics You Can Handle
+  Lesson: Regression
+  Author: Kevin R. Carriere & Jason Kilgore
+  Type: Standard
+  Organization: Washington & Jefferson College
+  Version: 3.0.0
+
+#1
+- Class: script
+  Output: To save the notes for this module, copy and paste the code provided into your own RNotebook. Type submit() when you have finished saving these notes. 
+  AnswerTests: script_results_identical('saved')
+  Hint: "Don't change anything, just type submit(). If you did and you don't know how to fix it, just type skip(), and you'll be all set."
+  Script: Notes.R
+  
+#2
+- Class: text
+  Output: In this module, we are going to talk through various uses of linear regression. You've encountered this many times already, when we use lm(), or linear model, to examine an ANOVA, for instance. 
+  
+#3
+- Class: text
+  Output: However, in this Module, we'll get more in-depth with linear regression.
+
+#4
+- Class: text
+  Output: Regressions are extremely robust to their violations, but getting too 'in the weeds' on how to work around violations are beyond the scope of this course.
+
+#5
+- Class: text
+  Output: We've loaded data in your environment called gamesdf. Wylie & Gantman (2023) wanted to know if people will enforce broken, rarely enforced rules (for example, jaywalking). \n\n To do this, they created what they call the Sharing Game, with an “Allocator” who decides how much of the given 5 points (1 point translates to $0.05) to split between themselves and the Receiver. An Observer decides whether the entire game was valid or invalid (akin to an umpire or referee). Both the Allocator and the Receiver are pre-programmed into the game set-up, making the Observer the only real participant playing the game.  
+
+#6
+- Class: text
+  Output: The Observer was asked to decide whether to deem a game valid, which would result in payout of the offers with a 3 times multiplier, or invalid, which would result in loss of points for the Allocator and no multiplier for the Observer or Receiver. Observers were instructed to base their validation decision on whether the actions of the Allocator followed the explicitly stated rules of the game. One of the rules was that the Allocator could not offer fractional amounts of points, like 2.5. 
+
+#7
+- Class: text
+  Output: To test whether external motivations influence phantom rule enforcement, they manipulated selfishness of the five offers from the Allocator. Participants were randomly assigned to view five sequential rounds of a selfish Allocator, who kept an average of 3.9 points, or a fair Allocator, who kept an average of 1.3 points of the total 5 points per round available to split. Both the fair and the selfish Allocator break the same rarely enforced rule of offering a fraction of a point on the third round of the game.
+
+#8
+- Class: text
+  Output: The full citation of this paper is Wylie, J. & Gantman, A. (2023). Doesn't everybody jaywalk? On codified rules that are seldom followed and selectively punished. Cognition. 10.1016/j.cognition.2022.105323 
+
+#9
+- Class: cmd_question
+  Output: Let's look at the data now by piping (|>) our dataset (gamesdf) into head(). 
+  CorrectAnswer: gamesdf |> head()
+  AnswerTests: omnitest(correctExpr='gamesdf |> head()')
+  Hint: Try gamesdf |> head().
+
+#10
+- Class: text
+  Output: At one point, the authors write the following - "Allocators in the selfish condition were seen as less likeable than those in the fair condition, b = −1.67, SE = 0.16, t(407) = −10.16, p < .001." 
+
+#11
+- Class: text
+  Output: Can we replicate that?
+  
+#12
+- Class: cmd_question
+  Output: Take your data, gamesdf, and pipe (|>) it into lm() (for linear model). Pass it two arguments - one, the equation, AllocatorRating ~ Condition, and two, data=_ . After that, close your lm() and then (|>) pass that through the function summary(). Try that now.
+  CorrectAnswer: gamesdf |> lm(AllocatorRating~Condition, data=_) |> summary()
+  AnswerTests: omnitest(correctExpr='gamesdf |> lm(AllocatorRating~Condition, data=_) |> summary()')
+  Hint: gamesdf |> lm(AllocatorRating~Condition, data=_) |> summary()
+
+- Class: text
+  Output: We can see all of the information reported. Indeed, while the Fair group was rated at a 5.34 out of 7, the Selfish conditioned was rated on average 1.67 points less (we get this from the negative Estimate of ConditionSelfish). 
+
+- Class: text
+  Output: We may ask - well, maybe the participant was biased - that they rated both high, or somehow there was a correlation between the Allocator's Rating and the Receiver's Rating. If that is true, then we may want to control for the Receiver's Rating prior to seeing if we can predict the Allocator's Rating. We can add other independent/explanatory variables (sometimes, called control variables) by simply using the + sign within the equation. 
+  
+- Class: cmd_question
+  Output: Hit up on your keyboard to bring up your equation. Where it says AllocatorRating~Condition, change it to AllocatorRating ~ Condition + ReceiverRating. Try that now.
+  CorrectAnswer: gamesdf |> lm(AllocatorRating~Condition + ReceiverRating, data=_) |> summary()
+  AnswerTests: omnitest(correctExpr='gamesdf |> lm(AllocatorRating~Condition + ReceiverRating, data=_) |> summary()')
+  Hint: gamesdf |> lm(AllocatorRating~Condition + ReceiverRating, data=_) |> summary()
+  
+- Class: text
+  Output: Well done. Now we can read this as saying "Controlling for Receiver Ratings, Selfish Allocators were rated 1.63 points lower than Nice Allocators."
+  
+- Class: text
+  Output: We also have the ability to report that "An increase in Receiver Rating by 1 point was related to a .389 increase in Allocator rating, controlling for condition."
+
+- Class: text
+  Output: The (Intercept) is read as "What happens when everything else is set to 0"? So, we could also say, for the participants exposed to Nice Allocators (Condition==0) who rated the Receiver as a 0 (ReceiverRating==0), they rated the Allocators as a 3.23. 
+  
+- Class: text
+  Output: Since the scale is from 1-7, you might realize that this sentence sounds pretty meaningless. And indeed, many times interpreting the bare intercept is (What does age=0 even mean?). Many times, we will actually center our explanatory variables that are non-factors in order to make the intercept more interpretable.
+
+- Class: text
+  Output: Importantly, if done correctly, the only thing that will change is the (Intercept) estimate - centering variables has no effect on the estiamte of itself or on any other variable within the model (but it may decrease the standard error). 
+  
+- Class: text
+  Output: You can also add interaction terms (sometimes called moderation terms) into the formula.
+
+- Class: cmd_question
+  Output: Hit up on your keyboard to bring up your equation. Where it says AllocatorRating~Condition + ReceiverRating, change the + to a *, that is,  ~ Condition*ReceiverRating. Try that now.
+  CorrectAnswer: gamesdf |> lm(AllocatorRating~Condition*ReceiverRating, data=_) |> summary()
+  AnswerTests: omnitest(correctExpr='gamesdf |> lm(AllocatorRating~Condition*ReceiverRating, data=_) |> summary()')
+  Hint: gamesdf |> lm(AllocatorRating~Condition*ReceiverRating, data=_) |> summary()
+
+- Class: text
+  Output: This output provides us with the interaction term, and is important we read the output accurately, because our interpretation changes once outputted like this.
+  
+- Class: text
+  Output: The estimate of Selfish represents being exposed to the Selfish Allocator when you rate the Receiver as a 0. The estimate of ReceiverRating is when Selfish==0 (so, Nice conditions), every increase in ReceiverRating is related to a .384 increase in AllocatorRating. The interaction term is for [When you are in the Selfish condition], every increase in ReceiverRating grants you a .01 increase in AllocatorRating. 
+
+- Class: text
+  Output: Reading regression output can be tricky, but once you get a hang of it, it gives you so much more information!
+
+- Class: text
+  Output: As a final note for this piece, again we were faced with the awkwardness of interpreting at ReceiverRating==0. There are statistical and interpretable reasons as well to center all continuous variables prior to including them in an interaction, see - Dalal, D. K. & Zickar, M. J. (2011). Some common myths about center predictor variables in moderated multiple regression and polynomial regression. Organizational Research Methods. 10.1177/1094428111430540.
+  
+# Logistic Regression
+- Class: text
+  Output: We can also use regression to predict 0 or 1 outcomes - such as whether or not the phantom rule was enforced. The authors write "Participants were more likely to invalidate the game, invoking the phantom rule of fractional offers and forfeiting their potential extra payout, when Allocators were selfish (vs. generous), b = −0.55, SE = 0.20, z = −2.72, p = .007, r = −0.15, 95% CI [−0.92, −0.13], OR = 0.58". 
+  
+- Class: cmd_question
+  Output: Take your data, gamesdf, and pipe (|>) into what we'll call a generalized linear model glm(). We'll pass it the formula - TargetTrial ~ Condition, data =_, and we will also state that family=binomial, which means we will be running what is called a logistic regression.  At the end of that, pipe the summary() function.
+  CorrectAnswer: gamesdf |> glm(TargetTrial ~ Condition, data=_, family=binomial) |> summary()
+  AnswerTests: omnitest(correctExpr='gamesdf |> glm(TargetTrial ~ Condition, data=_, family=binomial) |> summary()')
+  Hint: gamesdf |> glm(TargetTrial ~ Condition, data=_, family=binomial) |> summary()
+  
+- Class: text
+  Output: While in linear models, we can read Estimates as "a one unit increase in [explanatory variable] is associated with an [estimate] increase in [response variable], it gets a bit more confusing for logistic regressions."
+
+- Class: text
+  Output: What is currently being reported is what is known as the log odds. Therefore, a one unit increase in Condition (which simply means moving from Nice to Selfish) is associatd with a .55 decrease in log odds that you would not enforce the rule.
+
+- Class: text
+  Output: But what are log odds? They're tough to conceptualize, and the recommended practice is to convert them into Odds Ratios. To do that, we need to expotentiate the log odds- doing so will give us our Odds Ratios.
+  
+- Class: cmd_question
+  Output: Hit up on your keyboard to get to your glm() code. Instead of summary(), change that to coef(). This will have R just output the coefficients (what we want to change!). After that, pipe that into exp(). 
+  CorrectAnswer: gamesdf |> glm(TargetTrial ~ Condition, data=_, family=binomial) |> coef() |> exp()
+  AnswerTests: omnitest(correctExpr='gamesdf |> glm(TargetTrial ~ Condition, data=_, family=binomial) |> coef() |> exp()')
+  Hint: gamesdf |> glm(TargetTrial ~ Condition, data=_, family=binomial) |> coef() |> exp()
+  
+- Class: text
+  Output: Now we can see where they got their OR = .58. We can read this as there was a 42.4% decrease in likelihood to not enforce the rules when the Distributor was selfish. We got 42.4% because it is lower than 1. When the OR is lower than 1, we subtract the estimate from 1 (1-.576=.424) and multiply by 100.
+
+- Class: text
+  Output: Notice in their results they also report the standard error - but to be clear, this is the standard error of the log odds estimate, not the standard error of the Odds Ratios estimate. Andrew Heiss discusses the complexity of this in R in his blog post - www.andrewheiss.com/blog/2016/04/25/convert-logistic-regression-standard-errors-to-odds-ratios-with-r/ .  We run this code in the Notes.
+  
+- Class: text
+  Output: There's so much else to cover, but this is a good primer. Keep practicing interpreting regression output - remember, a one unit change in X is related to an [estimate] change in Y.
+  
+- Class: mult_question
+  Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
+  AnswerChoices: Yes; No
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: hint

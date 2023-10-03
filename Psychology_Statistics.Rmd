@@ -2,9 +2,10 @@
 title: "Psychology Statistics"
 ---
 
-### Author
+### Authors
 
 - Kevin R. Carriere
+- Jason Kilgore
 
 ### Description
 
