@@ -106,14 +106,17 @@ self_long |>
 
 # Compact Letter Display
 library(multcompView)
+library(multcomp) #required for cld()
+library(dplyr) # always load dplyr after multcomp or MASS. 
 self_long |>
   lmer(se_score ~ Time*treatment + (1|id), data=_) |>
   emmeans(~Time) |>
   cld(Letters=letters)
 
 # Plotting The Means
-library(dplyr)
 library(ggplot2)
+library(multcomp) #required for cld()
+library(dplyr) # always load dplyr after multcomp or MASS. 
 self_long |>
   lmer(se_score ~ Time*treatment + (1|id), data=_) |>
   emmeans(~Time*treatment) |>

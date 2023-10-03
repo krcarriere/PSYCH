@@ -31,12 +31,12 @@
 
 #12
 - Class: text
-  Output: "The ones we will focus most on in this module are (4) Combinations are normally distributed, (5) No significant outliers, with caution, and (2) Sphericity."
+  Output: "The ones we will focus most on in this module are (4) Combinations are normally distributed, \n\n (5) No significant outliers, with caution, and (2) Sphericity."
 
 
 #14 - 
 - Class: text
-  Output: "We have loaded up a dataset for you from a paper we examined in the testing Equal Variances module. \n\nResearchers wanted to replicate and extend a paper from 2004. In their 2022 study, they present participants with someone looking for help to load a sofa into a van. Some participants were told that if someone were to help the person, that helper would receive 50 cents ($0.50), which they called a low cash payment. Others were told the helper would receive $5, which they called a medium cash payment. Others were told that the helper would not receive a payment for helping (With mention of control), and others were told nothing about the payment (Without mention of control). They also tested to see if it was sweets (candy or chocolate) instead of cash, but we won't analyze those. Based on this information, participants were asked how much they expected people to help this poor sofa-moving soul."
+  Output: "We have loaded up a dataset for you from a paper we examined in the Testing Equal Variances and our Pivoting Data module. \n\nResearchers wanted to replicate and extend a paper from 2004. In their 2022 study, they present participants with someone looking for help to load a sofa into a van. Some participants were told that if someone were to help the person, that helper would receive 50 cents ($0.50), which they called a low cash payment. Others were told the helper would receive $5, which they called a medium cash payment. Others were told that the helper would not receive a payment for helping (With mention of control), and others were told nothing about the payment (Without mention of control). They also tested to see if it was sweets (candy or chocolate) instead of cash, but we won't analyze those. Based on this information, participants were asked how much they expected people to help this poor sofa-moving soul."
 
 - Class: text
   Output: "The citation for this paper is - Imada, H., Chan, W. F., Ng, Y. K., Man, L. H., Wong, M. S., Cheng, B. L., & Feldman, G. (2022). Rewarding More Is Better for Soliciting Help, Yet More So for Cash Than for Goods: Revisiting and Reframing the Tale of Two Markets With Replications and Extensions of Heyman and Ariely (2004). Collabra: Psychology, 8(1), 32572. doi.org/10.1525/collabra.32572"
@@ -45,7 +45,7 @@
 - Class: cmd_question
   Output: Let's examine the data by piping the dataset, HeymanLong, into the head() function, but add the number 10 as an argument into head(). This will show us ten rows of the dataset instead of 6.
   CorrectAnswer: HeymanLong |> head(10)
-  AnswerTests: omnitest(correctExpr('HeymanLong |> head(10)'))
+  AnswerTests: omnitest(correctExpr='HeymanLong |> head(10)')
   Hint: Enter HeymanLong |> head(10) into your console.
 
 #17
@@ -65,7 +65,7 @@
 
 #20
 - Class: text
-  Output: "You should already have some background knowledge for how we can test for (4) - if you haven't, be sure to review Testing For Nonnormality."
+  Output: "You should already have some background knowledge for how we can test for (4) -  The observations within each combination are normally distributed -  if you haven't, be sure to review Testing For Nonnormality."
 
 - Class: cmd_question
   Output: "Take our dataset, HeymanLong, and pipe (|>) it into group_by(), where we want to specify we have two grouping variables, PayLevel, PayForm, and then pipe (|>) that into shapiro_test() from the rstatix package, passing the argument PWH as our response variable. "
@@ -94,7 +94,7 @@
 
 #25
 - Class: text
-  Output: The helpfile notes, and we agree entirely, that quote - "Data points that are labeled outliers in boxplots are not considered as troublesome as those considered extreme points and might even be ignored." 
+  Output: The helpfile notes, and we agree entirely, that "data points that are labeled outliers in boxplots are not considered as troublesome as those considered extreme points and might even be ignored." 
   
 #26
 - Class: text
@@ -110,7 +110,7 @@
   
 #29
 - Class: script
-  Output: Let's use anova_test() to learn more about our results and the results reported by the authors. When you're ready, type submit().
+  Output: Let's use anova_test() to learn more about our results and the results reported by the authors. We've loaded a script for you to play with. When you're ready, type submit().
   AnswerTests: script_results_identical('pwh_anova')
   Hint: "Does yours look like this -  HeymanLong |> anova_test(dv=PWH, wid=ResponseId, within=c(PayLevel, PayForm)) ? "
   Script: mauchley.R
@@ -149,7 +149,7 @@
   Hint: Write pwh_anova now.
 
 - Class: text
-  Output: First, we want to notice what happened (scroll up to compare). The DFd and DFn changed, but the F stat stayed the same. However, the slight change in the DFd/DFn permits a change in the F critical value.
+  Output: First, we want to notice what happened (scroll up to compare). The DFd and DFn changed, but the F stat stayed the same. However, the slight change in the DFd/DFn makes a change in the F critical value.
   
 - Class: cmd_question
   Output: To show this, let's determine the f critical value for uncorrected PayForm. Using qf(), pass the alpha/2 (.025), the DFn (2), the DFd (1996), and lower.tail=FALSE.
@@ -191,7 +191,7 @@
   Hint: Write pwh_anova now.
 
 - Class: cmd_question
-  Output: anova_test() cannot give us the 90% CI of partial eta squared. However, we can use the get.ci.partial.eta.squared() function from apaTables. Let's demonstrate the effect size CI for  PayLevel:PayFor. It wants four things - the F statistic (F.value=428.576), the DFn (df1=1.90), the DFd (df2=1900.34), and the confidence interval (conf.level=.90). 
+  Output: anova_test() cannot give us the 90% CI of partial eta squared. However, we can use the get.ci.partial.eta.squared() function from apaTables. Let's demonstrate the effect size CI for  PayLevel:PayForm. The function wants four arguments - the F statistic (F.value=428.576), the DFn (df1=1.90), the DFd (df2=1900.34), and the confidence interval (conf.level=.90). 
   CorrectAnswer: get.ci.partial.eta.squared(F.value=428.576, df1=1.90, df2=1900.34, conf.level=.90)
   AnswerTests: omnitest(correctExpr='get.ci.partial.eta.squared(F.value=428.576, df1=1.90, df2=1900.34, conf.level=.90)')
   Hint: get.ci.partial.eta.squared(F.value=428.576, df1=1.90, df2=1900.34, conf.level=.90) 

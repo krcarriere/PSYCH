@@ -4,8 +4,10 @@ rstatix
 apaTables
 lmerTest
 multcompView
+multcomp
 emmeans
 dplyr
+tidyr
 ggplot2
 latex2exp
 base64enc
