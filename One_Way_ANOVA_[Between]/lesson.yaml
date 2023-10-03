@@ -1,7 +1,7 @@
 - Class: meta
   Course: Psychological Statistics You Can Handle
   Lesson: One-Way ANOVA [Between]
-  Author: Kevin R. Carriere, Jason Kilgore
+  Author: Kevin R. Carriere & Jason Kilgore
   Type: Standard
   Organization: Washington & Jefferson College
   Version: 3.0.0
@@ -19,7 +19,7 @@
   Output: This risks inflating our Type I error rate and finding significant differences when the truth is that they are not different. An ANOVA is an omnibus test - it asks, "Is there differences between these groups?" without stating where those differences lie. 
 
 - Class: text
-  Output: "We are going to analyze data published on Psychological Science. This study aimed to determine how much Soloman's paradox holds true: do we reason more about other individuals' problems than our own. \n\n Participants were randomly assigned to one of 4 conditions to imagine a scenario in which their partner had cheated on either them or their friend's partner had cheated on them and asked to write a response on how to handle the situation."
+  Output: "We are going to analyze data published on Psychological Science. This study aimed to determine how much Soloman's paradox holds true: do we reason more about other individuals' problems than our own?"
   
 - Class: text
   Output: "The citation is Grossmann, I., & Kross, E. (2014). Exploring Solomon’s Paradox- Self-Distancing Eliminates the Self-Other Asymmetry in Wise Reasoning About Close Relationships in Younger and Older Adults. Psychological Science, 25(8), 1571–1580. doi.org/10.1177/0956797614535400"
@@ -43,7 +43,7 @@
   Output: Great. We have four levels of a single variable. 
 
 - Class: text
-  Output: This study aimed to determine how much Soloman's paradox holds true, that is, do we reason more about other individuals' problems than our own. Participants were randomly assigned to one of 4 conditions to imagine a scenario in which their partner had cheated on either them or their friend's partner had cheated on them and asked to write a response on how to handle the situation.
+  Output: Participants were randomly assigned to one of 4 conditions to imagine a scenario in which their partner had cheated on either them or their friend's partner had cheated on them and asked to write a response on how to handle the situation.
 
 - Class: text
   Output: These responses were rated on how wise the participant's response was. Let us do an ANOVA to test whether or not there was a difference in condition.
@@ -61,13 +61,13 @@
   Hint: Try wis_model |> anova()
 
 - Class: cmd_question
-  Output: Great! This is our first note that it is linear models all the way down. ANOVA is simply a special wrapper of linear models. To see the linear regression output, pipe wis_model into summary().
+  Output: Great! Now that you've taken a linear model (lm()) and piped it into an anova(), you should notice this is the classic ANOVA table you may have been taught. Indeed, all ANOVAs are simply linear models, just with (what we think is) less meaningful information provided to the reader. To see the linear regression output, pipe wis_model into summary().
   CorrectAnswer:  wis_model |> summary()
   AnswerTests: omnitest(correctExpr='wis_model |> summary()')
   Hint: Try wis_model |> summary()
 
 - Class: text
-  Output: Great job. We recommend you look at the regression module to understand what is going on here completely. Still, briefly, we see all four levels of our Condition - (Other-Distanced is represented by (Intercept)). Moreover, the Estimates are the other three levels and their difference in score compared to the base category of Other-Distanced. That means that Other_Distanced has an average of .3345, while Other-Immersed is .1396 less than Other-Distanced. We also can tell that this comparison is not significantly different (p=.575).
+  Output: Great job. We recommend you look at the regression module to understand what is going on here completely. Briefly, we see all four levels of our Condition - (Other-Distanced is represented by (Intercept)). Moreover, the Estimates are the other three levels and their difference in score compared to the base category of Other-Distanced. That means that Other_Distanced has an average of .3345, while Other-Immersed is .1396 less than Other-Distanced. We also can tell that this comparison is not significantly different (p=.575).
 
 - Class: cmd_question
   Output: Don't believe us? Let's prove it. Take your data, Solomon, and pipe it into group_by(), where we will give it a single argument Condition, and then pipe that into summarise(), where we will pass it one argument, WisMean = mean(Wisdom, na.rm=TRUE)
@@ -112,10 +112,10 @@
   Output: "This represents a list of numbers. The quote above had them wanting to compare Other-Distance AND Other-Immersed against Self-Immersed. We can represent this through numbers. Consider that O-D is the first in the list, O-I is the second, S-D is the third, and S-I is the 4th in the list."
 
 - Class: cmd_question
-  Output:  Let's create a new object called Comparisons, and we'll set it equal to the function list(). This function will get a single argument, OthervSI = c(-1, -1, 0, 2). Notice four numbers - for the four conditions! Since S-D is not in the comparison, we zero out the third in the list, and since O-D and O-I are going to be combined, we keep them in the same negative direction and have them be sure that if we add up the comparison list, it would equal zero. Try that now. 
-  CorrectAnswer:  Comparisons = list(OthervSI = c(-1,-1,0, 2))
-  AnswerTests: omnitest(correctExpr='Comparisons = list(OthervSI = c(-1,-1,0, 2))')
-  Hint: Try Comparisons = list(OthervSI = c(-1,-1,0, 2))
+  Output:  Let's create a new object called Comparisons, and we'll assign it to the function list(). This function will get a single argument, OthervSI = c(-1, -1, 0, 2). Notice four numbers - for the four conditions! Since S-D is not in the comparison, we zero out the third in the list, and since O-D and O-I are going to be combined, we keep them in the same negative direction and have them be sure that if we add up the comparison list, it would equal zero. Try that now. 
+  CorrectAnswer:  Comparisons <- list(OthervSI = c(-1,-1,0, 2))
+  AnswerTests: omnitest(correctExpr='Comparisons <- list(OthervSI = c(-1,-1,0, 2))')
+  Hint: Try Comparisons <- list(OthervSI = c(-1,-1,0, 2))
 
 - Class: cmd_question
   Output: Great. Now, let's combine what we've done. Hit up until you get to that emmeans(~Condition) piece (without pairs()). Now pipe and add the contrast() function with the single argument, Comparisons.
@@ -126,7 +126,7 @@
 - Class: cmd_question
   Output: Very good. Our df is two less - we're not sure why. Regardless, hit up until you get back to the Comparisons = list(). After your first one, add a comma after 2). Then, the next comparison they want is SD (the 3rd level) compared against SI (the 4th level). Write that contrast just like the first one, and call it SDvSI. 
   CorrectAnswer: Comparisons = list(OthervSI = c(-1,-1,0, 2), SDvSI = c(0,0,-1,1))
-  AnswerTests: any_of_exprs('Comparisons = list(OthervSI = c(-1,-1,0, 2), SDvSI = c(0,0,-1,1))', 'Comparisons = list(OthervSI = c(-1,-1,0, 2), SDvSI = c(0,0,-1,1))')
+  AnswerTests: any_of_exprs('Comparisons = list(OthervSI = c(-1,-1,0, 2), SDvSI = c(0,0,-1,1))', 'Comparisons = list(OthervSI = c(-1,-1,0, 2), SDvSI = c(0,0,1,-1))')
   Hint: Try Comparisons = list(OthervSI = c(-1,-1,0, 2), SDvSI = c(0,0,-1,1))
 
 - Class: cmd_question
@@ -143,6 +143,10 @@
 
 - Class: text
   Output: Now you have a dataset of means (emmean), standard errors (SE), confidence intervals (lower.CL and upper.CL) and labels for your graph (.group). In the notes, we take this and plot it using ggplot2. 
+
+
+- Class: text
+  Output: And that's a one way ANOVA! As a review, to run an ANOVA, you create a linear model and then use the anova() wrapper on it. To test for post-hocs, use emmeans([variable]) |> pairs(). 
 
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
