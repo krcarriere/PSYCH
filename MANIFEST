@@ -14,8 +14,9 @@ Kruskal_Wallis_ANOVA
 Two_Way_ANOVA_[Between]
 Repeated_Measures_ANOVA
 Correlation
+Regression
 Chi_Square
 Pivoting_Data
 GGPlots_GroupedBarPlot
 GGPlots_ViolinPlots
-Regression
+
