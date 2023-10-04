@@ -191,6 +191,7 @@ sd(iris$Sepal.Length)/
 # Mazar, A., & Wood, W. (2022). Illusory Feelings, Elusive Habits: People Overlook Habits in Explanations of Behavior. Psychological Science, 33(4), 563–578. https://doi.org/10.1177/09567976211045345
 # Nalborczyk, L. (2022). Re-analysing the Data From Moffatt et al. (2020): What Can We Learn From an Under-powered Absence of Difference? Collabra: Psychology, 8(1), 33059. https://doi.org/10.1525/collabra.33059
 # Nosal, A. P., Keenan, E. A., Hastings, P. A., & Gneezy, A. (2016). The Effect of Background Music in Shark Documentaries on Viewers’ Perceptions of Sharks. PLOS ONE, 11(8), e0159279. https://doi.org/10.1371/journal.pone.0159279
+# Wylie, J., & Gantman, A. (2023). Doesn’t everybody jaywalk? On codified rules that are seldom followed and selectively punished. Cognition, 231, 105323. https://doi.org/10.1016/j.cognition.2022.105323
 ############################
 # Citations for the Course #
 #    - Non-Data Based -    # 
@@ -206,9 +207,10 @@ sd(iris$Sepal.Length)/
 # Haverkamp, N., & Beauducel, A. (2017). Violation of the Sphericity Assumption and Its Effect on Type-I Error Rates in Repeated Measures ANOVA and Multi-Level Linear Models (MLM). Frontiers in Psychology, 8, 1841. https://doi.org/10.3389/fpsyg.2017.01841
 # Healy, K. (2018). Data visualization: A practical introduction. Princeton University Press.
 # Hector, A., von Felten, S., & Schmid, B. (2010). Analysis of variance with unbalanced data: An update for ecology & evolution. Journal of Animal Ecology, 79(2), 308–316. https://doi.org/10.1111/j.1365-2656.2009.01634.x
+# Heiss, A. (2016, April 25). Convert logistic regression standard errors to odds ratios with R. Andrew Heiss. https://www.andrewheiss.com/blog/2016/04/25/convert-logistic-regression-standard-errors-to-odds-ratios-with-r/
 # Lakens, D. (2013). Calculating and reporting effect sizes to facilitate cumulative science: A practical primer for t-tests and ANOVAs. Frontiers in Psychology, 4. https://doi.org/10.3389/fpsyg.2013.00863
 # Navarro, D. (2019). Learning statistics with R: A tutorial for psychology students and other beginners (E. Kothe, Trans.; Bookdown Edition). Self-Published. https://learningstatisticswithr.com/book/
-#   Nordstokke, D. W., & Zumbo, B. D. (2007). A Cautionary Tale about Levene’s Tests for Equal Variances. Journal of Educational Research and Policy Studies, 7(1), 1–14.
+# Nordstokke, D. W., & Zumbo, B. D. (2007). A Cautionary Tale about Levene’s Tests for Equal Variances. Journal of Educational Research and Policy Studies, 7(1), 1–14.
 # Osborne, J. (2019). Notes on the use of data transformations. Practical Assessment, Research, and Evaluation, 8(6). https://doi.org/10.7275/4VNG-5608
 # Razali, N. M., & Wah, Y. B. (2011). Power comparisons of Shapiro-Wilk, Kolmogorov-Smirnov, Lilliefors and Anderson-Darling tests. Journal of Statistical Modeling and Analytics, 2(1), 21–33.
 # Ruxton, G. D., & Beauchamp, G. (2008). Time for some a priori thinking about post hoc testing. Behavioral Ecology, 19(3), 690–693. https://doi.org/10.1093/beheco/arn020
