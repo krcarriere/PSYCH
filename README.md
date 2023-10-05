@@ -1,7 +1,7 @@
 # PSYCH
 
 
-This course - Psychological Statistics You Can Handle (PSYCH) - is meant to be paired with an Undergraduate Research Methods or Statistics course. It is meant to help teach students basic statistics using R in an interactive framework. We take open data and replicate the results (or discuss why sometimes we cannot replicate the results). Future directions of this course include a lesson on sum of squares and additional practice using the tidyverse and ggplot2 packages. Students interact with many packages throughout this course, with the main ones being the tidyverse (dplyr, tidyr, purrr, ggplot2), rstatix, and emmeans. 
+This course - Psychological Statistics You Can Handle (PSYCH) - is meant to be paired with an Undergraduate Research Methods or Statistics course, with notes that could serve up to early career graduate students. It is meant to help teach students basic statistics using R in an interactive framework. We take open data and replicate the results (or discuss why sometimes we cannot replicate the results). Students interact with many packages throughout this course, with the main ones being the tidyverse (dplyr, tidyr, purrr, ggplot2), rstatix, and emmeans. 
 
 This course does not cover Baysian Statistics.
 
@@ -41,3 +41,10 @@ If you are a teacher/professor looking to use this course in your classroom, ple
 
 4) Now, have students install_course_github("yourgithubname", "PSYCH"). 
 
+### Future Plans
+
+- Consider making the hints actually hint-y. Currently, all hints just give the answer.
+
+- Always looking for edits and other helpful tips - both for the course itself and the Notes.R! 
+
+- Look for collaborators! Are you interested in using this in your course? Can we A/B test to see if it helps? We'd love to publish on our course but need some testing to back it up, and would love for you to be a co-author on the manuscript!
