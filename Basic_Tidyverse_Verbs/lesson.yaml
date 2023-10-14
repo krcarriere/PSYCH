@@ -105,7 +105,7 @@
   
 #20
 - Class: script
-  Output: Let's practice writing a long sentence combining what we've learned. I've opened up a script for you, please read and answer the script. When you're ready, save the script and type submit().
+  Output: Let us practice writing a long sentence combining what we have learned. We have opened up a script for you, please read and answer the script. When you're ready, save the script and type submit().
   AnswerTests: script_results_identical('length.table')
   Hint: Try skip() if you can't get it, and look to see how the answer looks.
   Script: combine.R

@@ -39,7 +39,7 @@
   
 #add description of study
 - Class: text
-  Output: I've loaded some data in your environment called Stickers. This comes from the Wilcoxon Sign-Rank module; researchers investigated how observing peer preferences influences the development of personal preferences in four-year-old children by exposing them to videos where peers expressed liking or disliking for certain stickers. The children then participated in the Dictator Game, a classic resource distribution task, to assess whether witnessing peers’ preferences affected their choices and allocations.
+  Output: We've loaded some data in your environment called Stickers. This comes from the Wilcoxon Sign-Rank module; researchers investigated how observing peer preferences influences the development of personal preferences in four-year-old children by exposing them to videos where peers expressed liking or disliking for certain stickers. The children then participated in the Dictator Game, a classic resource distribution task, to assess whether witnessing peers’ preferences affected their choices and allocations.
 
 - Class: text
   Output: Citation is "Hennefield, L., & Markson, L. (2017). Four-year-old Children Align their Preferences with those of their Peers. Collabra- Psychology, 3(1), 14. doi.org/10.1525/collabra.89."

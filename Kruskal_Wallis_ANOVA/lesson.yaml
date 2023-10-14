@@ -42,7 +42,7 @@
   Output: "The citation is Nosal, A. P., Keenan, E. A., Hastings, P. A., & Gneezy, A. (2016). The Effect of Background Music in Shark Documentaries on Viewers’ Perceptions of Sharks. PLOS ONE, 11(8), e0159279. doi.org/10.1371/journal.pone.0159279"
 
 - Class: cmd_question
-  Output: I've loaded the data into your environment called Sharks. Let's look at it by piping Sharks into head().
+  Output: We've loaded the data into your environment called Sharks. Let's look at it by piping Sharks into head().
   CorrectAnswer: Sharks |> head()
   AnswerTests: omnitest(correctExpr='Sharks |> head()')
   Hint: Try Sharks |> head(). 

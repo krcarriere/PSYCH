@@ -32,7 +32,7 @@
   Output: "As mentioned, researchers went to a train track. They recruited 100 participants on the Eastbound track and 100 on the Westbound track. They were randomly assigned to rate how far away they felt a stop was. The stop under question was one or two stops ahead or behind them (So, either one stop ahead, two stops ahead, one stop behind, two stops behind, where behind/ahead depends on direction they were headed)."
 
 - Class: cmd_question
-  Output: "Importantly, the distance from 2-1-0-1-2 was equidistance in reality. The research question was this - do people subjectively feel that their destination is closer or further away than where they are coming from (behind them)? \n\nI've loaded their dataset, called data. Check data by piping (|>) the data into summary()."
+  Output: "Importantly, the distance from 2-1-0-1-2 was equidistance in reality. The research question was this - do people subjectively feel that their destination is closer or further away than where they are coming from (behind them)? \n\n We've loaded their dataset, called data. Check data by piping (|>) the data into summary()."
   CorrectAnswer: data |> summary()
   AnswerTests: omnitest(correctExpr='data |> summary()')
   Hint: data |> summary()
@@ -92,7 +92,7 @@
 
 #21
 - Class: script
-  Output: Great job. That got us a list of the eight groups and their estimated marginal means (emmean). Now, if you were to count down, you could count 1, 2, 3... to Westbound Sherbourne being 8.  I've opened up a script for the second part, where we must declare what we want to compare. Be sure to save your work, and then type submit().
+  Output: Great job. That got us a list of the eight groups and their estimated marginal means (emmean). Now, if you were to count down, you could count 1, 2, 3... to Westbound Sherbourne being 8.  We've opened up a script for the second part, where we must declare what we want to compare. Be sure to save your work, and then type submit().
   AnswerTests: script_results_identical('Contrast_List')
   Hint: Try skip() if you can't get it, and look to see how the answer looks.
   Script: script1.R

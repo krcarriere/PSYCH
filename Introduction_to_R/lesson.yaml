@@ -118,7 +118,7 @@
 
 #22
 - Class: text
-  Output: "To be the best coders, we will always let R know which packages we're calling these special functions from. For example, I've downloaded a package for you called psych."
+  Output: "To be the best coders, we will always let R know which packages we're calling these special functions from. For example, We've downloaded a package for you called psych."
 
 #23
 - Class: text

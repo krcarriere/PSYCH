@@ -64,7 +64,7 @@
   Output: In 2022, Frankenhuis and colleagues wanted to know whether or not individuals who lived in relatively challenging conditions were significantly different in a range of measures compared to those who lived in low-risk situations, with their primary research question measuring if those who were high-risk detected more threats in ambiguous situations compared to a low-risk group.
 
 - Class: text
-  Output: The high-risk group was a "group of community participants who lived in relatively challenging conditions for Dutch standards, in that people were more likely to need governmental support to meet their basic needs (e.g., food, housing, safety)." They had "anticipated that on average members of the community sample had experienced higher levels of adversity, including higher levels of exposure to violence in their past or current environments. The other group was a college student sample, who [were] expected to have experienced lower levels of violence (the ‘low-risk group’)". I've loaded their data in your environment under violence.
+  Output: The high-risk group was a "group of community participants who lived in relatively challenging conditions for Dutch standards, in that people were more likely to need governmental support to meet their basic needs (e.g., food, housing, safety)." They had "anticipated that on average members of the community sample had experienced higher levels of adversity, including higher levels of exposure to violence in their past or current environments. The other group was a college student sample, who [were] expected to have experienced lower levels of violence (the ‘low-risk group’)". We've loaded their data in your environment under violence.
 
 - Class: text
   Output: "The citation for this paper is- Frankenhuis, W. E., Weijman, E. L., de Vries, S. A., van Zanten, M., & Borghuis, J. (2022). Exposure to Violence Is Not Associated With Accuracy in Forecasting Conflict Outcomes. Collabra- Psychology, 8(1), 38604. doi.org/10.1525/collabra.38604"
@@ -127,7 +127,7 @@
   Hint: violence |> wilcox_test(C ~ 1, mu=0)
 
 - Class: script
-  Output: The first part of their sentence called out the mean and standard error. Let's calculate those now. I've loaded a script for you to fill out to solve for the mean and standard error.
+  Output: The first part of their sentence called out the mean and standard error. Let's calculate those now. We've loaded a script for you to fill out to solve for the mean and standard error.
   AnswerTests: script_results_identical('sum_violence')
   Hint: Follow the notes in the script, and be sure you saved your script (using the save button or ctrl+S) before typing submit() in the Console.
   Script: summarise.R

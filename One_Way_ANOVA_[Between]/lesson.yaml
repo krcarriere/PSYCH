@@ -25,7 +25,7 @@
   Output: "The citation is Grossmann, I., & Kross, E. (2014). Exploring Solomon’s Paradox- Self-Distancing Eliminates the Self-Other Asymmetry in Wise Reasoning About Close Relationships in Younger and Older Adults. Psychological Science, 25(8), 1571–1580. doi.org/10.1177/0956797614535400"
 
 - Class: cmd_question
-  Output: I've loaded the data into your environment called Solomon. Let's look at it by piping Solomon into head().
+  Output: We've loaded the data into your environment called Solomon. Let's look at it by piping Solomon into head().
   CorrectAnswer: Solomon |> head()
   AnswerTests: omnitest(correctExpr='Solomon |> head()')
   Hint: Try Solomon |> head(). 
