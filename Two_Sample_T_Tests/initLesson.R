@@ -163,7 +163,7 @@ difficult.achieve = c(1L, 5L, 5L, 6L, 6L, 4L, 7L, 4L, 4L,
                                                          "Frozen Goal", "Frozen Goal", "Frozen Goal", "Frozen Goal", 
                                                          "Frozen Goal", "Frozen Goal", "Frozen Goal")), class = "data.frame", row.names = c(NA, -224L))
 
-
+goalsdf <- goalsdf[1:211,]
 
 Variable <- c("achieve.goal.importance", "progress", "have.goal.importance", "difficult.achieve")
 ActiveMean <- c(6.46,  35.30, 6.38, 5.19)

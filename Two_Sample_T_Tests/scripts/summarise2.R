@@ -25,7 +25,7 @@ sum_hire <-
     N = sum(!is.na(ResponseVariable)) #Change this to say Hire_Rating
   )
 
-# If you were to type your new dataset into your console, sum_data,
+# If you were to type your new dataset into your console, sum_hire,
 # You will get an output like this:
 
 #  A tibble: 2 × 4

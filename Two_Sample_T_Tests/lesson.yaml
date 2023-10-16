@@ -105,7 +105,7 @@
   Hint: df |> cohensD(Intellect_Rating~Condition, data=_)
 
 - Class: cmd_question
-  Output: Great job! Unfortunately, that's not what they reported. Their effect size was 1.16, and ours is 1.13. What can we do? Well, cohensD takes another argument, method. Let's set method = "raw". The help file (or typing cohensD( into your console) would show that the default value is method is "pooled" and try again. Remember, you can hit the up arrow on your keyboard to bring up your hard work.
+  Output: Great job! Unfortunately, that's not what they reported. Their effect size was 1.16, and ours is 1.13. What can we do? Well, cohensD takes another argument, method. Let's set method = "raw". The help file (or typing ?cohensD into your console) would show that the default value is method is "pooled" and try again. Remember, you can hit the up arrow on your keyboard to bring up your hard work.
   CorrectAnswer: df |> cohensD(Intellect_Rating~Condition, data=_, method="raw")
   AnswerTests: omnitest(correctExpr='df |> cohensD(Intellect_Rating~Condition, data=_, method="raw")')
   Hint: df |> cohensD(Intellect_Rating~Condition, data=_, method="raw")
