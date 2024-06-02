@@ -9,9 +9,13 @@ This course was supported through the Society for the Improvement of Psychologic
 
 This course is recommended to be run in RStudio. Please download R- https://www.r-project.org/ and RStudio - https://www.rstudio.com/ first.
 
-This course requires you also install the swirl package. Once RStudio has loaded, type "install.packages("swirl") into the console. 
+This course requires the installation of the swirl package. Once RStudio has loaded, type the following into the console: 
 
-Then, once it is installed, type "library(swirl)". To install this course, please run install_course("PSYCH"). You can also directly install from my github with install_course_github("krcarriere", "PSYCH").
+    install.packages("swirl")
+    library(swirl)
+    install_course("PSYCH")
+    
+You can also directly install from github with install_course_github("krcarriere", "PSYCH").
 
 ## For Teachers
 
