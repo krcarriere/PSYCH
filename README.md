@@ -14,8 +14,13 @@ This course requires the installation of the swirl package. Once RStudio has loa
     install.packages("swirl")
     library(swirl)
     install_course("PSYCH")
+    swirl()
     
-You can also directly install from github with install_course_github("krcarriere", "PSYCH").
+You can also directly install from github with the following code:
+
+    library(swirl)
+    install_course_github("krcarriere", "PSYCH")
+    swirl()
 
 ## For Teachers
 
