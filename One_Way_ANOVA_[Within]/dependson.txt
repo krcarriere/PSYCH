@@ -1,5 +1,8 @@
 swirl
 swirlify
+ggplot2
+cowplot
+effectsize
 rstatix
 emmeans
 lmerTest

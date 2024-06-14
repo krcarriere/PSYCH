@@ -1,0 +1,17 @@
+swirl
+PairedData
+stats
+effectsize
+jtools
+tidyr
+rcompanion
+coin
+magrittr
+rstatix
+ggplot2
+egg
+dplyr
+latex2exp
+caTools
+base64enc
+lsr

@@ -48,7 +48,15 @@
   Hint: Try Sharks |> head(). 
 
 - Class: text
-  Output: Notice there are three factor columns - one that lumps all conditions together (Condition) and one that treats each actual factor as its column (AudioVideo and MusicChoice). While in our Two-Way ANOVAs, we want the latter, Kruskal-Wallis doesn't appreciate interaction terms in the same way, and therefore, we want all of the conditions to be a single column (Condition). 
+  Output: Notice there are three factor columns - one that lumps all conditions together (Condition) and one that treats each actual factor as its column (AudioVideo and MusicChoice). 
+  
+- Class: mult_question
+  Output: Which column represents whether or not the participants were in the Video or Audio condition?
+  AnswerChoices: Condition; AudioVideo; MusicChoice; PositiveRatings; NegativeRatings
+  CorrectAnswer: AudioVideo
+  
+- Class: text
+  Output: While in our Two-Way ANOVAs, we want both AudioVideo and MusicChoice, Kruskal-Wallis doesn't appreciate interaction terms in the same way, and therefore, we want all of the conditions to be a single column (Condition). 
   
 - Class: text
   Output: The authors write - "There was a significant effect of experimental treatment on... negative (Kruskal-Wallis H = 62.423, df = 5, p < 0.001) ... ratings of  sharks."
@@ -66,7 +74,7 @@
   Output: Next, they write - "Participants in the V-ominous treatment rated sharks significantly more negatively  (M = 5.07) than those in the V-uplifting (M = 4.33; Dunn’s Z = 2.993, Bonferroni-adjusted  p = 0.042) and V-silence treatments (M = 4.43; Z = 3.023, p = 0.038)."
 
 - Class: script
-  Output: Let's tackle the means first. 
+  Output: Let's tackle the means first. We've loaded a script to get the output. Notice that it says V-ominous and V-uplifting, suggesting Video conditions.
   AnswerTests: mean_results_identical('vidmeans')
   Hint: vidmeans <- Sharks |>  filter(AudioVideo=="Video") |> group_by(Condition) |> summarise(mean = mean(NegativeRatings, na.rm=TRUE)) should get it for you!
   Script: mean.R
@@ -91,7 +99,7 @@
   Hint: Try Sharks |> dunn_test(NegativeRatings~Condition, p.adjust.method="bonferroni") |> select(-.y.). 
 
 - Class: cmd_question
-  Output: That's still a lot - so let's take this one step more advanced. At the end, let's pipe this one more time into filter(). We will pass another function into filter(), called str_detect() in the stringr package, which will take two arguments. The first is the column we're looking at, which will be group1, and the second, which will be the pattern of the string we're looking for, which will be "V." in quotes. Try that now. 
+  Output: That's still a lot - so let's take this one step further. At the end, let's pipe this one more time into filter(). We will pass another function into filter(), called str_detect() in the stringr package, which will take two arguments. The first is the column we're looking at, which will be group1, and the second, which will be the pattern of the string we're looking for, which will be "V." in quotes. Try that now. 
   CorrectAnswer: Sharks |> dunn_test(NegativeRatings~Condition, p.adjust.method="bonferroni") |> select(-.y.) |> filter(str_detect(group1, "V."))
   AnswerTests: omnitest(correctExpr='Sharks |> dunn_test(NegativeRatings~Condition, p.adjust.method="bonferroni")  |> select(-.y.) |> filter(str_detect(group1, "V."))')
   Hint: Try Sharks |> dunn_test(NegativeRatings~Condition, p.adjust.method="bonferroni") |> select(-.y.)  |> filter(str_detect(group1, "V.")) 
@@ -114,7 +122,6 @@
 
 - Class: text
   Output: Great job. The help file states that magnitude is defined as .01-.05 as a small effect, .06-.13 as a medium effect, and .14 and higher as a large effect for partial eta-squared (see Cohen, 1988).
-
   
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
