@@ -1,0 +1,247 @@
+- Class: meta
+  Course: Psychological Statistics You Can Handle
+  Lesson: Mann-Whitney U-Tests
+  Author: Kevin R. Carriere
+  Type: Standard
+  Organization: Washington & Jefferson College
+  Version: 2.4.3
+
+- Class: script
+  Output: To save the notes for this module, copy and paste the code provided into your own RNotebook. Type submit() when you have finished saving these notes. 
+  AnswerTests: script_results_identical('saved')
+  Hint: "Don't change anything, just type submit(). If you did and you don't know how to fix it, just type skip(), and you'll be all set."
+  Script: Notes.R
+  
+- Class: text
+  Output: This module is the non-parametric alternative to the independent t-test module. You can also take the Testing for Non-Normality Module for additional review.
+
+- Class: text
+  Output: So, what does it mean to be non-parametric?
+  
+- Class: text
+  Output: It means that it is a method of analysis that does not include assumptions regarding distributions. So, what assumptions are in the independent samples t-test?
+
+- Class: text
+  Output: "The assumptions of an independent samples t-test are - \n\n (1) The samples are randomly selected from the population. \n\n (2) The observations are independent from each other. \n\n (3) The sample mean is normally distributed between each population. \n\n (4) The variances between the two groups are equal."
+  
+- Class: text
+  Output: That third and fourth assumptions -- normality of mean and equal variances - are things we can test. We reviewed how to test for equal variances in the independent samples t-test, and even include additional review in the module Welch's Two Sample T-Test when this assumption is violated. If neither are violated, we can proceed with the Independent Samples T-Test.
+
+- Class: text
+  Output: We are going to examine two papers within this Module. In the first study, Knight & Preston (2023) wondered if how we take photos of ourselves - selfies - impact how others perceive us. They examined this question over four studies.
+
+- Class: text
+  Output: The citation for this paper is - Knight, R., & Preston, C. (2023). Doselfies make women lookslimmer? Theeffect ofviewing angle onaesthetic andweight judgments of women’s bodies. PLoS ONE, 18(10), e0291987. https://doi.org/10.1371/journal.pone.0291987
+  
+- Class: text
+  Output: We will examine Study 1, where they exposed women who were 18 years old or older and did not have a history of eating disorders to view 20 photos of female models (excluding their head) who were asked to wear form-fitting clothes that they would exercise in.
+
+- Class: text
+  Output: In Study 1, half of those 20 photos were of the selfie view, where the model took the selfie angle with the tablet held in their left hand an arms-length away angled from above. The other 10 photos were of the allocentric view, where the photographer stood roughly two metres in front of the model capturing the whole body (You get someone to take of a photo of yourself).
+
+- Class: text
+  Output: For each photo, participants rated, on a scale from 0 to 100, both attractiveness (anchored by ‘Very Unattractive’ to ‘Very Attractive’) and weight (‘Very Underweight’ to ‘Very Overweight’). 
+  
+- Class: cmd_question
+  Output: Let's look at the data now by piping (|>) our dataset (Selfies) into head(). 
+  CorrectAnswer: Selfies |> head()
+  AnswerTests: omnitest(correctExpr='Selfies |> head()')
+  Hint: Try Selfies |> head().
+
+- Class: mult_question
+  Output: Based on the output, what is the fourth variable?
+  AnswerChoices: The average attractiveness rating for selfie photos; The average attractiveness rating for allocentric photos; The average weight rating for selfie photos; The average weight rating for allocentric photos.
+  CorrectAnswer: The average attractiveness rating for selfie photos
+  AnswerTests: omnitest(correctVal='The average attractiveness rating for selfie photos')
+  Hint: The two words should point us to what the correct answer must be.
+
+- Class: text
+  Output: You should notice a few things with this data. First, participants were exposed to both conditions - they rated BOTH the allocentric photos and the selfie-photos. This is a big shining light that the study is dependent samples. But, as we mentioned in the Module already, the assumptions for dependent samples cares not about the average of each condition, but instead, the differences between the two conditions. And those variables - for both weight and attractiveness - don't yet exist.
+
+- Class: script
+  Output: We've loaded a script to use mutate() in the dplyr package to create these two new variables. Save your script before you type submit().
+  AnswerTests: script_results_identical('Selfies')
+  Hint: Follow the notes in the script, and be sure you saved your script (using the save button or ctrl+S) before typing submit() in the Console.
+  Script: differences.R
+  
+- Class: cmd_question
+  Output: Wonderful job! Let's check that everything is working as intended by piping (|>) our dataset (Selfies) into head(). 
+  CorrectAnswer: Selfies |> head()
+  AnswerTests: omnitest(correctExpr='Selfies |> head()')
+  Hint: Try Selfies |> head().
+
+- Class: text
+  Output: It worked! Now the authors state- "Data for all variables (...differences in attractiveness judgements across perspectives, differences in weight judgements across perspectives...) were not normally distributed, according to Shapiro-Wilk tests ... and analysis of histograms. Because of this, Wilcoxon signed-rank tests were used."
+
+- Class: text
+  Output: Let's see how they came to this conclusion. They first mention Shapiro-Wilk tests.
+
+- Class: cmd_question
+  Output: We show two ways to run Shapiro-Wilk tests in the Notes, but in this module, we'll focus on the rstatix version, shapiro_test(). Take our data, Selfies, and pipe it into shapiro_test(), with a single argument, WeightDiff.
+  CorrectAnswer: Selfies |> shapiro_test(WeightDiff)
+  AnswerTests: omnitest(correctExpr='Selfies |> shapiro_test(WeightDiff)')
+  Hint: Try Selfies |> rstatix::shapiro_test(WeightDiff).
+  
+- Class: cmd_question
+  Output: Very good! As the p value is smaller than .05, we reject the null hypothesis that the differences are normal for the weight judgments. What about attractiveness? Hit up on your keyboard to pull up the last code, and change WeightDiff to AttractDiff.
+  CorrectAnswer: Selfies |> shapiro_test(AttractDiff)
+  AnswerTests: omnitest(correctExpr='Selfies |> shapiro_test(AttractDiff)')
+  Hint: Try Selfies |> rstatix::shapiro_test(AttractDiff)
+  
+- Class: cmd_question
+  Output: The authors also mentioned they examined histograms. So, let's do that too! It's good practice to use all tools at our disposal to determine if our assumptions are violated. Let us take our data, Selfies, and pipe it into the tidyverse verb pull(), which will take the argument WeightDiff, and then pipe that into the function hist(). Try that now.
+  CorrectAnswer: Selfies |> pull(WeightDiff) |> hist()
+  AnswerTests: omnitest(correctExpr='Selfies |> pull(WeightDiff) |> hist()')
+  Hint: Try Selfies |> pull(WeightDiff) |> hist()
+
+- Class: cmd_question
+  Output: You can see that the histogram looks like it has a tail on the lefthand side. That's probably what the shapiro_test() is picking up on when it says its not very normal. You know the drill, hit up, change WeightDiff to AttractDiff.
+  CorrectAnswer: Selfies |> pull(AttractDiff) |> hist()
+  AnswerTests: omnitest(correctExpr='Selfies |> pull(AttractDiff) |> hist()')
+  Hint: Try Selfies |> pull(AttractDiff) |> hist()
+  
+- Class: text
+  Output: Well this one is even more clear - look at that outlier over there! And beyond that, look how clumped the rest of the data is. Clearly, this is not the shape of a normal distribution. 
+  
+- Class: text
+  Output: Now, with these two tools in hand, the authors proceeded. However, let us add one more tool to our arsenal. We also can use a qqplot to analyze the normality of the differences. 
+  
+- Class: script
+  Output: Follow the instructions. When you're ready, save and type submit().
+  AnswerTests: plot_results_identical('WeightQQ')
+  Hint: WeightQQ <- Selfies |> ggplot(aes(sample=WeightDiff))+ geom_qq()+ geom_qq_line()
+  Script: qqplot.R
+  
+- Class: cmd_question
+  Output: Output what you've done by typing WeightQQ into the console.
+  CorrectAnswer: WeightQQ
+  AnswerTests: omnitest(correctExpr='WeightQQ')
+  Hint: Type WeightQQ.
+  
+- Class: text
+  Output: See how the observations in the middle touch the line? That's good, that's what we want. However, see how many dots fail to touch the line - both towards the beginning and towards the end? That's not so good. You will get a better sense of what looks normal or not in these qqplots as you expose yourself to more of them.
+
+- Class: text
+  Output: Okay, well, all of the evidence suggested that the authors made the right call. 
+
+- Class: text
+  Output: The authors write, "In line with our hypotheses a Wilcoxon signed-rank test showed a significant difference in weight ratings between allocentric and selfie images  (W = 387.00, p < .001, rank-biserial correlation = -0.68) such that selfie images were judged to be slimmer than allocentric images.
+  
+- Class: cmd_question
+  Output: In the notes, we outline a few different ways to run the Wilcoxon Signed Rank test. Take our data, Selfies, and pipe it into wilcox.test(). wilcox.test() will take two arguments. The first argument will be a combination of a formula and a function - We need to write Pair(SelfieWeightAv, AlloWeightAv) ~ 1 . The second argument (remember- arguments are separated by commas) is data = _ . Try that now.
+  CorrectAnswer: Selfies |> wilcox.test(Pair(SelfieWeightAv, AlloWeightAv) ~ 1, data=_)
+  AnswerTests: omnitest(correctExpr='Selfies |> wilcox.test(Pair(SelfieWeightAv, AlloWeightAv) ~ 1, data=_)')
+  Hint: Try Selfies |> wilcox.test(Pair(SelfieWeightAv, AlloWeightAv) ~ 1, data=_) .
+  
+- Class: text
+  Output: That got us the first half, but what about that rank biserial correlation? 
+
+- Class: cmd_question
+  Output: Hit up on your keyboard. We'll make one small change - instead of wilcox.test, change it to rank_biserial. Hit enter once you have done that.
+  CorrectAnswer: Selfies |> rank_biserial(Pair(SelfieWeightAv, AlloWeightAv) ~ 1, data=_)
+  AnswerTests: omnitest(correctExpr='Selfies |> rank_biserial(Pair(SelfieWeightAv, AlloWeightAv) ~ 1, data=_)')
+  Hint: Try Selfies |> rank_biserial(Pair(SelfieWeightAv, AlloWeightAv) ~ 1, data=_) .
+
+- Class: text
+  Output: Great job! We walk through other ways to tackle effect sizes in the Notes, including other packages that produce this number (rcompanion's wilcoxonPairedRC()) and ones that produce a very different effect size measure (rstatix's wilcox_effsize). 
+  
+- Class: text
+  Output: Let's do one more - but just quickly. 
+  
+- Class: text
+  Output: "In one study, four-year-old children watched videos of two boys and two girls expressing a preference for one of two stickers. The children then completed a resource distribution task where they distributed 10 liked or ten disliked stickers between themselves and another child. The results showed that children tended to keep more of the liked than disliked stickers for themselves, indicating that their distribution patterns were influenced by their peers' preferences. "
+  
+- Class: text
+  Output: The citation for this study is - "Hennefield, L., & Markson, L. (2017). Four-year-old Children Align their Preferences with those of their Peers. Collabra- Psychology, 3(1), 14. doi.org/10.1525/collabra.89"
+
+- Class: cmd_question
+  Output: Let's look at our data to see what it looks like. Pipe our data, Stickers, into head() and give head the single argument n=10.
+  CorrectAnswer: Stickers |> head(n=10)
+  AnswerTests: omnitest(correctExpr='Stickers |> head(n=10)')
+  Hint: Stickers |> head(n=10)
+  
+- Class: text
+  Output: You can see how there are four columns. The distributions column notes if the child kept an equal number of liked or disliked, more liked, or if they kept all the stickers.
+  
+- Class: text
+  Output: The authors write - "It is unclear how to classify the six children who kept all the stickers.  Indeed, some researchers differentiate between prosocial (distributing at  least one) and non-prosocial (keeping all) children, and exclude those non-prosocial children from subsequent analyses."
+
+- Class: cmd_question
+  Output: 'Let us filter out those six kids. Pipe Stickers (|>) into the filter() function from dplyr, where we will pass the argument Distributions!="kept all". Be sure to reassign your dataset back to Stickers.'
+  CorrectAnswer: Stickers <- Stickers |> filter(Distributions!="kept all")
+  AnswerTests: omnitest(correctExpr='Stickers <- Stickers |> filter(Distributions!="kept all")')
+  Hint: Stickers <- Stickers |> filter(Distributions!="kept all")
+
+- Class: cmd_question
+  Output: "Now, let's create a difference variable. To do this, take our data, Stickers and pipe (|>) it into the mutate() function. Inside of that function, let's create a new variable called Difference.Kept, and make it equal to Liked.Kept - Disliked.Kept. Be sure to reassign it as Stickers. Try that now."
+  CorrectAnswer: Stickers <- Stickers |> mutate(Difference.Kept = Liked.Kept - Disliked.Kept)
+  AnswerTests: omnitest(correctExpr='Stickers <- Stickers |> mutate(Difference.Kept = Liked.Kept - Disliked.Kept)')
+  Hint: Stickers <- Stickers |> mutate(Difference.Kept = Liked.Kept - Disliked.Kept)
+
+- Class: text
+  Output: "The paper reads - A Wilcoxon Signed-Rank test indicates that, overall, children kept marginally more liked (M = 6.5) than disliked (M = 6.1) stickers, (Z = –1.799, p = .072)."
+
+- Class: cmd_question
+  Output: "Hit up on your keyboard until you find your wilcox.test() in the console and change the inputs to Stickers, Liked.Kept, Disliked.Kept. If you cannot find it, try Stickers |> wilcox.test(Pair(Liked.Kept, Disliked.Kept)~1, data=_)"
+  CorrectAnswer:  Stickers |> wilcox.test(Pair(Liked.Kept, Disliked.Kept)~1, data=_)
+  AnswerTests: omnitest(correctExpr='Stickers |> wilcox.test(Pair(Liked.Kept, Disliked.Kept)~1, data=_)')
+  Hint:  Stickers |> wilcox.test(Pair(Liked.Kept, Disliked.Kept)~1, data=_)
+
+- Class: cmd_question
+  Output: You might be saying "Hey, that's not what they reported." And if you did notice that, good for you! Indeed. This is the reason why we are teaching this test using Pair(). The authors of the study tried a different way, but their method requires that you remind R that the data is paired, and they failed to tell it that. To prove it, we can get their result by inputting the following into the console - wilcox.test(Stickers$Liked.Kept, Stickers$Disliked.Kept, exact=FALSE). 
+  CorrectAnswer: wilcox.test(Stickers$Liked.Kept, Stickers$Disliked.Kept, exact=FALSE)
+  AnswerTests: omnitest(correctExpr='wilcox.test(Stickers$Liked.Kept, Stickers$Disliked.Kept, exact=FALSE)')
+  Hint: wilcox.test(Stickers$Liked.Kept, Stickers$Disliked.Kept, exact=FALSE)
+
+- Class: cmd_question
+  Output: This is actually the Mann-Whitney U-Test! We have forgotten to tell R that these are paired observations. Hit up on your console, and add a fourth argument, paired=TRUE.
+  CorrectAnswer: wilcox.test(Stickers$Liked.Kept, Stickers$Disliked.Kept, exact=FALSE, paired=TRUE)
+  AnswerTests: omnitest(correctExpr='wilcox.test(Stickers$Liked.Kept, Stickers$Disliked.Kept, exact=FALSE, paired=TRUE)')
+  Hint: wilcox.test(Stickers$Liked.Kept, Stickers$Disliked.Kept, exact=FALSE, paired=TRUE)
+
+- Class: text
+  Output: Indeed! If only the researchers had remembered to note that paired=TRUE, or, even better, use our Pair() method, they could have argued that there was a significant difference at their alpha of .05.
+
+- Class: text
+  Output: Now, they reported a Z score as an effect size. 
+  
+- Class: cmd_question
+  Output: Tet's take that in two steps. First step - hit the up arrow on your keyboard to reach our last function (our sign-rank test). At the beginning, create an object called signrank and assign your code to that object.
+  CorrectAnswer: signrank <- wilcox.test(Stickers$Liked.Kept, Stickers$Disliked.Kept, exact=FALSE, paired=TRUE)
+  AnswerTests: omnitest(correctExpr='signrank <- wilcox.test(Stickers$Liked.Kept, Stickers$Disliked.Kept, exact=FALSE, paired=TRUE)')
+  Hint: signrank <- wilcox.test(Stickers$Liked.Kept, Stickers$Disliked.Kept, exact=FALSE, paired=TRUE)
+
+- Class: mult_question
+  Output: If you were to type signrank$ into your console, a list of possible variables would show up. Which of the following does not appear? 
+  AnswerChoices: statistic; parameter; p.value; null.value; alternative; method; data.name; sign
+  CorrectAnswer: sign
+  AnswerTests: omnitest(correctVal='sign')
+  Hint: You can also click the arrow in your Environment next to signrank and see the list there!
+
+- Class: cmd_question
+  Output: Now that we see how even something as simple as a function call also creates variables (similar to a data frame in some ways), we can pass signrank$p.value through qnorm(). However, inside, divide that argument by two because we want a two-tailed test. That will get us our Z statistic.
+  CorrectAnswer: qnorm(signrank$p.value/2)
+  AnswerTests: omnitest(correctExpr='qnorm(signrank$p.value/2)')
+  Hint: qnorm(signrank$p.value/2)
+
+- Class: mult_question
+  Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
+  AnswerChoices: Yes; No
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: hint
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  

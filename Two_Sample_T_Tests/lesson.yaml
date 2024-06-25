@@ -50,7 +50,7 @@
   Output: (4) Equivalence of variances. The standard deviation of the distribution is equal in both populations. 
 
 - Class: text
-  Output: We cover violations of (3) in the Wilcoxon Signed Rank Test and violations of (4) in Welch's Two Sample T-Test. 
+  Output: We cover violations of (3) in the Mann-Whitney U-Test and violations of (4) in Welch's Two Sample T-Test. 
   
 - Class: text
   Output: But for now, let us consider datasets that do not have violations of these assumptions.

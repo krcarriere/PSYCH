@@ -1,3 +1,7 @@
+# "Participants in the V-ominous treatment rated sharks significantly more 
+# negatively (M = 5.07) than those in the V-uplifting (M = 4.33; Dunn’s Z = 2.993,
+# Bonferroni-adjusted p = 0.042) and V-silence treatments (M = 4.43; Z = 3.023, p = 0.038)."
+
 vidmeans <-
   ____ |>  # What is the name of our dataset?
   # To make this cleaner, let's filter our data first.

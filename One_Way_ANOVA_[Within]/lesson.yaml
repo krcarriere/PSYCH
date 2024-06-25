@@ -4,7 +4,7 @@
   Author: Kevin R. Carriere & Jason Kilgore
   Type: Standard
   Organization: Washington & Jefferson College
-  Version: 3.0.0
+  Version: 3.1.0
 
 #1
 - Class: script
@@ -47,8 +47,10 @@
 - Class: text
   Output: Notice there are three columns - one that lumps all of the conditions together (Feedback), one that represents the response variable, how much neck rotation they could perform (Rotation), and a variable called rowid, which represents the participant.
 
-- Class: text
+- Class: figure
   Output: We should immediately notice two things based on this. One- this must be repeated measures, since the participant rowid 1 appears multiple times, and since it is formatted like this, the data is in the 'long' format already. And, since we see that rowid 1 appears three times, we can imagine there are three levels to Feedback - Understated, Accurate, and Overstated.
+  Figure: fig3.R
+  FigureType: new
 
 - Class: text
   Output: The authors write - "The repeated measures ANOVA revealed a large overall effect of visual-proprioceptive feedback (condition) on pain-free range of motion F(2, 94) = 18.9, p < .001, ηp 2 = 0.29." 
@@ -105,34 +107,69 @@
   
 - Class: text
   Output: In particular, it will increase the F critical value, which will make it more difficult to reject the null hypothesis, and therefore, our p-value will increase as well.
+
 - Class: text
   Output: Next, the authors write - "All pairwise comparisons were significant (ps < .01). When vision understated true rotation, pain-free range of motion was increased, and this was a medium-sized effect, p = .006, d = 0.67. when vision overstated true rotation, pain-free range of motion decreased, which was a large effect, p = .001, d = 0.80."
   
 - Class: text
   Output: To get the rest of the results, we need to run two more lines of code. The first is going to get those p values they report.  
 
-- Class: cmd_question
-  Output: To do this, we will rewrite our ANOVA as a linear mixed-effect model with the random effect of participants. Pipe (|>) our data pain into the lmer() function from the lmerTest package. It will take two arguments, the formula, which is Rotation ~ Feedback + (1|rowid) [notice (1|rowid) represents the random effect of participant (another way to understand repeated measures)] and data=_. We will then pipe that into emmeans() from the emmeans package, taking the argument ~Feedback, and then we will pipe that into pairs().
-  CorrectAnswer: 'pain |> lmer(Rotation ~ Feedback + (1|rowid), data=_) |> emmeans(~Feedback) |> pairs()'
-  AnswerTests: omnitest(correctExpr='pain |> lmer(Rotation ~ Feedback + (1|rowid), data=_) |> emmeans(~Feedback) |> pairs()')
-  Hint: Try pain |> lmer(Rotation ~ Feedback + (1|rowid), data=_) |> emmeans(~Feedback) |> pairs().
-
 #30
 - Class: cmd_question
-  Output: Finally, they report the effect sizes of these comparisons. Another reminder- please check the Paired T-tests for discussions about effect sizes for within-subject designs. Regardless, let's pipe (|>) our data pain into the cohens_d() function from rstatix and pass it a single formula, Rotation ~ Feedback. 
-  CorrectAnswer: pain |> cohens_d(Rotation ~ Feedback)
-  AnswerTests: omnitest(correctExpr='pain |> cohens_d(Rotation ~ Feedback)')
-  Hint: Try pain |> cohens_d(Rotation ~ Feedback)
-  
-- Class: cmd_question
-  Output: That was their result, yes! However, you forgot something! The data was paired. Hit the up arrow and add paired=TRUE as a second argument to cohens_d().
-  CorrectAnswer: pain |> cohens_d(Rotation ~ Feedback, paired=TRUE)
-  AnswerTests: omnitest(correctExpr='pain |> cohens_d(Rotation ~ Feedback, paired=TRUE)')
-  Hint: Add paired=TRUE as an argument in cohens_d(). 
+  Output: To do this, we will rewrite our ANOVA as a linear mixed-effect model with the random effect of participants. Pipe (|>) our data pain into the lmer() function from the lmerTest package. It will take two arguments, the formula, which is Rotation ~ Feedback + (1|rowid) [notice (1|rowid) represents the random effect of participant (another way to understand repeated measures)] and data=_. We will then pipe that into emmeans() from the emmeans package, taking the argument ~Feedback, and then we will pipe that into pairs(), which will take one final argument, adjust="bonferroni".
+  CorrectAnswer: 'pain |> lmer(Rotation ~ Feedback + (1|rowid), data=_) |> emmeans(~Feedback) |> pairs(adjust="bonferroni")'
+  AnswerTests: omnitest(correctExpr='pain |> lmer(Rotation ~ Feedback + (1|rowid), data=_) |> emmeans(~Feedback) |> pairs(adjust="bonferroni")')
+  Hint: Try pain |> lmer(Rotation ~ Feedback + (1|rowid), data=_) |> emmeans(~Feedback) |> pairs(adjust="bonferroni").
 
 - Class: text
-  Output: That was our reminder to check the notes on the Paired T-Test module on effect sizes. As we said then, "It's the Wild West out there!"
+  Output: You might have noticed the p-values are slightly different from theirs. We know. But, before you run and call foul, let's show what they ran.
 
+- Class: cmd_question
+  Output: Take our data, pain, and pipe it into rstatix's pairwise_t_test() function. It will take 4 arguments - Rotation ~ Feedback, paired = TRUE, pool.sd=FALSE, and p.adjust.method="bonferroni". Finally, pipe all of that into  select(-.y.). . Try that now.
+  CorrectAnswer: 'pain |> pairwise_t_test(Rotation ~ Feedback, paired=TRUE, pool.sd=FALSE, p.adjust.method = "bonferroni") |> select(-.y.)' 
+  AnswerTests: omnitest(correctExpr='pain |> pairwise_t_test(Rotation ~ Feedback, paired=TRUE, pool.sd=FALSE, p.adjust.method = "bonferroni")  |> select(-.y.)')
+  Hint: Try pain |> pairwise_t_test(Rotation ~ Feedback, paired=TRUE, pool.sd=FALSE, p.adjust.method = "bonferroni") |> select(-.y.)
+
+- Class: text
+  Output: It's not 100% clear that our or their results are more 'correct'. Notice that while our lmer() function gets smaller t.ratio statistics than their pairwise_t_test() (3.155 & 3.002 v 3.900 & 3.260), we also show that the other comparison, we find a bigger effect (6.156 v 5.010). 
+  
+- Class: text
+  Output: This dataset itself is just a bit odd, that's all. The 'problem' with the data, if we want to call it a problem, is that the data has been averaged within each person so that Accurate is always 1. Statistics tend to break slightly when there is no variation -- which is why you might be seeing some red text pop up while you have been analyzing this. 
+
+- Class: cmd_question
+  Output: See for yourself what we mean. Take your data, pain, and pipe it into select(), where we will pass two arguments, Feedback and Rotation, and then pipe that |> into table().
+  CorrectAnswer: 'pain |> select(Feedback, Rotation) |> table()' 
+  AnswerTests: omnitest(correctExpr='pain |> select(Feedback, Rotation) |> table()')
+  Hint: Try pain |> select(Feedback, Rotation) |> table()
+
+- Class: text
+  Output: Look across that top row where Accurate is -- all 48 observations land on one. That's why, in the Figure 3 in their paper (we loaded this at the beginning), their accurate condition has zero CIs. It's just ... one. 
+  
+- Class: text
+  Output: You actually can notice that something is going wrong from the data from the beginning. The amount of observations in the data is 144, but our degrees of freedom reported both in-text and in our anova_test() was 94. What happened to the other 50? They were the accurate condition. 
+#38
+
+- Class: script
+  Output: Finally, they report the effect sizes of these comparisons. We've loaded a script for you to work through. When ready, type submit(). 
+  AnswerTests: script_results_identical('d_underacc')
+  Script: effectsize.R
+  Hint: Try skip() if you can't get it, and look to see how the answer looks.
+  
+- Class: text
+  Output: So, let this Module be a reminder to you in a few areas-
+  
+- Class: text
+  Output: (1) If you have more than 2 conditions repeated, you should always check for the Sphericity assumption in your repeated measures ANOVA, and correct for it.
+  
+- Class: text
+  Output: (2) If you have a condition in which there is no variation (everyone scores a 1), you will find that your software may be upset that you're analyzing it, or may even refuse to analyze it.
+
+- Class: text
+  Output: (3) There are an endless number of ways to tackle analysis. Before we realized the authors explicitly told us that they had used Bonferroni corrections, for example, we had tried 20 different ways to analyze the paired data searching for p=.006 . 
+  
+- Class: text
+  Output: Just because your answer is different doesn't require that the statistics within the text are wrong. You both are right - you just have different assumptions and understandings about the data.
+  
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
   AnswerChoices: Yes; No
