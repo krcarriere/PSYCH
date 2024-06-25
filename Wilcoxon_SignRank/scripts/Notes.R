@@ -44,7 +44,7 @@ options(warn = -1)
 # 4. sum values for positive (W+) and negative (W-) differences
 # 5. Assign test statistic as larger of W+ and W- for nondirectional HA.
 
-# We'll first just walk through exactly what is occuring in this analysis, and then after that, get into the code.
+# We'll first just walk through exactly what is occurring in this analysis, and then after that, get into the code.
 
 library(PairedData) # This provides us with the example data used in these Notes.
 data(Tobacco)
@@ -297,7 +297,6 @@ qqline(Tobacco$Prep_Diff)
 Tobacco |>
   pull(Prep_Diff) |>
   shapiro.test()
-
 
 #################
 # wilcox.test() #

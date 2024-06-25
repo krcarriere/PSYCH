@@ -1,66 +1,121 @@
-#Notes for Independent Samples T-Test Module
-mtcars <- mtcars |> 
-  mutate(vs = factor(vs))
+# Mann Whitney U-Test
 
-#t.test()
-## t.test() takes response ~ explanatory, the data, and var.equal.
+# We'll just use the iris dataset.
 
-## It assumes var.equal=FALSE, so we have to explicitly tell it to be TRUE.
-## If we don't, it does a Welch's T-Test (see different module).
-mtcars |> 
-  t.test(mpg ~ vs, data=_, var.equal=TRUE)
+###############
+# Data set up #
+###############
 
-## While we are adamant pipers, it can be done without.
+iris <- iris |> 
+  dplyr::mutate(
+    virgiversi = case_when(
+      Species=="virginica" ~ 0,
+      Species=="versicolor" ~ 1
+    )
+  )
 
-t.test(mtcars$mpg ~ mtcars$vs, var.equal=TRUE)
+###############
+# group_by(). #
+#     and     #
+# summarise() #
+###############
 
-
-library(lsr)
-# cohensD
-## Default value for method="pooled". It is more conservative. 
-mtcars |> cohensD(mpg~vs, data=_)
-
-# Method = "raw" is a bit less conservative but does not mean it is biased any more than the first.
-mtcars |> cohensD(mpg~vs, data=_, method="raw")
-
-
-# group_by() and summarise()
-
-# summarise()
-## summarise() reduces our dataset down. It creates a new dataset.
-## Therefore, any entry into summarise() is a new variable in this new dataset.
-iris |>
-  summarise(
-    mean=mean(Petal.Length, na.rm=TRUE),
-    sdSW = sd(Petal.Length, na.rm=TRUE)
-  ) 
-
-## We can use group_by() to group things by one (or more) variables before
-## summarising them. Note, if the data is group._by()'d, then select() will
-## always force you to carry along the group_by() variables as well. If 
-## you don't want that, you have to first ungroup() prior to select().
+# We use these dplyr functions to get summarised data.
 
 iris |>
-  group_by(Species) |>
+  group_by(virgiversi) |>
   summarise(
-    mean=mean(Sepal.Width, na.rm=TRUE),
-    sdSW = sd(Sepal.Width, na.rm=TRUE)
-  ) 
+    mean = mean(Petal.Width)
+  )
 
-# Viewing data
+######################
+#  psych::kurtosi()  #
+#       and.         #
+#moments::kurtosis() #
+######################
+# Again, we're not going to cover the mathematical differences here.
+# We do think the authors should have clarified they were reporting
+# Mardia's test for skew and kurtosis.
 
-## summary() gives the min, max, mean, 1st & 3rd quartile, median, of every var.
-mtcars |> summary()
-## head() gives the first 6 observations
-mtcars |> head()
-## View() opens it in RStudio
-# mtcars |> View()
-## tail() gives the last 6 observations
-mtcars |> tail()
-## Both head() and tail() can take a number as an argument to increase beyond 6.
-mtcars |> tail(10)
+  iris  |>
+  group_by(virgiversi) |>
+  summarise(
+    kurtPSY = psych::kurtosi(Petal.Width),
+    kurtMEM = moments::kurtosis(Petal.Width),
+    skewDAT = skew(Petal.Width) 
+  )
+
+##################
+# shapiro_test() #
+##################
+# library(rstatix)
+
+iris |>
+  dplyr::group_by(virgiversi) |>
+  rstatix::shapiro_test(Petal.Width)
+
+# If p<.05,  it's a flag that maybe you should consider Mann-Whitney! There's more to test of course than just this.
+
+# The things to remember about Shapiro Wilk is that it has low power when N is small.
+# (It will struggle to detect a true effect if the effect does exist).
+
+# But it becomes hyper sensitive (Inflated Type I Error Rate) when N is large.
+
+##############
+#  geom_qq() #
+# in ggplot2 #
+##############
+# library(ggplot2)
+iris |>
+  ggplot(aes(sample = Petal.Width)) +
+  geom_qq() +  # This plots the observed 
+  geom_qq_line() # 
+
+# The line represents where the observations should fall if they were distributed on 
+# a normal distribution. Basically, it plots the quantiles of the actual data against
+# what the data of a theoretical normally distributed quantile.
+
+##########
+# hist() #
+##########
+
+iris |>
+  pull(Petal.Width) |>
+  hist()
+
+#################
+# wilcox.test() #
+#################
+library(stats)
+iris |>
+  wilcox.test(Petal.Width ~ virgiversi, data=_)
 
 
+#######################
+# Getting the Z Score #
+#######################
+
+# Many times, papers report the Z statistic instead of the V or W that R outputs.
+# It is straightforward to calculate the Z - it is simply just part of the p value.
+
+# Given a Mann Whitney Test, save it.
+testoutput <- iris |>
+  wilcox.test(Petal.Width ~ virgiversi, data=_)
+
+
+# Pass the p.value variable of the new object
+testoutput$p.value
+
+# Into qnorm and divide by two.
+qnorm(testoutput$p.value/2)
+
+# You could do this without saving anything. 
+iris |>
+  wilcox.test(Petal.Width ~ virgiversi, data=_) |> 
+  _$p.value %>%
+  `/`(2) |>
+  qnorm() |>
+  round(2)
 
 
 

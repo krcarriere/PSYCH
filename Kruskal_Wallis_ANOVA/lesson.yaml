@@ -54,6 +54,8 @@
   Output: Which column represents whether or not the participants were in the Video or Audio condition?
   AnswerChoices: Condition; AudioVideo; MusicChoice; PositiveRatings; NegativeRatings
   CorrectAnswer: AudioVideo
+  AnswerTests: omnitest(correctVal='AudioVideo')
+  Hint: Which one sounds like it represents the Audio or Video condition?
   
 - Class: text
   Output: While in our Two-Way ANOVAs, we want both AudioVideo and MusicChoice, Kruskal-Wallis doesn't appreciate interaction terms in the same way, and therefore, we want all of the conditions to be a single column (Condition). 
