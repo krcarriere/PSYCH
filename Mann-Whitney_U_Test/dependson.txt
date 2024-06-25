@@ -1,6 +1,7 @@
 swirl
 moments
 rstatix
+ggplot2
 psych
 dplyr
 latex2exp
