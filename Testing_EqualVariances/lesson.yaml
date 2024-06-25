@@ -125,7 +125,9 @@
   CorrectAnswer: df2 |> select(Condition) |> table()
   AnswerTests: any_of_exprs('df2 |> select(Condition) |> table()', 'df2 %>% select(Condition) %>% table()', 'df2 %>% select(Condition) %>% table', 'table(df2$Condition)')
   Hint: One way to do it would be to write df2 |> select(Condition) |> table(), or you can write table(df2$Condition).
-  
+
+#30 
+
 - Class: text
   Output: "Now, we won't look at the results here (but they did find that not being told the chance of money had participants report higher expectations of help compared to the low money condition). Instead, they used Welch's ANOVA - a specific kind of ANOVA that does not assume homogeneity of variances! "
 
@@ -162,6 +164,7 @@
 - Class: text
   Output: Now, Levene's Test has its own set of limitations. Levene's Test is sensitive to sample size and will more easily be able to reject when sample size is large. You should make your judgement call on deciding how big of a sample is enough. 
 
+#40
 - Class: text
   Output: Also, as we saw, there are differences between what kind of test you are running even within Levene's - are we testing the means or the medians? The center being set to the median is generally preferred when you have a clear skewed distribution of your Y variable within a group. In contrast, the mean is preferred for symmetrically tailed distributions.
 
@@ -201,7 +204,9 @@
 
 - Class: text
   Output: Remember, the simplest explanation of a regression is trying to draw a line of best fit through a scatterplot. We use these coefficients to estimate what our data says is our most expected observation, given specific values. We call this the "fitted" value. But these fitted values differ from the truth - what our data shows. We call that distance from the estimated line to the actual points of the residuals.
-  
+
+#50 
+
 - Class: cmd_question
   Output: We can pass cLM into ggplot(), naming the aes() for x to be .fitted and y to be .resid. Add on a point geom (geom_point()) after the ggplot call.
   CorrectAnswer: cLM |> ggplot(aes(x=.fitted, y=.resid))+geom_point()
@@ -223,10 +228,9 @@
 - Class: text
   Output: "And now we've tested homogeneity of variances in multiple ways - using levene_test() for categorical-focused models, and using bptest() to test the residuals of linear models. We considered how Levene's can be based on both the mean (good if not skewed) or median (robust and able to handle skewed data), but also reflected on Levene's limitations. In various other modules, we also address how some of our models are robust themselves to these violations (like ANOVA), while others can easily be addressed (robust standard errors)."
 
-  
+#54
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
   AnswerChoices: Yes; No
-  CorrectAnswer: Yes
   AnswerTests: submit_log()
   Hint: hint

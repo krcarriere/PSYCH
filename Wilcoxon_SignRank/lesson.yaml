@@ -6,6 +6,7 @@
   Organization: Washington & Jefferson College
   Version: 2.4.3
 
+#1
 - Class: script
   Output: Here are some notes for this module. When you've saved the notes, type submit().
   AnswerTests: script_results_identical('saved')
@@ -38,6 +39,7 @@
 
 - Class: text
   Output: In Study 1, half of those 20 photos were of the selfie view, where the model took the selfie angle with the tablet held in their left hand an arms-length away angled from above. The other 10 photos were of the allocentric view, where the photographer stood roughly two metres in front of the model capturing the whole body (asking a friend to take a photo of you).
+
 #11
 - Class: text
   Output: For each photo, participants rated, on a scale from 0 to 100, both attractiveness (anchored with ‘Very Unattractive’ and ‘Very Attractive’) and weight (‘Very Underweight’ and ‘Very Overweight’). 
@@ -87,6 +89,7 @@
   CorrectAnswer: Selfies |> shapiro_test(AttractDiff)
   AnswerTests: omnitest(correctExpr='Selfies |> shapiro_test(AttractDiff)')
   Hint: Try Selfies |> rstatix::shapiro_test(AttractDiff)
+
 #21
 
 - Class: cmd_question
@@ -134,6 +137,8 @@
   AnswerTests: omnitest(correctExpr='Selfies |> wilcox.test(Pair(SelfieWeightAv, AlloWeightAv) ~ 1, data=_)')
   Hint: Try Selfies |> wilcox.test(Pair(SelfieWeightAv, AlloWeightAv) ~ 1, data=_) .
 
+#31
+
 - Class: text
   Output: That got us the first half (note - R calls the statistic V, but in the paper, they call it W), but what about that rank biserial correlation? 
 
@@ -173,6 +178,8 @@
   AnswerTests: omnitest(correctExpr='Stickers <- Stickers |> filter(Distributions!="kept all")')
   Hint: Stickers <- Stickers |> filter(Distributions!="kept all")
 
+#41
+
 - Class: cmd_question
   Output: "Now, let's create a difference variable. To do this, take our data, Stickers and pipe (|>) it into the mutate() function. Inside of that function, let's create a new variable called Difference.Kept, and make it equal to Liked.Kept - Disliked.Kept. Be sure to reassign it as Stickers. Try that now."
   CorrectAnswer: Stickers <- Stickers |> mutate(Difference.Kept = Liked.Kept - Disliked.Kept)
@@ -189,7 +196,7 @@
   Hint:  Stickers |> wilcox.test(Pair(Liked.Kept, Disliked.Kept)~1, data=_)
 
 - Class: cmd_question
-  Output: You might be saying "Hey, that's not what they reported." And if you did notice that, good for you! Indeed. This is the reason why we are teaching this test using Pair(). The authors of the study tried a different way, but their method requires that you remind R that the data is paired, and they failed to tell it that. To prove it, we can get their result by inputting the following into the console - <br> <br> wilcox.test(Stickers$Liked.Kept, Stickers$Disliked.Kept, exact=FALSE). 
+  Output: You might be saying "Hey, that's not what they reported." And if you did notice that, good for you! Indeed. This is the reason why we are teaching this test using Pair(). The authors of the study tried a different way, but their method requires that you remind R that the data is paired, and they failed to tell it that. To prove it, we can get their result by inputting the following into the console - wilcox.test(Stickers$Liked.Kept, Stickers$Disliked.Kept, exact=FALSE). 
   CorrectAnswer: wilcox.test(Stickers$Liked.Kept, Stickers$Disliked.Kept, exact=FALSE)
   AnswerTests: omnitest(correctExpr='wilcox.test(Stickers$Liked.Kept, Stickers$Disliked.Kept, exact=FALSE)')
   Hint: wilcox.test(Stickers$Liked.Kept, Stickers$Disliked.Kept, exact=FALSE)
@@ -225,9 +232,10 @@
   AnswerTests: omnitest(correctExpr='qnorm(signrank$p.value/2)')
   Hint: qnorm(signrank$p.value/2)
 
+#51
+
 - Class: text
   Output: And that's it! Remember, if we're doing a signed rank test, we want to find a way to tell R that we are using paired data. We taught this method through Pair(), but you could also include the DifferenceScore but set paired=TRUE. 
-
 
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
@@ -235,18 +243,3 @@
   CorrectAnswer: NULL
   AnswerTests: submit_log()
   Hint: hint
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  

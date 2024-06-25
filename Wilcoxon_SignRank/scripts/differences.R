@@ -4,7 +4,7 @@
 
 # Let's take our data, Selfies, and reassign it.
 # We will reassign it as the name of our data, Selfies, and then
-# let us our mutate() function and create a new variable called WeightDiff
+# let's use our mutate() function and create a new variable called WeightDiff
 # To do that, we'll set our new variable WeightDiff equal to 
 # the subtraction of SelfieWeightAv minus AlloWeightAv. 
 # Repeat this process, but create a second new variable called AttractDiff,

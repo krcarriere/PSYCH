@@ -1,4 +1,7 @@
 swirl
+moments
+rstatix
+psych
 dplyr
 latex2exp
 caTools
